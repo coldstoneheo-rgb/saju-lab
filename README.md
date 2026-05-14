@@ -47,6 +47,9 @@ Saju Lab은 전통 명리학(사주)을 기반으로, 현대적인 데이터 해
 - 🌍 글로벌 서비스 확장을 고려한 설계
 
 ## Documentation
+- Product requirements: `docs/PRD.md`
+- Agent working guide: `AGENTS.md`
+- Development roadmap: `docs/DEVELOPMENT_ROADMAP.md`
 - Architecture & goals: `docs/ARCHITECTURE.md`
 - Solar term calculation spec: `docs/algorithms/SOLAR_TERM_SPEC.md`
 - Report tone guide: `docs/TONE_GUIDE.md`

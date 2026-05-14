@@ -102,4 +102,3 @@ export function generateReportV1(input: ReportInput): ReportV1;
 
 - AI 없이 동작하는 `rules-only` 모드를 기본 제공
 - 규칙 테이블과 설명 텍스트는 분리하여 유지
-

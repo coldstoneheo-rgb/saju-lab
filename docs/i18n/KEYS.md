@@ -43,9 +43,25 @@
 - `report.monthly.goodMonths`
 - `report.monthly.cautionMonths`
 
+### Actions
+- `report.actions.title`
+- `report.actions.habits`
+- `report.actions.planning`
+- `report.actions.riskManagement`
+- `report.actions.habits.detail`
+- `report.actions.planning.detail`
+- `report.actions.riskManagement.detail`
+
 ### Transparency
 - `report.transparency.title`
 - `report.transparency.certain`
 - `report.transparency.inferred`
 - `report.transparency.missingData`
+- `report.transparency.certain.detail`
+- `report.transparency.inferred.detail`
+- `report.transparency.missingData.detail`
 
+## KR 기본 번역 파일 구조
+- 위치: `docs/i18n/ko.json`
+- 형식: key-value JSON
+- 예: `"report.overview.title": "개요"`

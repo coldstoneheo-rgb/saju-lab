@@ -31,3 +31,44 @@
 - 결정지원(커리어/재무) 섹션은 상단 배치
 - Disclaimer는 상단과 하단에 모두 노출
 
+## 5) 화면별 컴포넌트 트리(초안)
+
+### HomePage
+- Layout
+  - HeroHeader
+  - PrimaryCTA
+  - FeatureHighlights
+  - Footer
+
+### InputPage
+- Layout
+  - PageHeader
+  - InputForm
+    - BirthDateField
+    - BirthTimeField (optional)
+    - SexSelect
+    - TimeUnknownNotice
+    - SubmitButton
+  - DisclaimerBanner
+
+### ReportPage
+- Layout
+  - ReportHeader
+    - GeneratedAt
+    - ConfidenceBadge
+  - ReportSections
+    - OverviewSection
+    - PersonalitySection
+    - CareerSection
+    - FinanceSection
+    - YearlyOutlookSection
+    - MonthlyHighlightsSection
+    - ActionSuggestionsSection
+    - TransparencySection
+  - DisclaimerFooter
+
+### MonthlyDailySummaryPage
+- Layout
+  - SummaryHeader
+  - SummaryKeywords
+  - ReportLinkCard
