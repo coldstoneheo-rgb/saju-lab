@@ -50,6 +50,7 @@ Saju Lab은 전통 명리학(사주)을 기반으로, 현대적인 데이터 해
 - Product requirements: `docs/PRD.md`
 - Agent working guide: `AGENTS.md`
 - Development roadmap: `docs/DEVELOPMENT_ROADMAP.md`
+- Paid service roadmap: `docs/PAID_SERVICE_ROADMAP.md`
 - Architecture & goals: `docs/ARCHITECTURE.md`
 - Solar term calculation spec: `docs/algorithms/SOLAR_TERM_SPEC.md`
 - Report tone guide: `docs/TONE_GUIDE.md`
@@ -59,3 +60,27 @@ Saju Lab은 전통 명리학(사주)을 기반으로, 현대적인 데이터 해
 - i18n key structure: `docs/i18n/KEYS.md`
 - MVP UI wireframe: `docs/ui/WIREFRAME.md`
 - MVP IA draft: `docs/ui/IA.md`
+
+## Local Development
+
+```bash
+npm install
+npm run dev --workspace @saju-lab/web
+```
+
+Open `http://localhost:5173`.
+
+## MVP Implementation
+
+- `apps/web`: mobile-first report generation UI
+- `packages/saju-core`: typed input, pillar calculation stub, rules-only report generator
+- `docs/PAID_SERVICE_ROADMAP.md`: free-to-paid product ladder
+
+Validation commands:
+
+```bash
+npm run typecheck
+npm test
+npm run build
+npm audit --audit-level=moderate
+```
