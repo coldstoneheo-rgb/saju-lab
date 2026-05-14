@@ -61,7 +61,7 @@ export function generateReportV1(input: ReportInput): ReportV1 {
       ],
       inferred: [
         "연주, 월주, 일주, 시주는 사주 구조를 나눠 보는 표시입니다. 각각 큰 흐름, 환경, 나의 중심, 세부 흐름을 읽는 데 사용합니다.",
-        "현재 리포트 문장은 rules-only 초안이며, 계산 검증 이후 세분화됩니다."
+        "현재 계산 코어는 내장된 검증 fixture 범위에서 우선 동작하며, 절기 데이터 범위는 단계적으로 확장됩니다."
       ],
       missingDataNotes: timeKnown
         ? []

@@ -241,6 +241,18 @@ input {
   cursor: pointer;
 }
 
+.formError {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid #d99172;
+  border-radius: 8px;
+  background: #fff0e8;
+  color: #8a3e22;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .reportStack {
   display: grid;
   gap: 12px;

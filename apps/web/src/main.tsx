@@ -17,6 +17,7 @@ function App(): JSX.Element {
   const [timeUnknown, setTimeUnknown] = React.useState(false);
   const [sex, setSex] = React.useState<BirthInput["sex"]>(DEFAULT_INPUT.sex);
   const [report, setReport] = React.useState<ReportV1>(() => createReport(DEFAULT_INPUT));
+  const [error, setError] = React.useState<string | undefined>();
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -28,7 +29,12 @@ function App(): JSX.Element {
       sex
     };
 
-    setReport(createReport(input));
+    try {
+      setReport(createReport(input));
+      setError(undefined);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "리포트를 생성하지 못했습니다.");
+    }
   }
 
   return (
@@ -86,6 +92,7 @@ function App(): JSX.Element {
           <button className="primaryButton" type="submit">
             <Sparkles size={20} /> 리포트 생성
           </button>
+          {error ? <p className="formError">{error}</p> : null}
         </form>
 
         <ReportView report={report} />
