@@ -11,10 +11,10 @@ Last updated: 2026-05-14
 
 ## Current Repository Snapshot
 
-- `main` and `docs/plan-updates` currently point at the pre-merge README commit locally.
-- `origin/main` includes a merged planning-doc PR with architecture, calculation, tone, schema, i18n, fixture, and UI docs.
-- The working tree on `docs/plan-updates` contains those planning docs plus conflict-resolution work and the new PRD/AGENTS/roadmap docs.
-- There is no application implementation yet in the repository snapshot reviewed for this roadmap.
+- `main` includes the planning-doc baseline with PRD, AGENTS, architecture, calculation, tone, schema, i18n, fixture, UI, and paid-service roadmap docs.
+- `codex/phase1-implementation-scaffold` starts the implementation track with npm workspaces, `packages/saju-core`, and `apps/web`.
+- The first MVP model is mobile-first: birth input, time-unknown mode, confidence badge, report cards, four-pillar summary, transparency notes, and free-to-paid upgrade framing.
+- Calculation is still a stub and must not be treated as verified Saju output until Phase 2 fixtures pass.
 
 ## Phase 0: Planning Baseline And Branch Hygiene
 
@@ -118,6 +118,12 @@ Exit Criteria:
 - User can enter birth data and receive a full report.
 - Time unknown mode visibly changes confidence/transparency.
 - Report sections are ordered consistently with IA.
+
+Mobile-first requirements:
+- Input controls must be usable with one thumb on narrow screens.
+- Four-pillar terms such as 연주, 월주, 일주, 시주 must include plain-language notes.
+- Report copy should use simple Korean sentences and avoid dense Hanja-heavy terminology.
+- Premium prompts must appear as a product ladder, not as pressure to pay.
 
 ## Phase 5: Quality, Safety, And Beta Readiness
 
