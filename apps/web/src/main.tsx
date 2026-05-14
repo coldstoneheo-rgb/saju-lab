@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { CalendarDays, Clock3, Coins, Compass, LockKeyhole, Sparkles, UserRound } from "lucide-react";
+import { CalendarDays, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, Sparkles, Sun, UserRound } from "lucide-react";
 import { calculatePillars, generateReportV1, type BirthInput, type ReportV1 } from "@saju-lab/saju-core";
 import "./styles.css";
 
@@ -11,6 +11,10 @@ const DEFAULT_INPUT: BirthInput = {
   sex: "other"
 };
 
+type ThemePreference = "system" | "light" | "dark";
+
+const THEME_STORAGE_KEY = "saju-lab-theme";
+
 function App(): JSX.Element {
   const [birthDate, setBirthDate] = React.useState(DEFAULT_INPUT.birthDate);
   const [birthTime, setBirthTime] = React.useState(DEFAULT_INPUT.birthTime ?? "");
@@ -18,6 +22,12 @@ function App(): JSX.Element {
   const [sex, setSex] = React.useState<BirthInput["sex"]>(DEFAULT_INPUT.sex);
   const [report, setReport] = React.useState<ReportV1>(() => createReport(DEFAULT_INPUT));
   const [error, setError] = React.useState<string | undefined>();
+  const [theme, setTheme] = React.useState<ThemePreference>(() => readThemePreference());
+
+  React.useEffect(() => {
+    applyTheme(theme);
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -45,9 +55,12 @@ function App(): JSX.Element {
             <p className="eyebrow">Saju Lab MVP</p>
             <h1>설명형 사주 리포트</h1>
           </div>
-          <span className={`confidence confidence-${report.meta.confidence}`}>
-            {confidenceLabel(report.meta.confidence)}
-          </span>
+          <div className="headerActions">
+            <ThemeToggle value={theme} onChange={setTheme} />
+            <span className={`confidence confidence-${report.meta.confidence}`}>
+              {confidenceLabel(report.meta.confidence)}
+            </span>
+          </div>
         </header>
 
         <form className="inputPanel" onSubmit={handleSubmit}>
@@ -101,6 +114,30 @@ function App(): JSX.Element {
   );
 }
 
+function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (value: ThemePreference) => void }): JSX.Element {
+  const options: Array<{ value: ThemePreference; label: string; icon: React.ReactNode }> = [
+    { value: "system", label: "시스템", icon: <Monitor size={16} /> },
+    { value: "light", label: "라이트", icon: <Sun size={16} /> },
+    { value: "dark", label: "다크", icon: <Moon size={16} /> }
+  ];
+
+  return (
+    <div className="themeToggle" aria-label="테마 선택">
+      {options.map((option) => (
+        <button
+          aria-pressed={value === option.value}
+          key={option.value}
+          onClick={() => onChange(option.value)}
+          type="button"
+        >
+          {option.icon}
+          <span>{option.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function ReportView({ report }: { report: ReportV1 }): JSX.Element {
   return (
     <section className="reportStack" aria-live="polite">
@@ -111,6 +148,16 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
         </div>
         <span>{report.meta.timeKnown ? "시간 반영" : "시간 미상"}</span>
       </div>
+
+      <section className="savePanel">
+        <div>
+          <h3><Download size={20} /> 로그인 없이 리포트 저장</h3>
+          <p>현재 리포트는 이 기기에서 HTML 파일로 생성되며 서버에 저장되지 않습니다. PDF 내보내기는 유료 상세 리포트 단계에서 제공하는 방향이 적합합니다.</p>
+        </div>
+        <button className="secondaryButton" onClick={() => downloadReportHtml(report)} type="button">
+          <Download size={18} /> 리포트 저장
+        </button>
+      </section>
 
       <section className="pillarGrid" aria-label="사주 구조">
         <PillarCell title="연주" note="큰 흐름" value={report.pillars.year} />
@@ -181,6 +228,104 @@ function createReport(input: BirthInput): ReportV1 {
     pillars: calculatePillars(input),
     generatedAt: new Date().toISOString()
   });
+}
+
+function readThemePreference(): ThemePreference {
+  if (typeof window === "undefined") {
+    return "system";
+  }
+
+  const value = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+  return value === "light" || value === "dark" || value === "system" ? value : "system";
+}
+
+function applyTheme(theme: ThemePreference): void {
+  if (theme === "system") {
+    document.documentElement.removeAttribute("data-theme");
+    return;
+  }
+
+  document.documentElement.dataset.theme = theme;
+}
+
+function downloadReportHtml(report: ReportV1): void {
+  const html = buildReportHtml(report);
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+
+  anchor.href = url;
+  anchor.download = `saju-lab-report-${report.input.birthDate}.html`;
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+}
+
+function buildReportHtml(report: ReportV1): string {
+  const sections = [
+    ["전체 요약", [report.overview.summary, ...report.overview.toneGuidelines]],
+    ["성향 포인트", [...report.personality.strengths, ...report.personality.blindSpots]],
+    ["커리어 흐름", [...report.career.trends, ...report.career.risks, ...report.career.actions]],
+    ["재무 흐름", [...report.finance.trends, ...report.finance.risks, ...report.finance.actions]],
+    [`${report.yearlyOutlook.year}년 포인트`, [...report.yearlyOutlook.highlights, ...report.yearlyOutlook.cautions]],
+    ["투명성 노트", [...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]]
+  ] as const;
+
+  return `<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Saju Lab Report ${escapeHtml(report.input.birthDate)}</title>
+    <style>
+      body { margin: 0; padding: 24px; color: #202124; background: #f8f3eb; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif; line-height: 1.6; }
+      main { max-width: 820px; margin: 0 auto; }
+      h1 { margin: 0 0 4px; font-size: 30px; }
+      h2 { margin: 24px 0 8px; font-size: 20px; }
+      .meta, .notice { color: #66584b; font-size: 14px; }
+      .pillars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 20px 0; }
+      .pillar, section { border: 1px solid #d8c9b8; border-radius: 8px; background: #fffdf8; padding: 14px; }
+      .pillar strong { display: block; font-size: 24px; }
+      ul { margin: 0; padding-left: 20px; }
+      footer { margin-top: 24px; color: #66584b; font-size: 12px; }
+      @media (max-width: 640px) { body { padding: 16px; } .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="meta">Saju Lab Report v${escapeHtml(report.meta.version)}</p>
+      <h1>${escapeHtml(formatDate(report.input.birthDate))} 기준 사주 리포트</h1>
+      <p class="notice">이 파일은 로그인 없이 기기에서 생성된 HTML 리포트입니다. 서버 저장이나 외부 전송 없이 다운로드됩니다.</p>
+      <div class="pillars">
+        ${renderDownloadedPillar("연주", "큰 흐름", report.pillars.year)}
+        ${renderDownloadedPillar("월주", "환경", report.pillars.month)}
+        ${renderDownloadedPillar("일주", "나의 중심", report.pillars.day)}
+        ${renderDownloadedPillar("시주", "세부 흐름", report.pillars.time)}
+      </div>
+      ${sections.map(([title, items]) => renderDownloadedSection(title, items)).join("")}
+      <footer>${escapeHtml(report.overview.disclaimers[0] ?? "")}</footer>
+    </main>
+  </body>
+</html>`;
+}
+
+function renderDownloadedPillar(title: string, note: string, value: { stem: string; branch: string } | undefined): string {
+  return `<div class="pillar"><span>${escapeHtml(title)}</span><strong>${value ? `${escapeHtml(termLabel(value.stem))} ${escapeHtml(termLabel(value.branch))}` : "미상"}</strong><small>${escapeHtml(note)}</small></div>`;
+}
+
+function renderDownloadedSection(title: string, items: readonly string[]): string {
+  return `<section><h2>${escapeHtml(title)}</h2><ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function confidenceLabel(value: ReportV1["meta"]["confidence"]): string {
