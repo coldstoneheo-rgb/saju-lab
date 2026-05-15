@@ -3,9 +3,11 @@ import ReactDOM from "react-dom/client";
 import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, Sparkles, Sun, UserRound } from "lucide-react";
 import {
   calculatePillars,
+  generatePaidReportV1,
   generateReportV1,
   getSajuTerm,
   type BirthInput,
+  type PaidReportV1,
   type ReportV1,
   type SajuTerm,
   type SajuTermKey
@@ -21,6 +23,11 @@ const DEFAULT_INPUT: BirthInput = {
 
 type ThemePreference = "system" | "light" | "dark";
 
+interface ReportBundle {
+  report: ReportV1;
+  paidReport: PaidReportV1;
+}
+
 const THEME_STORAGE_KEY = "saju-lab-theme";
 
 function App(): JSX.Element {
@@ -28,9 +35,10 @@ function App(): JSX.Element {
   const [birthTime, setBirthTime] = React.useState(DEFAULT_INPUT.birthTime ?? "");
   const [timeUnknown, setTimeUnknown] = React.useState(false);
   const [sex, setSex] = React.useState<BirthInput["sex"]>(DEFAULT_INPUT.sex);
-  const [report, setReport] = React.useState<ReportV1>(() => createReport(DEFAULT_INPUT));
+  const [reportBundle, setReportBundle] = React.useState<ReportBundle>(() => createReportBundle(DEFAULT_INPUT));
   const [error, setError] = React.useState<string | undefined>();
   const [theme, setTheme] = React.useState<ThemePreference>(() => readThemePreference());
+  const { report, paidReport } = reportBundle;
 
   React.useEffect(() => {
     applyTheme(theme);
@@ -48,7 +56,7 @@ function App(): JSX.Element {
     };
 
     try {
-      setReport(createReport(input));
+      setReportBundle(createReportBundle(input));
       setError(undefined);
     } catch (caught) {
       setError(toFriendlyError(caught));
@@ -132,7 +140,7 @@ function App(): JSX.Element {
         </form>
 
         <PrivacyNote />
-        <ReportView report={report} />
+        <ReportView paidReport={paidReport} report={report} />
       </section>
     </main>
   );
@@ -162,7 +170,7 @@ function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (v
   );
 }
 
-function ReportView({ report }: { report: ReportV1 }): JSX.Element {
+function ReportView({ paidReport, report }: { paidReport: PaidReportV1; report: ReportV1 }): JSX.Element {
   const freeSummary = buildFreeMonthlySummary(report);
 
   return (
@@ -193,6 +201,7 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
         <a href="#career">커리어</a>
         <a href="#finance">재무</a>
         <a href="#monthly">월간</a>
+        <a href="#paid-preview">상세</a>
         <a href="#transparency">투명성</a>
       </nav>
 
@@ -256,6 +265,7 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
       </section>
 
       <ArticleCard id="transparency" title="투명성 노트" items={[...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]} />
+      <PaidReportPrototype paidReport={paidReport} />
       <PaidRoadmap />
     </section>
   );
@@ -344,6 +354,109 @@ function FreeSummaryCard({ id, summary }: { id?: string; summary: { keywords: st
   );
 }
 
+function PaidReportPrototype({ paidReport }: { paidReport: PaidReportV1 }): JSX.Element {
+  return (
+    <section className="paidPrototype" id="paid-preview">
+      <div className="paidPrototypeHeader">
+        <div>
+          <p className="eyebrow">Phase 5A Prototype</p>
+          <h3><LockKeyhole size={20} /> {paidReport.cover.title}</h3>
+          <p>{paidReport.cover.subtitle}</p>
+        </div>
+        <button
+          aria-label="유료 상세 리포트 프로토타입 HTML 저장"
+          className="secondaryButton"
+          onClick={() => downloadPaidReportHtml(paidReport)}
+          type="button"
+        >
+          <Download size={18} /> 인쇄용 저장
+        </button>
+      </div>
+
+      <div className="paidMetaGrid">
+        <span>{confidenceLabel(paidReport.meta.confidence)}</span>
+        <span>{paidReport.meta.timeKnown ? "시주 포함" : "출생시간 미상 반영"}</span>
+        <span>{paidReport.meta.exportFormat}</span>
+      </div>
+
+      <div className="paidInputSummary" aria-label="상세 리포트 입력 요약">
+        <h4>입력 요약</h4>
+        <dl>
+          {buildInputSummaryItems(paidReport.input).map((item) => (
+            <div key={item.label}>
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div className="paidSectionGrid">
+        <PaidSectionPreview section={paidReport.executiveSummary} />
+        <PaidSectionPreview section={paidReport.careerDeepDive.roleFit} />
+        <PaidSectionPreview section={paidReport.financeDeepDive.rhythm} />
+        <PaidChecklistPreview checklist={paidReport.financeDeepDive.riskChecklist} />
+      </div>
+
+      <div className="monthlyTimeline" aria-label="유료 상세 월간 흐름">
+        {paidReport.yearlyMonthlyExpansion.monthlyThemes.map((month) => (
+          <article key={`${month.month}-${month.theme}`}>
+            <strong>{month.month}</strong>
+            <p>{month.theme}</p>
+            <small>{month.action}</small>
+          </article>
+        ))}
+      </div>
+
+      <div className="paidAppendix">
+        <div>
+          <h4>PDF 필수 고지</h4>
+          <ul>
+            {paidReport.pdf.requiredNotices.map((notice) => (
+              <li key={notice}>{notice}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4>투명성 부록</h4>
+          <ul>
+            {paidReport.transparencyAppendix.disclaimers.map((disclaimer) => (
+              <li key={disclaimer}>{disclaimer}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PaidSectionPreview({ section }: { section: PaidReportV1["executiveSummary"] }): JSX.Element {
+  return (
+    <article className="paidPreviewCard">
+      <h4>{section.title}</h4>
+      <p>{section.summary}</p>
+      <ul>
+        {section.items.slice(0, 3).map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+function PaidChecklistPreview({ checklist }: { checklist: PaidReportV1["financeDeepDive"]["riskChecklist"] }): JSX.Element {
+  return (
+    <article className="paidPreviewCard">
+      <h4>{checklist.title}</h4>
+      <ul>
+        {checklist.items.map((item) => (
+          <li key={item.label}><strong>{item.label}</strong> {item.detail}</li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
 function PaidRoadmap(): JSX.Element {
   return (
     <section className="paidPanel">
@@ -360,12 +473,17 @@ function PaidRoadmap(): JSX.Element {
   );
 }
 
-function createReport(input: BirthInput): ReportV1 {
-  return generateReportV1({
+function createReportBundle(input: BirthInput): ReportBundle {
+  const reportInput = {
     input,
     pillars: calculatePillars(input),
     generatedAt: new Date().toISOString()
-  });
+  };
+
+  return {
+    report: generateReportV1(reportInput),
+    paidReport: generatePaidReportV1(reportInput)
+  };
 }
 
 function readThemePreference(): ThemePreference {
@@ -407,6 +525,20 @@ function downloadReportHtml(report: ReportV1): void {
 
   anchor.href = url;
   anchor.download = `saju-lab-report-${report.input.birthDate}.html`;
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+}
+
+function downloadPaidReportHtml(paidReport: PaidReportV1): void {
+  const html = buildPaidReportHtml(paidReport);
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+
+  anchor.href = url;
+  anchor.download = paidReport.pdf.filename;
   document.body.append(anchor);
   anchor.click();
   anchor.remove();
@@ -464,6 +596,112 @@ function buildReportHtml(report: ReportV1): string {
     </main>
   </body>
 </html>`;
+}
+
+function buildPaidReportHtml(paidReport: PaidReportV1): string {
+  const inputSummaryItems = buildInputSummaryItems(paidReport.input);
+  const sections = [
+    paidReport.executiveSummary,
+    paidReport.personalityDeepDive,
+    paidReport.careerDeepDive.roleFit,
+    paidReport.careerDeepDive.workStyle,
+    paidReport.careerDeepDive.riskPatterns,
+    paidReport.careerDeepDive.actionPlan,
+    paidReport.financeDeepDive.rhythm,
+    paidReport.financeDeepDive.planningPrompts,
+    paidReport.yearlyMonthlyExpansion.yearlyTheme
+  ];
+
+  return `<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${escapeHtml(paidReport.cover.title)}</title>
+    <style>
+      @page { size: A4; margin: 18mm; }
+      body { margin: 0; color: #202124; background: #fffdf8; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif; line-height: 1.62; }
+      main { max-width: 860px; margin: 0 auto; padding: 28px; }
+      h1 { margin: 0 0 8px; font-size: 30px; }
+      h2 { margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #263f31; font-size: 20px; }
+      h3 { margin: 18px 0 6px; font-size: 16px; }
+      .meta, .notice, footer { color: #66584b; font-size: 13px; }
+      .cover, section, .checklist, .timeline { break-inside: avoid; border: 1px solid #d8c9b8; border-radius: 8px; padding: 16px; margin: 14px 0; background: #fffdfa; }
+      .cover { background: #f5f7f1; }
+      .pillars, .noticeGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+      .pillars div, .noticeGrid span { border: 1px solid #d8c9b8; border-radius: 8px; padding: 10px; }
+      .pillars strong { display: block; font-size: 22px; }
+      .inputSummary dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
+      .inputSummary div { border: 1px solid #d8c9b8; border-radius: 8px; padding: 10px; }
+      .inputSummary dt { color: #66584b; font-size: 12px; font-weight: 700; }
+      .inputSummary dd { margin: 3px 0 0; font-weight: 800; }
+      ul { margin: 0; padding-left: 20px; }
+      .timeline article { margin-bottom: 10px; }
+      footer { margin-top: 24px; }
+      @media print { main { padding: 0; } button { display: none; } }
+      @media (max-width: 640px) { main { padding: 16px; } .pillars, .noticeGrid, .inputSummary dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article class="cover">
+        <p class="meta">Saju Lab · ${escapeHtml(paidReport.meta.product)} · ${escapeHtml(paidReport.meta.generatedAt)}</p>
+        <h1>${escapeHtml(paidReport.cover.title)}</h1>
+        <p>${escapeHtml(paidReport.cover.subtitle)}</p>
+        <p class="notice">${escapeHtml(paidReport.cover.scopeNote)} ${escapeHtml(paidReport.cover.privacyNote)}</p>
+      </article>
+      <section class="inputSummary">
+        <h2>입력 요약</h2>
+        <dl>${inputSummaryItems.map((item) => `<div><dt>${escapeHtml(item.label)}</dt><dd>${escapeHtml(item.value)}</dd></div>`).join("")}</dl>
+      </section>
+      <div class="noticeGrid">
+        <span>${escapeHtml(confidenceLabel(paidReport.meta.confidence))}</span>
+        <span>${escapeHtml(paidReport.meta.timeKnown ? "출생시간 반영" : "출생시간 미상")}</span>
+        <span>${escapeHtml(paidReport.input.timezone)}</span>
+        <span>${escapeHtml(paidReport.meta.exportFormat)}</span>
+      </div>
+      <div class="pillars">
+        ${renderDownloadedPillar(getSajuTerm("yearPillar"), paidReport.pillars.year)}
+        ${renderDownloadedPillar(getSajuTerm("monthPillar"), paidReport.pillars.month)}
+        ${renderDownloadedPillar(getSajuTerm("dayPillar"), paidReport.pillars.day)}
+        ${renderDownloadedPillar(getSajuTerm("timePillar"), paidReport.pillars.time)}
+      </div>
+      ${sections.map(renderPaidDownloadedSection).join("")}
+      ${renderPaidChecklist(paidReport.financeDeepDive.riskChecklist)}
+      ${renderPaidChecklist(paidReport.actionPlan)}
+      <section class="timeline">
+        <h2>월별 확장 흐름</h2>
+        ${paidReport.yearlyMonthlyExpansion.monthlyThemes.map((month) => `<article><strong>${escapeHtml(month.month)}</strong><p>${escapeHtml(month.theme)}</p><small>${escapeHtml(month.action)}</small></article>`).join("")}
+      </section>
+      <section>
+        <h2>용어 해설</h2>
+        <ul>${paidReport.glossary.map((item) => `<li><strong>${escapeHtml(item.term)}</strong>: ${escapeHtml(item.plainMeaning)}</li>`).join("")}</ul>
+      </section>
+      <section>
+        <h2>투명성 부록</h2>
+        <ul>${[...paidReport.transparencyAppendix.certain, ...paidReport.transparencyAppendix.inferred, ...paidReport.transparencyAppendix.missingDataNotes, ...paidReport.transparencyAppendix.disclaimers].map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      </section>
+      <footer>${escapeHtml(paidReport.pdf.requiredNotices.join(" · "))}</footer>
+    </main>
+  </body>
+</html>`;
+}
+
+function renderPaidDownloadedSection(section: PaidReportV1["executiveSummary"]): string {
+  return `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.summary)}</p><ul>${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
+}
+
+function renderPaidChecklist(checklist: PaidReportV1["actionPlan"]): string {
+  return `<section class="checklist"><h2>${escapeHtml(checklist.title)}</h2><ul>${checklist.items.map((item) => `<li><strong>${escapeHtml(item.label)}</strong>: ${escapeHtml(item.detail)}</li>`).join("")}</ul></section>`;
+}
+
+function buildInputSummaryItems(input: BirthInput): Array<{ label: string; value: string }> {
+  return [
+    { label: "생년월일", value: formatDate(input.birthDate) },
+    { label: "출생시간", value: input.birthTime ?? "미상" },
+    { label: "성별", value: sexLabel(input.sex) },
+    { label: "타임존", value: input.timezone }
+  ];
 }
 
 function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: string } | undefined): string {

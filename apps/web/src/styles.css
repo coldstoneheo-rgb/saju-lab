@@ -641,6 +641,129 @@ input {
   line-height: 1.55;
 }
 
+.paidPrototype {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 16px 40px var(--shadow);
+}
+
+.paidPrototypeHeader {
+  display: grid;
+  gap: 12px;
+  align-items: start;
+}
+
+.paidPrototypeHeader h3,
+.paidAppendix h4,
+.paidInputSummary h4,
+.paidPreviewCard h4 {
+  margin: 0;
+}
+
+.paidPrototypeHeader h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+}
+
+.paidPrototypeHeader p,
+.paidPreviewCard p,
+.monthlyTimeline p,
+.monthlyTimeline small {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.paidMetaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.paidMetaGrid span {
+  display: grid;
+  min-height: 42px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-strong);
+  font-size: 12px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.paidSectionGrid,
+.paidAppendix,
+.paidInputSummary dl {
+  display: grid;
+  gap: 10px;
+}
+
+.paidPreviewCard,
+.paidInputSummary,
+.paidInputSummary div,
+.monthlyTimeline article,
+.paidAppendix > div {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--surface-strong);
+}
+
+.paidInputSummary {
+  background: var(--surface-soft);
+}
+
+.paidInputSummary dl {
+  margin: 10px 0 0;
+}
+
+.paidInputSummary dt {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.paidInputSummary dd {
+  margin: 3px 0 0;
+  font-weight: 900;
+}
+
+.paidPreviewCard {
+  display: grid;
+  gap: 8px;
+}
+
+.paidPreviewCard ul,
+.paidAppendix ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.55;
+}
+
+.monthlyTimeline {
+  display: grid;
+  gap: 8px;
+}
+
+.monthlyTimeline article {
+  display: grid;
+  gap: 5px;
+}
+
+.monthlyTimeline strong {
+  color: var(--eyebrow);
+}
+
 .disclaimer {
   margin: 0 0 24px;
   color: var(--text-muted);
@@ -673,12 +796,18 @@ input {
   .twoColumn,
   .paidPanel,
   .savePanel,
-  .reportNotice {
+  .reportNotice,
+  .paidPrototypeHeader,
+  .paidAppendix {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .insightGroups {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .paidSectionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -693,5 +822,9 @@ input {
 
   .themeToggle {
     width: 100%;
+  }
+
+  .paidMetaGrid {
+    grid-template-columns: 1fr;
   }
 }
