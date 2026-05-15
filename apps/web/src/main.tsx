@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, Sparkles, Sun, UserRound } from "lucide-react";
+import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, ShieldCheck, Sparkles, Sun, UserRound } from "lucide-react";
 import { buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
+import { paidReadinessCopy } from "./paid-readiness-copy.js";
 import {
   calculatePillars,
   generatePaidReportV1,
@@ -464,13 +465,21 @@ function PaidRoadmap(): JSX.Element {
     <section className="paidPanel">
       <div>
         <h3><LockKeyhole size={20} /> 프리미엄 확장 모델</h3>
-        <p>무료 리포트는 핵심 흐름과 투명성 노트를 제공합니다. 더 깊은 비교, PDF 보관, 월간 업데이트는 유료 상세 리포트 후보로 분리합니다.</p>
+        <p>무료 리포트는 핵심 흐름과 투명성 노트를 제공합니다. 상세 리포트는 커리어/재무 해설, 월별 주의점, PDF-ready 저장물을 더 깊게 다루는 1회성 유료 상품 후보입니다.</p>
       </div>
       <ol>
         <li>무료: 기본 리포트, 투명성 노트, 로컬 HTML 저장</li>
-        <li>상세 리포트: 커리어/재무 심화 분석과 선택지 비교</li>
-        <li>유료 보관: PDF 리포트, 월간 업데이트, 저장 리포트</li>
+        <li>상세 리포트 후보: 커리어/재무 심화 분석, 선택지 비교, PDF-ready 다운로드</li>
+        <li>결제 오픈 전 준비: 개인정보, 환불/문의, 데이터 보관 기준 확정</li>
       </ol>
+      <div className="paidReadiness" aria-label="유료 상세 리포트 준비 기준">
+        <h4><ShieldCheck size={18} /> {paidReadinessCopy.headline}</h4>
+        <ul>
+          {paidReadinessCopy.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

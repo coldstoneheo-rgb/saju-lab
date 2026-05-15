@@ -24,7 +24,8 @@ Last updated: 2026-05-15
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
-- Phase 5C is improving paid report content depth with richer career/finance guidance, monthly cautions, and quality threshold tests.
+- Phase 5C completed paid report content depth with richer career/finance guidance, monthly cautions, and quality threshold tests.
+- Phase 5D is defining paid checkout readiness gates before payment, account, or server-storage work begins.
 
 ## Completed Work
 
@@ -343,7 +344,7 @@ Exit Criteria:
 
 ## Phase 5C: Paid Content Quality
 
-Status: Current.
+Status: Complete.
 
 Goal: make the paid detailed report feel meaningfully deeper than the free report.
 
@@ -360,6 +361,24 @@ Exit Criteria:
 - Monthly paid themes include `theme`, `action`, and `caution`.
 - Birth-time unknown cases visibly lower confidence and warn against overreading detailed timing.
 - No checkout, login, account storage, server storage, AI interpretation, or PDF library is introduced.
+
+## Phase 5D: Paid Checkout Readiness Gates
+
+Status: Current.
+
+Goal: make the paid-product launch gates explicit before checkout or account work starts.
+
+Deliverables:
+- Checkout-readiness document covering privacy, refund/contact, usage caution, payment provider, data retention, and support gates.
+- Paid PRD update that names the readiness document as the source of truth.
+- Mobile paid-upgrade panel copy that avoids live-purchase language while explaining the trust gates.
+- Clear first-SKU boundary: one-time local-download detailed report, no account storage, no saved report library.
+
+Exit Criteria:
+- Checkout cannot start without written decisions for privacy, refund/contact, payment provider, data retention, and support path.
+- The app does not show a live purchase CTA or imply that payment is available.
+- The paid preview explains account-free local-download direction and policy readiness.
+- No checkout, login, account storage, server storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
 
@@ -379,8 +398,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5C paid report content quality and PR review.
-2. Plan Phase 5D checkout readiness gates or paid copy review based on product priority.
-3. Decide privacy, refund/contact, and data-retention gates before checkout work.
+1. Complete Phase 5D checkout readiness gates and PR review.
+2. Decide whether Phase 5E should be a checkout prototype spike or a real PDF-generation spike.
+3. Draft privacy, refund/contact, usage caution, and support-policy pages before live payment work.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.
