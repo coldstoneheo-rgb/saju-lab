@@ -19,7 +19,8 @@ Last updated: 2026-05-15
 - Phase 3A has added a deterministic rules-only report engine with complete `ReportV1` sections.
 - Phase 3B has added plain-language Korean terminology for core Saju terms and wired it into the web report and HTML export.
 - Phase 3C has improved report scanning, confidence/disclaimer visibility, and the free-versus-paid report boundary.
-- The next product risk is beta usability: users should be able to enter data, recover from errors, and navigate the report comfortably on mobile.
+- Phase 4A has improved mobile input hints, user-facing error messages, accessible controls, and section navigation.
+- The next product risk is beta readiness: users should understand privacy, safety limits, and manual QA status before the app is shared.
 
 ## Completed Work
 
@@ -215,7 +216,7 @@ Exit Criteria:
 
 ## Phase 4A: Mobile Report UX Polish
 
-Status: Current.
+Status: Complete.
 
 Goal: make the report-first experience usable in a browser.
 
@@ -248,6 +249,8 @@ Mobile-first requirements:
 
 ## Phase 4B: Quality, Safety, And Beta Readiness
 
+Status: Current.
+
 Goal: prepare for a small beta without overbuilding.
 
 Deliverables:
@@ -255,9 +258,9 @@ Deliverables:
 - Accessibility pass for forms and report sections.
 - Error states for invalid input and calculation failures.
 - Privacy note for birth data handling.
-- Lightweight analytics events for funnel understanding.
 - Beta release checklist.
 - Login-free HTML report download for basic reports.
+- Safety note for career and finance interpretation limits.
 
 Suggested Tasks:
 - Add no-data and partial-data states.
@@ -268,6 +271,7 @@ Exit Criteria:
 - No deterministic prediction language in shipped Korean copy.
 - Core flows pass manual QA.
 - Users understand that reports are informational/entertainment-oriented.
+- Users understand that the MVP does not provide login, server sync, or account storage.
 
 ## Phase 5: Paid Service Path
 
