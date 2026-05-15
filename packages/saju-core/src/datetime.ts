@@ -42,6 +42,10 @@ export function compareLocalMinute(
   return leftValue < right ? -1 : leftValue > right ? 1 : 0;
 }
 
+export function localDateKey(value: Pick<ParsedBirthDateTime, "year" | "month" | "day">): string {
+  return `${pad(value.year, 4)}-${pad(value.month, 2)}-${pad(value.day, 2)}`;
+}
+
 function parseGregorianDate(value: string): { year: number; month: number; day: number } {
   const match = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/.exec(value);
 
@@ -82,7 +86,7 @@ function toComparableLocalMinute(value: Pick<ParsedBirthDateTime, "year" | "mont
   const hour = value.hour ?? 12;
   const minute = value.minute ?? 0;
 
-  return `${pad(value.year, 4)}-${pad(value.month, 2)}-${pad(value.day, 2)}T${pad(hour, 2)}:${pad(minute, 2)}`;
+  return `${localDateKey(value)}T${pad(hour, 2)}:${pad(minute, 2)}`;
 }
 
 function pad(value: number, length: number): string {

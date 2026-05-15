@@ -86,6 +86,36 @@ describe("calculatePillars", () => {
     }).month).toEqual({ stem: "jeong", branch: "myo" });
   });
 
+  it("rejects date-only inputs on solar term boundary dates", () => {
+    expect(() => calculatePillars({
+      birthDate: "2024-02-04",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("birthTime is required");
+
+    expect(() => calculatePillars({
+      birthDate: "2024-03-05",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("birthTime is required");
+  });
+
+  it("rejects dates beyond the embedded solar month table range", () => {
+    expect(() => calculatePillars({
+      birthDate: "1990-03-01",
+      birthTime: "12:00",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("No upper solar month boundary");
+
+    expect(() => calculatePillars({
+      birthDate: "2024-12-01",
+      birthTime: "12:00",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("No upper solar month boundary");
+  });
+
   it("rejects invalid dates, invalid times, and unsupported timezones", () => {
     expect(() => calculatePillars({
       birthDate: "2024-02-30",
