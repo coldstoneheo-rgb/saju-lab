@@ -179,6 +179,12 @@ Recommended:
 - compact glossary for technical terms.
 - summary page for quick review.
 
+Phase 5B implementation baseline:
+- PDF-ready HTML should be generated through a testable export builder.
+- The export should include a cover, table of contents, input summary, pillar summary, main paid sections, glossary, and transparency appendix.
+- Print CSS should use A4 page settings and avoid splitting cover, checklist, and timeline sections when possible.
+- Export tests should check required notices, input summary, privacy/scope note, and birth-time unknown handling.
+
 ## 9. Trust, Safety, And Copy Rules
 
 Paid copy must:
