@@ -405,6 +405,7 @@ function PaidReportPrototype({ paidReport }: { paidReport: PaidReportV1 }): JSX.
             <strong>{month.month}</strong>
             <p>{month.theme}</p>
             <small>{month.action}</small>
+            <small>{month.caution}</small>
           </article>
         ))}
       </div>

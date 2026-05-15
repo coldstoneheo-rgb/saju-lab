@@ -11,6 +11,9 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
   const timeNotice = timeKnown
     ? "출생시간이 반영되어 시주까지 포함한 상세 리포트입니다."
     : "출생시간이 없어 시주와 세부 흐름은 낮은 신뢰도로 다룹니다.";
+  const timeCaution = timeKnown
+    ? "시주까지 반영했지만, 해석은 현실 자료와 함께 참고해야 합니다."
+    : "출생시간 미상으로 시주가 빠져 있어 월별/세부 해석은 넓은 참고 범위로만 보세요.";
 
   return {
     meta: {
@@ -43,7 +46,8 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
       items: [
         baseReport.overview.summary,
         timeNotice,
-        "확정적 예언보다 반복해서 점검할 수 있는 선택 기준을 중심에 둡니다."
+        "확정적 예언보다 반복해서 점검할 수 있는 선택 기준을 중심에 둡니다.",
+        "커리어, 재무, 월별 흐름은 각각 경향, 리스크, 실행 질문으로 나누어 읽는 것이 안전합니다."
       ]
     },
     personalityDeepDive: {
@@ -61,7 +65,9 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         summary: "어떤 직무명이 맞는지 단정하기보다 일하는 환경과 역할 조건을 나눠 봅니다.",
         items: [
           ...baseReport.career.trends,
-          "성과가 잘 드러나는 조건과 회복 시간이 필요한 조건을 분리해 점검하세요."
+          "성과가 잘 드러나는 조건과 회복 시간이 필요한 조건을 분리해 점검하세요.",
+          "업무가 커질수록 역할의 권한, 책임, 평가 기준이 함께 커지는지 확인하세요.",
+          "새로운 제안은 직무명보다 실제 하루 일정, 협업 밀도, 의사결정 권한을 기준으로 비교하세요."
         ]
       },
       workStyle: {
@@ -69,7 +75,9 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         summary: "협업, 의사결정, 학습 방식에서 반복될 수 있는 패턴을 정리합니다.",
         items: [
           ...baseReport.career.actions,
-          "새 역할을 검토할 때 책임 범위, 피드백 방식, 수입 구조를 같은 표에 놓고 비교하세요."
+          "새 역할을 검토할 때 책임 범위, 피드백 방식, 수입 구조를 같은 표에 놓고 비교하세요.",
+          "피드백은 즉시 고칠 부분, 시간을 두고 볼 부분, 받아들이지 않을 부분으로 나누면 감정 소모를 줄일 수 있습니다.",
+          "의사결정이 늦어질 때는 더 필요한 정보가 무엇인지, 이미 충분한 정보가 무엇인지 분리해 보세요."
         ]
       },
       riskPatterns: {
@@ -77,7 +85,9 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         summary: "전환, 과로, 기준 흔들림처럼 현실에서 확인해야 할 위험 신호를 모읍니다.",
         items: [
           ...baseReport.career.risks,
-          "중요한 결정은 시장 상황과 계약 조건, 건강한 회복 시간을 함께 확인해야 합니다."
+          "중요한 결정은 시장 상황과 계약 조건, 건강한 회복 시간을 함께 확인해야 합니다.",
+          "일이 잘 풀릴 때도 휴식, 관계, 현금 흐름이 동시에 나빠진다면 속도를 조절해야 합니다.",
+          "전환을 결정하기 전 최소 수입 기준과 되돌아갈 선택지를 미리 적어 두세요."
         ]
       },
       actionPlan: {
@@ -86,7 +96,8 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         items: [
           "현재 역할에서 에너지가 생기는 업무와 소모되는 업무를 각각 3개씩 적어 보세요.",
           "전환 후보가 있다면 기대 효과, 비용, 회복 기간, 중단 기준을 한 장에 정리하세요.",
-          "혼자 판단하기 어려운 결정은 업계 경험자나 전문가와 한 번 더 검토하세요."
+          "혼자 판단하기 어려운 결정은 업계 경험자나 전문가와 한 번 더 검토하세요.",
+          "이번 주에는 한 사람에게 실제 업무 조건을 묻고, 이번 달에는 숫자로 비교 가능한 기준표를 만드세요."
         ]
       }
     },
@@ -97,7 +108,9 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         items: [
           ...baseReport.finance.trends,
           ...baseReport.finance.actions,
-          "수입 확대보다 먼저 고정비, 비상금, 회복 가능한 손실 범위를 확인하세요."
+          "수입 확대보다 먼저 고정비, 비상금, 회복 가능한 손실 범위를 확인하세요.",
+          "지출을 줄이는 항목과 삶의 안정감을 유지하는 항목을 나누면 과도한 절약 피로를 줄일 수 있습니다.",
+          "돈의 흐름은 예측보다 기록이 중요하므로 월말 잔액, 고정비, 변동비를 같은 기준으로 비교하세요."
         ]
       },
       riskChecklist: {
@@ -105,15 +118,19 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         items: [
           {
             label: "확신 과열",
-            detail: "좋아 보이는 선택일수록 손실 한도와 중단 기준을 먼저 적었는지 확인합니다."
+            detail: "좋아 보이는 선택일수록 손실 한도, 중단 기준, 확인할 근거를 먼저 적었는지 확인합니다."
           },
           {
             label: "반복 지출",
-            detail: "작은 결제가 누적되어 선택지를 줄이고 있지 않은지 월 단위로 확인합니다."
+            detail: "작은 결제가 누적되어 선택지를 줄이고 있지 않은지 월 단위 총액과 사용 빈도로 확인합니다."
           },
           {
             label: "정보 출처",
-            detail: "검증되지 않은 정보만으로 큰 금액을 움직이지 않는지 점검합니다."
+            detail: "검증되지 않은 정보만으로 큰 금액을 움직이지 않는지, 반대 근거를 한 번이라도 확인했는지 점검합니다."
+          },
+          {
+            label: "회복 가능성",
+            detail: "선택이 빗나갔을 때 생활비, 관계, 건강한 일상 리듬을 회복할 여지가 있는지 확인합니다."
           }
         ]
       },
@@ -123,7 +140,8 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         items: [
           "이번 달 지출 중 줄여도 삶의 질이 크게 흔들리지 않는 항목은 무엇인가요?",
           "큰 선택을 했을 때 1개월, 3개월, 6개월 뒤 회복 가능한 범위는 어디까지인가요?",
-          "수익 기대보다 먼저 감당 가능한 손실 범위를 숫자로 적었나요?"
+          "수익 기대보다 먼저 감당 가능한 손실 범위를 숫자로 적었나요?",
+          "반복 지출 중 자동 결제, 관계 유지 비용, 충동 구매를 구분해 적어 보았나요?"
         ]
       }
     },
@@ -134,7 +152,8 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         items: [
           ...baseReport.yearlyOutlook.highlights,
           ...baseReport.yearlyOutlook.cautions,
-          "분기마다 목표, 비용, 회복 시간을 다시 확인하면 과한 해석을 줄일 수 있습니다."
+          "분기마다 목표, 비용, 회복 시간을 다시 확인하면 과한 해석을 줄일 수 있습니다.",
+          timeCaution
         ]
       },
       monthlyThemes: buildMonthlyThemes(baseReport)
@@ -194,13 +213,19 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
 function buildMonthlyThemes(report: ReportV1): PaidReportV1["yearlyMonthlyExpansion"]["monthlyThemes"] {
   const good = report.monthly.goodMonths.map((item) => parseMonthItem(item, "확장"));
   const caution = report.monthly.cautionMonths.map((item) => parseMonthItem(item, "점검"));
+  const missingTimeSuffix = report.meta.timeKnown
+    ? ""
+    : " 출생시간 미상 케이스이므로 세부 시점보다 한 달 단위의 넓은 흐름으로만 보세요.";
 
   return [...good, ...caution].map((item) => ({
     month: item.month,
     theme: item.theme,
     action: item.kind === "확장"
       ? "작게 시작하고 실행 기준을 기록하세요."
-      : "속도를 늦추고 비용, 관계, 회복 시간을 먼저 확인하세요."
+      : "속도를 늦추고 비용, 관계, 회복 시간을 먼저 확인하세요.",
+    caution: item.kind === "확장"
+      ? `기대가 커질수록 예산, 일정, 회복 가능성을 함께 적어 과열을 막으세요.${missingTimeSuffix}`
+      : `중요한 결정은 혼자 단정하지 말고 현실 자료와 전문가 의견으로 보완하세요.${missingTimeSuffix}`
   }));
 }
 

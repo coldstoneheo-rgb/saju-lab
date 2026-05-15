@@ -23,7 +23,8 @@ Last updated: 2026-05-15
 - Phase 4B has added beta readiness documentation, privacy and safety notes, manual QA criteria, and clearer MVP scope limits.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
-- Phase 5B is hardening the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
+- Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
+- Phase 5C is improving paid report content depth with richer career/finance guidance, monthly cautions, and quality threshold tests.
 
 ## Completed Work
 
@@ -323,7 +324,7 @@ Exit Criteria:
 
 ## Phase 5B: PDF Export Hardening
 
-Status: Current.
+Status: Complete.
 
 Goal: make the paid detailed report export read like a real product document before checkout work starts.
 
@@ -339,6 +340,26 @@ Exit Criteria:
 - The saved document keeps birth data inside the document while keeping the filename generation-date based.
 - Unknown birth time remains visible in the saved document.
 - No PDF library, checkout, login, account storage, or server storage is introduced.
+
+## Phase 5C: Paid Content Quality
+
+Status: Current.
+
+Goal: make the paid detailed report feel meaningfully deeper than the free report.
+
+Deliverables:
+- Stronger career role-fit, work-style, risk, and action-plan copy.
+- Stronger finance rhythm, risk checklist, and planning prompt copy.
+- Monthly themes with both action and caution fields.
+- Content quality tests for minimum section density and missing birth-time caution.
+- Safety checks that paid copy does not imply deterministic outcomes or professional advice.
+
+Exit Criteria:
+- Paid sections have summaries and at least three practical items where appropriate.
+- Career and finance sections include both risk and action-oriented guidance.
+- Monthly paid themes include `theme`, `action`, and `caution`.
+- Birth-time unknown cases visibly lower confidence and warn against overreading detailed timing.
+- No checkout, login, account storage, server storage, AI interpretation, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
 
@@ -358,8 +379,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5B PDF export hardening and PR review.
-2. Plan Phase 5C paid report content polish or print QA based on prototype feedback.
+1. Complete Phase 5C paid report content quality and PR review.
+2. Plan Phase 5D checkout readiness gates or paid copy review based on product priority.
 3. Decide privacy, refund/contact, and data-retention gates before checkout work.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.

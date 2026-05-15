@@ -249,11 +249,52 @@ describe("generatePaidReportV1", () => {
     expect(paidReport.cover.title).toContain("유료 상세 리포트");
     expect(paidReport.executiveSummary.items.length).toBeGreaterThan(0);
     expect(paidReport.careerDeepDive.roleFit.items.length).toBeGreaterThan(0);
-    expect(paidReport.financeDeepDive.riskChecklist.items).toHaveLength(3);
+    expect(paidReport.financeDeepDive.riskChecklist.items.length).toBeGreaterThanOrEqual(4);
     expect(paidReport.yearlyMonthlyExpansion.monthlyThemes.length).toBeGreaterThan(0);
+    expect(paidReport.yearlyMonthlyExpansion.monthlyThemes[0]).toEqual(expect.objectContaining({
+      action: expect.any(String),
+      caution: expect.any(String),
+      month: expect.any(String),
+      theme: expect.any(String)
+    }));
     expect(paidReport.pdf.filename).toBe("saju-lab-paid-report-20260515.html");
     expect(paidReport.pdf.requiredNotices).toContain("신뢰도");
     expect(paidReport.transparencyAppendix.disclaimers.join(" ")).toContain("투자 추천");
+  });
+
+  it("meets minimum paid content quality thresholds", () => {
+    const fixture = GOLDEN_FIXTURES[4];
+
+    if (fixture === undefined) {
+      throw new Error("Expected representative golden fixture.");
+    }
+
+    const paidReport = generatePaidReportV1({
+      input: fixture.input,
+      pillars: calculatePillars(fixture.input),
+      generatedAt: "2026-05-15T00:00:00.000Z"
+    });
+    const sections = [
+      paidReport.executiveSummary,
+      paidReport.personalityDeepDive,
+      paidReport.careerDeepDive.roleFit,
+      paidReport.careerDeepDive.workStyle,
+      paidReport.careerDeepDive.riskPatterns,
+      paidReport.careerDeepDive.actionPlan,
+      paidReport.financeDeepDive.rhythm,
+      paidReport.financeDeepDive.planningPrompts,
+      paidReport.yearlyMonthlyExpansion.yearlyTheme
+    ];
+
+    for (const section of sections) {
+      expect(section.summary.length).toBeGreaterThan(10);
+      expect(section.items.length).toBeGreaterThanOrEqual(3);
+    }
+
+    expect(paidReport.financeDeepDive.riskChecklist.items.length).toBeGreaterThanOrEqual(4);
+    expect(paidReport.actionPlan.items.length).toBeGreaterThanOrEqual(4);
+    expect(paidReport.careerDeepDive.riskPatterns.items.join(" ")).toContain("회복");
+    expect(paidReport.financeDeepDive.rhythm.items.join(" ")).toContain("고정비");
   });
 
   it("keeps missing birth time visible in paid reports", () => {
@@ -270,6 +311,7 @@ describe("generatePaidReportV1", () => {
 
     expect(paidReport.meta.confidence).toBe("low");
     expect(paidReport.executiveSummary.items.join(" ")).toContain("출생시간이 없어");
+    expect(paidReport.yearlyMonthlyExpansion.monthlyThemes[0]?.caution).toContain("출생시간 미상");
     expect(paidReport.transparencyAppendix.missingDataNotes).toHaveLength(1);
     expect(paidReport.pdf.requiredNotices).toContain("출생시간 미상 영향");
   });

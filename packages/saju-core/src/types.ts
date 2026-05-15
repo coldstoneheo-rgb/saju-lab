@@ -136,6 +136,7 @@ export interface PaidReportV1 {
       month: string;
       theme: string;
       action: string;
+      caution: string;
     }>;
   };
   actionPlan: PaidReportChecklist;
