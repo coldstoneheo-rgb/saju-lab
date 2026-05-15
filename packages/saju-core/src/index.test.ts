@@ -139,6 +139,37 @@ describe("calculatePillars", () => {
 });
 
 describe("generateReportV1", () => {
+  it.each(GOLDEN_FIXTURES)("generates a complete rules-only report for $id", (fixture) => {
+    const report = generateReportV1({
+      input: fixture.input,
+      pillars: calculatePillars(fixture.input),
+      generatedAt: "2026-05-14T00:00:00.000Z"
+    });
+
+    expect(report.overview.summary).not.toHaveLength(0);
+    expect(report.overview.toneGuidelines.length).toBeGreaterThan(0);
+    expect(report.overview.disclaimers[0]).toContain("금융");
+    expect(report.overview.disclaimers[0]).toContain("의학");
+    expect(report.overview.disclaimers[0]).toContain("법률");
+    expect(report.personality.strengths.length).toBeGreaterThan(0);
+    expect(report.personality.blindSpots.length).toBeGreaterThan(0);
+    expect(report.career.trends.length).toBeGreaterThan(0);
+    expect(report.career.risks.length).toBeGreaterThan(0);
+    expect(report.career.actions.length).toBeGreaterThan(0);
+    expect(report.finance.trends.length).toBeGreaterThan(0);
+    expect(report.finance.risks.length).toBeGreaterThan(0);
+    expect(report.finance.actions.length).toBeGreaterThan(0);
+    expect(report.yearlyOutlook.highlights.length).toBeGreaterThan(0);
+    expect(report.yearlyOutlook.cautions.length).toBeGreaterThan(0);
+    expect(report.monthly.goodMonths.length).toBeGreaterThan(0);
+    expect(report.monthly.cautionMonths.length).toBeGreaterThan(0);
+    expect(report.actionSuggestions.habits.length).toBeGreaterThan(0);
+    expect(report.actionSuggestions.planning.length).toBeGreaterThan(0);
+    expect(report.actionSuggestions.riskManagement.length).toBeGreaterThan(0);
+    expect(report.transparency.certain.length).toBeGreaterThan(0);
+    expect(report.transparency.inferred.length).toBeGreaterThan(0);
+  });
+
   it("includes transparency notes and disclaimer", () => {
     const input: BirthInput = {
       birthDate: "1990-01-01",
@@ -157,5 +188,44 @@ describe("generateReportV1", () => {
     expect(report.meta.confidence).toBe("low");
     expect(report.overview.disclaimers[0]).toContain("금융");
     expect(report.transparency.missingDataNotes).toHaveLength(1);
+  });
+
+  it("keeps report shape and key copy stable for a representative fixture", () => {
+    const fixture = GOLDEN_FIXTURES[4];
+
+    if (fixture === undefined) {
+      throw new Error("Expected representative golden fixture.");
+    }
+
+    const report = generateReportV1({
+      input: fixture.input,
+      pillars: calculatePillars(fixture.input),
+      generatedAt: "2026-05-14T00:00:00.000Z"
+    });
+
+    expect({
+      confidence: report.meta.confidence,
+      summary: report.overview.summary,
+      firstStrength: report.personality.strengths[0],
+      firstCareerAction: report.career.actions[0],
+      goodMonths: report.monthly.goodMonths,
+      transparency: report.transparency.certain
+    }).toMatchInlineSnapshot(`
+      {
+        "confidence": "medium",
+        "firstCareerAction": "큰 결정을 하기 전 유지 비용과 회복 기간을 먼저 계산하세요.",
+        "firstStrength": "복잡한 일을 구조화하고 책임 있게 버티는 데 강점이 있습니다.",
+        "goodMonths": [
+          "2월: 새로운 시도를 시작하기 쉽지만 속도 조절이 필요합니다.",
+          "3월: 새로운 시도를 시작하기 쉽지만 속도 조절이 필요합니다.",
+        ],
+        "summary": "이 리포트는 무술 일주를 중심으로 사주 구조를 읽기 쉽게 정리한 설명형 요약입니다. 흔들리는 상황을 붙잡고 기준을 세우는 힘이 있습니다.",
+        "transparency": [
+          "입력된 생년월일: 2024-02-04",
+          "타임존: Asia/Seoul",
+          "계산된 일주: 무술",
+        ],
+      }
+    `);
   });
 });
