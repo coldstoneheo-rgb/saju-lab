@@ -361,17 +361,18 @@ function PaidReportPrototype({ paidReport }: { paidReport: PaidReportV1 }): JSX.
     <section className="paidPrototype" id="paid-preview">
       <div className="paidPrototypeHeader">
         <div>
-          <p className="eyebrow">Phase 5A Prototype</p>
+          <p className="eyebrow">Phase 5E PDF-ready Spike</p>
           <h3><LockKeyhole size={20} /> {paidReport.cover.title}</h3>
           <p>{paidReport.cover.subtitle}</p>
+          <p className="paidPrintHint">저장한 HTML을 브라우저에서 열고 인쇄 메뉴의 PDF 저장을 선택하면 됩니다. 현재 단계는 결제 없이 산출물 품질을 검증합니다.</p>
         </div>
         <button
-          aria-label="유료 상세 리포트 프로토타입 HTML 저장"
+          aria-label="PDF 저장용 유료 상세 리포트 HTML 저장"
           className="secondaryButton"
           onClick={() => downloadPaidReportHtml(paidReport)}
           type="button"
         >
-          <Download size={18} /> 인쇄용 저장
+          <Download size={18} /> PDF 저장용 HTML
         </button>
       </div>
 

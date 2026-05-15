@@ -230,6 +230,13 @@ Phase 5D implementation baseline:
 - Account storage, saved report history, subscription billing, AI interpretation, and server-side report history remain out of scope.
 - The paid preview should tell users that privacy, refund/contact, payment provider, and data-retention decisions must be ready before checkout opens.
 
+Phase 5E implementation baseline:
+- `docs/PDF_EXPORT_SPIKE.md` is the PDF export validation source of truth.
+- The MVP paid export path should remain PDF-ready HTML plus browser print-to-PDF until a PDF library is intentionally selected.
+- The export must include a visible PDF save guide, required notices, input summary, confidence, missing-data notes, and transparency appendix.
+- The generated filename must continue to avoid birth date, birth time, sex, or other unnecessary personal data.
+- Checkout, login, account storage, server storage, subscription, and analytics remain out of scope.
+
 ## 11. Metrics
 
 Track only after analytics and privacy policy are ready:

@@ -30,6 +30,9 @@ describe("paid report export HTML", () => {
     expect(html).toContain("신뢰도 보통");
     expect(html).toContain("정보/오락 목적");
     expect(html).toContain("서버 보관을 포함하지 않는 로컬 다운로드 중심 모델");
+    expect(html).toContain("id=\"print-guide\"");
+    expect(html).toContain("브라우저 인쇄에서 PDF 저장을 선택");
+    expect(html).toContain("현재 단계에서는 결제, 계정 저장, 서버 보관을 포함하지 않습니다.");
   });
 
   it("renders the actual input summary without putting birth data in the filename", () => {
@@ -57,6 +60,8 @@ describe("paid report export HTML", () => {
     expect(html).toContain("<dt>성별</dt><dd>여성</dd>");
     expect(paidReport.pdf.filename).toBe("saju-lab-paid-report-20260516.html");
     expect(paidReport.pdf.filename).not.toContain("1990");
+    expect(paidReport.pdf.filename).not.toContain("10");
+    expect(html).toContain("파일명은 생성일 기준으로 만들고, 생년월일이나 출생시간을 넣지 않습니다.");
   });
 
   it("keeps unknown birth time visible in exported paid HTML", () => {
