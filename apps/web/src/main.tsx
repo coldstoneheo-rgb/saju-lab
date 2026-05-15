@@ -281,7 +281,7 @@ function InsightSection({ icon, title, groups }: {
 function FreeSummaryCard({ summary }: { summary: { keywords: string[]; comment: string } }): JSX.Element {
   return (
     <article className="articleCard freeSummaryCard">
-      <h3><Sparkles size={20} /> 이번 달 무료 요약</h3>
+      <h3><Sparkles size={20} /> 월간 무료 하이라이트</h3>
       <div className="keywordRow">
         {summary.keywords.map((keyword) => (
           <span key={keyword}>{keyword}</span>
@@ -419,7 +419,7 @@ function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: s
 }
 
 function renderDownloadedFreeSummary(summary: { keywords: string[]; comment: string }): string {
-  return `<section><h2>이번 달 무료 요약</h2><div class="keywords">${summary.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}</div><p>${escapeHtml(summary.comment)}</p></section>`;
+  return `<section><h2>월간 무료 하이라이트</h2><div class="keywords">${summary.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}</div><p>${escapeHtml(summary.comment)}</p></section>`;
 }
 
 function renderDownloadedSection(title: string, items: readonly string[]): string {
@@ -453,7 +453,7 @@ function buildFreeMonthlySummary(report: ReportV1): { keywords: string[]; commen
     report.monthly.cautionMonths[0],
     report.actionSuggestions.planning[0]
   ].filter((item): item is string => item !== undefined);
-  const keywords = ["이번 달", "점검", report.meta.timeKnown ? "시간 반영" : "시간 미상"];
+  const keywords = ["월간 흐름", "좋은 달", "주의 달"];
 
   return {
     keywords,
