@@ -51,6 +51,7 @@ Saju Lab은 전통 명리학(사주)을 기반으로, 현대적인 데이터 해
 - Agent working guide: `AGENTS.md`
 - Development roadmap: `docs/DEVELOPMENT_ROADMAP.md`
 - Paid service roadmap: `docs/PAID_SERVICE_ROADMAP.md`
+- Paid detailed report PRD: `docs/PAID_REPORT_PRD.md`
 - Architecture & goals: `docs/ARCHITECTURE.md`
 - Solar term calculation spec: `docs/algorithms/SOLAR_TERM_SPEC.md`
 - Report tone guide: `docs/TONE_GUIDE.md`
@@ -74,6 +75,7 @@ Open `http://localhost:5173`.
 
 - `apps/web`: mobile-first report generation UI
 - `packages/saju-core`: typed input, fixture-limited deterministic pillar calculation, rules-only report generator
+- `docs/PAID_REPORT_PRD.md`: first paid detailed report scope and PDF requirements
 - `docs/PAID_SERVICE_ROADMAP.md`: free-to-paid product ladder
 
 Current MVP capabilities:

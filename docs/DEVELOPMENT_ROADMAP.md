@@ -20,7 +20,8 @@ Last updated: 2026-05-15
 - Phase 3B has added plain-language Korean terminology for core Saju terms and wired it into the web report and HTML export.
 - Phase 3C has improved report scanning, confidence/disclaimer visibility, and the free-versus-paid report boundary.
 - Phase 4A has improved mobile input hints, user-facing error messages, accessible controls, and section navigation.
-- The next product risk is beta readiness: users should understand privacy, safety limits, and manual QA status before the app is shared.
+- Phase 4B has added beta readiness documentation, privacy and safety notes, manual QA criteria, and clearer MVP scope limits.
+- Phase 5 is defining the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 
 ## Completed Work
 
@@ -249,7 +250,7 @@ Mobile-first requirements:
 
 ## Phase 4B: Quality, Safety, And Beta Readiness
 
-Status: Current.
+Status: Complete.
 
 Goal: prepare for a small beta without overbuilding.
 
@@ -275,10 +276,13 @@ Exit Criteria:
 
 ## Phase 5: Paid Service Path
 
+Status: Current.
+
 Goal: define the first paid upgrade path without weakening trust or hiding safety-critical transparency.
 
 Deliverables:
-- One-time detailed report scope.
+- One-time detailed report PRD.
+- Free MVP vs paid detailed report boundary.
 - PDF export requirements for paid detailed reports.
 - Account/saved report scope separated from the free MVP.
 - Payment and subscription sequencing.
@@ -292,6 +296,8 @@ Suggested Tasks:
 
 Exit Criteria:
 - Paid work can start from a separate PRD without changing the free MVP promise.
+- Paid PDF scope is clearly deeper than the free local HTML export.
+- Payment, account, and saved report work are explicitly gated by policy and retention decisions.
 - No disclaimer, confidence, or transparency requirement is paywalled.
 
 ## Phase 6: Post-Beta Expansion
@@ -312,8 +318,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Finish Phase 2C roadmap/documentation sync.
-2. Implement Phase 3A rules-only report engine with richer deterministic sections and snapshot tests.
-3. Add Phase 3B Korean terminology and copy layer.
-4. Polish Phase 4A mobile report UX and error states.
-5. Run Phase 4B beta readiness QA before expanding paid features.
+1. Complete Phase 5 paid detailed report PRD and roadmap alignment.
+2. Plan Phase 5A paid report content-depth schema and PDF export prototype.
+3. Decide privacy, refund/contact, and data-retention gates before checkout work.
+4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
+5. Continue broadening calendrical fixture coverage before public beta expansion.
