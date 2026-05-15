@@ -28,9 +28,9 @@ Checkout work can start only after every gate below has an owner and a written d
 
 | Gate | Required decision | Minimum acceptance |
 | --- | --- | --- |
-| Privacy policy | How birth data, generated reports, device data, and support messages are handled | Users can read the policy before payment |
-| Refund/contact policy | Refund window, support channel, response expectation, and failed-download handling | The checkout and report pages can link to a support path |
-| Usage caution or terms | Informational/entertainment-oriented scope and no professional-advice boundary | Paid copy does not imply stronger certainty than the free report |
+| Privacy policy | How birth data, generated reports, device data, and support messages are handled | Draft exists at `docs/policies/PRIVACY_DRAFT.md`; final policy must be readable before payment |
+| Refund/contact policy | Refund window, support channel, response expectation, and failed-download handling | Draft exists at `docs/policies/REFUND_AND_SUPPORT_DRAFT.md`; real support path is still required |
+| Usage caution or terms | Informational/entertainment-oriented scope and no professional-advice boundary | Draft exists at `docs/policies/USAGE_CAUTION_DRAFT.md`; paid copy must not imply stronger certainty |
 | Payment provider | Provider, currency, receipt handling, and failure-state behavior | Failed payment does not generate or expose paid output |
 | Data retention | Whether reports are generated locally, server-side, or hybrid | The product can explain what is stored, where, and for how long |
 | Customer support path | Email or form destination for payment/report issues | The support path is available before money is collected |
@@ -62,12 +62,25 @@ Preferred first-SKU direction:
 Open decision:
 - If a payment provider requires server-side order verification, decide whether the birth input is sent to the server or whether only a payment/session token is handled server-side.
 
+## Phase 5F Policy Draft Baseline
+
+Drafted policy documents:
+- `docs/policies/PRIVACY_DRAFT.md`
+- `docs/policies/REFUND_AND_SUPPORT_DRAFT.md`
+- `docs/policies/USAGE_CAUTION_DRAFT.md`
+
+These drafts are enough to guide product and engineering planning, but they are not final legal policies. Before live checkout, the product still needs:
+- payment provider decision.
+- final data-retention decision.
+- real support contact path.
+- final policy review and linkable user-facing pages.
+
 ## Merge Checklist
 
 Before checkout code is implemented:
-- [ ] Privacy policy draft exists and is linkable.
-- [ ] Refund/contact policy draft exists and is linkable.
-- [ ] Usage caution or terms copy exists and is linkable.
+- [x] Privacy policy draft exists.
+- [x] Refund/contact policy draft exists.
+- [x] Usage caution or terms copy exists.
 - [ ] Payment provider and failure-state behavior are selected.
 - [ ] Data retention decision is written.
 - [ ] Support contact path is available.

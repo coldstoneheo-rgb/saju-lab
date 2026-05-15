@@ -237,6 +237,12 @@ Phase 5E implementation baseline:
 - The generated filename must continue to avoid birth date, birth time, sex, or other unnecessary personal data.
 - Checkout, login, account storage, server storage, subscription, and analytics remain out of scope.
 
+Phase 5F implementation baseline:
+- Privacy, refund/support, and usage-caution drafts live under `docs/policies/`.
+- These drafts guide checkout readiness but are not final legal policies.
+- Live checkout still requires a payment provider decision, final data-retention decision, real support contact path, and user-facing policy links.
+- The paid preview may mention policy-draft readiness, but it must not imply checkout is open.
+
 ## 11. Metrics
 
 Track only after analytics and privacy policy are ready:

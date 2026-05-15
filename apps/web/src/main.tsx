@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, ShieldCheck, Sparkles, Sun, UserRound } from "lucide-react";
 import { buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
+import { buildFreeReportFilename } from "./report-filenames.js";
 import {
   calculatePillars,
   generatePaidReportV1,
@@ -536,7 +537,7 @@ function downloadReportHtml(report: ReportV1): void {
   const anchor = document.createElement("a");
 
   anchor.href = url;
-  anchor.download = `saju-lab-report-${report.input.birthDate}.html`;
+  anchor.download = buildFreeReportFilename(report.meta.generatedAt);
   document.body.append(anchor);
   anchor.click();
   anchor.remove();
