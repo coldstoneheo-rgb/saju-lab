@@ -223,6 +223,13 @@ Payment implementation should not start until these documents or decisions exist
 
 Account and saved reports should stay out of the first paid SKU unless the product intentionally moves to the subscription phase.
 
+Phase 5D implementation baseline:
+- `docs/PAID_CHECKOUT_READINESS.md` is the checkout-readiness source of truth.
+- The app may show a paid detailed-report preview, but it should not present a live purchase action until readiness gates are complete.
+- The first paid SKU should remain a one-time local-download product unless the data-retention decision intentionally changes that boundary.
+- Account storage, saved report history, subscription billing, AI interpretation, and server-side report history remain out of scope.
+- The paid preview should tell users that privacy, refund/contact, payment provider, and data-retention decisions must be ready before checkout opens.
+
 ## 11. Metrics
 
 Track only after analytics and privacy policy are ready:
