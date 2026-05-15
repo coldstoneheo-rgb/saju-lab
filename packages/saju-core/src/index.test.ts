@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculatePillars, cyclePillar, generateReportV1, getPillarTerms, getSajuTerm, hourBranchIndex } from "./index.js";
+import { calculatePillars, cyclePillar, generatePaidReportV1, generateReportV1, getPillarTerms, getSajuTerm, hourBranchIndex } from "./index.js";
 import { GOLDEN_FIXTURES } from "./fixtures.js";
 import type { BirthInput } from "./types.js";
 
@@ -227,6 +227,51 @@ describe("generateReportV1", () => {
         ],
       }
     `);
+  });
+});
+
+describe("generatePaidReportV1", () => {
+  it("generates a paid detailed report with PDF-ready requirements", () => {
+    const fixture = GOLDEN_FIXTURES[4];
+
+    if (fixture === undefined) {
+      throw new Error("Expected representative golden fixture.");
+    }
+
+    const paidReport = generatePaidReportV1({
+      input: fixture.input,
+      pillars: calculatePillars(fixture.input),
+      generatedAt: "2026-05-15T00:00:00.000Z"
+    });
+
+    expect(paidReport.meta.product).toBe("one-time-detailed-report");
+    expect(paidReport.meta.exportFormat).toBe("pdf-ready-html");
+    expect(paidReport.cover.title).toContain("유료 상세 리포트");
+    expect(paidReport.executiveSummary.items.length).toBeGreaterThan(0);
+    expect(paidReport.careerDeepDive.roleFit.items.length).toBeGreaterThan(0);
+    expect(paidReport.financeDeepDive.riskChecklist.items).toHaveLength(3);
+    expect(paidReport.yearlyMonthlyExpansion.monthlyThemes.length).toBeGreaterThan(0);
+    expect(paidReport.pdf.filename).toBe("saju-lab-paid-report-20260515.html");
+    expect(paidReport.pdf.requiredNotices).toContain("신뢰도");
+    expect(paidReport.transparencyAppendix.disclaimers.join(" ")).toContain("투자 추천");
+  });
+
+  it("keeps missing birth time visible in paid reports", () => {
+    const input: BirthInput = {
+      birthDate: "1990-01-01",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    };
+    const paidReport = generatePaidReportV1({
+      input,
+      pillars: calculatePillars(input),
+      generatedAt: "2026-05-15T00:00:00.000Z"
+    });
+
+    expect(paidReport.meta.confidence).toBe("low");
+    expect(paidReport.executiveSummary.items.join(" ")).toContain("출생시간이 없어");
+    expect(paidReport.transparencyAppendix.missingDataNotes).toHaveLength(1);
+    expect(paidReport.pdf.requiredNotices).toContain("출생시간 미상 영향");
   });
 });
 

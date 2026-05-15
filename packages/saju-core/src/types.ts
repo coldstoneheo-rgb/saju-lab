@@ -81,3 +81,73 @@ export interface ReportV1 {
     missingDataNotes: string[];
   };
 }
+
+export interface PaidReportMeta extends ReportMeta {
+  version: "1.0";
+  product: "one-time-detailed-report";
+  exportFormat: "pdf-ready-html";
+}
+
+export interface PaidReportSection {
+  title: string;
+  summary: string;
+  items: string[];
+}
+
+export interface PaidReportChecklist {
+  title: string;
+  items: Array<{
+    label: string;
+    detail: string;
+  }>;
+}
+
+export interface PaidReportV1 {
+  meta: PaidReportMeta;
+  input: BirthInput;
+  pillars: PillarsResult;
+  baseReport: ReportV1;
+  cover: {
+    title: string;
+    subtitle: string;
+    scopeNote: string;
+    privacyNote: string;
+  };
+  glossary: Array<{
+    term: string;
+    plainMeaning: string;
+  }>;
+  executiveSummary: PaidReportSection;
+  personalityDeepDive: PaidReportSection;
+  careerDeepDive: {
+    roleFit: PaidReportSection;
+    workStyle: PaidReportSection;
+    riskPatterns: PaidReportSection;
+    actionPlan: PaidReportSection;
+  };
+  financeDeepDive: {
+    rhythm: PaidReportSection;
+    riskChecklist: PaidReportChecklist;
+    planningPrompts: PaidReportSection;
+  };
+  yearlyMonthlyExpansion: {
+    yearlyTheme: PaidReportSection;
+    monthlyThemes: Array<{
+      month: string;
+      theme: string;
+      action: string;
+    }>;
+  };
+  actionPlan: PaidReportChecklist;
+  transparencyAppendix: {
+    certain: string[];
+    inferred: string[];
+    missingDataNotes: string[];
+    disclaimers: string[];
+  };
+  pdf: {
+    filename: string;
+    requiredNotices: string[];
+    printHints: string[];
+  };
+}

@@ -74,7 +74,7 @@ Open `http://localhost:5173`.
 ## MVP Implementation
 
 - `apps/web`: mobile-first report generation UI
-- `packages/saju-core`: typed input, fixture-limited deterministic pillar calculation, rules-only report generator
+- `packages/saju-core`: typed input, fixture-limited deterministic pillar calculation, rules-only free and paid report generators
 - `docs/PAID_REPORT_PRD.md`: first paid detailed report scope and PDF requirements
 - `docs/PAID_SERVICE_ROADMAP.md`: free-to-paid product ladder
 
@@ -85,6 +85,7 @@ Current MVP capabilities:
 - System/light/dark theme preference with storage fallback
 - Login-free local HTML report download for basic reports
 - Free-to-paid framing that keeps PDF export for paid detailed reports
+- Paid detailed report prototype with PDF-ready local HTML export
 
 Validation commands:
 

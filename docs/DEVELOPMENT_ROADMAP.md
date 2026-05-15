@@ -21,7 +21,8 @@ Last updated: 2026-05-15
 - Phase 3C has improved report scanning, confidence/disclaimer visibility, and the free-versus-paid report boundary.
 - Phase 4A has improved mobile input hints, user-facing error messages, accessible controls, and section navigation.
 - Phase 4B has added beta readiness documentation, privacy and safety notes, manual QA criteria, and clearer MVP scope limits.
-- Phase 5 is defining the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
+- Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
+- Phase 5A is prototyping the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 
 ## Completed Work
 
@@ -276,7 +277,7 @@ Exit Criteria:
 
 ## Phase 5: Paid Service Path
 
-Status: Current.
+Status: Complete.
 
 Goal: define the first paid upgrade path without weakening trust or hiding safety-critical transparency.
 
@@ -300,6 +301,25 @@ Exit Criteria:
 - Payment, account, and saved report work are explicitly gated by policy and retention decisions.
 - No disclaimer, confidence, or transparency requirement is paywalled.
 
+## Phase 5A: Paid Detailed Report Prototype
+
+Status: Current.
+
+Goal: make the first paid SKU feel concrete before adding payment.
+
+Deliverables:
+- `PaidReportV1` schema for one-time detailed reports.
+- `generatePaidReportV1(input)` rules-only generator.
+- Career deep-dive, finance risk checklist, yearly/monthly expansion, action plan, glossary, and transparency appendix.
+- PDF-ready HTML export prototype that can be saved locally.
+- Tests for known and unknown birth-time cases.
+
+Exit Criteria:
+- Paid report generation is deterministic and reuses the free report inputs.
+- Missing birth time remains visible in paid output.
+- Paid export includes generated metadata, confidence, disclaimer, privacy/scope note, and transparency appendix.
+- No checkout, login, saved report storage, or payment provider code is introduced.
+
 ## Phase 6: Post-Beta Expansion
 
 Goal: expand only after the MVP proves understandable and trustworthy.
@@ -318,8 +338,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5 paid detailed report PRD and roadmap alignment.
-2. Plan Phase 5A paid report content-depth schema and PDF export prototype.
+1. Complete Phase 5A paid report prototype and PR review.
+2. Plan Phase 5B PDF rendering hardening or print QA based on prototype feedback.
 3. Decide privacy, refund/contact, and data-retention gates before checkout work.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.
