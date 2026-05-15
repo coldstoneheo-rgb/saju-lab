@@ -420,7 +420,8 @@ input {
 }
 
 .pillarCell span,
-.pillarCell p {
+.pillarCell p,
+.pillarCell small {
   color: color-mix(in srgb, var(--primary-text) 74%, transparent);
 }
 
@@ -433,6 +434,13 @@ input {
 .pillarCell p {
   margin: 0;
   font-size: 13px;
+}
+
+.pillarCell small {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .articleCard {

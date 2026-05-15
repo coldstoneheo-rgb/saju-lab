@@ -1,7 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { CalendarDays, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, Sparkles, Sun, UserRound } from "lucide-react";
-import { calculatePillars, generateReportV1, type BirthInput, type ReportV1 } from "@saju-lab/saju-core";
+import {
+  calculatePillars,
+  generateReportV1,
+  getSajuTerm,
+  type BirthInput,
+  type ReportV1,
+  type SajuTerm,
+  type SajuTermKey
+} from "@saju-lab/saju-core";
 import "./styles.css";
 
 const DEFAULT_INPUT: BirthInput = {
@@ -160,10 +168,10 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
       </section>
 
       <section className="pillarGrid" aria-label="사주 구조">
-        <PillarCell title="연주" note="큰 흐름" value={report.pillars.year} />
-        <PillarCell title="월주" note="환경" value={report.pillars.month} />
-        <PillarCell title="일주" note="나의 중심" value={report.pillars.day} />
-        <PillarCell title="시주" note="세부 흐름" value={report.pillars.time} />
+        <PillarCell termKey="yearPillar" value={report.pillars.year} />
+        <PillarCell termKey="monthPillar" value={report.pillars.month} />
+        <PillarCell termKey="dayPillar" value={report.pillars.day} />
+        <PillarCell termKey="timePillar" value={report.pillars.time} />
       </section>
 
       <ArticleCard icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
@@ -183,12 +191,15 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
   );
 }
 
-function PillarCell({ title, note, value }: { title: string; note: string; value: { stem: string; branch: string } | undefined }): JSX.Element {
+function PillarCell({ termKey, value }: { termKey: SajuTermKey; value: { stem: string; branch: string } | undefined }): JSX.Element {
+  const term = getSajuTerm(termKey);
+
   return (
     <div className="pillarCell">
-      <span>{title}</span>
+      <span>{term.label}</span>
       <strong>{value ? `${termLabel(value.stem)} ${termLabel(value.branch)}` : "미상"}</strong>
-      <p>{note}</p>
+      <p>{term.short}</p>
+      <small>{term.description}</small>
     </div>
   );
 }
@@ -311,10 +322,10 @@ function buildReportHtml(report: ReportV1): string {
       <h1>${escapeHtml(formatDate(report.input.birthDate))} 기준 사주 리포트</h1>
       <p class="notice">이 파일은 로그인 없이 기기에서 생성된 HTML 리포트입니다. 서버 저장이나 외부 전송 없이 다운로드됩니다.</p>
       <div class="pillars">
-        ${renderDownloadedPillar("연주", "큰 흐름", report.pillars.year)}
-        ${renderDownloadedPillar("월주", "환경", report.pillars.month)}
-        ${renderDownloadedPillar("일주", "나의 중심", report.pillars.day)}
-        ${renderDownloadedPillar("시주", "세부 흐름", report.pillars.time)}
+        ${renderDownloadedPillar(getSajuTerm("yearPillar"), report.pillars.year)}
+        ${renderDownloadedPillar(getSajuTerm("monthPillar"), report.pillars.month)}
+        ${renderDownloadedPillar(getSajuTerm("dayPillar"), report.pillars.day)}
+        ${renderDownloadedPillar(getSajuTerm("timePillar"), report.pillars.time)}
       </div>
       ${sections.map(([title, items]) => renderDownloadedSection(title, items)).join("")}
       <footer>${escapeHtml(report.overview.disclaimers[0] ?? "")}</footer>
@@ -323,8 +334,8 @@ function buildReportHtml(report: ReportV1): string {
 </html>`;
 }
 
-function renderDownloadedPillar(title: string, note: string, value: { stem: string; branch: string } | undefined): string {
-  return `<div class="pillar"><span>${escapeHtml(title)}</span><strong>${value ? `${escapeHtml(termLabel(value.stem))} ${escapeHtml(termLabel(value.branch))}` : "미상"}</strong><small>${escapeHtml(note)}</small></div>`;
+function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: string } | undefined): string {
+  return `<div class="pillar"><span>${escapeHtml(term.label)}</span><strong>${value ? `${escapeHtml(termLabel(value.stem))} ${escapeHtml(termLabel(value.branch))}` : "미상"}</strong><small>${escapeHtml(term.short)} · ${escapeHtml(term.description)}</small></div>`;
 }
 
 function renderDownloadedSection(title: string, items: readonly string[]): string {
