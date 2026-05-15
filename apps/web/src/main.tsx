@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, Sparkles, Sun, UserRound } from "lucide-react";
+import { buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
 import {
   calculatePillars,
   generatePaidReportV1,
@@ -596,112 +597,6 @@ function buildReportHtml(report: ReportV1): string {
     </main>
   </body>
 </html>`;
-}
-
-function buildPaidReportHtml(paidReport: PaidReportV1): string {
-  const inputSummaryItems = buildInputSummaryItems(paidReport.input);
-  const sections = [
-    paidReport.executiveSummary,
-    paidReport.personalityDeepDive,
-    paidReport.careerDeepDive.roleFit,
-    paidReport.careerDeepDive.workStyle,
-    paidReport.careerDeepDive.riskPatterns,
-    paidReport.careerDeepDive.actionPlan,
-    paidReport.financeDeepDive.rhythm,
-    paidReport.financeDeepDive.planningPrompts,
-    paidReport.yearlyMonthlyExpansion.yearlyTheme
-  ];
-
-  return `<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>${escapeHtml(paidReport.cover.title)}</title>
-    <style>
-      @page { size: A4; margin: 18mm; }
-      body { margin: 0; color: #202124; background: #fffdf8; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif; line-height: 1.62; }
-      main { max-width: 860px; margin: 0 auto; padding: 28px; }
-      h1 { margin: 0 0 8px; font-size: 30px; }
-      h2 { margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #263f31; font-size: 20px; }
-      h3 { margin: 18px 0 6px; font-size: 16px; }
-      .meta, .notice, footer { color: #66584b; font-size: 13px; }
-      .cover, section, .checklist, .timeline { break-inside: avoid; border: 1px solid #d8c9b8; border-radius: 8px; padding: 16px; margin: 14px 0; background: #fffdfa; }
-      .cover { background: #f5f7f1; }
-      .pillars, .noticeGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-      .pillars div, .noticeGrid span { border: 1px solid #d8c9b8; border-radius: 8px; padding: 10px; }
-      .pillars strong { display: block; font-size: 22px; }
-      .inputSummary dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
-      .inputSummary div { border: 1px solid #d8c9b8; border-radius: 8px; padding: 10px; }
-      .inputSummary dt { color: #66584b; font-size: 12px; font-weight: 700; }
-      .inputSummary dd { margin: 3px 0 0; font-weight: 800; }
-      ul { margin: 0; padding-left: 20px; }
-      .timeline article { margin-bottom: 10px; }
-      footer { margin-top: 24px; }
-      @media print { main { padding: 0; } button { display: none; } }
-      @media (max-width: 640px) { main { padding: 16px; } .pillars, .noticeGrid, .inputSummary dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    </style>
-  </head>
-  <body>
-    <main>
-      <article class="cover">
-        <p class="meta">Saju Lab · ${escapeHtml(paidReport.meta.product)} · ${escapeHtml(paidReport.meta.generatedAt)}</p>
-        <h1>${escapeHtml(paidReport.cover.title)}</h1>
-        <p>${escapeHtml(paidReport.cover.subtitle)}</p>
-        <p class="notice">${escapeHtml(paidReport.cover.scopeNote)} ${escapeHtml(paidReport.cover.privacyNote)}</p>
-      </article>
-      <section class="inputSummary">
-        <h2>입력 요약</h2>
-        <dl>${inputSummaryItems.map((item) => `<div><dt>${escapeHtml(item.label)}</dt><dd>${escapeHtml(item.value)}</dd></div>`).join("")}</dl>
-      </section>
-      <div class="noticeGrid">
-        <span>${escapeHtml(confidenceLabel(paidReport.meta.confidence))}</span>
-        <span>${escapeHtml(paidReport.meta.timeKnown ? "출생시간 반영" : "출생시간 미상")}</span>
-        <span>${escapeHtml(paidReport.input.timezone)}</span>
-        <span>${escapeHtml(paidReport.meta.exportFormat)}</span>
-      </div>
-      <div class="pillars">
-        ${renderDownloadedPillar(getSajuTerm("yearPillar"), paidReport.pillars.year)}
-        ${renderDownloadedPillar(getSajuTerm("monthPillar"), paidReport.pillars.month)}
-        ${renderDownloadedPillar(getSajuTerm("dayPillar"), paidReport.pillars.day)}
-        ${renderDownloadedPillar(getSajuTerm("timePillar"), paidReport.pillars.time)}
-      </div>
-      ${sections.map(renderPaidDownloadedSection).join("")}
-      ${renderPaidChecklist(paidReport.financeDeepDive.riskChecklist)}
-      ${renderPaidChecklist(paidReport.actionPlan)}
-      <section class="timeline">
-        <h2>월별 확장 흐름</h2>
-        ${paidReport.yearlyMonthlyExpansion.monthlyThemes.map((month) => `<article><strong>${escapeHtml(month.month)}</strong><p>${escapeHtml(month.theme)}</p><small>${escapeHtml(month.action)}</small></article>`).join("")}
-      </section>
-      <section>
-        <h2>용어 해설</h2>
-        <ul>${paidReport.glossary.map((item) => `<li><strong>${escapeHtml(item.term)}</strong>: ${escapeHtml(item.plainMeaning)}</li>`).join("")}</ul>
-      </section>
-      <section>
-        <h2>투명성 부록</h2>
-        <ul>${[...paidReport.transparencyAppendix.certain, ...paidReport.transparencyAppendix.inferred, ...paidReport.transparencyAppendix.missingDataNotes, ...paidReport.transparencyAppendix.disclaimers].map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-      </section>
-      <footer>${escapeHtml(paidReport.pdf.requiredNotices.join(" · "))}</footer>
-    </main>
-  </body>
-</html>`;
-}
-
-function renderPaidDownloadedSection(section: PaidReportV1["executiveSummary"]): string {
-  return `<section><h2>${escapeHtml(section.title)}</h2><p>${escapeHtml(section.summary)}</p><ul>${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
-}
-
-function renderPaidChecklist(checklist: PaidReportV1["actionPlan"]): string {
-  return `<section class="checklist"><h2>${escapeHtml(checklist.title)}</h2><ul>${checklist.items.map((item) => `<li><strong>${escapeHtml(item.label)}</strong>: ${escapeHtml(item.detail)}</li>`).join("")}</ul></section>`;
-}
-
-function buildInputSummaryItems(input: BirthInput): Array<{ label: string; value: string }> {
-  return [
-    { label: "생년월일", value: formatDate(input.birthDate) },
-    { label: "출생시간", value: input.birthTime ?? "미상" },
-    { label: "성별", value: sexLabel(input.sex) },
-    { label: "타임존", value: input.timezone }
-  ];
 }
 
 function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: string } | undefined): string {

@@ -22,7 +22,8 @@ Last updated: 2026-05-15
 - Phase 4A has improved mobile input hints, user-facing error messages, accessible controls, and section navigation.
 - Phase 4B has added beta readiness documentation, privacy and safety notes, manual QA criteria, and clearer MVP scope limits.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
-- Phase 5A is prototyping the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
+- Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
+- Phase 5B is hardening the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
 
 ## Completed Work
 
@@ -303,7 +304,7 @@ Exit Criteria:
 
 ## Phase 5A: Paid Detailed Report Prototype
 
-Status: Current.
+Status: Complete.
 
 Goal: make the first paid SKU feel concrete before adding payment.
 
@@ -319,6 +320,25 @@ Exit Criteria:
 - Missing birth time remains visible in paid output.
 - Paid export includes generated metadata, confidence, disclaimer, privacy/scope note, and transparency appendix.
 - No checkout, login, saved report storage, or payment provider code is introduced.
+
+## Phase 5B: PDF Export Hardening
+
+Status: Current.
+
+Goal: make the paid detailed report export read like a real product document before checkout work starts.
+
+Deliverables:
+- Separate paid export HTML builder that can be tested directly.
+- Cover page metadata with generated time, confidence, birth-time state, and export format.
+- Table of contents for core paid sections.
+- A4-oriented print CSS with section break protection.
+- Export tests for required notices, input summary, privacy/scope note, and unknown birth-time handling.
+
+Exit Criteria:
+- Paid export HTML includes cover, table of contents, input summary, pillar summary, paid sections, glossary, and transparency appendix.
+- The saved document keeps birth data inside the document while keeping the filename generation-date based.
+- Unknown birth time remains visible in the saved document.
+- No PDF library, checkout, login, account storage, or server storage is introduced.
 
 ## Phase 6: Post-Beta Expansion
 
@@ -338,8 +358,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5A paid report prototype and PR review.
-2. Plan Phase 5B PDF rendering hardening or print QA based on prototype feedback.
+1. Complete Phase 5B PDF export hardening and PR review.
+2. Plan Phase 5C paid report content polish or print QA based on prototype feedback.
 3. Decide privacy, refund/contact, and data-retention gates before checkout work.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.
