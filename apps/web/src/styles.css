@@ -659,6 +659,7 @@ input {
 
 .paidPrototypeHeader h3,
 .paidAppendix h4,
+.paidInputSummary h4,
 .paidPreviewCard h4 {
   margin: 0;
 }
@@ -698,12 +699,15 @@ input {
 }
 
 .paidSectionGrid,
-.paidAppendix {
+.paidAppendix,
+.paidInputSummary dl {
   display: grid;
   gap: 10px;
 }
 
 .paidPreviewCard,
+.paidInputSummary,
+.paidInputSummary div,
 .monthlyTimeline article,
 .paidAppendix > div {
   min-width: 0;
@@ -711,6 +715,25 @@ input {
   border: 1px solid var(--border-soft);
   border-radius: 8px;
   background: var(--surface-strong);
+}
+
+.paidInputSummary {
+  background: var(--surface-soft);
+}
+
+.paidInputSummary dl {
+  margin: 10px 0 0;
+}
+
+.paidInputSummary dt {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.paidInputSummary dd {
+  margin: 3px 0 0;
+  font-weight: 900;
 }
 
 .paidPreviewCard {

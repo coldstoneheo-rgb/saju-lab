@@ -379,6 +379,18 @@ function PaidReportPrototype({ paidReport }: { paidReport: PaidReportV1 }): JSX.
         <span>{paidReport.meta.exportFormat}</span>
       </div>
 
+      <div className="paidInputSummary" aria-label="상세 리포트 입력 요약">
+        <h4>입력 요약</h4>
+        <dl>
+          {buildInputSummaryItems(paidReport.input).map((item) => (
+            <div key={item.label}>
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
       <div className="paidSectionGrid">
         <PaidSectionPreview section={paidReport.executiveSummary} />
         <PaidSectionPreview section={paidReport.careerDeepDive.roleFit} />
@@ -587,6 +599,7 @@ function buildReportHtml(report: ReportV1): string {
 }
 
 function buildPaidReportHtml(paidReport: PaidReportV1): string {
+  const inputSummaryItems = buildInputSummaryItems(paidReport.input);
   const sections = [
     paidReport.executiveSummary,
     paidReport.personalityDeepDive,
@@ -618,11 +631,15 @@ function buildPaidReportHtml(paidReport: PaidReportV1): string {
       .pillars, .noticeGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
       .pillars div, .noticeGrid span { border: 1px solid #d8c9b8; border-radius: 8px; padding: 10px; }
       .pillars strong { display: block; font-size: 22px; }
+      .inputSummary dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
+      .inputSummary div { border: 1px solid #d8c9b8; border-radius: 8px; padding: 10px; }
+      .inputSummary dt { color: #66584b; font-size: 12px; font-weight: 700; }
+      .inputSummary dd { margin: 3px 0 0; font-weight: 800; }
       ul { margin: 0; padding-left: 20px; }
       .timeline article { margin-bottom: 10px; }
       footer { margin-top: 24px; }
       @media print { main { padding: 0; } button { display: none; } }
-      @media (max-width: 640px) { main { padding: 16px; } .pillars, .noticeGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 640px) { main { padding: 16px; } .pillars, .noticeGrid, .inputSummary dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     </style>
   </head>
   <body>
@@ -633,6 +650,10 @@ function buildPaidReportHtml(paidReport: PaidReportV1): string {
         <p>${escapeHtml(paidReport.cover.subtitle)}</p>
         <p class="notice">${escapeHtml(paidReport.cover.scopeNote)} ${escapeHtml(paidReport.cover.privacyNote)}</p>
       </article>
+      <section class="inputSummary">
+        <h2>입력 요약</h2>
+        <dl>${inputSummaryItems.map((item) => `<div><dt>${escapeHtml(item.label)}</dt><dd>${escapeHtml(item.value)}</dd></div>`).join("")}</dl>
+      </section>
       <div class="noticeGrid">
         <span>${escapeHtml(confidenceLabel(paidReport.meta.confidence))}</span>
         <span>${escapeHtml(paidReport.meta.timeKnown ? "출생시간 반영" : "출생시간 미상")}</span>
@@ -672,6 +693,15 @@ function renderPaidDownloadedSection(section: PaidReportV1["executiveSummary"]):
 
 function renderPaidChecklist(checklist: PaidReportV1["actionPlan"]): string {
   return `<section class="checklist"><h2>${escapeHtml(checklist.title)}</h2><ul>${checklist.items.map((item) => `<li><strong>${escapeHtml(item.label)}</strong>: ${escapeHtml(item.detail)}</li>`).join("")}</ul></section>`;
+}
+
+function buildInputSummaryItems(input: BirthInput): Array<{ label: string; value: string }> {
+  return [
+    { label: "생년월일", value: formatDate(input.birthDate) },
+    { label: "출생시간", value: input.birthTime ?? "미상" },
+    { label: "성별", value: sexLabel(input.sex) },
+    { label: "타임존", value: input.timezone }
+  ];
 }
 
 function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: string } | undefined): string {
