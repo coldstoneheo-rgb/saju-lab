@@ -69,6 +69,7 @@ describe("paid report export HTML", () => {
     expect(html).toContain("<dt>출생시간</dt><dd>미상</dd>");
     expect(html).toContain("신뢰도 낮음");
     expect(html).toContain("출생시간 미상");
+    expect(html).toContain("세부 시점보다 한 달 단위의 넓은 흐름");
     expect(html).toContain("출생시간 정보가 없어 시주와 일부 해석의 신뢰도가 낮아질 수 있습니다.");
   });
 });

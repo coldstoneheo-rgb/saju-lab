@@ -185,6 +185,16 @@ Phase 5B implementation baseline:
 - Print CSS should use A4 page settings and avoid splitting cover, checklist, and timeline sections when possible.
 - Export tests should check required notices, input summary, privacy/scope note, and birth-time unknown handling.
 
+## 8.1 Paid Content Quality Baseline
+
+Phase 5C implementation baseline:
+- Every paid narrative section should include a summary and at least three practical items when the section is action-oriented.
+- Career sections should separate role fit, work style, risks, and concrete action planning.
+- Finance sections should separate rhythm, risk checklist, and planning prompts.
+- Monthly paid themes should include `theme`, `action`, and `caution` so users do not read a month label as a deterministic prediction.
+- Birth-time unknown cases should explicitly warn that monthly and detailed timing should be read as broad guidance.
+- Paid copy should sell structure, depth, and usefulness, not stronger certainty.
+
 ## 9. Trust, Safety, And Copy Rules
 
 Paid copy must:

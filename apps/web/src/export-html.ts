@@ -127,7 +127,7 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
       ${checklists.map(renderPaidChecklist).join("")}
       <section class="timeline pageBreakBefore" id="monthly-timeline">
         <h2>월별 확장 흐름</h2>
-        ${paidReport.yearlyMonthlyExpansion.monthlyThemes.map((month) => `<article><strong>${escapeHtml(month.month)}</strong><p>${escapeHtml(month.theme)}</p><small>${escapeHtml(month.action)}</small></article>`).join("")}
+        ${paidReport.yearlyMonthlyExpansion.monthlyThemes.map((month) => `<article><strong>${escapeHtml(month.month)}</strong><p>${escapeHtml(month.theme)}</p><small>${escapeHtml(month.action)}</small><small>${escapeHtml(month.caution)}</small></article>`).join("")}
       </section>
       <section id="glossary">
         <h2>용어 해설</h2>
