@@ -40,6 +40,7 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
     ...checklists.map((section) => ({ id: section.id, title: section.title })),
     { id: "monthly-timeline", title: "월별 확장 흐름" },
     { id: "glossary", title: "용어 해설" },
+    { id: "print-guide", title: "PDF 저장 안내" },
     { id: "transparency", title: "투명성 부록" }
   ];
 
@@ -99,6 +100,7 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
         </div>
         <p class="notice">${escapeHtml(paidReport.cover.scopeNote)} ${escapeHtml(paidReport.cover.privacyNote)}</p>
         <p class="notice">${escapeHtml(paidReport.transparencyAppendix.disclaimers.join(" "))}</p>
+        <p class="notice"><strong>PDF 저장 안내:</strong> 이 HTML 문서를 연 뒤 브라우저 인쇄에서 PDF 저장을 선택하세요. 현재 단계에서는 결제, 계정 저장, 서버 보관을 포함하지 않습니다.</p>
       </article>
       <nav class="toc" aria-label="목차">
         <h2>목차</h2>
@@ -132,6 +134,11 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
       <section id="glossary">
         <h2>용어 해설</h2>
         <ul>${paidReport.glossary.map((item) => `<li><strong>${escapeHtml(item.term)}</strong>: ${escapeHtml(item.plainMeaning)}</li>`).join("")}</ul>
+      </section>
+      <section id="print-guide">
+        <h2>PDF 저장 안내</h2>
+        <p>이 문서는 브라우저 인쇄 기능에서 PDF로 저장하기 위한 상세 리포트 HTML입니다. 파일명은 생성일 기준으로 만들고, 생년월일이나 출생시간을 넣지 않습니다.</p>
+        <ol>${paidReport.pdf.printHints.map((hint) => `<li>${escapeHtml(hint)}</li>`).join("")}</ol>
       </section>
       <section id="transparency">
         <h2>투명성 부록</h2>

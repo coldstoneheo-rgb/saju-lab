@@ -25,7 +25,8 @@ Last updated: 2026-05-15
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
 - Phase 5C completed paid report content depth with richer career/finance guidance, monthly cautions, and quality threshold tests.
-- Phase 5D is defining paid checkout readiness gates before payment, account, or server-storage work begins.
+- Phase 5D defined paid checkout readiness gates before payment, account, or server-storage work begins.
+- Phase 5E is validating browser print-to-PDF as the first paid detailed-report export path.
 
 ## Completed Work
 
@@ -364,7 +365,7 @@ Exit Criteria:
 
 ## Phase 5D: Paid Checkout Readiness Gates
 
-Status: Current.
+Status: Complete.
 
 Goal: make the paid-product launch gates explicit before checkout or account work starts.
 
@@ -378,6 +379,24 @@ Exit Criteria:
 - Checkout cannot start without written decisions for privacy, refund/contact, payment provider, data retention, and support path.
 - The app does not show a live purchase CTA or imply that payment is available.
 - The paid preview explains account-free local-download direction and policy readiness.
+- No checkout, login, account storage, server storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 5E: PDF Export Spike
+
+Status: Current.
+
+Goal: validate the first paid detailed-report export path as a browser print-to-PDF flow before checkout starts.
+
+Deliverables:
+- PDF export spike document covering the export decision, manual QA checklist, and failure criteria.
+- Paid export HTML with visible PDF save guidance.
+- Mobile paid preview copy that describes PDF-ready HTML without implying live checkout.
+- Export tests that protect the PDF save guide, required notices, input summary, and personal-data-safe filename.
+
+Exit Criteria:
+- Users can understand that the saved paid document is opened in the browser and saved as PDF through print.
+- The export includes cover, table of contents, input summary, pillar summary, paid sections, monthly cautions, glossary, print guide, and transparency appendix.
+- The filename remains generated-date based and excludes birth data.
 - No checkout, login, account storage, server storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
@@ -398,8 +417,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5D checkout readiness gates and PR review.
-2. Decide whether Phase 5E should be a checkout prototype spike or a real PDF-generation spike.
+1. Complete Phase 5E PDF export spike and PR review.
+2. Decide whether to keep browser print-to-PDF for MVP or run a PDF library spike.
 3. Draft privacy, refund/contact, usage caution, and support-policy pages before live payment work.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.

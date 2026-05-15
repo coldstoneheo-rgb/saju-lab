@@ -698,12 +698,18 @@ input {
 }
 
 .paidPrototypeHeader p,
+.paidPrintHint,
 .paidPreviewCard p,
 .monthlyTimeline p,
 .monthlyTimeline small {
   margin: 0;
   color: var(--text-muted);
   line-height: 1.55;
+}
+
+.paidPrintHint {
+  margin-top: 8px;
+  font-size: 13px;
 }
 
 .paidMetaGrid {
