@@ -10,8 +10,8 @@ Saju Lab should evolve from a free report-first MVP into a paid service by incre
 
 | Stage | Offer | User Value | Notes |
 | --- | --- | --- | --- |
-| Free MVP | Basic report, confidence note, monthly/daily keywords | Understand the product quickly | No account required |
-| One-Time Detailed Report | Career/finance deep report, yearly/monthly expansion, PDF/export | Pay for a richer single analysis | Good first monetization step |
+| Free MVP | Basic report, confidence note, monthly/daily keywords, HTML download | Understand and save the product quickly | No account required |
+| One-Time Detailed Report | Career/finance deep report, yearly/monthly expansion, PDF export | Pay for a richer single analysis | Good first monetization step |
 | Subscription | Monthly updates, saved reports, change tracking, reminders | Ongoing guidance and habit loop | Requires account and privacy policy |
 | Premium Add-On | AI-assisted Q&A, personalized scenarios, bilingual report | Higher-touch interpretation | Must disclose AI assistance clearly |
 
@@ -23,6 +23,7 @@ Keep free access useful enough to build trust:
 - career and finance preview
 - transparency notes and disclaimer
 - monthly/daily keyword summary
+- local HTML report download without login
 
 Do not put safety-critical transparency behind paywalls.
 
@@ -38,6 +39,7 @@ Included sections:
 - monthly highlights
 - action plan
 - transparency appendix
+- polished PDF export with print-ready layout
 
 Excluded from early paid scope:
 - investment recommendations
@@ -83,9 +85,10 @@ Paid features must preserve:
 ## Implementation Order
 
 1. Free mobile MVP
-2. Report export-ready schema
-3. One-time detailed report content depth
-4. Account and saved report storage
-5. Payment integration
-6. Subscription updates
-7. AI-assisted premium layer
+2. Login-free HTML download for basic reports
+3. Report export-ready schema
+4. One-time detailed report content depth and PDF export
+5. Account and saved report storage
+6. Payment integration
+7. Subscription updates
+8. AI-assisted premium layer

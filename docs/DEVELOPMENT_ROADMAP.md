@@ -124,6 +124,8 @@ Mobile-first requirements:
 - Four-pillar terms such as 연주, 월주, 일주, 시주 must include plain-language notes.
 - Report copy should use simple Korean sentences and avoid dense Hanja-heavy terminology.
 - Premium prompts must appear as a product ladder, not as pressure to pay.
+- Theme preference must support system, light, and dark modes without login.
+- Free report export should use a local HTML download so users can save results without an account.
 
 ## Phase 5: Quality, Safety, And Beta Readiness
 
@@ -136,6 +138,7 @@ Deliverables:
 - Privacy note for birth data handling.
 - Lightweight analytics events for funnel understanding.
 - Beta release checklist.
+- Login-free HTML report download for basic reports.
 
 Suggested Tasks:
 - Add no-data and partial-data states.
@@ -154,6 +157,7 @@ Goal: expand only after the MVP proves understandable and trustworthy.
 Candidate Work:
 - Account and saved reports.
 - Payment and subscription reports.
+- PDF export for one-time detailed reports.
 - English localization.
 - AI-assisted interpretation with explicit AI disclosure.
 - Deeper yearly/monthly trend modules.
