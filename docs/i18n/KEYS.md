@@ -61,6 +61,29 @@
 - `report.transparency.inferred.detail`
 - `report.transparency.missingData.detail`
 
+### Rules-Only Report Copy
+- `report.rules.overview.*`
+- `report.rules.personality.*`
+- `report.rules.career.*`
+- `report.rules.finance.*`
+- `report.rules.yearly.*`
+- `report.rules.actions.*`
+- `report.rules.transparency.*`
+- `report.rules.tone.{stem}.label`
+- `report.rules.tone.{stem}.summary`
+- `report.rules.tone.{stem}.strength`
+- `report.rules.tone.{stem}.blindSpot`
+- `report.rules.tone.{stem}.career`
+- `report.rules.tone.{stem}.finance`
+- `report.rules.tone.{stem}.action`
+- `report.rules.month.cautionNote`
+- `report.rules.month.{branch}.goodMonths`
+- `report.rules.month.{branch}.cautionMonths`
+- `report.rules.month.{branch}.note`
+
+The runtime source for Phase 3A rule copy is `packages/saju-core/src/report-copy.ts`.
+`docs/i18n/ko.json` mirrors these keys so report copy can be audited before the full Phase 3B i18n extraction.
+
 ## KR 기본 번역 파일 구조
 - 위치: `docs/i18n/ko.json`
 - 형식: key-value JSON
