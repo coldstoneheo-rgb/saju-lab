@@ -131,6 +131,7 @@ function App(): JSX.Element {
           {error ? <p className="formError" role="alert">{error}</p> : null}
         </form>
 
+        <PrivacyNote />
         <ReportView report={report} />
       </section>
     </main>
@@ -218,6 +219,7 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
       </section>
 
       <ArticleCard id="overview" icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
+      <SafetyNote />
       <InsightSection
         icon={<Sparkles size={20} />}
         id="personality"
@@ -255,6 +257,24 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
 
       <ArticleCard id="transparency" title="투명성 노트" items={[...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]} />
       <PaidRoadmap />
+    </section>
+  );
+}
+
+function PrivacyNote(): JSX.Element {
+  return (
+    <section className="privacyNote" aria-label="개인정보 처리 안내">
+      <strong><CheckCircle2 size={18} /> 로컬 처리 안내</strong>
+      <p>현재 MVP는 로그인, 계정 저장, 서버 동기화를 제공하지 않습니다. 입력한 생년월일과 출생시간은 이 브라우저에서 리포트를 만드는 데만 사용됩니다.</p>
+    </section>
+  );
+}
+
+function SafetyNote(): JSX.Element {
+  return (
+    <section className="safetyNote" aria-label="해석 안전 안내">
+      <strong><AlertTriangle size={18} /> 중요한 결정 전 확인</strong>
+      <p>커리어와 재무 문장은 경향과 점검 방향을 정리한 참고 정보입니다. 실제 결정은 계약, 예산, 건강 상태, 전문가 조언 같은 현실 자료와 함께 확인하세요.</p>
     </section>
   );
 }
@@ -431,7 +451,7 @@ function buildReportHtml(report: ReportV1): string {
     <main>
       <p class="meta">Saju Lab Report v${escapeHtml(report.meta.version)}</p>
       <h1>${escapeHtml(formatDate(report.input.birthDate))} 기준 사주 리포트</h1>
-      <p class="notice">${escapeHtml(confidenceLabel(report.meta.confidence))} · ${escapeHtml(report.meta.timeKnown ? "출생시간 반영" : "출생시간 미상")}<br />이 파일은 로그인 없이 기기에서 생성된 HTML 리포트입니다. 서버 저장이나 외부 전송 없이 다운로드됩니다.</p>
+      <p class="notice">${escapeHtml(confidenceLabel(report.meta.confidence))} · ${escapeHtml(report.meta.timeKnown ? "출생시간 반영" : "출생시간 미상")}<br />이 파일은 로그인 없이 기기에서 생성된 HTML 리포트입니다. 입력값은 서버 저장이나 외부 전송 없이 이 브라우저에서만 처리됩니다.</p>
       <div class="pillars">
         ${renderDownloadedPillar(getSajuTerm("yearPillar"), report.pillars.year)}
         ${renderDownloadedPillar(getSajuTerm("monthPillar"), report.pillars.month)}
@@ -440,7 +460,7 @@ function buildReportHtml(report: ReportV1): string {
       </div>
       ${renderDownloadedFreeSummary(freeSummary)}
       ${sections.map(([title, items]) => renderDownloadedSection(title, items)).join("")}
-      <footer>${escapeHtml(report.overview.disclaimers[0] ?? "")}</footer>
+      <footer>${escapeHtml(report.overview.disclaimers[0] ?? "")} 커리어와 재무 문장은 현실 자료와 함께 검토하세요.</footer>
     </main>
   </body>
 </html>`;
