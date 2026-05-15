@@ -45,8 +45,8 @@ Use this checklist before sharing the MVP with a small beta group.
 
 ## Manual Verification Commands
 
-- [ ] `npm.cmd run typecheck`
-- [ ] `npm.cmd run test`
-- [ ] `npm.cmd run build`
-- [ ] `npm.cmd audit --audit-level=moderate`
+- [ ] `npm run typecheck`
+- [ ] `npm test`
+- [ ] `npm run build`
+- [ ] `npm audit --audit-level=moderate`
 - [ ] `git diff --check`
