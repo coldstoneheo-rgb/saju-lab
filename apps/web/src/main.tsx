@@ -26,7 +26,7 @@ function App(): JSX.Element {
 
   React.useEffect(() => {
     applyTheme(theme);
-    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    persistThemePreference(theme);
   }, [theme]);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
@@ -235,9 +235,21 @@ function readThemePreference(): ThemePreference {
     return "system";
   }
 
-  const value = window.localStorage.getItem(THEME_STORAGE_KEY);
+  try {
+    const value = window.localStorage.getItem(THEME_STORAGE_KEY);
 
-  return value === "light" || value === "dark" || value === "system" ? value : "system";
+    return value === "light" || value === "dark" || value === "system" ? value : "system";
+  } catch {
+    return "system";
+  }
+}
+
+function persistThemePreference(theme: ThemePreference): void {
+  try {
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // Theme persistence is optional; blocked storage should not break reports.
+  }
 }
 
 function applyTheme(theme: ThemePreference): void {
