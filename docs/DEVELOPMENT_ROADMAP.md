@@ -18,7 +18,8 @@ Last updated: 2026-05-15
 - Phase 2B has added system/light/dark theme preferences and login-free local HTML report export for basic reports.
 - Phase 3A has added a deterministic rules-only report engine with complete `ReportV1` sections.
 - Phase 3B has added plain-language Korean terminology for core Saju terms and wired it into the web report and HTML export.
-- The next product risk is beta UX clarity: users should understand confidence, missing birth time impact, free report scope, and the future paid report path without reading documentation.
+- Phase 3C has improved report scanning, confidence/disclaimer visibility, and the free-versus-paid report boundary.
+- The next product risk is beta usability: users should be able to enter data, recover from errors, and navigate the report comfortably on mobile.
 
 ## Completed Work
 
@@ -196,7 +197,7 @@ Exit Criteria:
 
 ## Phase 3C: Report UX And Free/Paid Boundary
 
-Status: Current.
+Status: Complete.
 
 Goal: make the mobile report easier to scan while clarifying what is free now and what belongs to future paid detailed reports.
 
@@ -214,15 +215,16 @@ Exit Criteria:
 
 ## Phase 4A: Mobile Report UX Polish
 
+Status: Current.
+
 Goal: make the report-first experience usable in a browser.
 
 Deliverables:
-- `apps/web` app scaffold.
-- Input screen with date, optional time, sex, timezone default.
-- Report screen following IA and wireframe.
-- Confidence badge and missing-data notice.
-- Free monthly/daily summary screen.
-- Korean i18n wiring.
+- Mobile-first input hints for birth date, birth time, time unknown mode, sex, and fixed `Asia/Seoul` timezone.
+- Friendly error messages for invalid dates, invalid times, unsupported ranges, unsupported timezones, and solar-term boundary dates that require birth time.
+- Accessible labels/descriptions for form controls, theme controls, time unknown toggle, and report saving.
+- Lightweight report section navigation for overview, career, finance, monthly highlights, and transparency.
+- Mobile spacing and text overflow hardening for input, buttons, and report cards.
 
 Suggested Tasks:
 - Prioritize readable report navigation over decorative landing content.
@@ -233,6 +235,8 @@ Exit Criteria:
 - User can enter birth data and receive a full report.
 - Time unknown mode visibly changes confidence/transparency.
 - Report sections are ordered consistently with IA.
+- User-facing errors explain what to fix instead of exposing internal calculation messages.
+- Key report sections can be reached quickly from the top of the report on mobile.
 
 Mobile-first requirements:
 - Input controls must be usable with one thumb on narrow screens.

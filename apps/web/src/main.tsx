@@ -51,7 +51,7 @@ function App(): JSX.Element {
       setReport(createReport(input));
       setError(undefined);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "리포트를 생성하지 못했습니다.");
+      setError(toFriendlyError(caught));
     }
   }
 
@@ -74,17 +74,26 @@ function App(): JSX.Element {
         <form className="inputPanel" onSubmit={handleSubmit}>
           <label>
             <span><CalendarDays size={18} /> 생년월일</span>
-            <input value={birthDate} onChange={(event) => setBirthDate(event.target.value)} type="date" required />
+            <input
+              aria-describedby="birth-date-help"
+              value={birthDate}
+              onChange={(event) => setBirthDate(event.target.value)}
+              type="date"
+              required
+            />
+            <small id="birth-date-help">양력 생년월일을 기준으로 계산합니다.</small>
           </label>
 
           <label>
             <span><Clock3 size={18} /> 출생시간</span>
             <input
+              aria-describedby="birth-time-help"
               value={birthTime}
               onChange={(event) => setBirthTime(event.target.value)}
               type="time"
               disabled={timeUnknown}
             />
+            <small id="birth-time-help">{timeUnknown ? "시간 미상 선택 중이라 시주는 계산하지 않습니다." : "알고 있다면 가능한 정확한 시간을 입력하세요."}</small>
           </label>
 
           <div className="switchRow">
@@ -93,7 +102,12 @@ function App(): JSX.Element {
               <p>시간을 모르면 일부 해석은 참고 범위로 낮춰 표시합니다.</p>
             </div>
             <label className="toggle">
-              <input checked={timeUnknown} onChange={(event) => setTimeUnknown(event.target.checked)} type="checkbox" />
+              <input
+                aria-label="출생시간을 모름"
+                checked={timeUnknown}
+                onChange={(event) => setTimeUnknown(event.target.checked)}
+                type="checkbox"
+              />
               <span />
             </label>
           </div>
@@ -113,7 +127,8 @@ function App(): JSX.Element {
           <button className="primaryButton" type="submit">
             <Sparkles size={20} /> 리포트 생성
           </button>
-          {error ? <p className="formError">{error}</p> : null}
+          <p className="timezoneNote">타임존은 현재 MVP에서 Asia/Seoul 기준으로 고정됩니다.</p>
+          {error ? <p className="formError" role="alert">{error}</p> : null}
         </form>
 
         <ReportView report={report} />
@@ -172,12 +187,25 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
         ) : null}
       </section>
 
+      <nav className="sectionNav" aria-label="리포트 섹션 바로가기">
+        <a href="#overview">요약</a>
+        <a href="#career">커리어</a>
+        <a href="#finance">재무</a>
+        <a href="#monthly">월간</a>
+        <a href="#transparency">투명성</a>
+      </nav>
+
       <section className="savePanel">
         <div>
           <h3><Download size={20} /> 로그인 없이 리포트 저장</h3>
           <p>현재 리포트는 이 기기에서 HTML 파일로 생성되며 서버에 저장되지 않습니다. PDF 내보내기는 유료 상세 리포트 단계에서 제공하는 방향이 적합합니다.</p>
         </div>
-        <button className="secondaryButton" onClick={() => downloadReportHtml(report)} type="button">
+        <button
+          aria-label="현재 리포트를 HTML 파일로 저장"
+          className="secondaryButton"
+          onClick={() => downloadReportHtml(report)}
+          type="button"
+        >
           <Download size={18} /> 리포트 저장
         </button>
       </section>
@@ -189,9 +217,10 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
         <PillarCell termKey="timePillar" value={report.pillars.time} />
       </section>
 
-      <ArticleCard icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
+      <ArticleCard id="overview" icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
       <InsightSection
         icon={<Sparkles size={20} />}
+        id="personality"
         title="성향 포인트"
         groups={[
           { label: "강점", items: report.personality.strengths },
@@ -200,6 +229,7 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
       />
       <InsightSection
         icon={<Compass size={20} />}
+        id="career"
         title="커리어 흐름"
         groups={[
           { label: "경향", items: report.career.trends },
@@ -209,6 +239,7 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
       />
       <InsightSection
         icon={<Coins size={20} />}
+        id="finance"
         title="재무 흐름"
         groups={[
           { label: "경향", items: report.finance.trends },
@@ -219,10 +250,10 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
 
       <section className="twoColumn">
         <ArticleCard title={`${report.yearlyOutlook.year}년 포인트`} items={[...report.yearlyOutlook.highlights, ...report.yearlyOutlook.cautions]} />
-        <FreeSummaryCard summary={freeSummary} />
+        <FreeSummaryCard id="monthly" summary={freeSummary} />
       </section>
 
-      <ArticleCard title="투명성 노트" items={[...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]} />
+      <ArticleCard id="transparency" title="투명성 노트" items={[...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]} />
       <PaidRoadmap />
     </section>
   );
@@ -241,9 +272,9 @@ function PillarCell({ termKey, value }: { termKey: SajuTermKey; value: { stem: s
   );
 }
 
-function ArticleCard({ icon, title, items }: { icon?: React.ReactNode; title: string; items: string[] }): JSX.Element {
+function ArticleCard({ icon, id, title, items }: { icon?: React.ReactNode; id?: string; title: string; items: string[] }): JSX.Element {
   return (
-    <article className="articleCard">
+    <article className="articleCard" id={id}>
       <h3>{icon}{title}</h3>
       <ul>
         {items.map((item) => (
@@ -254,13 +285,14 @@ function ArticleCard({ icon, title, items }: { icon?: React.ReactNode; title: st
   );
 }
 
-function InsightSection({ icon, title, groups }: {
+function InsightSection({ icon, id, title, groups }: {
   icon?: React.ReactNode;
+  id?: string;
   title: string;
   groups: Array<{ label: string; items: string[] }>;
 }): JSX.Element {
   return (
-    <article className="articleCard">
+    <article className="articleCard" id={id}>
       <h3>{icon}{title}</h3>
       <div className="insightGroups">
         {groups.map((group) => (
@@ -278,9 +310,9 @@ function InsightSection({ icon, title, groups }: {
   );
 }
 
-function FreeSummaryCard({ summary }: { summary: { keywords: string[]; comment: string } }): JSX.Element {
+function FreeSummaryCard({ id, summary }: { id?: string; summary: { keywords: string[]; comment: string } }): JSX.Element {
   return (
-    <article className="articleCard freeSummaryCard">
+    <article className="articleCard freeSummaryCard" id={id}>
       <h3><Sparkles size={20} /> 월간 무료 하이라이트</h3>
       <div className="keywordRow">
         {summary.keywords.map((keyword) => (
@@ -416,6 +448,32 @@ function buildReportHtml(report: ReportV1): string {
 
 function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: string } | undefined): string {
   return `<div class="pillar"><span>${escapeHtml(term.label)}</span><strong>${value ? `${escapeHtml(termLabel(value.stem))} ${escapeHtml(termLabel(value.branch))}` : "미상"}</strong><small>${escapeHtml(term.short)} · ${escapeHtml(term.description)}</small></div>`;
+}
+
+function toFriendlyError(caught: unknown): string {
+  const message = caught instanceof Error ? caught.message : "";
+
+  if (message.includes("birthTime is required")) {
+    return "절기 경계일에는 출생시간이 필요합니다. 현재 MVP에서는 이 날짜를 시간 미상으로 계산할 수 없으니, 가능한 정확한 시간을 입력해 주세요.";
+  }
+
+  if (message.includes("No upper solar month boundary")) {
+    return "현재 MVP 계산 범위를 벗어난 날짜입니다. 검증된 절기 데이터 범위가 확장되면 지원할 예정입니다.";
+  }
+
+  if (message.includes("valid Gregorian date")) {
+    return "생년월일을 다시 확인해 주세요. 실제 존재하는 양력 날짜만 입력할 수 있습니다.";
+  }
+
+  if (message.includes("HH:mm")) {
+    return "출생시간은 00:00부터 23:59 사이로 입력해 주세요.";
+  }
+
+  if (message.includes("Asia/Seoul")) {
+    return "현재 MVP는 Asia/Seoul 타임존만 지원합니다.";
+  }
+
+  return "리포트를 생성하지 못했습니다. 입력값을 다시 확인해 주세요.";
 }
 
 function renderDownloadedFreeSummary(summary: { keywords: string[]; comment: string }): string {

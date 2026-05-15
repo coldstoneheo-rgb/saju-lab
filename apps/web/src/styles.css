@@ -217,6 +217,10 @@ input {
   min-width: 0;
 }
 
+.inputPanel label {
+  display: grid;
+}
+
 .inputPanel label > span,
 .inputPanel legend {
   display: flex;
@@ -242,6 +246,19 @@ input {
 .inputPanel input:disabled {
   color: var(--disabled-text);
   background: var(--disabled);
+}
+
+.inputPanel small,
+.timezoneNote {
+  margin-top: 7px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.timezoneNote {
+  grid-column: 1 / -1;
+  margin: 0;
 }
 
 .switchRow {
@@ -381,6 +398,30 @@ input {
 .reportStack {
   display: grid;
   gap: 12px;
+}
+
+.sectionNav {
+  display: flex;
+  gap: 8px;
+  padding: 4px 0 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sectionNav::-webkit-scrollbar {
+  display: none;
+}
+
+.sectionNav a {
+  flex: 0 0 auto;
+  padding: 8px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 900;
+  text-decoration: none;
 }
 
 .reportNotice {
