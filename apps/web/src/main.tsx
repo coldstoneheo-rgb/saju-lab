@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { CalendarDays, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, Sparkles, Sun, UserRound } from "lucide-react";
+import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, Sparkles, Sun, UserRound } from "lucide-react";
 import {
   calculatePillars,
   generateReportV1,
@@ -147,6 +147,8 @@ function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (v
 }
 
 function ReportView({ report }: { report: ReportV1 }): JSX.Element {
+  const freeSummary = buildFreeMonthlySummary(report);
+
   return (
     <section className="reportStack" aria-live="polite">
       <div className="reportHeader">
@@ -156,6 +158,19 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
         </div>
         <span>{report.meta.timeKnown ? "시간 반영" : "시간 미상"}</span>
       </div>
+
+      <section className="reportNotice" aria-label="리포트 안내">
+        <div>
+          <strong><CheckCircle2 size={18} /> {confidenceLabel(report.meta.confidence)}</strong>
+          <p>{report.overview.disclaimers[0]}</p>
+        </div>
+        {!report.meta.timeKnown ? (
+          <div className="warningNote">
+            <strong><AlertTriangle size={18} /> 출생시간 미상</strong>
+            <p>{report.transparency.missingDataNotes[0] ?? "시주와 일부 해석은 참고 범위로 낮춰 표시합니다."}</p>
+          </div>
+        ) : null}
+      </section>
 
       <section className="savePanel">
         <div>
@@ -175,18 +190,40 @@ function ReportView({ report }: { report: ReportV1 }): JSX.Element {
       </section>
 
       <ArticleCard icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
-      <ArticleCard icon={<Sparkles size={20} />} title="성향 포인트" items={[...report.personality.strengths, ...report.personality.blindSpots]} />
-      <ArticleCard icon={<Compass size={20} />} title="커리어 흐름" items={[...report.career.trends, ...report.career.risks, ...report.career.actions]} />
-      <ArticleCard icon={<Coins size={20} />} title="재무 흐름" items={[...report.finance.trends, ...report.finance.risks, ...report.finance.actions]} />
+      <InsightSection
+        icon={<Sparkles size={20} />}
+        title="성향 포인트"
+        groups={[
+          { label: "강점", items: report.personality.strengths },
+          { label: "주의", items: report.personality.blindSpots }
+        ]}
+      />
+      <InsightSection
+        icon={<Compass size={20} />}
+        title="커리어 흐름"
+        groups={[
+          { label: "경향", items: report.career.trends },
+          { label: "리스크", items: report.career.risks },
+          { label: "실행", items: report.career.actions }
+        ]}
+      />
+      <InsightSection
+        icon={<Coins size={20} />}
+        title="재무 흐름"
+        groups={[
+          { label: "경향", items: report.finance.trends },
+          { label: "리스크", items: report.finance.risks },
+          { label: "실행", items: report.finance.actions }
+        ]}
+      />
 
       <section className="twoColumn">
         <ArticleCard title={`${report.yearlyOutlook.year}년 포인트`} items={[...report.yearlyOutlook.highlights, ...report.yearlyOutlook.cautions]} />
-        <ArticleCard title="이번 달 무료 요약" items={["속도보다 정리가 유리한 달입니다.", "지출은 작게 나눠 점검하세요.", "중요한 선택은 하루 더 검토해도 좋습니다."]} />
+        <FreeSummaryCard summary={freeSummary} />
       </section>
 
       <ArticleCard title="투명성 노트" items={[...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]} />
       <PaidRoadmap />
-      <p className="disclaimer">{report.overview.disclaimers[0]}</p>
     </section>
   );
 }
@@ -217,17 +254,55 @@ function ArticleCard({ icon, title, items }: { icon?: React.ReactNode; title: st
   );
 }
 
+function InsightSection({ icon, title, groups }: {
+  icon?: React.ReactNode;
+  title: string;
+  groups: Array<{ label: string; items: string[] }>;
+}): JSX.Element {
+  return (
+    <article className="articleCard">
+      <h3>{icon}{title}</h3>
+      <div className="insightGroups">
+        {groups.map((group) => (
+          <section className="insightGroup" key={group.label}>
+            <span>{group.label}</span>
+            <ul>
+              {group.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function FreeSummaryCard({ summary }: { summary: { keywords: string[]; comment: string } }): JSX.Element {
+  return (
+    <article className="articleCard freeSummaryCard">
+      <h3><Sparkles size={20} /> 이번 달 무료 요약</h3>
+      <div className="keywordRow">
+        {summary.keywords.map((keyword) => (
+          <span key={keyword}>{keyword}</span>
+        ))}
+      </div>
+      <p>{summary.comment}</p>
+    </article>
+  );
+}
+
 function PaidRoadmap(): JSX.Element {
   return (
     <section className="paidPanel">
       <div>
         <h3><LockKeyhole size={20} /> 프리미엄 확장 모델</h3>
-        <p>무료 요약에서 상세 리포트, 저장 리포트, 월간 업데이트 구독으로 자연스럽게 확장합니다.</p>
+        <p>무료 리포트는 핵심 흐름과 투명성 노트를 제공합니다. 더 깊은 비교, PDF 보관, 월간 업데이트는 유료 상세 리포트 후보로 분리합니다.</p>
       </div>
       <ol>
-        <li>무료: 입력 기반 요약과 투명성 노트</li>
-        <li>상세 리포트: 커리어/재무 심화 분석</li>
-        <li>구독: 월간 흐름, 변화 알림, 저장 리포트</li>
+        <li>무료: 기본 리포트, 투명성 노트, 로컬 HTML 저장</li>
+        <li>상세 리포트: 커리어/재무 심화 분석과 선택지 비교</li>
+        <li>유료 보관: PDF 리포트, 월간 업데이트, 저장 리포트</li>
       </ol>
     </section>
   );
@@ -287,6 +362,7 @@ function downloadReportHtml(report: ReportV1): void {
 }
 
 function buildReportHtml(report: ReportV1): string {
+  const freeSummary = buildFreeMonthlySummary(report);
   const sections = [
     ["전체 요약", [report.overview.summary, ...report.overview.toneGuidelines]],
     ["성향 포인트", [...report.personality.strengths, ...report.personality.blindSpots]],
@@ -308,9 +384,12 @@ function buildReportHtml(report: ReportV1): string {
       h1 { margin: 0 0 4px; font-size: 30px; }
       h2 { margin: 24px 0 8px; font-size: 20px; }
       .meta, .notice { color: #66584b; font-size: 14px; }
+      .notice { border: 1px solid #d8c9b8; border-radius: 8px; background: #fffdf8; padding: 12px; }
       .pillars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 20px 0; }
       .pillar, section { border: 1px solid #d8c9b8; border-radius: 8px; background: #fffdf8; padding: 14px; }
       .pillar strong { display: block; font-size: 24px; }
+      .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+      .keywords span { border: 1px solid #d8c9b8; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700; }
       ul { margin: 0; padding-left: 20px; }
       footer { margin-top: 24px; color: #66584b; font-size: 12px; }
       @media (max-width: 640px) { body { padding: 16px; } .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -320,13 +399,14 @@ function buildReportHtml(report: ReportV1): string {
     <main>
       <p class="meta">Saju Lab Report v${escapeHtml(report.meta.version)}</p>
       <h1>${escapeHtml(formatDate(report.input.birthDate))} 기준 사주 리포트</h1>
-      <p class="notice">이 파일은 로그인 없이 기기에서 생성된 HTML 리포트입니다. 서버 저장이나 외부 전송 없이 다운로드됩니다.</p>
+      <p class="notice">${escapeHtml(confidenceLabel(report.meta.confidence))} · ${escapeHtml(report.meta.timeKnown ? "출생시간 반영" : "출생시간 미상")}<br />이 파일은 로그인 없이 기기에서 생성된 HTML 리포트입니다. 서버 저장이나 외부 전송 없이 다운로드됩니다.</p>
       <div class="pillars">
         ${renderDownloadedPillar(getSajuTerm("yearPillar"), report.pillars.year)}
         ${renderDownloadedPillar(getSajuTerm("monthPillar"), report.pillars.month)}
         ${renderDownloadedPillar(getSajuTerm("dayPillar"), report.pillars.day)}
         ${renderDownloadedPillar(getSajuTerm("timePillar"), report.pillars.time)}
       </div>
+      ${renderDownloadedFreeSummary(freeSummary)}
       ${sections.map(([title, items]) => renderDownloadedSection(title, items)).join("")}
       <footer>${escapeHtml(report.overview.disclaimers[0] ?? "")}</footer>
     </main>
@@ -336,6 +416,10 @@ function buildReportHtml(report: ReportV1): string {
 
 function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: string } | undefined): string {
   return `<div class="pillar"><span>${escapeHtml(term.label)}</span><strong>${value ? `${escapeHtml(termLabel(value.stem))} ${escapeHtml(termLabel(value.branch))}` : "미상"}</strong><small>${escapeHtml(term.short)} · ${escapeHtml(term.description)}</small></div>`;
+}
+
+function renderDownloadedFreeSummary(summary: { keywords: string[]; comment: string }): string {
+  return `<section><h2>이번 달 무료 요약</h2><div class="keywords">${summary.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}</div><p>${escapeHtml(summary.comment)}</p></section>`;
 }
 
 function renderDownloadedSection(title: string, items: readonly string[]): string {
@@ -361,6 +445,20 @@ function sexLabel(value: BirthInput["sex"]): string {
 
 function formatDate(value: string): string {
   return value.replaceAll("-", ".");
+}
+
+function buildFreeMonthlySummary(report: ReportV1): { keywords: string[]; comment: string } {
+  const sourceItems = [
+    report.monthly.goodMonths[0],
+    report.monthly.cautionMonths[0],
+    report.actionSuggestions.planning[0]
+  ].filter((item): item is string => item !== undefined);
+  const keywords = ["이번 달", "점검", report.meta.timeKnown ? "시간 반영" : "시간 미상"];
+
+  return {
+    keywords,
+    comment: sourceItems.join(" ")
+  };
 }
 
 function termLabel(value: string): string {

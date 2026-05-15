@@ -16,7 +16,9 @@ Last updated: 2026-05-15
 - The current MVP model is mobile-first: birth input, time-unknown mode, confidence badge, report cards, four-pillar summary, transparency notes, and free-to-paid upgrade framing.
 - Phase 2A has replaced the original calculation placeholder with a deterministic, fixture-limited `Asia/Seoul` calculation core covering 60-cycle utilities, Ipchun year boundaries, solar-term month boundaries, day pillars, time pillars, and golden fixture tests.
 - Phase 2B has added system/light/dark theme preferences and login-free local HTML report export for basic reports.
-- The next product risk is report content depth: the rules-only report engine still needs richer, tested interpretation rules before beta.
+- Phase 3A has added a deterministic rules-only report engine with complete `ReportV1` sections.
+- Phase 3B has added plain-language Korean terminology for core Saju terms and wired it into the web report and HTML export.
+- The next product risk is beta UX clarity: users should understand confidence, missing birth time impact, free report scope, and the future paid report path without reading documentation.
 
 ## Completed Work
 
@@ -73,7 +75,7 @@ Completed Deliverables:
 
 ## Phase 2C: Roadmap And Documentation Sync
 
-Status: Current.
+Status: Complete.
 
 Goal: make planning docs match the implementation state after Phase 2A and Phase 2B.
 
@@ -172,6 +174,8 @@ Exit Criteria:
 
 ## Phase 3B: Korean Copy And Terminology Layer
 
+Status: Complete.
+
 Goal: make Korean report copy feel professional, readable, and understandable without overloading users with difficult Hanja-heavy terminology.
 
 Deliverables:
@@ -189,6 +193,24 @@ Exit Criteria:
 - Important Saju terms have short plain-language notes.
 - Report copy avoids deterministic fortune-telling language.
 - Korean copy remains primary and ready for later English expansion.
+
+## Phase 3C: Report UX And Free/Paid Boundary
+
+Status: Current.
+
+Goal: make the mobile report easier to scan while clarifying what is free now and what belongs to future paid detailed reports.
+
+Deliverables:
+- Clear report-level notice for confidence, disclaimer, and missing birth time impact.
+- Grouped report sections that separate trends, risks, and actions.
+- Free monthly summary based on generated report data rather than static placeholder copy.
+- Premium panel that frames paid PDF, saved reports, and deeper career/finance analysis as optional future depth.
+- HTML export that carries the same confidence and free-summary context.
+
+Exit Criteria:
+- Report-first screen explains uncertainty and scope before the user reads detailed sections.
+- Free report value is visible without pressuring payment.
+- Paid candidates do not hide disclaimer, confidence, or transparency.
 
 ## Phase 4A: Mobile Report UX Polish
 
