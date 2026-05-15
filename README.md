@@ -73,8 +73,16 @@ Open `http://localhost:5173`.
 ## MVP Implementation
 
 - `apps/web`: mobile-first report generation UI
-- `packages/saju-core`: typed input, pillar calculation stub, rules-only report generator
+- `packages/saju-core`: typed input, fixture-limited deterministic pillar calculation, rules-only report generator
 - `docs/PAID_SERVICE_ROADMAP.md`: free-to-paid product ladder
+
+Current MVP capabilities:
+- Birth date/time input with time-unknown mode
+- `Asia/Seoul` four-pillar calculation for the verified fixture range
+- Confidence badge and transparency notes
+- System/light/dark theme preference with storage fallback
+- Login-free local HTML report download for basic reports
+- Free-to-paid framing that keeps PDF export for paid detailed reports
 
 Validation commands:
 

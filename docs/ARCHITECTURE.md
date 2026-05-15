@@ -30,7 +30,7 @@
 
 ```
 /apps
-  /web             # Next.js web app
+  /web             # React/Vite web app
   /docs            # 문서 사이트(옵션)
 /packages
   /saju-core       # 계산 + 스키마 + 규칙 기반 해석
