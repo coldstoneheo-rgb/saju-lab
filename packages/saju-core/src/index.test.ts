@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculatePillars, cyclePillar, generateReportV1, hourBranchIndex } from "./index.js";
+import { calculatePillars, cyclePillar, generateReportV1, getPillarTerms, getSajuTerm, hourBranchIndex } from "./index.js";
 import { GOLDEN_FIXTURES } from "./fixtures.js";
 import type { BirthInput } from "./types.js";
 
@@ -227,5 +227,27 @@ describe("generateReportV1", () => {
         ],
       }
     `);
+  });
+});
+
+describe("terminology", () => {
+  it("provides short Korean explanations for core MVP Saju terms", () => {
+    expect(getPillarTerms()).toEqual([
+      expect.objectContaining({ key: "yearPillar", label: "연주", short: "큰 흐름" }),
+      expect.objectContaining({ key: "monthPillar", label: "월주", short: "환경과 리듬" }),
+      expect.objectContaining({ key: "dayPillar", label: "일주", short: "나의 중심" }),
+      expect.objectContaining({ key: "timePillar", label: "시주", short: "세부 흐름" })
+    ]);
+
+    for (const term of getPillarTerms()) {
+      expect(term.description.length).toBeGreaterThan(10);
+      expect(term.description).toContain("기둥");
+    }
+  });
+
+  it("keeps calculation transparency terms understandable", () => {
+    expect(getSajuTerm("heavenlyStem").description).toContain("겉으로 드러나는");
+    expect(getSajuTerm("earthlyBranch").description).toContain("바탕");
+    expect(getSajuTerm("solarTerm").description).toContain("연주와 월주");
   });
 });

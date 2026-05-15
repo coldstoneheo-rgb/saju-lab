@@ -81,8 +81,31 @@
 - `report.rules.month.{branch}.cautionMonths`
 - `report.rules.month.{branch}.note`
 
-The runtime source for Phase 3A rule copy is `packages/saju-core/src/report-copy.ts`.
-`docs/i18n/ko.json` mirrors these keys so report copy can be audited before the full Phase 3B i18n extraction.
+### Terminology
+- `report.terms.yearPillar.label`
+- `report.terms.yearPillar.short`
+- `report.terms.yearPillar.description`
+- `report.terms.monthPillar.label`
+- `report.terms.monthPillar.short`
+- `report.terms.monthPillar.description`
+- `report.terms.dayPillar.label`
+- `report.terms.dayPillar.short`
+- `report.terms.dayPillar.description`
+- `report.terms.timePillar.label`
+- `report.terms.timePillar.short`
+- `report.terms.timePillar.description`
+- `report.terms.heavenlyStem.label`
+- `report.terms.heavenlyStem.short`
+- `report.terms.heavenlyStem.description`
+- `report.terms.earthlyBranch.label`
+- `report.terms.earthlyBranch.short`
+- `report.terms.earthlyBranch.description`
+- `report.terms.solarTerm.label`
+- `report.terms.solarTerm.short`
+- `report.terms.solarTerm.description`
+
+The runtime source for rule copy and terminology is `packages/saju-core/src/report-copy.ts`.
+`docs/i18n/ko.json` mirrors these keys so report copy can be audited before full app-level i18n extraction.
 
 ## KR 기본 번역 파일 구조
 - 위치: `docs/i18n/ko.json`
