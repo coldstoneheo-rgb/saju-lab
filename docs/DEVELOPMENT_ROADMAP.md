@@ -26,7 +26,8 @@ Last updated: 2026-05-15
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
 - Phase 5C completed paid report content depth with richer career/finance guidance, monthly cautions, and quality threshold tests.
 - Phase 5D defined paid checkout readiness gates before payment, account, or server-storage work begins.
-- Phase 5E is validating browser print-to-PDF as the first paid detailed-report export path.
+- Phase 5E validated browser print-to-PDF as the first paid detailed-report export path.
+- Phase 5F is drafting privacy, refund/support, and usage-caution policies before live checkout.
 
 ## Completed Work
 
@@ -383,7 +384,7 @@ Exit Criteria:
 
 ## Phase 5E: PDF Export Spike
 
-Status: Current.
+Status: Complete.
 
 Goal: validate the first paid detailed-report export path as a browser print-to-PDF flow before checkout starts.
 
@@ -398,6 +399,25 @@ Exit Criteria:
 - The export includes cover, table of contents, input summary, pillar summary, paid sections, monthly cautions, glossary, print guide, and transparency appendix.
 - The filename remains generated-date based and excludes birth data.
 - No checkout, login, account storage, server storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 5F: Policy Drafts For Paid Launch
+
+Status: Current.
+
+Goal: prepare minimum policy drafts before live checkout work starts.
+
+Deliverables:
+- Privacy draft covering birth data, generated reports, support messages, local downloads, and open retention decisions.
+- Refund/support draft covering payment failure, duplicate charge, download failure, and support path requirements.
+- Usage-caution draft covering informational scope, no deterministic predictions, and no professional-advice boundary.
+- Checkout-readiness update that marks policy drafts complete while keeping payment provider, data retention, and support contact open.
+- Paid readiness copy that mentions policy-draft readiness without implying live checkout.
+
+Exit Criteria:
+- `docs/policies/PRIVACY_DRAFT.md`, `docs/policies/REFUND_AND_SUPPORT_DRAFT.md`, and `docs/policies/USAGE_CAUTION_DRAFT.md` exist.
+- Checkout readiness distinguishes drafted policy gates from unresolved launch gates.
+- The app still does not show purchase, checkout, account, server-storage, or subscription behavior.
+- No payment provider SDK, login, account storage, server storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
 
@@ -417,8 +437,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5E PDF export spike and PR review.
-2. Decide whether to keep browser print-to-PDF for MVP or run a PDF library spike.
-3. Draft privacy, refund/contact, usage caution, and support-policy pages before live payment work.
+1. Complete Phase 5F policy drafts and PR review.
+2. Decide payment provider and failure-state behavior.
+3. Decide final data-retention boundary for paid report generation.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.
