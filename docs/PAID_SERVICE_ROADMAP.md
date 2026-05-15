@@ -1,17 +1,19 @@
 # Paid Service Roadmap
 
-Last updated: 2026-05-14
+Last updated: 2026-05-15
 
 ## Direction
 
 Saju Lab should evolve from a free report-first MVP into a paid service by increasing depth, continuity, and personal usefulness. The paid model should not sell deterministic fortune-telling. It should sell clearer structure, saved context, periodic updates, and decision-support depth.
+
+The implementation-ready scope for the first paid SKU is defined in `docs/PAID_REPORT_PRD.md`.
 
 ## Product Ladder
 
 | Stage | Offer | User Value | Notes |
 | --- | --- | --- | --- |
 | Free MVP | Basic report, confidence note, monthly/daily keywords, HTML download | Understand and save the product quickly | No account required |
-| One-Time Detailed Report | Career/finance deep report, yearly/monthly expansion, PDF export | Pay for a richer single analysis | Good first monetization step |
+| One-Time Detailed Report | Career/finance deep report, yearly/monthly expansion, PDF export | Pay for a richer single analysis | First paid SKU; see `docs/PAID_REPORT_PRD.md` |
 | Subscription | Monthly updates, saved reports, change tracking, reminders | Ongoing guidance and habit loop | Requires account and privacy policy |
 | Premium Add-On | AI-assisted Q&A, personalized scenarios, bilingual report | Higher-touch interpretation | Must disclose AI assistance clearly |
 
@@ -41,11 +43,22 @@ Included sections:
 - transparency appendix
 - polished PDF export with print-ready layout
 
+The paid PDF should be a deeper product artifact than the free local HTML save. It must include generated date/time, input summary, confidence level, missing birth-time impact when applicable, disclaimer, and a transparency appendix.
+
 Excluded from early paid scope:
 - investment recommendations
 - medical advice
 - legal advice
 - guaranteed predictions
+- checkout, account storage, and saved report history
+
+Required gates before payment work:
+- privacy policy for birth data and report generation
+- refund/contact policy
+- usage caution or terms text
+- payment provider decision
+- data retention decision
+- customer support contact path
 
 ## Subscription Scope
 
@@ -86,9 +99,11 @@ Paid features must preserve:
 
 1. Free mobile MVP
 2. Login-free HTML download for basic reports
-3. Report export-ready schema
-4. One-time detailed report content depth and PDF export
-5. Account and saved report storage
-6. Payment integration
-7. Subscription updates
-8. AI-assisted premium layer
+3. Paid detailed report PRD and free/paid boundary
+4. Report export-ready schema
+5. One-time detailed report content depth and PDF export
+6. Privacy/refund/contact policy gates
+7. Payment integration
+8. Account and saved report storage
+9. Subscription updates
+10. AI-assisted premium layer
