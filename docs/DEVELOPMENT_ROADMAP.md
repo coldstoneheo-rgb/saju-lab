@@ -39,7 +39,7 @@ Completed Deliverables:
 - npm workspace configuration.
 - `packages/saju-core` with TypeScript build and Vitest setup.
 - `apps/web` mobile-first React/Vite application.
-- CI workflow for install, typecheck, test, build, and audit.
+- CI workflow for install, typecheck, and test.
 - Typed `BirthInput`, `Pillar`, `PillarsResult`, and `ReportV1` interfaces.
 
 ### Phase 2A: Calculation Core Fixtures
@@ -51,10 +51,12 @@ Completed Deliverables:
 - Year pillar logic with 입춘 boundary handling.
 - Month pillar logic with embedded solar-term boundary handling.
 - Day pillar and day-stem based time pillar logic.
-- Golden fixture test suite and before/at/after boundary tests.
+- Golden fixture test suite with pre-boundary and exact-boundary coverage.
 - Guardrails for unsupported fixture ranges and solar-term boundary dates without `birthTime`.
 
 Remaining Follow-Up:
+- Add explicit post-boundary tests for Ipchun and solar month boundaries.
+- Add build and audit to CI if they should become protected merge gates.
 - Replace embedded fixture-only solar-term data with a broader verified data source before general public date coverage.
 - Decide whether 23:00 이후 자시 should roll the day pillar to the next day.
 
