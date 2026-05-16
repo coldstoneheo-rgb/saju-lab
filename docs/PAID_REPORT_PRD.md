@@ -261,6 +261,12 @@ Phase 5I implementation baseline:
 - `support@example.com` is a placeholder and must be replaced before live checkout.
 - Live checkout still requires final provider selection, real support contact, final legal/user-facing policy copy, and exact retention periods.
 
+Phase 5J implementation baseline:
+- The app scaffolds draft policy pages at `/policies/privacy`, `/policies/refund-support`, and `/policies/usage-caution`.
+- Draft pages may be linked from paid readiness copy, but they must clearly say they are pre-checkout drafts.
+- The placeholder support contact must not appear as a real user support address.
+- Live checkout still requires final legal review, exact retention periods, real support contact, and final payment provider selection.
+
 ## 11. Metrics
 
 Track only after analytics and privacy policy are ready:

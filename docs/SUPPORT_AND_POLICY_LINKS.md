@@ -2,6 +2,8 @@
 
 Status: Phase 5I link-structure decision. This document does not create live checkout or public policy pages.
 
+Phase 5J follow-up: the app now scaffolds draft user-facing policy pages at the paths below. They are review pages, not final legal policies or live checkout documents.
+
 ## Decision Summary
 
 Before live checkout, Saju Lab needs user-facing policy links and a real support contact path. This phase defines the structure only.

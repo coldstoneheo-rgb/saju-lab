@@ -30,7 +30,8 @@ Last updated: 2026-05-15
 - Phase 5F drafted privacy, refund/support, and usage-caution policies before live checkout.
 - Phase 5G documented payment provider candidates, failure states, and payment-data boundaries before checkout code.
 - Phase 5H defined the first paid SKU data-retention boundary before checkout implementation.
-- Phase 5I is defining support contact and user-facing policy link structure before live checkout.
+- Phase 5I defined support contact and user-facing policy link structure before live checkout.
+- Phase 5J is scaffolding user-facing policy draft pages without opening checkout.
 
 ## Completed Work
 
@@ -462,7 +463,7 @@ Exit Criteria:
 
 ## Phase 5I: Support Contact And Policy Links
 
-Status: Current.
+Status: Complete.
 
 Goal: define the support contact and user-facing policy link structure before live checkout.
 
@@ -477,6 +478,24 @@ Exit Criteria:
 - `docs/SUPPORT_AND_POLICY_LINKS.md` exists and defines policy paths for privacy, refund/support, and usage caution.
 - `support@example.com` is explicitly marked as a placeholder that must be replaced before checkout.
 - The app does not expose placeholder support contact as a real support address.
+- No checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 5J: User-Facing Policy Page Scaffold
+
+Status: Current.
+
+Goal: make the planned policy paths reachable in the app as draft user-facing pages before live checkout.
+
+Deliverables:
+- Policy page copy/data for `/policies/privacy`, `/policies/refund-support`, and `/policies/usage-caution`.
+- Mobile-first policy page rendering that reuses the existing app shell, theme preference, and card styles.
+- Paid readiness links that point to draft policy pages without implying checkout is open.
+- Policy page tests covering planned paths, draft status, placeholder support-email non-exposure, no live purchase CTA, and usage-scope safety language.
+
+Exit Criteria:
+- The three planned policy paths render draft pages in Korean.
+- Pages clearly state that they are pre-checkout drafts and not final legal policies.
+- The app does not expose `support@example.com` as a real support address.
 - No checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
@@ -497,7 +516,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5I support and policy link structure and PR review.
+1. Complete Phase 5J user-facing policy page scaffold and PR review.
 2. Replace placeholder support contact with a real support email or form before live checkout.
 3. Choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.

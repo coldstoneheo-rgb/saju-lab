@@ -106,6 +106,15 @@ Candidate user-facing paths:
 
 The placeholder `support@example.com` must be replaced before live checkout. It must not be exposed as a real production support address.
 
+## Phase 5J User-Facing Policy Page Baseline
+
+Draft policy pages now have app routes:
+- `/policies/privacy`
+- `/policies/refund-support`
+- `/policies/usage-caution`
+
+These pages are user-facing scaffolds for review, not final legal policies. They may be linked from the paid readiness panel while checkout remains closed. They must keep clear draft-status language and must not expose `support@example.com` as a real support address.
+
 ## Merge Checklist
 
 Before checkout code is implemented:
@@ -116,5 +125,6 @@ Before checkout code is implemented:
 - [ ] Final payment provider and failure-state behavior are selected.
 - [x] Data retention decision is written.
 - [x] Support and policy link structure is documented.
+- [x] Draft user-facing policy pages are scaffolded.
 - [ ] Real support contact path is available.
 - [ ] The app still avoids live purchase language until checkout is actually implemented.

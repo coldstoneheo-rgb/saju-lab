@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, ShieldCheck, Sparkles, Sun, UserRound } from "lucide-react";
 import { buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
+import { findPolicyPage, policyPages, type PolicyPage } from "./policy-pages.js";
 import { buildFreeReportFilename } from "./report-filenames.js";
 import {
   calculatePillars,
@@ -41,6 +42,7 @@ function App(): JSX.Element {
   const [reportBundle, setReportBundle] = React.useState<ReportBundle>(() => createReportBundle(DEFAULT_INPUT));
   const [error, setError] = React.useState<string | undefined>();
   const [theme, setTheme] = React.useState<ThemePreference>(() => readThemePreference());
+  const policyPage = findPolicyPage(readPathname());
   const { report, paidReport } = reportBundle;
 
   React.useEffect(() => {
@@ -64,6 +66,10 @@ function App(): JSX.Element {
     } catch (caught) {
       setError(toFriendlyError(caught));
     }
+  }
+
+  if (policyPage) {
+    return <PolicyPageView page={policyPage} theme={theme} onThemeChange={setTheme} />;
   }
 
   return (
@@ -144,6 +150,61 @@ function App(): JSX.Element {
 
         <PrivacyNote />
         <ReportView paidReport={paidReport} report={report} />
+      </section>
+    </main>
+  );
+}
+
+function PolicyPageView({ page, theme, onThemeChange }: {
+  page: PolicyPage;
+  theme: ThemePreference;
+  onThemeChange: (value: ThemePreference) => void;
+}): JSX.Element {
+  return (
+    <main className="appShell">
+      <section className="workspace policyWorkspace">
+        <header className="appHeader">
+          <div>
+            <p className="eyebrow">Saju Lab Policy Draft</p>
+            <h1>{page.title}</h1>
+          </div>
+          <div className="headerActions">
+            <ThemeToggle value={theme} onChange={onThemeChange} />
+          </div>
+        </header>
+
+        <section className="policyIntro" aria-label="정책 초안 안내">
+          <strong><ShieldCheck size={18} /> 결제 오픈 전 검토 문서</strong>
+          <p>{page.summary}</p>
+          <p>{page.statusNote}</p>
+        </section>
+
+        <nav className="sectionNav" aria-label="정책 문서 바로가기">
+          <a href="/">리포트로 돌아가기</a>
+          {policyPages.map((policy) => (
+            <a aria-current={policy.path === page.path ? "page" : undefined} href={policy.path} key={policy.path}>
+              {policy.title.replace(" 초안", "")}
+            </a>
+          ))}
+        </nav>
+
+        <section className="policyStack">
+          {page.sections.map((section) => (
+            <article className="articleCard" key={section.title}>
+              <h3>{section.title}</h3>
+              <ul>
+                {section.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </section>
+
+        <section className="safetyNote" aria-label="정책 초안 한계">
+          <strong><AlertTriangle size={18} /> 아직 live checkout 문서가 아닙니다</strong>
+          <p>이 페이지는 정책 링크 구조와 사용자 안내 문구를 검토하기 위한 초안입니다. 실제 지원 연락처, 최종 결제 제공자, 정확한 보관 기간은 결제 오픈 전에 확정해야 합니다.</p>
+        </section>
       </section>
     </main>
   );
@@ -481,6 +542,11 @@ function PaidRoadmap(): JSX.Element {
             <li key={item}>{item}</li>
           ))}
         </ul>
+        <div className="policyLinkList" aria-label="정책 초안 링크">
+          {policyPages.map((policy) => (
+            <a href={policy.path} key={policy.path}>{policy.title.replace(" 초안", "")}</a>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -511,6 +577,10 @@ function readThemePreference(): ThemePreference {
   } catch {
     return "system";
   }
+}
+
+function readPathname(): string {
+  return typeof window === "undefined" ? "/" : window.location.pathname;
 }
 
 function persistThemePreference(theme: ThemePreference): void {
