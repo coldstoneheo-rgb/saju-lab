@@ -2,6 +2,13 @@
 
 Status: Draft for paid-launch readiness. This is not a finalized legal policy.
 
+User-facing page candidate: `/policies/usage-caution`.
+
+Before live checkout:
+- replace or finalize this draft as user-facing usage caution copy.
+- link this caution before payment.
+- keep no-deterministic-prediction and no-professional-advice language visible.
+
 Saju Lab provides report-first Saju interpretation for self-understanding, reflection, entertainment, and practical decision support. It does not provide deterministic predictions or professional advice.
 
 ## Core Scope

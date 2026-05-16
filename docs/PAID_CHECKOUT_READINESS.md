@@ -33,7 +33,7 @@ Checkout work can start only after every gate below has an owner and a written d
 | Usage caution or terms | Informational/entertainment-oriented scope and no professional-advice boundary | Draft exists at `docs/policies/USAGE_CAUTION_DRAFT.md`; paid copy must not imply stronger certainty |
 | Payment provider | Provider, currency, receipt handling, and failure-state behavior | Decision draft exists at `docs/PAYMENT_PROVIDER_DECISION.md`; final provider remains open |
 | Data retention | Whether reports are generated locally, server-side, or hybrid | Decision exists at `docs/DATA_RETENTION_DECISION.md`; exact legal retention periods still need user-facing policy links |
-| Customer support path | Email or form destination for payment/report issues | The support path is available before money is collected |
+| Customer support path | Email or form destination for payment/report issues | Link structure exists at `docs/SUPPORT_AND_POLICY_LINKS.md`; real support contact remains required |
 
 ## Recommended Phase 5D Baseline
 
@@ -94,6 +94,18 @@ Data-retention decision:
 
 The first paid SKU remains local-report first. Server-side systems may handle order/session IDs, SKU, price, currency, payment status, provider event IDs, timestamps, and refund/support status. They must not store birth input, calculated pillars, report body, or PDF-ready HTML without a new product decision.
 
+## Phase 5I Support And Policy Link Baseline
+
+Support and policy link structure:
+- `docs/SUPPORT_AND_POLICY_LINKS.md`
+
+Candidate user-facing paths:
+- `/policies/privacy`
+- `/policies/refund-support`
+- `/policies/usage-caution`
+
+The placeholder `support@example.com` must be replaced before live checkout. It must not be exposed as a real production support address.
+
 ## Merge Checklist
 
 Before checkout code is implemented:
@@ -103,5 +115,6 @@ Before checkout code is implemented:
 - [x] Payment provider candidates and failure states are documented.
 - [ ] Final payment provider and failure-state behavior are selected.
 - [x] Data retention decision is written.
-- [ ] Support contact path is available.
+- [x] Support and policy link structure is documented.
+- [ ] Real support contact path is available.
 - [ ] The app still avoids live purchase language until checkout is actually implemented.

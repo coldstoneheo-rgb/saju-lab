@@ -29,7 +29,8 @@ Last updated: 2026-05-15
 - Phase 5E validated browser print-to-PDF as the first paid detailed-report export path.
 - Phase 5F drafted privacy, refund/support, and usage-caution policies before live checkout.
 - Phase 5G documented payment provider candidates, failure states, and payment-data boundaries before checkout code.
-- Phase 5H is defining the first paid SKU data-retention boundary before checkout implementation.
+- Phase 5H defined the first paid SKU data-retention boundary before checkout implementation.
+- Phase 5I is defining support contact and user-facing policy link structure before live checkout.
 
 ## Completed Work
 
@@ -442,7 +443,7 @@ Exit Criteria:
 
 ## Phase 5H: Data Retention Final Decision
 
-Status: Current.
+Status: Complete.
 
 Goal: define what the first paid SKU may store before checkout implementation starts.
 
@@ -457,6 +458,25 @@ Exit Criteria:
 - `docs/DATA_RETENTION_DECISION.md` exists and defines the first paid SKU retention boundary.
 - Birth input, calculated pillars, report body, and PDF-ready HTML are excluded from server-side storage by default.
 - Payment/order records are limited to identifiers, SKU, price, currency, payment status, provider events, timestamps, and refund/support status.
+- No checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 5I: Support Contact And Policy Links
+
+Status: Current.
+
+Goal: define the support contact and user-facing policy link structure before live checkout.
+
+Deliverables:
+- Support and policy link structure document with candidate policy paths and support-contact placement.
+- Policy draft updates that name candidate user-facing paths.
+- Checkout-readiness update that marks link structure documented while keeping real support contact and legal/user-facing final copy open.
+- Paid readiness copy that mentions policy link structure and support-contact replacement without exposing placeholder support as real.
+- Policy link guard test covering candidate paths and placeholder replacement requirement.
+
+Exit Criteria:
+- `docs/SUPPORT_AND_POLICY_LINKS.md` exists and defines policy paths for privacy, refund/support, and usage caution.
+- `support@example.com` is explicitly marked as a placeholder that must be replaced before checkout.
+- The app does not expose placeholder support contact as a real support address.
 - No checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
@@ -477,8 +497,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5H data-retention decision and PR review.
-2. Define the real support contact path and user-facing policy links.
+1. Complete Phase 5I support and policy link structure and PR review.
+2. Replace placeholder support contact with a real support email or form before live checkout.
 3. Choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.

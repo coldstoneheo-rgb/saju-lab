@@ -2,6 +2,13 @@
 
 Status: Draft for paid-launch readiness. This is not a finalized legal policy.
 
+User-facing page candidate: `/policies/refund-support`.
+
+Before live checkout:
+- replace `support@example.com` with a real support email or support form.
+- link this policy before payment.
+- define response expectations and refund handling in user-facing language.
+
 This draft defines the minimum refund and support boundaries needed before Saju Lab opens checkout for a one-time detailed report.
 
 ## Support Scope
