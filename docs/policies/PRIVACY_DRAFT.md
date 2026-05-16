@@ -2,6 +2,13 @@
 
 Status: Draft for paid-launch readiness. This is not a finalized legal policy.
 
+User-facing page candidate: `/policies/privacy`.
+
+Before live checkout:
+- replace or finalize this draft as user-facing policy copy.
+- link this policy before payment.
+- define exact retention periods for order/payment and support records.
+
 Saju Lab uses birth information only to generate a report-first Saju interpretation. The first paid SKU should remain no-login and local-download oriented unless a later data-retention decision changes that boundary.
 
 ## Data Covered

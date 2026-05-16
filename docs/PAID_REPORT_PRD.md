@@ -255,6 +255,12 @@ Phase 5H implementation baseline:
 - Server-side payment/order records may include only order/session ID, SKU, price, currency, payment status, provider event ID, timestamps, and refund/support status.
 - Exact legal retention periods and user-facing policy links remain required before live checkout.
 
+Phase 5I implementation baseline:
+- `docs/SUPPORT_AND_POLICY_LINKS.md` defines candidate policy paths and support-contact placement.
+- Candidate user-facing policy paths are `/policies/privacy`, `/policies/refund-support`, and `/policies/usage-caution`.
+- `support@example.com` is a placeholder and must be replaced before live checkout.
+- Live checkout still requires final provider selection, real support contact, final legal/user-facing policy copy, and exact retention periods.
+
 ## 11. Metrics
 
 Track only after analytics and privacy policy are ready:
