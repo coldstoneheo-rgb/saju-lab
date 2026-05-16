@@ -32,7 +32,7 @@ Checkout work can start only after every gate below has an owner and a written d
 | Refund/contact policy | Refund window, support channel, response expectation, and failed-download handling | Draft exists at `docs/policies/REFUND_AND_SUPPORT_DRAFT.md`; real support path is still required |
 | Usage caution or terms | Informational/entertainment-oriented scope and no professional-advice boundary | Draft exists at `docs/policies/USAGE_CAUTION_DRAFT.md`; paid copy must not imply stronger certainty |
 | Payment provider | Provider, currency, receipt handling, and failure-state behavior | Decision draft exists at `docs/PAYMENT_PROVIDER_DECISION.md`; final provider remains open |
-| Data retention | Whether reports are generated locally, server-side, or hybrid | The product can explain what is stored, where, and for how long |
+| Data retention | Whether reports are generated locally, server-side, or hybrid | Decision exists at `docs/DATA_RETENTION_DECISION.md`; exact legal retention periods still need user-facing policy links |
 | Customer support path | Email or form destination for payment/report issues | The support path is available before money is collected |
 
 ## Recommended Phase 5D Baseline
@@ -87,6 +87,13 @@ Data boundary:
 - Payment provider integration may use SKU, price, currency, order/session identifier, payment status, timestamps, and provider event identifiers.
 - Webhook or session verification must be treated as payment-order verification, not permission to store report data.
 
+## Phase 5H Data Retention Baseline
+
+Data-retention decision:
+- `docs/DATA_RETENTION_DECISION.md`
+
+The first paid SKU remains local-report first. Server-side systems may handle order/session IDs, SKU, price, currency, payment status, provider event IDs, timestamps, and refund/support status. They must not store birth input, calculated pillars, report body, or PDF-ready HTML without a new product decision.
+
 ## Merge Checklist
 
 Before checkout code is implemented:
@@ -95,6 +102,6 @@ Before checkout code is implemented:
 - [x] Usage caution or terms copy exists.
 - [x] Payment provider candidates and failure states are documented.
 - [ ] Final payment provider and failure-state behavior are selected.
-- [ ] Data retention decision is written.
+- [x] Data retention decision is written.
 - [ ] Support contact path is available.
 - [ ] The app still avoids live purchase language until checkout is actually implemented.

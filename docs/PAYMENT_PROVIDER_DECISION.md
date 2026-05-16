@@ -85,11 +85,13 @@ Default boundary:
 - allowed: SKU, price, currency, order/session ID, payment status, timestamps, provider event IDs.
 - not allowed without a separate decision: birth date, birth time, sex, timezone, calculated pillars, report body, PDF-ready HTML.
 
-If server-side verification is required, the next phase must decide:
-- whether the report is generated only after payment or generated locally before payment.
-- whether the app can fulfill a paid report without sending birth input to a server.
-- how long payment/order records are retained.
-- how failed or abandoned orders are cleaned up.
+The data-retention boundary is defined in `docs/DATA_RETENTION_DECISION.md`.
+
+If server-side verification is required:
+- report generation should still happen in the browser unless the data-retention decision is reopened.
+- the app should fulfill a paid report without sending birth input to a server.
+- payment/order records may be retained only for settlement, refund, support, and reconciliation needs.
+- exact retention periods still need final user-facing policy language.
 
 ## Readiness Checklist
 
@@ -100,5 +102,5 @@ Before checkout code starts:
 - [ ] Define webhook or session verification behavior.
 - [ ] Define refund and duplicate-charge workflow.
 - [ ] Define support-contact path.
-- [ ] Define data-retention boundary for order records and report data.
+- [x] Define data-retention boundary for order records and report data.
 - [ ] Confirm birth data is not sent to the payment provider.

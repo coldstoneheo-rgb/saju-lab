@@ -249,6 +249,12 @@ Phase 5G implementation baseline:
 - Hosted checkout should remain the default assumption until a final provider decision is made.
 - Checkout code, payment SDKs, webhooks, account storage, server report storage, subscription, and analytics remain out of scope.
 
+Phase 5H implementation baseline:
+- `docs/DATA_RETENTION_DECISION.md` defines the first paid SKU's data-retention boundary.
+- Birth input, calculated pillars, free report body, paid report body, and PDF-ready HTML are not stored server-side.
+- Server-side payment/order records may include only order/session ID, SKU, price, currency, payment status, provider event ID, timestamps, and refund/support status.
+- Exact legal retention periods and user-facing policy links remain required before live checkout.
+
 ## 11. Metrics
 
 Track only after analytics and privacy policy are ready:
