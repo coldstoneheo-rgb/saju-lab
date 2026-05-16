@@ -28,7 +28,8 @@ Last updated: 2026-05-15
 - Phase 5D defined paid checkout readiness gates before payment, account, or server-storage work begins.
 - Phase 5E validated browser print-to-PDF as the first paid detailed-report export path.
 - Phase 5F drafted privacy, refund/support, and usage-caution policies before live checkout.
-- Phase 5G is documenting payment provider candidates, failure states, and payment-data boundaries before checkout code.
+- Phase 5G documented payment provider candidates, failure states, and payment-data boundaries before checkout code.
+- Phase 5H is defining the first paid SKU data-retention boundary before checkout implementation.
 
 ## Completed Work
 
@@ -422,7 +423,7 @@ Exit Criteria:
 
 ## Phase 5G: Payment Provider Decision And Failure States
 
-Status: Current.
+Status: Complete.
 
 Goal: document payment provider candidates, failure states, and data boundaries before checkout code starts.
 
@@ -437,6 +438,25 @@ Exit Criteria:
 - `docs/PAYMENT_PROVIDER_DECISION.md` exists and includes provider candidates, selection criteria, failure states, and data-retention impact.
 - Checkout readiness marks provider candidates/failure states as documented while keeping final provider and data retention open.
 - The app still does not show purchase, checkout, account, server-storage, or subscription behavior.
+- No checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 5H: Data Retention Final Decision
+
+Status: Current.
+
+Goal: define what the first paid SKU may store before checkout implementation starts.
+
+Deliverables:
+- Data-retention decision document covering forbidden server-stored report data and allowed order/payment records.
+- Scenario boundaries for pre-payment generation, post-payment generation, abandoned payment return, download failure, duplicate payment, refunds, and support inquiries.
+- Checkout-readiness update that closes the data-retention gate while keeping final provider, support contact, and user-facing policy links open.
+- Paid readiness copy that explains birth information and report body are not sent to the payment provider or stored server-side.
+- Data-retention guard test covering forbidden report payload and allowed order record fields.
+
+Exit Criteria:
+- `docs/DATA_RETENTION_DECISION.md` exists and defines the first paid SKU retention boundary.
+- Birth input, calculated pillars, report body, and PDF-ready HTML are excluded from server-side storage by default.
+- Payment/order records are limited to identifiers, SKU, price, currency, payment status, provider events, timestamps, and refund/support status.
 - No checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
@@ -457,8 +477,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5G payment provider decision draft and PR review.
-2. Decide final data-retention boundary for paid report generation.
+1. Complete Phase 5H data-retention decision and PR review.
+2. Define the real support contact path and user-facing policy links.
 3. Choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.

@@ -50,4 +50,5 @@ Placeholder support path:
 Before live checkout:
 - the product should explain how users can retry a download.
 - support should be able to identify a paid order without requiring the user to send birth data in plain text.
+- support should redact birth data, calculated pillars, report text, and PDF-ready HTML if the user voluntarily sends them.
 - if a regenerated report is needed, the data-retention decision must state whether regeneration is local, server-side, or hybrid.
