@@ -243,6 +243,12 @@ Phase 5F implementation baseline:
 - Live checkout still requires a payment provider decision, final data-retention decision, real support contact path, and user-facing policy links.
 - The paid preview may mention policy-draft readiness, but it must not imply checkout is open.
 
+Phase 5G implementation baseline:
+- `docs/PAYMENT_PROVIDER_DECISION.md` defines provider candidates, selection criteria, failure states, and data-boundary rules.
+- Birth input, calculated pillars, report body, and PDF-ready HTML must not be sent to the payment provider.
+- Hosted checkout should remain the default assumption until a final provider decision is made.
+- Checkout code, payment SDKs, webhooks, account storage, server report storage, subscription, and analytics remain out of scope.
+
 ## 11. Metrics
 
 Track only after analytics and privacy policy are ready:

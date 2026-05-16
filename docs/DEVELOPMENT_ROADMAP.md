@@ -27,7 +27,8 @@ Last updated: 2026-05-15
 - Phase 5C completed paid report content depth with richer career/finance guidance, monthly cautions, and quality threshold tests.
 - Phase 5D defined paid checkout readiness gates before payment, account, or server-storage work begins.
 - Phase 5E validated browser print-to-PDF as the first paid detailed-report export path.
-- Phase 5F is drafting privacy, refund/support, and usage-caution policies before live checkout.
+- Phase 5F drafted privacy, refund/support, and usage-caution policies before live checkout.
+- Phase 5G is documenting payment provider candidates, failure states, and payment-data boundaries before checkout code.
 
 ## Completed Work
 
@@ -402,7 +403,7 @@ Exit Criteria:
 
 ## Phase 5F: Policy Drafts For Paid Launch
 
-Status: Current.
+Status: Complete.
 
 Goal: prepare minimum policy drafts before live checkout work starts.
 
@@ -418,6 +419,25 @@ Exit Criteria:
 - Checkout readiness distinguishes drafted policy gates from unresolved launch gates.
 - The app still does not show purchase, checkout, account, server-storage, or subscription behavior.
 - No payment provider SDK, login, account storage, server storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 5G: Payment Provider Decision And Failure States
+
+Status: Current.
+
+Goal: document payment provider candidates, failure states, and data boundaries before checkout code starts.
+
+Deliverables:
+- Payment provider decision draft comparing Stripe Checkout, PortOne, and Toss Payments.
+- Failure-state checklist for payment failure, report generation failure, download failure, duplicate payment, abandoned return, verification failure, and provider outage.
+- Explicit rule that birth input, calculated pillars, report body, and PDF-ready HTML must not be sent to the payment provider.
+- Checkout-readiness update that distinguishes provider decision draft from final provider selection.
+- Paid readiness copy that mentions failure-state preparation without implying live checkout.
+
+Exit Criteria:
+- `docs/PAYMENT_PROVIDER_DECISION.md` exists and includes provider candidates, selection criteria, failure states, and data-retention impact.
+- Checkout readiness marks provider candidates/failure states as documented while keeping final provider and data retention open.
+- The app still does not show purchase, checkout, account, server-storage, or subscription behavior.
+- No checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
 
@@ -437,8 +457,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5F policy drafts and PR review.
-2. Decide payment provider and failure-state behavior.
-3. Decide final data-retention boundary for paid report generation.
+1. Complete Phase 5G payment provider decision draft and PR review.
+2. Decide final data-retention boundary for paid report generation.
+3. Choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
 5. Continue broadening calendrical fixture coverage before public beta expansion.
