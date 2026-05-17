@@ -75,6 +75,17 @@ These checks remain manual because they require looking at the rendered mobile e
 - [ ] Paid readiness panel does not imply checkout is live.
 - [ ] HTML export can be opened locally and does not put birth data in the filename.
 
+## Automated QA Gap Coverage
+
+These checks support the manual QA pass but do not replace the browser-dependent steps above.
+
+- [x] Core boundary-date rejection is covered by automated tests.
+- [x] Boundary-date friendly error mapping is covered by automated web tests.
+- [x] Free HTML export content includes disclaimer, transparency, and local-processing copy in automated tests.
+- [x] Free report filename safety is covered by automated tests.
+- [ ] Human-controlled browser confirms the native `type=date` boundary-date entry flow.
+- [ ] Human-controlled browser confirms the downloaded HTML file exists, opens locally, and contains the required notices.
+
 ## Owner And Business Gates
 
 These items must not be resolved autonomously by implementation agents.

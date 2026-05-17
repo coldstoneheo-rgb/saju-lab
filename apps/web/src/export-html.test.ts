@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { calculatePillars, generatePaidReportV1, type BirthInput } from "@saju-lab/saju-core";
-import { buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
+import { calculatePillars, generatePaidReportV1, generateReportV1, type BirthInput } from "@saju-lab/saju-core";
+import { buildFreeReportHtml, buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
+import { buildFreeReportFilename } from "./report-filenames.js";
 
 function createPaidHtml(input: BirthInput): string {
   const paidReport = generatePaidReportV1({
@@ -11,6 +12,57 @@ function createPaidHtml(input: BirthInput): string {
 
   return buildPaidReportHtml(paidReport);
 }
+
+function createFreeHtml(input: BirthInput): string {
+  const report = generateReportV1({
+    input,
+    pillars: calculatePillars(input),
+    generatedAt: "2026-05-16T00:00:00.000Z"
+  });
+
+  return buildFreeReportHtml(report);
+}
+
+describe("free report export HTML", () => {
+  it("renders disclaimer, transparency, and local-only copy", () => {
+    const html = createFreeHtml({
+      birthDate: "1990-01-01",
+      birthTime: "10:30",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+
+    expect(html).toContain("Saju Lab Report v1.0");
+    expect(html).toContain("본 리포트는 정보/오락 목적이며, 금융, 의학, 법률 자문이 아닙니다.");
+    expect(html).toContain("입력값은 서버 저장이나 외부 전송 없이 이 브라우저에서만 처리됩니다.");
+    expect(html).toContain("<h2>투명성 노트</h2>");
+    expect(html).toContain("입력된 생년월일: 1990-01-01");
+    expect(html).toContain("타임존: Asia/Seoul");
+    expect(html).toContain("커리어와 재무 문장은 현실 자료와 함께 검토하세요.");
+  });
+
+  it("keeps unknown birth time visible in free export HTML", () => {
+    const html = createFreeHtml({
+      birthDate: "1990-01-01",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+
+    expect(html).toContain("신뢰도 낮음");
+    expect(html).toContain("출생시간 미상");
+    expect(html).toContain("<span>시주</span><strong>미상</strong>");
+    expect(html).toContain("출생시간 정보가 없어 시주와 일부 해석의 신뢰도가 낮아질 수 있습니다.");
+  });
+
+  it("keeps free export filenames independent from birth data", () => {
+    const filename = buildFreeReportFilename("2026-05-16T00:00:00.000Z");
+
+    expect(filename).toBe("saju-lab-report-20260516.html");
+    expect(filename).not.toContain("1990");
+    expect(filename).not.toContain("01-01");
+    expect(filename).not.toContain("10:30");
+  });
+});
 
 describe("paid report export HTML", () => {
   it("renders required paid PDF sections and first-page notices", () => {

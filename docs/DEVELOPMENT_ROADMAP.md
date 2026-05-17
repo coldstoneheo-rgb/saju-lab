@@ -26,7 +26,8 @@ Last updated: 2026-05-17
 - Phase 4C hardened beta CI gates for typecheck, test, build, audit, and whitespace verification.
 - Phase 4D synced beta-readiness and roadmap state after recent CI and calendrical fixture hardening.
 - Phase 4E added a repeatable beta manual QA runbook and launch guard coverage.
-- Phase 4F is recording beta manual QA evidence from the current app build.
+- Phase 4F completed a beta manual QA evidence pass for the current app build, with two browser-dependent checks intentionally left as PARTIAL evidence rather than overclaimed readiness.
+- Phase 4G is hardening automated coverage for Phase 4F QA gaps while keeping native date-input and actual download/open checks as human-controlled browser gates.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -179,7 +180,7 @@ Exit Criteria:
 
 ## Phase 4F: Beta Manual QA Evidence Pass
 
-Status: Current.
+Status: Complete.
 
 Goal: execute the beta manual QA runbook against the current app build and record concrete pass/fail evidence without changing owner/business or external-source gates.
 
@@ -193,6 +194,27 @@ Exit Criteria:
 - QA evidence distinguishes passed checks, partial checks, owner decisions, and external source gates.
 - Boundary-date, support-contact, payment-provider, and KASI-source limitations are not overclaimed.
 - `npm run verify` passes after the evidence document is added.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+Completion Note:
+- The evidence pass recorded two intentional PARTIAL checks: native date-input boundary UI and real downloaded HTML open behavior. Those remain human-controlled browser QA gates before beta distribution.
+
+## Phase 4G: Beta QA Gap Hardening And 4F Closure
+
+Status: Current.
+
+Goal: add targeted automated support evidence for Phase 4F gaps and clarify that human-controlled browser QA is still required for native date input and actual local file download/open.
+
+Deliverables:
+- Extract friendly error mapping into a tested web helper.
+- Export and test free report HTML generation for disclaimer, transparency, local-processing copy, safe filename, and unknown birth-time visibility.
+- Update beta QA docs to distinguish automated support coverage from remaining human browser confirmation.
+
+Exit Criteria:
+- Boundary-date friendly error mapping has direct test coverage.
+- Free HTML export content and filename safety have direct test coverage.
+- Docs still require human-controlled browser confirmation for native date input and downloaded-file open behavior.
+- `npm run verify` passes.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -647,7 +669,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 4F beta manual QA evidence pass and PR review.
+1. Complete Phase 4G beta QA gap hardening and PR review.
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. External source gate: revalidate embedded solar-term times against KASI source data before public beta expansion.

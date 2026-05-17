@@ -76,6 +76,14 @@ Follow-up:
 - Re-run the free HTML export download and local-open check in a human-controlled browser before beta distribution.
 - Do not mark the HTML export manual QA item complete until the downloaded file is opened and inspected.
 
+## Phase 4G Follow-Up
+
+Phase 4G adds automated coverage for the two highest-value support checks from this evidence pass:
+- boundary-date friendly error mapping.
+- free HTML export content and personal-data-safe filename behavior.
+
+These automated checks reduce regression risk, but they do not convert the two PARTIAL rows above to PASS. Native date input behavior and the actual browser-created download/open loop still require a human-controlled browser pass before beta distribution.
+
 ## Objective Fixes
 
 None applied in this pass.
