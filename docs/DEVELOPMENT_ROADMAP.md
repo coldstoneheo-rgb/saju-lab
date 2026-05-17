@@ -24,7 +24,8 @@ Last updated: 2026-05-17
 - Phase 4A has improved mobile input hints, user-facing error messages, accessible controls, and section navigation.
 - Phase 4B has added beta readiness documentation, privacy and safety notes, manual QA criteria, and clearer MVP scope limits.
 - Phase 4C hardened beta CI gates for typecheck, test, build, audit, and whitespace verification.
-- Phase 4D is syncing beta-readiness and roadmap state after recent CI and calendrical fixture hardening.
+- Phase 4D synced beta-readiness and roadmap state after recent CI and calendrical fixture hardening.
+- Phase 4E is adding a repeatable beta manual QA runbook and launch guard coverage.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -142,7 +143,7 @@ Exit Criteria:
 
 ## Phase 4D: Beta Readiness And Roadmap State Sync
 
-Status: Current.
+Status: Complete.
 
 Goal: keep roadmap and beta-readiness docs accurate after Phase 4C and Phase 2E, while separating safe engineering work from owner/business and external-data gates.
 
@@ -156,6 +157,23 @@ Exit Criteria:
 - Roadmap no longer describes completed work as current.
 - Immediate next actions avoid implying that checkout, provider, support, or legal decisions can be made autonomously.
 - Beta readiness docs distinguish automated checks from manual, business, and external-source readiness.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4E: Beta Manual QA Runbook And Launch Guard Coverage
+
+Status: Current.
+
+Goal: make beta manual QA repeatable and strengthen guard coverage around the no-live-checkout launch boundary.
+
+Deliverables:
+- Add a focused beta manual QA runbook covering mobile input, time unknown behavior, boundary-date errors, report safety, local HTML export, policy draft routes, and paid readiness copy.
+- Update the beta checklist to reference the runbook without claiming QA has passed.
+- Add lightweight guard coverage for no live purchase CTA, no placeholder support exposure, no account/server-storage claims, and metadata-only checkout verification.
+
+Exit Criteria:
+- Another agent or human can execute beta manual QA without reconstructing expected behavior from scattered docs.
+- Guard tests fail if user-facing readiness copy exposes live checkout, placeholder support contact, account/storage claims, or report payload checkout fields.
+- `npm run verify` passes.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -610,7 +628,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 4D beta-readiness and roadmap state sync and PR review.
+1. Complete Phase 4E beta manual QA runbook and launch guard coverage and PR review.
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. External source gate: revalidate embedded solar-term times against KASI source data before public beta expansion.
