@@ -6,7 +6,9 @@ Use this checklist before sharing the MVP with a small beta group.
 
 Detailed manual steps live in `docs/BETA_MANUAL_QA_RUNBOOK.md`.
 
-Latest QA evidence: `docs/BETA_MANUAL_QA_RESULTS_2026-05-17.md`.
+Latest QA evidence:
+- `docs/BETA_MANUAL_QA_RESULTS_2026-05-17.md`
+- `docs/BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md`
 
 ## Mobile Input Flow
 
@@ -21,7 +23,7 @@ Latest QA evidence: `docs/BETA_MANUAL_QA_RESULTS_2026-05-17.md`.
 - [ ] Invalid dates show a user-facing correction message.
 - [ ] Invalid times show a user-facing correction message.
 - [ ] Unsupported date ranges are described as an MVP data-range limitation.
-- [ ] Solar-term boundary dates explain that birth time is required.
+- [x] Solar-term boundary dates explain that birth time is required.
 - [ ] Time unknown is treated as a supported partial-data state, not as an error.
 
 ## Report Safety
@@ -73,7 +75,7 @@ These checks remain manual because they require looking at the rendered mobile e
 - [ ] Time unknown mode visibly lowers confidence and explains the impact.
 - [ ] Policy draft pages are reachable and still marked as drafts.
 - [ ] Paid readiness panel does not imply checkout is live.
-- [ ] HTML export can be opened locally and does not put birth data in the filename.
+- [x] HTML export can be opened locally and does not put birth data in the filename.
 
 ## Automated QA Gap Coverage
 
@@ -83,8 +85,8 @@ These checks support the manual QA pass but do not replace the browser-dependent
 - [x] Boundary-date friendly error mapping is covered by automated web tests.
 - [x] Free HTML export content includes disclaimer, transparency, and local-processing copy in automated tests.
 - [x] Free report filename safety is covered by automated tests.
-- [ ] Human-controlled browser confirms the native `type=date` boundary-date entry flow.
-- [ ] Human-controlled browser confirms the downloaded HTML file exists, opens locally, and contains the required notices.
+- [x] Human-controlled browser confirms the native `type=date` boundary-date entry flow.
+- [x] Human-controlled browser confirms the downloaded HTML file exists, opens locally, and contains the required notices.
 
 ## Owner And Business Gates
 
