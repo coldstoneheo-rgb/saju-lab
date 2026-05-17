@@ -1,4 +1,4 @@
-import { getSajuTerm, type BirthInput, type PaidReportV1, type SajuTerm } from "@saju-lab/saju-core";
+import { getSajuTerm, type BirthInput, type PaidReportV1, type ReportV1, type SajuTerm } from "@saju-lab/saju-core";
 
 interface ExportSection {
   id: string;
@@ -14,6 +14,59 @@ interface ChecklistSection {
     label: string;
     detail: string;
   }>;
+}
+
+export function buildFreeReportHtml(report: ReportV1): string {
+  const freeSummary = buildFreeMonthlySummary(report);
+  const sections = [
+    ["전체 요약", [report.overview.summary, ...report.overview.toneGuidelines]],
+    ["성향 포인트", [...report.personality.strengths, ...report.personality.blindSpots]],
+    ["커리어 흐름", [...report.career.trends, ...report.career.risks, ...report.career.actions]],
+    ["재무 흐름", [...report.finance.trends, ...report.finance.risks, ...report.finance.actions]],
+    [`${report.yearlyOutlook.year}년 포인트`, [...report.yearlyOutlook.highlights, ...report.yearlyOutlook.cautions]],
+    ["투명성 노트", [...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]]
+  ] as const;
+
+  return `<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Saju Lab Report ${escapeHtml(report.input.birthDate)}</title>
+    <style>
+      body { margin: 0; padding: 24px; color: #202124; background: #f8f3eb; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif; line-height: 1.6; }
+      main { max-width: 820px; margin: 0 auto; }
+      h1 { margin: 0 0 4px; font-size: 30px; }
+      h2 { margin: 24px 0 8px; font-size: 20px; }
+      .meta, .notice { color: #66584b; font-size: 14px; }
+      .notice { border: 1px solid #d8c9b8; border-radius: 8px; background: #fffdf8; padding: 12px; }
+      .pillars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 20px 0; }
+      .pillar, section { border: 1px solid #d8c9b8; border-radius: 8px; background: #fffdf8; padding: 14px; }
+      .pillar strong { display: block; font-size: 24px; }
+      .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+      .keywords span { border: 1px solid #d8c9b8; border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 700; }
+      ul { margin: 0; padding-left: 20px; }
+      footer { margin-top: 24px; color: #66584b; font-size: 12px; }
+      @media (max-width: 640px) { body { padding: 16px; } .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="meta">Saju Lab Report v${escapeHtml(report.meta.version)}</p>
+      <h1>${escapeHtml(formatDate(report.input.birthDate))} 기준 사주 리포트</h1>
+      <p class="notice">${escapeHtml(confidenceLabel(report.meta.confidence))} · ${escapeHtml(report.meta.timeKnown ? "출생시간 반영" : "출생시간 미상")}<br />이 파일은 로그인 없이 기기에서 생성된 HTML 리포트입니다. 입력값은 서버 저장이나 외부 전송 없이 이 브라우저에서만 처리됩니다.</p>
+      <div class="pillars">
+        ${renderDownloadedPillar(getSajuTerm("yearPillar"), report.pillars.year)}
+        ${renderDownloadedPillar(getSajuTerm("monthPillar"), report.pillars.month)}
+        ${renderDownloadedPillar(getSajuTerm("dayPillar"), report.pillars.day)}
+        ${renderDownloadedPillar(getSajuTerm("timePillar"), report.pillars.time)}
+      </div>
+      ${renderDownloadedFreeSummary(freeSummary)}
+      ${sections.map(([title, items]) => renderDownloadedSection(title, items)).join("")}
+      <footer>${escapeHtml(report.overview.disclaimers[0] ?? "")} 커리어와 재무 문장은 현실 자료와 함께 검토하세요.</footer>
+    </main>
+  </body>
+</html>`;
 }
 
 export function buildPaidReportHtml(paidReport: PaidReportV1): string {
@@ -182,7 +235,29 @@ function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: s
   return `<div class="pillar"><span>${escapeHtml(term.label)}</span><strong>${value ? `${escapeHtml(termLabel(value.stem))} ${escapeHtml(termLabel(value.branch))}` : "미상"}</strong><small>${escapeHtml(term.short)} · ${escapeHtml(term.description)}</small></div>`;
 }
 
-function confidenceLabel(value: PaidReportV1["meta"]["confidence"]): string {
+function renderDownloadedFreeSummary(summary: { keywords: string[]; comment: string }): string {
+  return `<section><h2>월간 무료 하이라이트</h2><div class="keywords">${summary.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}</div><p>${escapeHtml(summary.comment)}</p></section>`;
+}
+
+function renderDownloadedSection(title: string, items: readonly string[]): string {
+  return `<section><h2>${escapeHtml(title)}</h2><ul>${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
+}
+
+function buildFreeMonthlySummary(report: ReportV1): { keywords: string[]; comment: string } {
+  const sourceItems = [
+    report.monthly.goodMonths[0],
+    report.monthly.cautionMonths[0],
+    report.actionSuggestions.planning[0]
+  ].filter((item): item is string => item !== undefined);
+  const keywords = ["월간 흐름", "좋은 달", "주의 달"];
+
+  return {
+    keywords,
+    comment: sourceItems.join(" ")
+  };
+}
+
+function confidenceLabel(value: PaidReportV1["meta"]["confidence"] | ReportV1["meta"]["confidence"]): string {
   return value === "high" ? "신뢰도 높음" : value === "medium" ? "신뢰도 보통" : "신뢰도 낮음";
 }
 

@@ -68,6 +68,8 @@ Expected result:
 
 Use an implemented boundary date without birth time.
 
+If automation cannot manipulate the browser's native date input, complete this step in a human-controlled browser before beta distribution.
+
 1. Enter `2024-02-04`.
 2. Enable time unknown or leave birth time empty.
 3. Generate the report.
@@ -95,6 +97,7 @@ Expected result:
 
 Expected result:
 - the filename does not include birth date, birth time, sex, or pillar values.
+- the downloaded file exists and opens from the local filesystem.
 - the exported document includes the disclaimer and transparency notes.
 - copy says the report was generated locally and does not imply server sync.
 
