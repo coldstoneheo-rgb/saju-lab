@@ -265,6 +265,7 @@ function ReportView({ paidReport, report }: { paidReport: PaidReportV1; report: 
         <a href="#career">커리어</a>
         <a href="#finance">재무</a>
         <a href="#monthly">월간</a>
+        <a href="#actions">행동</a>
         <a href="#paid-preview">상세</a>
         <a href="#transparency">투명성</a>
       </nav>
@@ -325,8 +326,19 @@ function ReportView({ paidReport, report }: { paidReport: PaidReportV1; report: 
 
       <section className="twoColumn">
         <ArticleCard title={`${report.yearlyOutlook.year}년 포인트`} items={[...report.yearlyOutlook.highlights, ...report.yearlyOutlook.cautions]} />
-        <FreeSummaryCard id="monthly" summary={freeSummary} />
+        <MonthlyHighlightsCard id="monthly" report={report} summary={freeSummary} />
       </section>
+
+      <InsightSection
+        icon={<CheckCircle2 size={20} />}
+        id="actions"
+        title="행동 제안"
+        groups={[
+          { label: "습관", items: report.actionSuggestions.habits },
+          { label: "계획", items: report.actionSuggestions.planning },
+          { label: "리스크 관리", items: report.actionSuggestions.riskManagement }
+        ]}
+      />
 
       <ArticleCard id="transparency" title="투명성 노트" items={[...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]} />
       <PaidReportPrototype paidReport={paidReport} />
@@ -404,7 +416,7 @@ function InsightSection({ icon, id, title, groups }: {
   );
 }
 
-function FreeSummaryCard({ id, summary }: { id?: string; summary: { keywords: string[]; comment: string } }): JSX.Element {
+function MonthlyHighlightsCard({ id, report, summary }: { id?: string; report: ReportV1; summary: { keywords: string[]; comment: string } }): JSX.Element {
   return (
     <article className="articleCard freeSummaryCard" id={id}>
       <h3><Sparkles size={20} /> 월간 무료 하이라이트</h3>
@@ -414,6 +426,24 @@ function FreeSummaryCard({ id, summary }: { id?: string; summary: { keywords: st
         ))}
       </div>
       <p>{summary.comment}</p>
+      <div className="insightGroups">
+        <section className="insightGroup">
+          <span>좋은 달</span>
+          <ul>
+            {report.monthly.goodMonths.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+        <section className="insightGroup">
+          <span>주의 달</span>
+          <ul>
+            {report.monthly.cautionMonths.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </article>
   );
 }

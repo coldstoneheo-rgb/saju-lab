@@ -23,6 +23,14 @@ function createFreeHtml(input: BirthInput): string {
   return buildFreeReportHtml(report);
 }
 
+function createFreeReport(input: BirthInput) {
+  return generateReportV1({
+    input,
+    pillars: calculatePillars(input),
+    generatedAt: "2026-05-16T00:00:00.000Z"
+  });
+}
+
 describe("free report export HTML", () => {
   it("renders disclaimer, transparency, and local-only copy", () => {
     const html = createFreeHtml({
@@ -61,6 +69,29 @@ describe("free report export HTML", () => {
     expect(filename).not.toContain("1990");
     expect(filename).not.toContain("01-01");
     expect(filename).not.toContain("10:30");
+  });
+
+  it("does not drop monthly details or action suggestions from free export HTML", () => {
+    const report = createFreeReport({
+      birthDate: "1990-01-01",
+      birthTime: "10:30",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+    const html = buildFreeReportHtml(report);
+
+    expect(html).toContain("<h2>월간 흐름</h2>");
+    expect(html).toContain("<h2>행동 제안</h2>");
+    for (const item of [...report.monthly.goodMonths, ...report.monthly.cautionMonths]) {
+      expect(html).toContain(item);
+    }
+    for (const item of [
+      ...report.actionSuggestions.habits,
+      ...report.actionSuggestions.planning,
+      ...report.actionSuggestions.riskManagement
+    ]) {
+      expect(html).toContain(item);
+    }
   });
 });
 

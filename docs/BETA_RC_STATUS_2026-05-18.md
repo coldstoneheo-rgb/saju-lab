@@ -33,8 +33,8 @@ Still open:
 These can be handled autonomously in small PRs without owner decisions, checkout implementation, account storage, AI, analytics, PDF libraries, or KASI source ingestion.
 
 1. **Report Value Completeness**
-   - The generated report includes action suggestions and monthly good/caution detail that are not fully surfaced in the free web report or local HTML export.
-   - Next PR candidate: add visible `행동 제안` and fuller monthly good/caution blocks to the web report and free HTML export, with tests.
+   - Phase 4K surfaces action suggestions and monthly good/caution detail in the free web report and local HTML export.
+   - Status: closed for the current `ReportV1` fields, with export tests protecting monthly detail and action suggestions from being silently dropped.
 
 2. **Input And Export UX Hardening**
    - Invalid and unsupported date states need more specific pre-calculation or friendly error handling.
@@ -63,8 +63,8 @@ These remain blocked until the owner or an external source completes them:
 
 ## Recommended Next PR
 
-Phase 4K should improve report value completeness before beta sharing:
-- expose `ReportV1.actionSuggestions` in the web report.
-- make monthly good/caution detail more visible.
-- include the same value in the free local HTML export.
-- add tests so generated report fields are not silently dropped.
+Phase 4L should harden input and export UX before beta sharing:
+- improve invalid and unsupported input correction copy.
+- add accessible local export success/failure status.
+- strengthen keyboard focus states for custom controls.
+- remove or guard remote decorative asset requests that weaken the local-processing trust message.
