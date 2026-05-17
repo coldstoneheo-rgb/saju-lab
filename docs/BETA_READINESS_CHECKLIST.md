@@ -23,9 +23,9 @@ Current RC status:
 
 ## Error And Partial Data States
 
-- [ ] Invalid dates show a user-facing correction message.
-- [ ] Invalid times show a user-facing correction message.
-- [ ] Unsupported date ranges are described as an MVP data-range limitation.
+- [x] Invalid dates show a user-facing correction message.
+- [x] Invalid times show a user-facing correction message.
+- [x] Unsupported date ranges are described as an MVP data-range limitation.
 - [x] Solar-term boundary dates explain that birth time is required.
 - [ ] Time unknown is treated as a supported partial-data state, not as an error.
 
@@ -96,10 +96,10 @@ These checks support the manual QA pass but do not replace the browser-dependent
 These items can be improved by implementation agents before small beta sharing, without closing owner/business or external-source gates.
 
 - [x] Full generated report value is surfaced in the web report and free local HTML export.
-- [ ] Invalid/unsupported input states have specific, user-facing correction copy.
-- [ ] Local export provides accessible success/failure status.
-- [ ] Custom theme, time-unknown, and sex controls have visible keyboard focus states.
-- [ ] Remote decorative asset requests do not weaken the local-processing trust message.
+- [x] Invalid/unsupported input states have specific, user-facing correction copy.
+- [x] Local export provides accessible success/failure status.
+- [x] Custom theme, time-unknown, and sex controls have visible keyboard focus states.
+- [x] Remote decorative asset requests do not weaken the local-processing trust message.
 - [ ] Runtime report copy avoids deterministic finance or professional-advice phrasing even in negated examples.
 
 ## Owner And Business Gates

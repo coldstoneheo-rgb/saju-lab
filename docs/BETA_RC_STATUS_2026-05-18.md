@@ -37,13 +37,12 @@ These can be handled autonomously in small PRs without owner decisions, checkout
    - Status: closed for the current `ReportV1` fields, with export tests protecting monthly detail and action suggestions from being silently dropped.
 
 2. **Input And Export UX Hardening**
-   - Invalid and unsupported date states need more specific pre-calculation or friendly error handling.
-   - Local export should show success/failure status with an accessible live region.
-   - Custom controls should have clearer keyboard focus styles.
+   - Phase 4L adds pre-calculation birth-date/time validation, broader unsupported-range friendly error mapping, accessible local export status, and clearer keyboard focus styles.
+   - Status: closed for the current MVP input/export surface.
 
 3. **Local Trust And Asset Hygiene**
-   - The app should avoid remote decorative asset requests that can weaken the local-processing trust message.
-   - Next PR candidate: remove remote background image usage or replace it with local CSS/asset treatment, with a guard scan.
+   - Phase 4L removes the remote decorative background image request and uses local CSS backgrounds instead.
+   - Status: closed for the current web shell.
 
 4. **Safety Copy Regression Sweep**
    - Runtime report copy should avoid finance-certainty phrases even when negated, to reduce safety-review noise.
@@ -63,8 +62,7 @@ These remain blocked until the owner or an external source completes them:
 
 ## Recommended Next PR
 
-Phase 4L should harden input and export UX before beta sharing:
-- improve invalid and unsupported input correction copy.
-- add accessible local export success/failure status.
-- strengthen keyboard focus states for custom controls.
-- remove or guard remote decorative asset requests that weaken the local-processing trust message.
+Phase 4M should broaden report safety-copy regression coverage before beta sharing:
+- rephrase runtime report copy that can trigger deterministic-finance review noise even when negated.
+- add guard coverage across generated free report copy.
+- keep professional advice disclaimers while avoiding claim-like examples.

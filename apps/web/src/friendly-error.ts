@@ -5,7 +5,7 @@ export function toFriendlyError(caught: unknown): string {
     return "절기 경계일에는 출생시간이 필요합니다. 현재 MVP에서는 이 날짜를 시간 미상으로 계산할 수 없으니, 가능한 정확한 시간을 입력해 주세요.";
   }
 
-  if (message.includes("No upper solar month boundary")) {
+  if (message.includes("No upper solar month boundary") || message.includes("No solar month boundary") || message.includes("No Ipchun boundary")) {
     return "현재 MVP 계산 범위를 벗어난 날짜입니다. 검증된 절기 데이터 범위가 확장되면 지원할 예정입니다.";
   }
 
