@@ -100,7 +100,8 @@ input {
   padding: 16px;
   background:
     linear-gradient(180deg, var(--page-overlay-top), var(--page-overlay-bottom)),
-    url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80");
+    radial-gradient(circle at top left, var(--surface-soft), transparent 32rem),
+    linear-gradient(135deg, var(--surface-strong), var(--page-overlay-bottom));
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -191,6 +192,15 @@ input {
 .themeToggle button[aria-pressed="true"] {
   background: var(--selected);
   color: var(--selected-text);
+}
+
+.themeToggle button:focus-visible,
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.sectionNav a:focus-visible,
+.inputPanel input:focus-visible {
+  outline: 3px solid var(--selected-text);
+  outline-offset: 3px;
 }
 
 .inputPanel,
@@ -323,6 +333,12 @@ input {
 
 .toggle input:checked + span::after {
   transform: translateX(22px);
+}
+
+.toggle input:focus-visible + span,
+.segmented input:focus-visible + span {
+  outline: 3px solid var(--selected-text);
+  outline-offset: 3px;
 }
 
 .inputPanel fieldset {
@@ -509,6 +525,15 @@ input {
   color: var(--text-muted);
   font-size: 13px;
   line-height: 1.5;
+}
+
+.savePanel .exportStatus {
+  padding: 9px 10px;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font-weight: 800;
 }
 
 .pillarGrid {

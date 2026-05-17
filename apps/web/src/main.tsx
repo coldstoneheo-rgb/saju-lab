@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, ShieldCheck, Sparkles, Sun, UserRound } from "lucide-react";
 import { buildFreeReportHtml, buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
 import { toFriendlyError } from "./friendly-error.js";
+import { validateInputDraft } from "./input-validation.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
 import { findPolicyPage, policyPages, type PolicyPage } from "./policy-pages.js";
 import { buildFreeReportFilename } from "./report-filenames.js";
@@ -52,6 +53,13 @@ function App(): JSX.Element {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
+
+    const validationError = validateInputDraft({ birthDate, birthTime, timeUnknown });
+
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
 
     const input: BirthInput = {
       birthDate,
@@ -236,6 +244,16 @@ function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (v
 
 function ReportView({ paidReport, report }: { paidReport: PaidReportV1; report: ReportV1 }): JSX.Element {
   const freeSummary = buildFreeMonthlySummary(report);
+  const [exportStatus, setExportStatus] = React.useState<string | undefined>();
+
+  function handleFreeExport(): void {
+    try {
+      const filename = downloadReportHtml(report);
+      setExportStatus(`${filename} 파일을 이 기기에 저장했습니다.`);
+    } catch {
+      setExportStatus("리포트 저장에 실패했습니다. 브라우저 다운로드 설정을 확인해 주세요.");
+    }
+  }
 
   return (
     <section className="reportStack" aria-live="polite">
@@ -278,11 +296,12 @@ function ReportView({ paidReport, report }: { paidReport: PaidReportV1; report: 
         <button
           aria-label="현재 리포트를 HTML 파일로 저장"
           className="secondaryButton"
-          onClick={() => downloadReportHtml(report)}
+          onClick={handleFreeExport}
           type="button"
         >
           <Download size={18} /> 리포트 저장
         </button>
+        {exportStatus ? <p className="exportStatus" aria-live="polite">{exportStatus}</p> : null}
       </section>
 
       <section className="pillarGrid" aria-label="사주 구조">
@@ -453,7 +472,7 @@ function PaidReportPrototype({ paidReport }: { paidReport: PaidReportV1 }): JSX.
     <section className="paidPrototype" id="paid-preview">
       <div className="paidPrototypeHeader">
         <div>
-          <p className="eyebrow">Phase 5E PDF-ready Spike</p>
+          <p className="eyebrow">유료 상세 리포트 준비 중</p>
           <h3><LockKeyhole size={20} /> {paidReport.cover.title}</h3>
           <p>{paidReport.cover.subtitle}</p>
           <p className="paidPrintHint">저장한 HTML을 브라우저에서 열고 인쇄 메뉴의 PDF 저장을 선택하면 됩니다. 현재 단계는 결제 없이 산출물 품질을 검증합니다.</p>
@@ -630,18 +649,21 @@ function applyTheme(theme: ThemePreference): void {
   document.documentElement.dataset.theme = theme;
 }
 
-function downloadReportHtml(report: ReportV1): void {
+function downloadReportHtml(report: ReportV1): string {
   const html = buildFreeReportHtml(report);
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
+  const filename = buildFreeReportFilename(report.meta.generatedAt);
 
   anchor.href = url;
-  anchor.download = buildFreeReportFilename(report.meta.generatedAt);
+  anchor.download = filename;
   document.body.append(anchor);
   anchor.click();
   anchor.remove();
   URL.revokeObjectURL(url);
+
+  return filename;
 }
 
 function downloadPaidReportHtml(paidReport: PaidReportV1): void {
