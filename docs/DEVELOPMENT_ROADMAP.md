@@ -30,7 +30,8 @@ Last updated: 2026-05-17
 - Phase 4G hardened automated coverage for Phase 4F QA gaps while keeping native date-input and actual download/open checks as human-controlled browser gates.
 - Phase 4H synced beta readiness state after Phase 4G and turned the remaining launch blockers into explicit manual, owner, and external-source gates.
 - Phase 4I recorded human-controlled Chrome evidence for the two browser-dependent QA gaps: native date-input boundary behavior and local free HTML download/open behavior.
-- Phase 4J is syncing beta RC truth after the human QA pass and listing the remaining agent-actionable beta gaps.
+- Phase 4J synced beta RC truth after the human QA pass and listed the remaining agent-actionable beta gaps.
+- Phase 4K is surfacing the full generated report value in the free web report and local HTML export.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -256,7 +257,7 @@ Exit Criteria:
 
 ## Phase 4J: Beta RC Truth Sync
 
-Status: Current.
+Status: Complete.
 
 Goal: summarize the current beta release-candidate truth after Phase 4I and identify which remaining gaps can be safely handled by autonomous implementation agents.
 
@@ -270,6 +271,24 @@ Exit Criteria:
 - Beta readiness docs no longer mix agent-actionable polish with owner/business or external-source decisions.
 - Phase 4I is marked complete without claiming full public beta readiness.
 - The next agent-actionable PR is clear enough to start without re-reading all QA history.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4K: Report Value Completeness
+
+Status: Current.
+
+Goal: make the free web report and local HTML export show the generated `ReportV1` value users need before beta sharing.
+
+Deliverables:
+- Add visible monthly good/caution detail to the free web report.
+- Add visible `행동 제안` groups to the free web report.
+- Include monthly detail and action suggestions in the free local HTML export.
+- Add export tests so generated monthly and action fields are not silently dropped.
+
+Exit Criteria:
+- `ReportV1.monthly.goodMonths` and `ReportV1.monthly.cautionMonths` are visible in the free web report and local HTML export.
+- `ReportV1.actionSuggestions` groups are visible in the free web report and local HTML export.
+- Beta readiness docs mark the report-value gap closed without claiming owner/business or external-source gates are complete.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -724,9 +743,9 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Agent-actionable: surface full generated report value in the web report and free local HTML export.
-2. Agent-actionable: harden invalid/unsupported input copy, export status, keyboard focus, and local asset trust.
-3. Agent-actionable: broaden runtime report safety-copy guard coverage.
+1. Agent-actionable: harden invalid/unsupported input copy, export status, keyboard focus, and local asset trust.
+2. Agent-actionable: broaden runtime report safety-copy guard coverage.
+3. Agent-actionable: prepare a small-beta operator pack with release notes, known limitations, feedback prompts, and rollback notes.
 4. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 5. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 6. Final legal/user-facing policy review remains required before checkout opens.

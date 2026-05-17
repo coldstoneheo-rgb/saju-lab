@@ -95,7 +95,7 @@ These checks support the manual QA pass but do not replace the browser-dependent
 
 These items can be improved by implementation agents before small beta sharing, without closing owner/business or external-source gates.
 
-- [ ] Full generated report value is surfaced in the web report and free local HTML export.
+- [x] Full generated report value is surfaced in the web report and free local HTML export.
 - [ ] Invalid/unsupported input states have specific, user-facing correction copy.
 - [ ] Local export provides accessible success/failure status.
 - [ ] Custom theme, time-unknown, and sex controls have visible keyboard focus states.

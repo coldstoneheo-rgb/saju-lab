@@ -24,6 +24,8 @@ export function buildFreeReportHtml(report: ReportV1): string {
     ["커리어 흐름", [...report.career.trends, ...report.career.risks, ...report.career.actions]],
     ["재무 흐름", [...report.finance.trends, ...report.finance.risks, ...report.finance.actions]],
     [`${report.yearlyOutlook.year}년 포인트`, [...report.yearlyOutlook.highlights, ...report.yearlyOutlook.cautions]],
+    ["월간 흐름", [...report.monthly.goodMonths, ...report.monthly.cautionMonths]],
+    ["행동 제안", [...report.actionSuggestions.habits, ...report.actionSuggestions.planning, ...report.actionSuggestions.riskManagement]],
     ["투명성 노트", [...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]]
   ] as const;
 
