@@ -78,7 +78,7 @@ Follow-up:
 
 ## Phase 4G Follow-Up
 
-Phase 4G adds automated coverage for the two highest-value support checks from this evidence pass:
+Phase 4G added automated coverage for the two highest-value support checks from this evidence pass:
 - boundary-date friendly error mapping.
 - free HTML export content and personal-data-safe filename behavior.
 

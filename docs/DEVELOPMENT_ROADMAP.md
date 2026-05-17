@@ -27,7 +27,8 @@ Last updated: 2026-05-17
 - Phase 4D synced beta-readiness and roadmap state after recent CI and calendrical fixture hardening.
 - Phase 4E added a repeatable beta manual QA runbook and launch guard coverage.
 - Phase 4F completed a beta manual QA evidence pass for the current app build, with two browser-dependent checks intentionally left as PARTIAL evidence rather than overclaimed readiness.
-- Phase 4G is hardening automated coverage for Phase 4F QA gaps while keeping native date-input and actual download/open checks as human-controlled browser gates.
+- Phase 4G hardened automated coverage for Phase 4F QA gaps while keeping native date-input and actual download/open checks as human-controlled browser gates.
+- Phase 4H is syncing beta readiness state after Phase 4G and turning the remaining launch blockers into explicit manual, owner, and external-source gates.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -201,7 +202,7 @@ Completion Note:
 
 ## Phase 4G: Beta QA Gap Hardening And 4F Closure
 
-Status: Current.
+Status: Complete.
 
 Goal: add targeted automated support evidence for Phase 4F gaps and clarify that human-controlled browser QA is still required for native date input and actual local file download/open.
 
@@ -215,6 +216,23 @@ Exit Criteria:
 - Free HTML export content and filename safety have direct test coverage.
 - Docs still require human-controlled browser confirmation for native date input and downloaded-file open behavior.
 - `npm run verify` passes.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4H: Beta Readiness State Sync And Manual Gate Closure Plan
+
+Status: Current.
+
+Goal: align roadmap and beta readiness docs after Phase 4G so the project can move forward without mistaking automated support coverage for beta launch readiness.
+
+Deliverables:
+- Mark Phase 4G complete after PR review and merge.
+- Reframe immediate next actions around the remaining human browser checks, owner/business decisions, and KASI source revalidation.
+- Keep beta checklist wording clear that automated coverage supports, but does not complete, the open manual QA gates.
+
+Exit Criteria:
+- Roadmap no longer lists Phase 4G PR review as pending.
+- Immediate next actions identify the native date-input and downloaded HTML checks as human-controlled browser work.
+- Owner support contact, payment provider, legal policy review, and external KASI revalidation remain open gates.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -669,8 +687,9 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 4G beta QA gap hardening and PR review.
-2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
-3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
-4. External source gate: revalidate embedded solar-term times against KASI source data before public beta expansion.
-5. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
+1. Human browser QA required: confirm the native `type=date` boundary-date flow shows the friendly Korean birth-time-required error.
+2. Human browser QA required: confirm the downloaded free HTML report exists, opens locally, uses a personal-data-safe filename, and includes disclaimer, transparency, and local-processing copy.
+3. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
+4. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
+5. External source gate: revalidate embedded solar-term times against KASI source data before broader public beta expansion.
+6. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
