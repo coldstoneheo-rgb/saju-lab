@@ -57,4 +57,6 @@ Still required before live checkout:
 - final legal/user-facing policy copy.
 - exact retention periods for order/payment and support records.
 - final payment provider decision.
-- checkout/session verification implementation plan.
+- checkout/session verification implementation.
+
+Phase 5K follow-up: `docs/CHECKOUT_SESSION_VERIFICATION.md` defines the checkout/session verification blueprint, but the implementation remains a live-checkout gate.

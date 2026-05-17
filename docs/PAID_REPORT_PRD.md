@@ -267,6 +267,12 @@ Phase 5J implementation baseline:
 - The placeholder support contact must not appear as a real user support address.
 - Live checkout still requires final legal review, exact retention periods, real support contact, and final payment provider selection.
 
+Phase 5K implementation baseline:
+- `docs/CHECKOUT_SESSION_VERIFICATION.md` defines the checkout/session verification blueprint.
+- Checkout verification should rely on order/session and provider metadata only.
+- Birth input, calculated pillars, report body, and PDF-ready HTML remain forbidden checkout/session payload.
+- A return URL alone must not unlock the paid download; server-side provider verification is required before live checkout.
+
 ## 11. Metrics
 
 Track only after analytics and privacy policy are ready:

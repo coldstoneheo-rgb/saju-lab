@@ -115,6 +115,25 @@ Draft policy pages now have app routes:
 
 These pages are user-facing scaffolds for review, not final legal policies. They may be linked from the paid readiness panel while checkout remains closed. They must keep clear draft-status language and must not expose `support@example.com` as a real support address.
 
+## Phase 5K Checkout Session Verification Baseline
+
+Checkout/session verification blueprint:
+- `docs/CHECKOUT_SESSION_VERIFICATION.md`
+
+Verification should use order/session and provider metadata only. A return URL alone must not unlock the paid download. The verification step should confirm provider session ID, paid status, amount, currency, SKU, order/session ID, timestamps, and duplicate/replay handling.
+
+Forbidden checkout/session payload:
+- birth date.
+- birth time.
+- sex.
+- timezone.
+- calculated pillars.
+- free report body.
+- paid report body.
+- PDF-ready HTML.
+
+This baseline does not introduce checkout code, payment SDKs, webhooks, login, account storage, or server-side report storage.
+
 ## Merge Checklist
 
 Before checkout code is implemented:
@@ -126,5 +145,6 @@ Before checkout code is implemented:
 - [x] Data retention decision is written.
 - [x] Support and policy link structure is documented.
 - [x] Draft user-facing policy pages are scaffolded.
+- [x] Checkout/session verification blueprint is documented.
 - [ ] Real support contact path is available.
 - [ ] The app still avoids live purchase language until checkout is actually implemented.
