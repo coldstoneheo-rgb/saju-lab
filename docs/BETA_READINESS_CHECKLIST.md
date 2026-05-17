@@ -4,6 +4,8 @@ Last updated: 2026-05-17
 
 Use this checklist before sharing the MVP with a small beta group.
 
+Detailed manual steps live in `docs/BETA_MANUAL_QA_RUNBOOK.md`.
+
 ## Mobile Input Flow
 
 - [ ] Birth date input is usable on a narrow mobile viewport.
@@ -64,6 +66,7 @@ Use this before opening a PR when the change has code, build, dependency, or whi
 
 These checks remain manual because they require looking at the rendered mobile experience.
 
+- [ ] `docs/BETA_MANUAL_QA_RUNBOOK.md` has been followed for the target build.
 - [ ] Basic report generation is readable on a narrow mobile viewport.
 - [ ] Time unknown mode visibly lowers confidence and explains the impact.
 - [ ] Policy draft pages are reachable and still marked as drafts.
