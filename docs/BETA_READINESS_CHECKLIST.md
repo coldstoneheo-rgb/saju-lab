@@ -77,7 +77,7 @@ These checks remain manual because they require looking at the rendered mobile e
 
 ## Automated QA Gap Coverage
 
-These checks support the manual QA pass but do not replace the browser-dependent steps above.
+These checks support the manual QA pass but do not replace the browser-dependent steps above. Keep the final two rows open until a human-controlled browser confirms the native input and local file behaviors.
 
 - [x] Core boundary-date rejection is covered by automated tests.
 - [x] Boundary-date friendly error mapping is covered by automated web tests.
