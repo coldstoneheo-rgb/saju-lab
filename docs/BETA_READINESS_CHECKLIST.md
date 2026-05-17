@@ -1,6 +1,6 @@
 # Saju Lab Beta Readiness Checklist
 
-Last updated: 2026-05-15
+Last updated: 2026-05-17
 
 Use this checklist before sharing the MVP with a small beta group.
 
@@ -43,7 +43,26 @@ Use this checklist before sharing the MVP with a small beta group.
 - [ ] Save report button has an accessible label.
 - [ ] Main content remains readable in light, dark, and system theme modes.
 
+## Automated CI Verification
+
+These commands are now enforced by the GitHub Actions CI workflow on pull requests and pushes to `main`.
+
+- [x] `npm ci`
+- [x] `npm run typecheck`
+- [x] `npm test`
+- [x] `npm run build`
+- [x] `npm audit --audit-level=moderate`
+- [x] `git diff --check`
+
+## Local Verification Command
+
+Use this before opening a PR when the change has code, build, dependency, or whitespace risk.
+
+- [ ] `npm run verify`
+
 ## Manual Verification Commands
+
+These remain useful for targeted debugging or when a PR changes only one area.
 
 - [ ] `npm run typecheck`
 - [ ] `npm test`
