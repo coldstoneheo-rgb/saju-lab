@@ -23,7 +23,7 @@ Latest QA evidence:
 - [ ] Invalid dates show a user-facing correction message.
 - [ ] Invalid times show a user-facing correction message.
 - [ ] Unsupported date ranges are described as an MVP data-range limitation.
-- [ ] Solar-term boundary dates explain that birth time is required.
+- [x] Solar-term boundary dates explain that birth time is required.
 - [ ] Time unknown is treated as a supported partial-data state, not as an error.
 
 ## Report Safety
@@ -75,7 +75,7 @@ These checks remain manual because they require looking at the rendered mobile e
 - [ ] Time unknown mode visibly lowers confidence and explains the impact.
 - [ ] Policy draft pages are reachable and still marked as drafts.
 - [ ] Paid readiness panel does not imply checkout is live.
-- [ ] HTML export can be opened locally and does not put birth data in the filename.
+- [x] HTML export can be opened locally and does not put birth data in the filename.
 
 ## Automated QA Gap Coverage
 
