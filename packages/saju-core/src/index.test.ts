@@ -77,6 +77,27 @@ describe("calculatePillars", () => {
     });
   });
 
+  it("keeps the new year and month one minute after Ipchun", () => {
+    expect(calculatePillars({
+      birthDate: "2024-02-04",
+      birthTime: "17:28",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toMatchObject({
+      year: { stem: "gap", branch: "jin" },
+      month: { stem: "byeong", branch: "in" }
+    });
+  });
+
+  it("keeps the previous month one minute before the Gyeongchip boundary", () => {
+    expect(calculatePillars({
+      birthDate: "2024-03-05",
+      birthTime: "11:21",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    }).month).toEqual({ stem: "byeong", branch: "in" });
+  });
+
   it("applies the new month at the exact Gyeongchip boundary", () => {
     expect(calculatePillars({
       birthDate: "2024-03-05",
@@ -84,6 +105,40 @@ describe("calculatePillars", () => {
       timezone: "Asia/Seoul",
       sex: "other"
     }).month).toEqual({ stem: "jeong", branch: "myo" });
+  });
+
+  it("keeps the new month one minute after the Gyeongchip boundary", () => {
+    expect(calculatePillars({
+      birthDate: "2024-03-05",
+      birthTime: "11:23",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    }).month).toEqual({ stem: "jeong", branch: "myo" });
+  });
+
+  it("does not roll 23:00 Ja hour over to the next civil date in the current MVP", () => {
+    const beforeJaHour = calculatePillars({
+      birthDate: "2010-06-21",
+      birthTime: "22:59",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+    const jaHour = calculatePillars({
+      birthDate: "2010-06-21",
+      birthTime: "23:00",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+    const nextCivilDate = calculatePillars({
+      birthDate: "2010-06-22",
+      birthTime: "00:00",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+
+    expect(jaHour.day).toEqual(beforeJaHour.day);
+    expect(jaHour.day).not.toEqual(nextCivilDate.day);
+    expect(jaHour.time?.branch).toBe("ja");
   });
 
   it("rejects date-only inputs on solar term boundary dates", () => {

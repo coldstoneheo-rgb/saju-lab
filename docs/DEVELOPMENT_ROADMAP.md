@@ -1,6 +1,6 @@
 # Saju Lab Development Roadmap
 
-Last updated: 2026-05-15
+Last updated: 2026-05-17
 
 ## Roadmap Principles
 
@@ -15,6 +15,7 @@ Last updated: 2026-05-15
 - `main` also includes the Phase 1 TypeScript workspace scaffold, `packages/saju-core`, and `apps/web`.
 - The current MVP model is mobile-first: birth input, time-unknown mode, confidence badge, report cards, four-pillar summary, transparency notes, and free-to-paid upgrade framing.
 - Phase 2A has replaced the original calculation placeholder with a deterministic, fixture-limited `Asia/Seoul` calculation core covering 60-cycle utilities, Ipchun year boundaries, solar-term month boundaries, day pillars, time pillars, and golden fixture tests.
+- Phase 2D is hardening calendrical boundary tests for Ipchun, solar month boundaries, and the current 23:00 Ja-hour day-pillar policy.
 - Phase 2B has added system/light/dark theme preferences and login-free local HTML report export for basic reports.
 - Phase 3A has added a deterministic rules-only report engine with complete `ReportV1` sections.
 - Phase 3B has added plain-language Korean terminology for core Saju terms and wired it into the web report and HTML export.
@@ -32,7 +33,7 @@ Last updated: 2026-05-15
 - Phase 5H defined the first paid SKU data-retention boundary before checkout implementation.
 - Phase 5I defined support contact and user-facing policy link structure before live checkout.
 - Phase 5J scaffolded user-facing policy draft pages without opening checkout.
-- Phase 5K is defining checkout/session verification boundaries before payment code.
+- Phase 5K defined checkout/session verification boundaries before payment code.
 
 ## Completed Work
 
@@ -71,10 +72,9 @@ Completed Deliverables:
 - Guardrails for unsupported fixture ranges and solar-term boundary dates without `birthTime`.
 
 Remaining Follow-Up:
-- Add explicit post-boundary tests for Ipchun and solar month boundaries.
 - Add build and audit to CI if they should become protected merge gates.
 - Replace embedded fixture-only solar-term data with a broader verified data source before general public date coverage.
-- Decide whether 23:00 이후 자시 should roll the day pillar to the next day.
+- Revisit whether 23:00 이후 자시 should roll the day pillar to the next day only after a separate product/calculation decision.
 
 ### Phase 2B: Theme Preferences And Basic Report Export
 
@@ -102,6 +102,23 @@ Deliverables:
 Exit Criteria:
 - Roadmap and README describe the current implementation accurately.
 - Upcoming phases are explicit enough to plan Phase 3A without re-reading merged PR history.
+
+## Phase 2D: Calendrical Boundary Hardening
+
+Status: Current.
+
+Goal: harden the fixture-limited calculation core around known boundary risks before public beta expansion.
+
+Deliverables:
+- Ipchun before, at, and after boundary regression tests.
+- Solar month boundary before, at, and after regression tests.
+- Test coverage for the current MVP policy that 23:00 Ja hour does not roll the day pillar to the next civil date.
+- Solar-term spec and golden-fixture documentation updates for the boundary policy.
+
+Exit Criteria:
+- Boundary tests cover one minute before, exact minute, and one minute after known Ipchun and solar month boundaries.
+- The 23:00 Ja-hour behavior is explicit in tests and docs.
+- No broad solar-term table expansion or external data dependency is introduced in this phase.
 
 ## Historical Phase Details
 
@@ -501,7 +518,7 @@ Exit Criteria:
 
 ## Phase 5K: Checkout Session Verification Blueprint
 
-Status: Current.
+Status: Complete.
 
 Goal: define how a paid checkout session should be verified before unlocking a local paid-report download.
 
@@ -536,7 +553,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 5K checkout/session verification blueprint and PR review.
+1. Complete Phase 2D calendrical boundary hardening and PR review.
 2. Replace placeholder support contact with a real support email or form before live checkout.
 3. Choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
