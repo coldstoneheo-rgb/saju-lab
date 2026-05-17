@@ -667,6 +667,23 @@ input {
   line-height: 1.5;
 }
 
+.policyLinkList {
+  display: grid;
+  gap: 8px;
+}
+
+.policyLinkList a {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
 .paidPrototype {
   display: grid;
   gap: 12px;
@@ -801,6 +818,45 @@ input {
   color: var(--text-muted);
   font-size: 12px;
   line-height: 1.5;
+}
+
+.policyWorkspace {
+  display: grid;
+  gap: 14px;
+}
+
+.policyIntro {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 16px 40px var(--shadow);
+}
+
+.policyIntro strong {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+}
+
+.policyIntro p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.policyStack {
+  display: grid;
+  gap: 12px;
+}
+
+.sectionNav a[aria-current="page"] {
+  border-color: var(--selected-text);
+  background: var(--selected);
+  color: var(--selected-text);
 }
 
 @media (min-width: 760px) {
