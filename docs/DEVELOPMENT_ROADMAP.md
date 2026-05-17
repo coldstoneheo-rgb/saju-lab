@@ -16,7 +16,7 @@ Last updated: 2026-05-17
 - The current MVP model is mobile-first: birth input, time-unknown mode, confidence badge, report cards, four-pillar summary, transparency notes, and free-to-paid upgrade framing.
 - Phase 2A has replaced the original calculation placeholder with a deterministic, fixture-limited `Asia/Seoul` calculation core covering 60-cycle utilities, Ipchun year boundaries, solar-term month boundaries, day pillars, time pillars, and golden fixture tests.
 - Phase 2D hardened calendrical boundary tests for Ipchun, solar month boundaries, and the current 23:00 Ja-hour day-pillar policy.
-- Phase 2E is expanding the verified 2024 solar-month fixture matrix while staying inside deterministic `Asia/Seoul` calculation scope.
+- Phase 2E expanded the verified 2024 solar-month fixture matrix while staying inside deterministic `Asia/Seoul` calculation scope.
 - Phase 2B has added system/light/dark theme preferences and login-free local HTML report export for basic reports.
 - Phase 3A has added a deterministic rules-only report engine with complete `ReportV1` sections.
 - Phase 3B has added plain-language Korean terminology for core Saju terms and wired it into the web report and HTML export.
@@ -24,6 +24,7 @@ Last updated: 2026-05-17
 - Phase 4A has improved mobile input hints, user-facing error messages, accessible controls, and section navigation.
 - Phase 4B has added beta readiness documentation, privacy and safety notes, manual QA criteria, and clearer MVP scope limits.
 - Phase 4C hardened beta CI gates for typecheck, test, build, audit, and whitespace verification.
+- Phase 4D is syncing beta-readiness and roadmap state after recent CI and calendrical fixture hardening.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -123,7 +124,7 @@ Exit Criteria:
 
 ## Phase 2E: Verified Calendrical Fixture Matrix Expansion
 
-Status: Current.
+Status: Complete.
 
 Goal: broaden the fixture-limited calculation core around verified 2024 solar-month boundaries before public beta expansion.
 
@@ -137,6 +138,24 @@ Exit Criteria:
 - Expanded 2024 boundary tests pass without changing the current 23:00 Ja-hour no-rollover policy.
 - Each added boundary has a documented source note and remains marked as fixture-limited until KASI source revalidation.
 - `npm run verify` passes.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4D: Beta Readiness And Roadmap State Sync
+
+Status: Current.
+
+Goal: keep roadmap and beta-readiness docs accurate after Phase 4C and Phase 2E, while separating safe engineering work from owner/business and external-data gates.
+
+Deliverables:
+- Mark Phase 2E complete and update current repository snapshot language.
+- Distinguish automated CI gates, local verification, manual QA, owner/business gates, and external-data gates.
+- Keep real support contact and final payment provider selection clearly blocked until the owner makes those decisions.
+- Keep KASI source revalidation clearly blocked until direct source verification is completed.
+
+Exit Criteria:
+- Roadmap no longer describes completed work as current.
+- Immediate next actions avoid implying that checkout, provider, support, or legal decisions can be made autonomously.
+- Beta readiness docs distinguish automated checks from manual, business, and external-source readiness.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -591,8 +610,8 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 2E verified calendrical fixture matrix expansion and PR review.
-2. Replace placeholder support contact with a real support email or form before live checkout.
-3. Choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
-4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
-5. Continue KASI source revalidation before public beta expansion.
+1. Complete Phase 4D beta-readiness and roadmap state sync and PR review.
+2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
+3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
+4. External source gate: revalidate embedded solar-term times against KASI source data before public beta expansion.
+5. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
