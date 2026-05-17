@@ -1,6 +1,6 @@
 # Saju Lab Beta Readiness Checklist
 
-Last updated: 2026-05-17
+Last updated: 2026-05-18
 
 Use this checklist before sharing the MVP with a small beta group.
 
@@ -9,6 +9,9 @@ Detailed manual steps live in `docs/BETA_MANUAL_QA_RUNBOOK.md`.
 Latest QA evidence:
 - `docs/BETA_MANUAL_QA_RESULTS_2026-05-17.md`
 - `docs/BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md`
+
+Current RC status:
+- `docs/BETA_RC_STATUS_2026-05-18.md`
 
 ## Mobile Input Flow
 
@@ -87,6 +90,17 @@ These checks support the manual QA pass but do not replace the browser-dependent
 - [x] Free report filename safety is covered by automated tests.
 - [x] Human-controlled browser confirms the native `type=date` boundary-date entry flow.
 - [x] Human-controlled browser confirms the downloaded HTML file exists, opens locally, and contains the required notices.
+
+## Agent-Actionable Beta Gaps
+
+These items can be improved by implementation agents before small beta sharing, without closing owner/business or external-source gates.
+
+- [ ] Full generated report value is surfaced in the web report and free local HTML export.
+- [ ] Invalid/unsupported input states have specific, user-facing correction copy.
+- [ ] Local export provides accessible success/failure status.
+- [ ] Custom theme, time-unknown, and sex controls have visible keyboard focus states.
+- [ ] Remote decorative asset requests do not weaken the local-processing trust message.
+- [ ] Runtime report copy avoids deterministic finance or professional-advice phrasing even in negated examples.
 
 ## Owner And Business Gates
 

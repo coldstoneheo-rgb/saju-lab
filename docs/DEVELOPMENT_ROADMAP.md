@@ -29,7 +29,8 @@ Last updated: 2026-05-17
 - Phase 4F completed a beta manual QA evidence pass for the current app build, with two browser-dependent checks intentionally left as PARTIAL evidence rather than overclaimed readiness.
 - Phase 4G hardened automated coverage for Phase 4F QA gaps while keeping native date-input and actual download/open checks as human-controlled browser gates.
 - Phase 4H synced beta readiness state after Phase 4G and turned the remaining launch blockers into explicit manual, owner, and external-source gates.
-- Phase 4I is recording human-controlled Chrome evidence for the two browser-dependent QA gaps: native date-input boundary behavior and local free HTML download/open behavior.
+- Phase 4I recorded human-controlled Chrome evidence for the two browser-dependent QA gaps: native date-input boundary behavior and local free HTML download/open behavior.
+- Phase 4J is syncing beta RC truth after the human QA pass and listing the remaining agent-actionable beta gaps.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -238,7 +239,7 @@ Exit Criteria:
 
 ## Phase 4I: Human Browser QA Evidence Closure
 
-Status: Current.
+Status: Complete.
 
 Goal: close the two browser-dependent QA evidence gaps that could not be completed in the Codex in-app browser.
 
@@ -251,6 +252,24 @@ Exit Criteria:
 - Boundary-date `2024-02-04` with missing birth time shows friendly Korean birth-time-required copy in a human-controlled browser.
 - Free HTML export downloads, opens locally, uses a personal-data-safe filename, and includes disclaimer, transparency, and local-processing copy.
 - Owner/business gates and KASI source revalidation remain open and are not overclaimed.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4J: Beta RC Truth Sync
+
+Status: Current.
+
+Goal: summarize the current beta release-candidate truth after Phase 4I and identify which remaining gaps can be safely handled by autonomous implementation agents.
+
+Deliverables:
+- Add a dated beta RC status document.
+- Link the RC status from the beta readiness checklist.
+- Separate evidence-backed closed gates, agent-actionable product gaps, owner/business gates, and KASI source gates.
+- Recommend the next implementation PR without opening checkout, account, server-storage, AI, analytics, PDF-library, or KASI ingestion scope.
+
+Exit Criteria:
+- Beta readiness docs no longer mix agent-actionable polish with owner/business or external-source decisions.
+- Phase 4I is marked complete without claiming full public beta readiness.
+- The next agent-actionable PR is clear enough to start without re-reading all QA history.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -705,8 +724,11 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
-2. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
-3. Final legal/user-facing policy review remains required before checkout opens.
-4. External source gate: revalidate embedded solar-term times against KASI source data before broader public beta expansion.
-5. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
+1. Agent-actionable: surface full generated report value in the web report and free local HTML export.
+2. Agent-actionable: harden invalid/unsupported input copy, export status, keyboard focus, and local asset trust.
+3. Agent-actionable: broaden runtime report safety-copy guard coverage.
+4. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
+5. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
+6. Final legal/user-facing policy review remains required before checkout opens.
+7. External source gate: revalidate embedded solar-term times against KASI source data before broader public beta expansion.
+8. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
