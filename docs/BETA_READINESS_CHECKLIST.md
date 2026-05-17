@@ -60,6 +60,33 @@ Use this before opening a PR when the change has code, build, dependency, or whi
 
 - [ ] `npm run verify`
 
+## Manual QA Verification
+
+These checks remain manual because they require looking at the rendered mobile experience.
+
+- [ ] Basic report generation is readable on a narrow mobile viewport.
+- [ ] Time unknown mode visibly lowers confidence and explains the impact.
+- [ ] Policy draft pages are reachable and still marked as drafts.
+- [ ] Paid readiness panel does not imply checkout is live.
+- [ ] HTML export can be opened locally and does not put birth data in the filename.
+
+## Owner And Business Gates
+
+These items must not be resolved autonomously by implementation agents.
+
+- [ ] Real support contact email or support form is chosen.
+- [ ] Final payment provider is selected after settlement, receipt, refund, and support needs are clear.
+- [ ] Final legal/user-facing policy review is complete before checkout opens.
+- [ ] Account, saved report storage, or subscription scope is explicitly approved before it is implemented.
+
+## External Source Gates
+
+These items require direct source verification before broad public beta or wider date-range support.
+
+- [ ] Embedded solar-term times are revalidated against KASI source data.
+- [ ] Fixture-limited date coverage is still visible to users as an MVP limitation.
+- [ ] Any future broader solar-term table has source, update, and regression-test notes.
+
 ## Manual Verification Commands
 
 These remain useful for targeted debugging or when a PR changes only one area.
