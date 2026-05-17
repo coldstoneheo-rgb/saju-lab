@@ -15,13 +15,14 @@ Last updated: 2026-05-17
 - `main` also includes the Phase 1 TypeScript workspace scaffold, `packages/saju-core`, and `apps/web`.
 - The current MVP model is mobile-first: birth input, time-unknown mode, confidence badge, report cards, four-pillar summary, transparency notes, and free-to-paid upgrade framing.
 - Phase 2A has replaced the original calculation placeholder with a deterministic, fixture-limited `Asia/Seoul` calculation core covering 60-cycle utilities, Ipchun year boundaries, solar-term month boundaries, day pillars, time pillars, and golden fixture tests.
-- Phase 2D is hardening calendrical boundary tests for Ipchun, solar month boundaries, and the current 23:00 Ja-hour day-pillar policy.
+- Phase 2D hardened calendrical boundary tests for Ipchun, solar month boundaries, and the current 23:00 Ja-hour day-pillar policy.
 - Phase 2B has added system/light/dark theme preferences and login-free local HTML report export for basic reports.
 - Phase 3A has added a deterministic rules-only report engine with complete `ReportV1` sections.
 - Phase 3B has added plain-language Korean terminology for core Saju terms and wired it into the web report and HTML export.
 - Phase 3C has improved report scanning, confidence/disclaimer visibility, and the free-versus-paid report boundary.
 - Phase 4A has improved mobile input hints, user-facing error messages, accessible controls, and section navigation.
 - Phase 4B has added beta readiness documentation, privacy and safety notes, manual QA criteria, and clearer MVP scope limits.
+- Phase 4C is hardening beta CI gates for typecheck, test, build, audit, and whitespace verification.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -72,7 +73,6 @@ Completed Deliverables:
 - Guardrails for unsupported fixture ranges and solar-term boundary dates without `birthTime`.
 
 Remaining Follow-Up:
-- Add build and audit to CI if they should become protected merge gates.
 - Replace embedded fixture-only solar-term data with a broader verified data source before general public date coverage.
 - Revisit whether 23:00 이후 자시 should roll the day pillar to the next day only after a separate product/calculation decision.
 
@@ -105,7 +105,7 @@ Exit Criteria:
 
 ## Phase 2D: Calendrical Boundary Hardening
 
-Status: Current.
+Status: Complete.
 
 Goal: harden the fixture-limited calculation core around known boundary risks before public beta expansion.
 
@@ -301,6 +301,25 @@ Exit Criteria:
 - Core flows pass manual QA.
 - Users understand that reports are informational/entertainment-oriented.
 - Users understand that the MVP does not provide login, server sync, or account storage.
+
+## Phase 4C: Beta CI And Verification Gate Hardening
+
+Status: Current.
+
+Goal: turn beta-readiness verification commands into automated pull-request gates without expanding product scope.
+
+Deliverables:
+- CI build gate.
+- CI moderate audit gate.
+- CI whitespace gate via `git diff --check`.
+- Root `npm run verify` script matching the local verification flow.
+- Beta checklist update distinguishing automated CI checks from manual QA.
+
+Exit Criteria:
+- GitHub Actions runs install, typecheck, test, build, audit, and whitespace checks.
+- Local `npm run verify` runs typecheck, test, build, audit, and whitespace checks in order.
+- Docs clearly identify which beta checks are automated and which remain manual.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 5: Paid Service Path
 
@@ -553,7 +572,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 2D calendrical boundary hardening and PR review.
+1. Complete Phase 4C beta CI and verification gate hardening and PR review.
 2. Replace placeholder support contact with a real support email or form before live checkout.
 3. Choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
