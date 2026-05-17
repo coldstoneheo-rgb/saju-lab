@@ -25,7 +25,8 @@ Last updated: 2026-05-17
 - Phase 4B has added beta readiness documentation, privacy and safety notes, manual QA criteria, and clearer MVP scope limits.
 - Phase 4C hardened beta CI gates for typecheck, test, build, audit, and whitespace verification.
 - Phase 4D synced beta-readiness and roadmap state after recent CI and calendrical fixture hardening.
-- Phase 4E is adding a repeatable beta manual QA runbook and launch guard coverage.
+- Phase 4E added a repeatable beta manual QA runbook and launch guard coverage.
+- Phase 4F is recording beta manual QA evidence from the current app build.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -161,7 +162,7 @@ Exit Criteria:
 
 ## Phase 4E: Beta Manual QA Runbook And Launch Guard Coverage
 
-Status: Current.
+Status: Complete.
 
 Goal: make beta manual QA repeatable and strengthen guard coverage around the no-live-checkout launch boundary.
 
@@ -174,6 +175,24 @@ Exit Criteria:
 - Another agent or human can execute beta manual QA without reconstructing expected behavior from scattered docs.
 - Guard tests fail if user-facing readiness copy exposes live checkout, placeholder support contact, account/storage claims, or report payload checkout fields.
 - `npm run verify` passes.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4F: Beta Manual QA Evidence Pass
+
+Status: Current.
+
+Goal: execute the beta manual QA runbook against the current app build and record concrete pass/fail evidence without changing owner/business or external-source gates.
+
+Deliverables:
+- Add a dated beta manual QA results document.
+- Record tested viewports, input flows, policy routes, paid readiness copy, and launch-boundary checks.
+- Update the beta checklist to point to the latest QA evidence.
+- Keep any objective fixes narrow and tied to a documented QA finding.
+
+Exit Criteria:
+- QA evidence distinguishes passed checks, partial checks, owner decisions, and external source gates.
+- Boundary-date, support-contact, payment-provider, and KASI-source limitations are not overclaimed.
+- `npm run verify` passes after the evidence document is added.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -628,7 +647,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Complete Phase 4E beta manual QA runbook and launch guard coverage and PR review.
+1. Complete Phase 4F beta manual QA evidence pass and PR review.
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. External source gate: revalidate embedded solar-term times against KASI source data before public beta expansion.

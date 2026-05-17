@@ -6,6 +6,8 @@ Use this checklist before sharing the MVP with a small beta group.
 
 Detailed manual steps live in `docs/BETA_MANUAL_QA_RUNBOOK.md`.
 
+Latest QA evidence: `docs/BETA_MANUAL_QA_RESULTS_2026-05-17.md`.
+
 ## Mobile Input Flow
 
 - [ ] Birth date input is usable on a narrow mobile viewport.
