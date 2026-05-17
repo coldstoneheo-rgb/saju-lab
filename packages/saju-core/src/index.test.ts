@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { calculatePillars, cyclePillar, generatePaidReportV1, generateReportV1, getPillarTerms, getSajuTerm, hourBranchIndex } from "./index.js";
 import { GOLDEN_FIXTURES } from "./fixtures.js";
-import type { BirthInput } from "./types.js";
+import type { BirthInput, Pillar } from "./types.js";
 
 describe("sexagenary cycle utilities", () => {
   it("wraps cycle indexes in both directions", () => {
@@ -116,6 +116,113 @@ describe("calculatePillars", () => {
     }).month).toEqual({ stem: "jeong", branch: "myo" });
   });
 
+  const solarMonthBoundaryCases: Array<{
+    term: string;
+    before: { birthDate: string; birthTime: string; expected: Pillar };
+    exact: { birthDate: string; birthTime: string; expected: Pillar };
+    after: { birthDate: string; birthTime: string; expected: Pillar };
+  }> = [
+    {
+      term: "Cheongmyeong",
+      before: { birthDate: "2024-04-04", birthTime: "16:01", expected: { stem: "jeong", branch: "myo" } },
+      exact: { birthDate: "2024-04-04", birthTime: "16:02", expected: { stem: "mu", branch: "jin" } },
+      after: { birthDate: "2024-04-04", birthTime: "16:03", expected: { stem: "mu", branch: "jin" } }
+    },
+    {
+      term: "Ipha",
+      before: { birthDate: "2024-05-05", birthTime: "09:09", expected: { stem: "mu", branch: "jin" } },
+      exact: { birthDate: "2024-05-05", birthTime: "09:10", expected: { stem: "gi", branch: "sa" } },
+      after: { birthDate: "2024-05-05", birthTime: "09:11", expected: { stem: "gi", branch: "sa" } }
+    },
+    {
+      term: "Mangjong",
+      before: { birthDate: "2024-06-05", birthTime: "13:08", expected: { stem: "gi", branch: "sa" } },
+      exact: { birthDate: "2024-06-05", birthTime: "13:09", expected: { stem: "gyeong", branch: "o" } },
+      after: { birthDate: "2024-06-05", birthTime: "13:10", expected: { stem: "gyeong", branch: "o" } }
+    },
+    {
+      term: "Soseo",
+      before: { birthDate: "2024-07-06", birthTime: "23:19", expected: { stem: "gyeong", branch: "o" } },
+      exact: { birthDate: "2024-07-06", birthTime: "23:20", expected: { stem: "sin", branch: "mi" } },
+      after: { birthDate: "2024-07-06", birthTime: "23:21", expected: { stem: "sin", branch: "mi" } }
+    },
+    {
+      term: "Ipchu",
+      before: { birthDate: "2024-08-07", birthTime: "09:08", expected: { stem: "sin", branch: "mi" } },
+      exact: { birthDate: "2024-08-07", birthTime: "09:09", expected: { stem: "im", branch: "sin" } },
+      after: { birthDate: "2024-08-07", birthTime: "09:10", expected: { stem: "im", branch: "sin" } }
+    },
+    {
+      term: "Baengno",
+      before: { birthDate: "2024-09-07", birthTime: "12:10", expected: { stem: "im", branch: "sin" } },
+      exact: { birthDate: "2024-09-07", birthTime: "12:11", expected: { stem: "gye", branch: "yu" } },
+      after: { birthDate: "2024-09-07", birthTime: "12:12", expected: { stem: "gye", branch: "yu" } }
+    },
+    {
+      term: "Hallo",
+      before: { birthDate: "2024-10-08", birthTime: "03:58", expected: { stem: "gye", branch: "yu" } },
+      exact: { birthDate: "2024-10-08", birthTime: "03:59", expected: { stem: "gap", branch: "sul" } },
+      after: { birthDate: "2024-10-08", birthTime: "04:00", expected: { stem: "gap", branch: "sul" } }
+    },
+    {
+      term: "Ipdong",
+      before: { birthDate: "2024-11-07", birthTime: "07:19", expected: { stem: "gap", branch: "sul" } },
+      exact: { birthDate: "2024-11-07", birthTime: "07:20", expected: { stem: "eul", branch: "hae" } },
+      after: { birthDate: "2024-11-07", birthTime: "07:21", expected: { stem: "eul", branch: "hae" } }
+    },
+    {
+      term: "Daeseol",
+      before: { birthDate: "2024-12-07", birthTime: "00:16", expected: { stem: "eul", branch: "hae" } },
+      exact: { birthDate: "2024-12-07", birthTime: "00:17", expected: { stem: "byeong", branch: "ja" } },
+      after: { birthDate: "2024-12-07", birthTime: "00:18", expected: { stem: "byeong", branch: "ja" } }
+    }
+  ];
+
+  it.each(solarMonthBoundaryCases)("applies the previous month one minute before $term", ({ before }) => {
+    expect(calculatePillars({
+      birthDate: before.birthDate,
+      birthTime: before.birthTime,
+      timezone: "Asia/Seoul",
+      sex: "other"
+    }).month).toEqual(before.expected);
+  });
+
+  it.each(solarMonthBoundaryCases)("applies the new month at the exact $term boundary", ({ exact }) => {
+    expect(calculatePillars({
+      birthDate: exact.birthDate,
+      birthTime: exact.birthTime,
+      timezone: "Asia/Seoul",
+      sex: "other"
+    }).month).toEqual(exact.expected);
+  });
+
+  it.each(solarMonthBoundaryCases)("keeps the new month one minute after $term", ({ after }) => {
+    expect(calculatePillars({
+      birthDate: after.birthDate,
+      birthTime: after.birthTime,
+      timezone: "Asia/Seoul",
+      sex: "other"
+    }).month).toEqual(after.expected);
+  });
+
+  it.each([
+    "2024-04-04",
+    "2024-05-05",
+    "2024-06-05",
+    "2024-07-06",
+    "2024-08-07",
+    "2024-09-07",
+    "2024-10-08",
+    "2024-11-07",
+    "2024-12-07"
+  ])("rejects date-only inputs on the %s solar month boundary date", (birthDate) => {
+    expect(() => calculatePillars({
+      birthDate,
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("birthTime is required");
+  });
+
   it("does not roll 23:00 Ja hour over to the next civil date in the current MVP", () => {
     const beforeJaHour = calculatePillars({
       birthDate: "2010-06-21",
@@ -164,7 +271,7 @@ describe("calculatePillars", () => {
     })).toThrow("No upper solar month boundary");
 
     expect(() => calculatePillars({
-      birthDate: "2024-12-01",
+      birthDate: "2025-03-01",
       birthTime: "12:00",
       timezone: "Asia/Seoul",
       sex: "other"
