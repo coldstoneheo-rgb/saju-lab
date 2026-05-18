@@ -24,6 +24,8 @@ describe("policy pages", () => {
     expect(copy).not.toContain("바로 결제");
     expect(copy).not.toContain("결제하기");
     expect(copy).not.toContain("결제 완료");
+    expect(copy).not.toContain("live checkout");
+    expect(copy).not.toContain("사용자-facing");
   });
 
   it("keeps usage guidance non-deterministic and outside professional advice", () => {

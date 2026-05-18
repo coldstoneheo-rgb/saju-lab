@@ -210,7 +210,7 @@ function PolicyPageView({ page, theme, onThemeChange }: {
         </section>
 
         <section className="safetyNote" aria-label="정책 초안 한계">
-          <strong><AlertTriangle size={18} /> 아직 live checkout 문서가 아닙니다</strong>
+          <strong><AlertTriangle size={18} /> 아직 실제 결제용 문서가 아닙니다</strong>
           <p>이 페이지는 정책 링크 구조와 사용자 안내 문구를 검토하기 위한 초안입니다. 실제 지원 연락처, 최종 결제 제공자, 정확한 보관 기간은 결제 오픈 전에 확정해야 합니다.</p>
         </section>
       </section>
