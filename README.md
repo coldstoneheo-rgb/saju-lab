@@ -47,11 +47,17 @@ Saju Lab은 전통 명리학(사주)을 기반으로, 현대적인 데이터 해
 - 🌍 글로벌 서비스 확장을 고려한 설계
 
 ## Documentation
+- Documentation index: `docs/README.md`
 - Product requirements: `docs/PRD.md`
 - Agent working guide: `AGENTS.md`
 - Development roadmap: `docs/DEVELOPMENT_ROADMAP.md`
+- Beta readiness checklist: `docs/BETA_READINESS_CHECKLIST.md`
+- Beta RC status: `docs/BETA_RC_STATUS_2026-05-18.md`
+- Beta operator pack: `docs/BETA_OPERATOR_PACK_2026-05-18.md`
+- Beta manual QA runbook: `docs/BETA_MANUAL_QA_RUNBOOK.md`
 - Paid service roadmap: `docs/PAID_SERVICE_ROADMAP.md`
 - Paid detailed report PRD: `docs/PAID_REPORT_PRD.md`
+- Paid checkout readiness gates: `docs/PAID_CHECKOUT_READINESS.md`
 - Architecture & goals: `docs/ARCHITECTURE.md`
 - Solar term calculation spec: `docs/algorithms/SOLAR_TERM_SPEC.md`
 - Report tone guide: `docs/TONE_GUIDE.md`
