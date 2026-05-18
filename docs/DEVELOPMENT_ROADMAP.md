@@ -34,7 +34,8 @@ Last updated: 2026-05-17
 - Phase 4K surfaced the full generated report value in the free web report and local HTML export.
 - Phase 4L hardened invalid/unsupported input copy, export status, keyboard focus, and local asset trust.
 - Phase 4M broadened runtime report safety-copy guard coverage before beta sharing.
-- Phase 4N is preparing the small-beta operator pack for controlled no-checkout MVP sharing.
+- Phase 4N prepared the small-beta operator pack for controlled no-checkout MVP sharing.
+- Phase 4O is auditing README and docs index links so beta readiness materials are easy to find.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -334,7 +335,7 @@ Exit Criteria:
 
 ## Phase 4N: Small-Beta Operator Pack
 
-Status: Current.
+Status: Complete.
 
 Goal: prepare controlled beta sharing materials so the MVP can be tested without implying public launch readiness or opening paid/account/server scope.
 
@@ -347,6 +348,22 @@ Exit Criteria:
 - Operators can understand what the current MVP can safely demonstrate.
 - Testers can be guided through report generation, time-unknown behavior, local export, and draft policy pages.
 - Stop conditions cover unsafe copy, checkout/account/storage claims, filename privacy, boundary-date failures, fake support contact exposure, and KASI overclaims.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4O: Documentation Index And Beta Link Audit
+
+Status: Current.
+
+Goal: make the current beta-readiness and operator materials discoverable from the repository entry points without overstating launch readiness.
+
+Deliverables:
+- Add a docs index that groups product, beta-readiness, calculation, UI, paid-service, and policy documents.
+- Update the root README documentation list to link the docs index and current beta-readiness materials.
+- Keep owner/business, legal, payment, support, and KASI gates explicitly open.
+
+Exit Criteria:
+- A new agent can find the beta readiness checklist, RC status, operator pack, and QA evidence from README or the docs index.
+- The docs index distinguishes controlled no-checkout MVP readiness from public launch approval.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -801,7 +818,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Agent-actionable: audit README and docs index links so beta readiness docs are easy to find.
+1. Agent-actionable: inspect remaining beta-facing app copy for any stale readiness or launch phrasing before sharing with testers.
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Final legal/user-facing policy review remains required before checkout opens.
