@@ -32,7 +32,8 @@ Last updated: 2026-05-17
 - Phase 4I recorded human-controlled Chrome evidence for the two browser-dependent QA gaps: native date-input boundary behavior and local free HTML download/open behavior.
 - Phase 4J synced beta RC truth after the human QA pass and listed the remaining agent-actionable beta gaps.
 - Phase 4K surfaced the full generated report value in the free web report and local HTML export.
-- Phase 4L is hardening invalid/unsupported input copy, export status, keyboard focus, and local asset trust.
+- Phase 4L hardened invalid/unsupported input copy, export status, keyboard focus, and local asset trust.
+- Phase 4M is broadening runtime report safety-copy guard coverage before beta sharing.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -294,7 +295,7 @@ Exit Criteria:
 
 ## Phase 4L: Input Export Accessibility Hardening
 
-Status: Current.
+Status: Complete.
 
 Goal: reduce beta friction in the free report flow without changing calculation rules or opening paid/account/server scope.
 
@@ -310,6 +311,24 @@ Exit Criteria:
 - Free local export reports success or failure through an accessible live region.
 - Theme, time-unknown, sex, navigation, and action controls have visible focus states.
 - The web shell no longer loads a remote decorative background asset.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4M: Report Safety Copy Guard Sweep
+
+Status: Current.
+
+Goal: reduce beta safety-review noise by keeping generated free report copy away from deterministic finance or success claims while preserving clear disclaimers.
+
+Deliverables:
+- Rephrase runtime report copy that used finance-certainty examples even in negated form.
+- Keep professional advice disclaimers visible without turning examples into claim-like phrases.
+- Add generated free-report tests that fail if deterministic finance/success phrases return.
+- Sync Korean i18n mirror copy for changed report rules.
+
+Exit Criteria:
+- Generated `ReportV1` copy does not contain deterministic finance/success phrases such as `확정 수익`, `무조건 성공`, or `반드시 성공`.
+- Disclaimers still state that the report is information/entertainment and not financial, medical, or legal advice.
+- Beta readiness docs mark the safety-copy gap closed without claiming public-beta readiness.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -764,10 +783,9 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Agent-actionable: broaden runtime report safety-copy guard coverage.
-2. Agent-actionable: prepare a small-beta operator pack with release notes, known limitations, feedback prompts, and rollback notes.
-3. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
-4. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
-5. Final legal/user-facing policy review remains required before checkout opens.
-6. External source gate: revalidate embedded solar-term times against KASI source data before broader public beta expansion.
-7. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
+1. Agent-actionable: prepare a small-beta operator pack with release notes, known limitations, feedback prompts, and rollback notes.
+2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
+3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
+4. Final legal/user-facing policy review remains required before checkout opens.
+5. External source gate: revalidate embedded solar-term times against KASI source data before broader public beta expansion.
+6. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.

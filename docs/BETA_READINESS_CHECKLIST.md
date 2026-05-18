@@ -100,7 +100,7 @@ These items can be improved by implementation agents before small beta sharing, 
 - [x] Local export provides accessible success/failure status.
 - [x] Custom theme, time-unknown, and sex controls have visible keyboard focus states.
 - [x] Remote decorative asset requests do not weaken the local-processing trust message.
-- [ ] Runtime report copy avoids deterministic finance or professional-advice phrasing even in negated examples.
+- [x] Runtime report copy avoids deterministic finance or professional-advice phrasing even in negated examples.
 
 ## Owner And Business Gates
 
