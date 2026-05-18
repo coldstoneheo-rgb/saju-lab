@@ -9,6 +9,7 @@ Detailed manual steps live in `docs/BETA_MANUAL_QA_RUNBOOK.md`.
 Latest QA evidence:
 - `docs/BETA_MANUAL_QA_RESULTS_2026-05-17.md`
 - `docs/BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md`
+- `docs/BETA_MOBILE_VISUAL_SMOKE_2026-05-18.md`
 
 Current RC status:
 - `docs/BETA_RC_STATUS_2026-05-18.md`
@@ -105,6 +106,7 @@ These items can be improved by implementation agents before small beta sharing, 
 - [x] Remote decorative asset requests do not weaken the local-processing trust message.
 - [x] Runtime report copy avoids deterministic finance or professional-advice phrasing even in negated examples.
 - [x] Small-beta operator pack exists with release notes, known limitations, feedback prompts, and rollback notes.
+- [x] Mobile visual smoke metrics cover beta-facing home and policy routes without horizontal overflow or live-purchase/support leaks.
 
 ## Owner And Business Gates
 
