@@ -390,7 +390,37 @@ describe("generateReportV1", () => {
       }
     `);
   });
+
+  it.each(GOLDEN_FIXTURES)("keeps free report copy away from deterministic finance claims for $id", (fixture) => {
+    const report = generateReportV1({
+      input: fixture.input,
+      pillars: calculatePillars(fixture.input),
+      generatedAt: "2026-05-14T00:00:00.000Z"
+    });
+    const copy = collectStrings(report).join("\n");
+
+    expect(copy).not.toContain("확정 수익");
+    expect(copy).not.toContain("무조건 성공");
+    expect(copy).not.toContain("반드시 성공");
+    expect(copy).not.toContain("특정 결과를 보장");
+  });
 });
+
+function collectStrings(value: unknown): string[] {
+  if (typeof value === "string") {
+    return [value];
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap(collectStrings);
+  }
+
+  if (value !== null && typeof value === "object") {
+    return Object.values(value).flatMap(collectStrings);
+  }
+
+  return [];
+}
 
 describe("generatePaidReportV1", () => {
   it("generates a paid detailed report with PDF-ready requirements", () => {

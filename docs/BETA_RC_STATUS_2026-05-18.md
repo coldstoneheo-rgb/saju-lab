@@ -45,8 +45,8 @@ These can be handled autonomously in small PRs without owner decisions, checkout
    - Status: closed for the current web shell.
 
 4. **Safety Copy Regression Sweep**
-   - Runtime report copy should avoid finance-certainty phrases even when negated, to reduce safety-review noise.
-   - Next PR candidate: rephrase sensitive copy and broaden runtime copy guard coverage.
+   - Phase 4M rephrases sensitive runtime report copy and adds generated-report guard coverage against deterministic finance/success claims.
+   - Status: closed for the current free report generator.
 
 5. **Beta Operator Pack**
    - Small-beta operators still need release notes, known limitations, feedback questions, and a rollback/incident checklist.
@@ -62,7 +62,8 @@ These remain blocked until the owner or an external source completes them:
 
 ## Recommended Next PR
 
-Phase 4M should broaden report safety-copy regression coverage before beta sharing:
-- rephrase runtime report copy that can trigger deterministic-finance review noise even when negated.
-- add guard coverage across generated free report copy.
-- keep professional advice disclaimers while avoiding claim-like examples.
+Phase 4N should prepare a small-beta operator pack before sharing:
+- release notes for the current MVP scope.
+- known limitations and still-open owner/KASI gates.
+- beta tester feedback prompts.
+- rollback and incident notes for a no-checkout MVP.
