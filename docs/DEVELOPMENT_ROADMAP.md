@@ -33,7 +33,8 @@ Last updated: 2026-05-17
 - Phase 4J synced beta RC truth after the human QA pass and listed the remaining agent-actionable beta gaps.
 - Phase 4K surfaced the full generated report value in the free web report and local HTML export.
 - Phase 4L hardened invalid/unsupported input copy, export status, keyboard focus, and local asset trust.
-- Phase 4M is broadening runtime report safety-copy guard coverage before beta sharing.
+- Phase 4M broadened runtime report safety-copy guard coverage before beta sharing.
+- Phase 4N is preparing the small-beta operator pack for controlled no-checkout MVP sharing.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -315,7 +316,7 @@ Exit Criteria:
 
 ## Phase 4M: Report Safety Copy Guard Sweep
 
-Status: Current.
+Status: Complete.
 
 Goal: reduce beta safety-review noise by keeping generated free report copy away from deterministic finance or success claims while preserving clear disclaimers.
 
@@ -329,6 +330,23 @@ Exit Criteria:
 - Generated `ReportV1` copy does not contain deterministic finance/success phrases such as `확정 수익`, `무조건 성공`, or `반드시 성공`.
 - Disclaimers still state that the report is information/entertainment and not financial, medical, or legal advice.
 - Beta readiness docs mark the safety-copy gap closed without claiming public-beta readiness.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4N: Small-Beta Operator Pack
+
+Status: Current.
+
+Goal: prepare controlled beta sharing materials so the MVP can be tested without implying public launch readiness or opening paid/account/server scope.
+
+Deliverables:
+- Add a small-beta operator pack with current scope, known limitations, tester instructions, feedback prompts, stop conditions, and rollback notes.
+- Link the operator pack from beta readiness and RC status docs.
+- Keep owner/business, legal, payment, support, and KASI gates explicitly open.
+
+Exit Criteria:
+- Operators can understand what the current MVP can safely demonstrate.
+- Testers can be guided through report generation, time-unknown behavior, local export, and draft policy pages.
+- Stop conditions cover unsafe copy, checkout/account/storage claims, filename privacy, boundary-date failures, fake support contact exposure, and KASI overclaims.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -783,7 +801,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Agent-actionable: prepare a small-beta operator pack with release notes, known limitations, feedback prompts, and rollback notes.
+1. Agent-actionable: audit README and docs index links so beta readiness docs are easy to find.
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Final legal/user-facing policy review remains required before checkout opens.
