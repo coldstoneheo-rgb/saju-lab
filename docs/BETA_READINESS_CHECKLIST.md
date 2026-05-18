@@ -13,6 +13,9 @@ Latest QA evidence:
 Current RC status:
 - `docs/BETA_RC_STATUS_2026-05-18.md`
 
+Beta operator pack:
+- `docs/BETA_OPERATOR_PACK_2026-05-18.md`
+
 ## Mobile Input Flow
 
 - [ ] Birth date input is usable on a narrow mobile viewport.
@@ -101,6 +104,7 @@ These items can be improved by implementation agents before small beta sharing, 
 - [x] Custom theme, time-unknown, and sex controls have visible keyboard focus states.
 - [x] Remote decorative asset requests do not weaken the local-processing trust message.
 - [x] Runtime report copy avoids deterministic finance or professional-advice phrasing even in negated examples.
+- [x] Small-beta operator pack exists with release notes, known limitations, feedback prompts, and rollback notes.
 
 ## Owner And Business Gates
 

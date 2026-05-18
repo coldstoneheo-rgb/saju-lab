@@ -49,7 +49,8 @@ These can be handled autonomously in small PRs without owner decisions, checkout
    - Status: closed for the current free report generator.
 
 5. **Beta Operator Pack**
-   - Small-beta operators still need release notes, known limitations, feedback questions, and a rollback/incident checklist.
+   - Phase 4N adds release notes, known limitations, feedback questions, and a rollback/incident checklist for controlled small-beta sharing.
+   - Status: closed for the current no-checkout MVP beta package.
 
 ## Non-Agent Gates
 
@@ -62,8 +63,7 @@ These remain blocked until the owner or an external source completes them:
 
 ## Recommended Next PR
 
-Phase 4N should prepare a small-beta operator pack before sharing:
-- release notes for the current MVP scope.
-- known limitations and still-open owner/KASI gates.
-- beta tester feedback prompts.
-- rollback and incident notes for a no-checkout MVP.
+Next agent-actionable PR should focus on a final documentation link audit before beta sharing:
+- confirm README and docs index point to current beta readiness docs.
+- ensure old Phase references do not make stale work appear current.
+- keep owner, payment, legal, and KASI gates open.
