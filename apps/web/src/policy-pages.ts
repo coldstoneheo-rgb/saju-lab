@@ -33,7 +33,7 @@ export const policyPages: PolicyPage[] = [
         items: [
           "출생정보, 계산된 사주 구조, 리포트 본문, PDF-ready HTML은 결제 제공자에게 보내지 않는 방향입니다.",
           "결제나 환불 처리를 위해 필요한 주문 식별자, 상품명, 가격, 통화, 결제 상태 같은 최소 정보만 별도 기록 후보입니다.",
-          "정확한 보관 기간과 삭제 요청 방식은 live checkout 전 최종 정책에서 확정해야 합니다."
+          "정확한 보관 기간과 삭제 요청 방식은 실제 결제 오픈 전 최종 정책에서 확정해야 합니다."
         ]
       }
     ]
@@ -42,7 +42,7 @@ export const policyPages: PolicyPage[] = [
     path: "/policies/refund-support",
     title: "환불 및 지원 안내 초안",
     summary: "결제 실패, 중복 결제, 다운로드 실패처럼 유료 상세 리포트에서 생길 수 있는 상황을 미리 정리합니다.",
-    statusNote: "실제 지원 이메일 또는 지원 폼은 아직 확정되지 않았으며, live checkout 전 반드시 교체해야 합니다.",
+    statusNote: "실제 지원 이메일 또는 지원 폼은 아직 확정되지 않았으며, 결제 오픈 전 반드시 교체해야 합니다.",
     sections: [
       {
         title: "지원 요청 원칙",
@@ -66,7 +66,7 @@ export const policyPages: PolicyPage[] = [
     path: "/policies/usage-caution",
     title: "이용 유의사항 초안",
     summary: "Saju Lab 리포트는 자기 이해와 의사결정 점검을 돕는 설명형 참고 자료입니다.",
-    statusNote: "이 문서는 사용자-facing 고지 문구의 초안이며, 결제 오픈 전 최종 검토가 필요합니다.",
+    statusNote: "이 문서는 사용자 안내 고지 문구의 초안이며, 결제 오픈 전 최종 검토가 필요합니다.",
     sections: [
       {
         title: "해석 범위",

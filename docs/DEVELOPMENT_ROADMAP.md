@@ -36,6 +36,7 @@ Last updated: 2026-05-17
 - Phase 4M broadened runtime report safety-copy guard coverage before beta sharing.
 - Phase 4N prepared the small-beta operator pack for controlled no-checkout MVP sharing.
 - Phase 4O is auditing README and docs index links so beta readiness materials are easy to find.
+- Phase 4P is replacing internal checkout-facing wording in beta user copy with clearer Korean phrasing.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -352,7 +353,7 @@ Exit Criteria:
 
 ## Phase 4O: Documentation Index And Beta Link Audit
 
-Status: Current.
+Status: Complete.
 
 Goal: make the current beta-readiness and operator materials discoverable from the repository entry points without overstating launch readiness.
 
@@ -364,6 +365,22 @@ Deliverables:
 Exit Criteria:
 - A new agent can find the beta readiness checklist, RC status, operator pack, and QA evidence from README or the docs index.
 - The docs index distinguishes controlled no-checkout MVP readiness from public launch approval.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4P: Beta User Copy Koreanization
+
+Status: Current.
+
+Goal: make beta-facing policy and paid-readiness copy easier for Korean users to understand by removing internal checkout and user-facing jargon.
+
+Deliverables:
+- Replace visible `live checkout`, `checkout 전`, and `사용자-facing` wording in app copy with plain Korean alternatives.
+- Update copy guard tests so internal checkout jargon does not return to user-facing readiness or policy pages.
+- Keep paid-readiness meaning intact: no live purchase flow, no account storage, no server report storage, and no final legal/support/payment claims.
+
+Exit Criteria:
+- Policy and paid-readiness copy reads as Korean-first user guidance rather than internal implementation notes.
+- Guard tests fail if the removed internal phrases return to user-facing copy.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -818,7 +835,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Agent-actionable: inspect remaining beta-facing app copy for any stale readiness or launch phrasing before sharing with testers.
+1. Agent-actionable: run a final mobile visual smoke pass of the beta-facing home and policy routes before sharing with testers.
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Final legal/user-facing policy review remains required before checkout opens.
