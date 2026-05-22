@@ -37,7 +37,7 @@ Last updated: 2026-05-17
 - Phase 4N prepared the small-beta operator pack for controlled no-checkout MVP sharing.
 - Phase 4O is auditing README and docs index links so beta readiness materials are easy to find.
 - Phase 4P is replacing internal checkout-facing wording in beta user copy with clearer Korean phrasing.
-- Phase 4Q is recording mobile visual smoke evidence for beta-facing home and policy routes.
+- Phase 4Q recorded mobile visual smoke evidence for beta-facing home and policy routes.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -386,7 +386,7 @@ Exit Criteria:
 
 ## Phase 4Q: Mobile Visual Smoke Evidence
 
-Status: Current.
+Status: Complete.
 
 Goal: record a lightweight browser evidence pass for the beta-facing home and policy routes before sharing with testers.
 

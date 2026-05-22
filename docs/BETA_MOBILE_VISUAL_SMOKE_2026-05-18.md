@@ -29,8 +29,8 @@ Checked viewports:
 | --- | --- |
 | Horizontal overflow on tested routes and viewports | PASS |
 | Removed internal checkout wording appears in user-facing app source | PASS |
-| Purchase-like CTA appears on tested routes | PASS |
-| `support@example.com` appears as user-facing support contact | PASS |
+| Purchase-like CTA does not appear on tested routes | PASS |
+| `support@example.com` does not appear as user-facing support contact | PASS |
 | Policy draft notice appears on policy routes | PASS |
 | Browser console errors during tested route pass | PASS |
 
