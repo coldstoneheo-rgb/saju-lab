@@ -17,6 +17,7 @@ Use this index to find the current source-of-truth docs before changing product 
 - Manual QA runbook: [BETA_MANUAL_QA_RUNBOOK.md](BETA_MANUAL_QA_RUNBOOK.md)
 - Latest manual QA evidence: [BETA_MANUAL_QA_RESULTS_2026-05-17.md](BETA_MANUAL_QA_RESULTS_2026-05-17.md)
 - Latest human browser QA evidence: [BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md](BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md)
+- Latest mobile visual smoke evidence: [BETA_MOBILE_VISUAL_SMOKE_2026-05-18.md](BETA_MOBILE_VISUAL_SMOKE_2026-05-18.md)
 
 The current beta package remains a controlled no-checkout MVP. Do not treat these docs as public launch approval.
 

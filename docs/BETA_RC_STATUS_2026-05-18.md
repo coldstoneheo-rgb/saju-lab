@@ -52,6 +52,10 @@ These can be handled autonomously in small PRs without owner decisions, checkout
    - Phase 4N adds release notes, known limitations, feedback questions, and a rollback/incident checklist for controlled small-beta sharing.
    - Status: closed for the current no-checkout MVP beta package.
 
+6. **Mobile Visual Smoke**
+   - Phase 4Q records browser layout metrics for beta-facing home and policy routes across mobile and desktop viewports.
+   - Status: closed for the current tested routes and viewports, without claiming public-beta approval.
+
 ## Non-Agent Gates
 
 These remain blocked until the owner or an external source completes them:
@@ -63,7 +67,7 @@ These remain blocked until the owner or an external source completes them:
 
 ## Recommended Next PR
 
-Next agent-actionable PR should focus on a final documentation link audit before beta sharing:
-- confirm README and docs index point to current beta readiness docs.
-- ensure old Phase references do not make stale work appear current.
+Next agent-actionable PR should prepare a short beta tester handoff note:
+- point testers to the current build or URL, operator pack, feedback questions, and stop conditions.
+- avoid implying checkout, account storage, server report storage, or public-beta readiness.
 - keep owner, payment, legal, and KASI gates open.
