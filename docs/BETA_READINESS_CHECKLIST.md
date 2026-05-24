@@ -20,6 +20,9 @@ Beta operator pack:
 Beta tester handoff:
 - `docs/BETA_TESTER_HANDOFF_2026-05-24.md`
 
+Solar-term source audit:
+- `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md`
+
 ## Mobile Input Flow
 
 - [ ] Birth date input is usable on a narrow mobile viewport.
@@ -125,6 +128,7 @@ These items must not be resolved autonomously by implementation agents.
 
 These items require direct source verification before broad public beta or wider date-range support.
 
+- [x] Embedded solar-term boundary inventory and current source status are documented.
 - [ ] Embedded solar-term times are revalidated against KASI source data.
 - [ ] Fixture-limited date coverage is still visible to users as an MVP limitation.
 - [ ] Any future broader solar-term table has source, update, and regression-test notes.

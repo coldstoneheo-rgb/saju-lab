@@ -7,7 +7,7 @@ export interface SolarMonthBoundary {
   monthOrdinal: number;
 }
 
-const IPCHUN_BY_YEAR: Record<number, string> = {
+export const IPCHUN_BY_YEAR: Record<number, string> = {
   1990: "1990-02-04T11:14",
   2000: "2000-02-04T21:40",
   2010: "2010-02-04T07:48",
@@ -16,7 +16,7 @@ const IPCHUN_BY_YEAR: Record<number, string> = {
   2025: "2025-02-03T23:10"
 };
 
-const SOLAR_MONTH_BOUNDARIES: SolarMonthBoundary[] = [
+export const SOLAR_MONTH_BOUNDARIES: SolarMonthBoundary[] = [
   { term: "daeseol", startsAt: "1989-12-07T17:22", solarYear: 1989, monthOrdinal: 10 },
   { term: "sohan", startsAt: "1990-01-05T23:33", solarYear: 1989, monthOrdinal: 11 },
   { term: "ipchun", startsAt: "1990-02-04T11:14", solarYear: 1990, monthOrdinal: 0 },

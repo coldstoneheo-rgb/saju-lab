@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { calculatePillars, cyclePillar, generatePaidReportV1, generateReportV1, getPillarTerms, getSajuTerm, hourBranchIndex } from "./index.js";
 import { GOLDEN_FIXTURES } from "./fixtures.js";
+import { SOLAR_MONTH_BOUNDARIES } from "./solar-terms.js";
 import type { BirthInput, Pillar } from "./types.js";
 
 describe("sexagenary cycle utilities", () => {
@@ -297,6 +298,33 @@ describe("calculatePillars", () => {
       timezone: "UTC",
       sex: "other"
     })).toThrow("Asia/Seoul");
+  });
+});
+
+describe("solar-term source audit", () => {
+  const documented2024Boundaries = [
+    { term: "sohan", startsAt: "2024-01-06T05:49", solarYear: 2023, monthOrdinal: 11 },
+    { term: "ipchun", startsAt: "2024-02-04T17:27", solarYear: 2024, monthOrdinal: 0 },
+    { term: "gyeongchip", startsAt: "2024-03-05T11:22", solarYear: 2024, monthOrdinal: 1 },
+    { term: "cheongmyeong", startsAt: "2024-04-04T16:02", solarYear: 2024, monthOrdinal: 2 },
+    { term: "ipha", startsAt: "2024-05-05T09:10", solarYear: 2024, monthOrdinal: 3 },
+    { term: "mangjong", startsAt: "2024-06-05T13:09", solarYear: 2024, monthOrdinal: 4 },
+    { term: "soseo", startsAt: "2024-07-06T23:20", solarYear: 2024, monthOrdinal: 5 },
+    { term: "ipchu", startsAt: "2024-08-07T09:09", solarYear: 2024, monthOrdinal: 6 },
+    { term: "baengno", startsAt: "2024-09-07T12:11", solarYear: 2024, monthOrdinal: 7 },
+    { term: "hallo", startsAt: "2024-10-08T03:59", solarYear: 2024, monthOrdinal: 8 },
+    { term: "ipdong", startsAt: "2024-11-07T07:20", solarYear: 2024, monthOrdinal: 9 },
+    { term: "daeseol", startsAt: "2024-12-07T00:17", solarYear: 2024, monthOrdinal: 10 },
+    { term: "sohan", startsAt: "2025-01-05T11:32", solarYear: 2024, monthOrdinal: 11 },
+    { term: "ipchun", startsAt: "2025-02-03T23:10", solarYear: 2025, monthOrdinal: 0 }
+  ];
+
+  it("keeps the embedded 2024 boundary inventory aligned with the source audit document", () => {
+    const actual = SOLAR_MONTH_BOUNDARIES
+      .filter((boundary) => boundary.startsAt >= "2024-01-01T00:00" && boundary.startsAt <= "2025-02-03T23:10")
+      .map(({ term, startsAt, solarYear, monthOrdinal }) => ({ term, startsAt, solarYear, monthOrdinal }));
+
+    expect(actual).toEqual(documented2024Boundaries);
   });
 });
 
