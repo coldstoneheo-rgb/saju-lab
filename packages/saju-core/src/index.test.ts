@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { calculatePillars, cyclePillar, generatePaidReportV1, generateReportV1, getPillarTerms, getSajuTerm, hourBranchIndex } from "./index.js";
 import { GOLDEN_FIXTURES } from "./fixtures.js";
+import { SOLAR_MONTH_BOUNDARIES } from "./solar-terms.js";
 import type { BirthInput, Pillar } from "./types.js";
 
 describe("sexagenary cycle utilities", () => {
@@ -297,6 +298,33 @@ describe("calculatePillars", () => {
       timezone: "UTC",
       sex: "other"
     })).toThrow("Asia/Seoul");
+  });
+});
+
+describe("solar-term source audit", () => {
+  const documented2024Boundaries = [
+    ["sohan", "2024-01-06T05:49"],
+    ["ipchun", "2024-02-04T17:27"],
+    ["gyeongchip", "2024-03-05T11:22"],
+    ["cheongmyeong", "2024-04-04T16:02"],
+    ["ipha", "2024-05-05T09:10"],
+    ["mangjong", "2024-06-05T13:09"],
+    ["soseo", "2024-07-06T23:20"],
+    ["ipchu", "2024-08-07T09:09"],
+    ["baengno", "2024-09-07T12:11"],
+    ["hallo", "2024-10-08T03:59"],
+    ["ipdong", "2024-11-07T07:20"],
+    ["daeseol", "2024-12-07T00:17"],
+    ["sohan", "2025-01-05T11:32"],
+    ["ipchun", "2025-02-03T23:10"]
+  ];
+
+  it("keeps the embedded 2024 boundary inventory aligned with the source audit document", () => {
+    const actual = SOLAR_MONTH_BOUNDARIES
+      .filter((boundary) => boundary.startsAt >= "2024-01-01T00:00" && boundary.startsAt <= "2025-02-03T23:10")
+      .map((boundary) => [boundary.term, boundary.startsAt]);
+
+    expect(actual).toEqual(documented2024Boundaries);
   });
 });
 

@@ -1,6 +1,6 @@
 # Saju Lab Development Roadmap
 
-Last updated: 2026-05-17
+Last updated: 2026-05-25
 
 ## Roadmap Principles
 
@@ -39,6 +39,7 @@ Last updated: 2026-05-17
 - Phase 4P is replacing internal checkout-facing wording in beta user copy with clearer Korean phrasing.
 - Phase 4Q recorded mobile visual smoke evidence for beta-facing home and policy routes.
 - Phase 4R prepared the controlled beta tester handoff note.
+- Phase 4S recorded the embedded solar-term source audit and kept KASI revalidation open as an external-source gate.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -418,6 +419,24 @@ Exit Criteria:
 - The note clearly says the current MVP does not include checkout, account storage, server report storage, subscription, analytics, AI interpretation, or final PDF-library scope.
 - The note does not claim public-beta readiness, legal approval, real support contact selection, payment provider selection, or KASI source revalidation.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4S: Solar-Term Source Audit And KASI Revalidation Prep
+
+Status: Complete.
+
+Goal: make the current embedded solar-term boundary table auditable before broader public beta expansion, without claiming KASI source revalidation is complete.
+
+Deliverables:
+- Add a dated solar-term source audit document that lists each embedded boundary minute, current use, source status, and KASI revalidation need.
+- Define source-status terms so `fixture-limited`, `public-table fixed`, `needs KASI revalidation`, and `KASI revalidated` are not mixed.
+- Update fixture, solar-term spec, and beta-readiness docs to avoid overclaiming KASI verification.
+- Add targeted automated coverage that keeps the documented 2024 boundary inventory aligned with the embedded table.
+
+Exit Criteria:
+- `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md` exists and records the current embedded boundary inventory.
+- Related docs continue to mark KASI source revalidation as open before broader public beta or wider date-range support.
+- Existing boundary behavior remains unchanged.
+- No broad solar-term ingestion, date-range expansion, checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
 
@@ -875,5 +894,5 @@ Gate:
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Final legal/user-facing policy review remains required before checkout opens.
-5. External source gate: revalidate embedded solar-term times against KASI source data before broader public beta expansion.
+5. External source gate: use the solar-term source audit to revalidate embedded solar-term times against KASI source data before broader public beta expansion.
 6. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
