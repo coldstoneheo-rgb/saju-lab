@@ -38,6 +38,7 @@ Last updated: 2026-05-17
 - Phase 4O is auditing README and docs index links so beta readiness materials are easy to find.
 - Phase 4P is replacing internal checkout-facing wording in beta user copy with clearer Korean phrasing.
 - Phase 4Q recorded mobile visual smoke evidence for beta-facing home and policy routes.
+- Phase 4R prepared the controlled beta tester handoff note.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -399,6 +400,23 @@ Exit Criteria:
 - Home and policy routes show no horizontal overflow in the tested mobile and desktop viewports.
 - Rendered beta-facing text avoids live-purchase CTA, placeholder support contact, and internal checkout wording.
 - No browser console errors are captured during the tested route pass.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4R: Beta Tester Handoff Note
+
+Status: Complete.
+
+Goal: package the controlled small-beta tester instructions into one short handoff note that can be sent after the operator fills the current build or URL.
+
+Deliverables:
+- Add a dated beta tester handoff note with current target placeholder, tester message, suggested flow, feedback questions, stop conditions, and evidence links.
+- Link the handoff note from the beta readiness checklist, RC status, and docs index.
+- Reframe immediate next actions around owner, legal, payment, support, and KASI gates.
+
+Exit Criteria:
+- Operators can hand testers one concise note without reconstructing instructions from the operator pack and QA docs.
+- The note clearly says the current MVP does not include checkout, account storage, server report storage, subscription, analytics, AI interpretation, or final PDF-library scope.
+- The note does not claim public-beta readiness, legal approval, real support contact selection, payment provider selection, or KASI source revalidation.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -853,7 +871,7 @@ Gate:
 
 ## Immediate Next Actions
 
-1. Agent-actionable: package a short beta tester handoff note that points to the operator pack, current URL/build, feedback questions, and stop conditions.
+1. Operator action required: fill the current beta build or URL in `docs/BETA_TESTER_HANDOFF_2026-05-24.md` before sending invites.
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Final legal/user-facing policy review remains required before checkout opens.

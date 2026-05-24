@@ -56,6 +56,10 @@ These can be handled autonomously in small PRs without owner decisions, checkout
    - Phase 4Q records browser layout metrics for beta-facing home and policy routes across mobile and desktop viewports.
    - Status: closed for the current tested routes and viewports, without claiming public-beta approval.
 
+7. **Beta Tester Handoff**
+   - Phase 4R adds a short tester handoff note with build/URL placeholder, tester flow, feedback questions, stop conditions, and current MVP limits.
+   - Status: closed for the current controlled no-checkout MVP handoff package.
+
 ## Non-Agent Gates
 
 These remain blocked until the owner or an external source completes them:
@@ -67,7 +71,9 @@ These remain blocked until the owner or an external source completes them:
 
 ## Recommended Next PR
 
-Next agent-actionable PR should prepare a short beta tester handoff note:
-- point testers to the current build or URL, operator pack, feedback questions, and stop conditions.
-- avoid implying checkout, account storage, server report storage, or public-beta readiness.
-- keep owner, payment, legal, and KASI gates open.
+Next work is blocked mostly on owner or external-source gates:
+- fill the beta tester handoff build or URL before sending invites.
+- choose a real support email or support form before live checkout.
+- select the final payment provider only after settlement, receipt, support, and retention requirements are clear.
+- complete final legal/user-facing policy review before checkout opens.
+- revalidate embedded solar-term times against KASI source data before broader public beta expansion.

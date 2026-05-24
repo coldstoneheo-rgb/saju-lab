@@ -17,6 +17,9 @@ Current RC status:
 Beta operator pack:
 - `docs/BETA_OPERATOR_PACK_2026-05-18.md`
 
+Beta tester handoff:
+- `docs/BETA_TESTER_HANDOFF_2026-05-24.md`
+
 ## Mobile Input Flow
 
 - [ ] Birth date input is usable on a narrow mobile viewport.
@@ -107,6 +110,7 @@ These items can be improved by implementation agents before small beta sharing, 
 - [x] Runtime report copy avoids deterministic finance or professional-advice phrasing even in negated examples.
 - [x] Small-beta operator pack exists with release notes, known limitations, feedback prompts, and rollback notes.
 - [x] Mobile visual smoke metrics cover beta-facing home and policy routes without horizontal overflow or live-purchase/support leaks.
+- [x] Beta tester handoff note exists with test target placeholder, tester flow, feedback questions, stop conditions, and current MVP limits.
 
 ## Owner And Business Gates
 

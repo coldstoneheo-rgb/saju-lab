@@ -14,6 +14,7 @@ Use this index to find the current source-of-truth docs before changing product 
 - Beta readiness checklist: [BETA_READINESS_CHECKLIST.md](BETA_READINESS_CHECKLIST.md)
 - Current RC status: [BETA_RC_STATUS_2026-05-18.md](BETA_RC_STATUS_2026-05-18.md)
 - Small-beta operator pack: [BETA_OPERATOR_PACK_2026-05-18.md](BETA_OPERATOR_PACK_2026-05-18.md)
+- Beta tester handoff note: [BETA_TESTER_HANDOFF_2026-05-24.md](BETA_TESTER_HANDOFF_2026-05-24.md)
 - Manual QA runbook: [BETA_MANUAL_QA_RUNBOOK.md](BETA_MANUAL_QA_RUNBOOK.md)
 - Latest manual QA evidence: [BETA_MANUAL_QA_RESULTS_2026-05-17.md](BETA_MANUAL_QA_RESULTS_2026-05-17.md)
 - Latest human browser QA evidence: [BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md](BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md)
