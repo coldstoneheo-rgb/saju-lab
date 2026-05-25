@@ -26,7 +26,7 @@ Not included:
 - AI-assisted interpretation.
 - subscription, analytics, or automated feedback collection.
 - broad date-range support beyond the current fixture-limited calculation scope.
-- final legal policy copy, real support contact, or KASI source revalidation.
+- final legal policy copy, real support contact, or broader KASI date-range revalidation.
 
 ## Pre-Beta Operator Checks
 
@@ -73,7 +73,7 @@ Pause beta sharing if any of these occur:
 - a boundary date silently generates a report without requiring birth time.
 - local HTML export uses birth date, birth time, sex, or pillar values in the filename.
 - a policy page exposes `support@example.com` as a real support address.
-- the app claims KASI revalidation or broad public date coverage is complete.
+- the app claims broad public date coverage is complete.
 - repeated testers cannot understand confidence, missing-data, or transparency notes.
 
 ## Rollback And Incident Notes
@@ -91,5 +91,5 @@ For a no-checkout MVP beta, rollback is operational:
 - Real support email or support form.
 - Final payment provider and failure-state behavior.
 - Final legal/user-facing policy review.
-- KASI source revalidation before broader public beta expansion.
+- broader KASI date-range revalidation before broader public beta expansion.
 - Explicit approval before checkout, payment SDK, webhook, login, account, server report storage, subscription, analytics, AI interpretation, or PDF-library implementation.

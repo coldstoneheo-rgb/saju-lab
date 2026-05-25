@@ -65,5 +65,5 @@ This smoke pass does not close:
 - final legal/user-facing policy review.
 - real support contact selection.
 - final payment provider selection.
-- KASI source revalidation before broader public beta expansion.
+- broader KASI date-range revalidation before broader public beta expansion.
 - any checkout, payment SDK, webhook, login, account, server report storage, subscription, analytics, AI interpretation, or PDF-library scope.

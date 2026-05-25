@@ -40,7 +40,8 @@ Last updated: 2026-05-25
 - Phase 4Q recorded mobile visual smoke evidence for beta-facing home and policy routes.
 - Phase 4R prepared the controlled beta tester handoff note.
 - Phase 4S recorded the embedded solar-term source audit and kept KASI revalidation open as an external-source gate.
-- Phase 4T recorded KASI 2024/2025 almanac evidence and identified one-minute mismatch rows that must be resolved before closing the external-source gate.
+- Phase 4T recorded KASI 2024/2025 almanac evidence and identified one-minute mismatch rows for follow-up.
+- Phase 4U aligned those mismatch rows with KASI minute values and added boundary regression coverage.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -152,7 +153,7 @@ Deliverables:
 
 Exit Criteria:
 - Expanded 2024 boundary tests pass without changing the current 23:00 Ja-hour no-rollover policy.
-- Each added boundary has a documented source note and remains marked as fixture-limited until KASI source revalidation.
+- Each added boundary has a documented source note and remains limited to the current fixture range until broader KASI source coverage exists.
 - `npm run verify` passes.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
@@ -166,7 +167,7 @@ Deliverables:
 - Mark Phase 2E complete and update current repository snapshot language.
 - Distinguish automated CI gates, local verification, manual QA, owner/business gates, and external-data gates.
 - Keep real support contact and final payment provider selection clearly blocked until the owner makes those decisions.
-- Keep KASI source revalidation clearly blocked until direct source verification is completed.
+- Keep broader KASI source revalidation clearly blocked until direct source verification is completed for any expanded date range.
 
 Exit Criteria:
 - Roadmap no longer describes completed work as current.
@@ -453,8 +454,26 @@ Deliverables:
 
 Exit Criteria:
 - `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md` exists and records the evidence pass.
-- Matching rows are distinguished from mismatch rows without claiming full KASI revalidation.
+- Matching rows are distinguished from mismatch rows without claiming broad date-range revalidation.
 - Existing calculation behavior and boundary tests remain unchanged in this evidence-only PR.
+- No broad solar-term ingestion, date-range expansion, checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4U: KASI Boundary Alignment
+
+Status: Complete.
+
+Goal: align the four KASI mismatch rows from Phase 4T with official almanac minute values while keeping the supported date range unchanged.
+
+Deliverables:
+- Update 2024 경칩, 2024 망종, 2024 한로, and 2025 소한 embedded boundary minutes to KASI values.
+- Shift before, exact, and after boundary tests for the changed 2024 rows.
+- Add before, exact, and after boundary coverage for the 2025 소한 upper-boundary guard.
+- Update source-audit, KASI evidence, fixture, readiness, RC status, and roadmap docs to mark only the embedded 2024 matrix and 2025 upper-boundary guards as resolved.
+
+Exit Criteria:
+- `packages/saju-core/src/solar-terms.ts` matches the KASI evidence rows for the embedded 2024 matrix and 2025 upper-boundary guards.
+- Boundary tests prove that the old mismatch minute is now the previous month and the KASI minute is the exact transition.
+- Docs avoid claiming broad date-range support or full historical KASI ingestion.
 - No broad solar-term ingestion, date-range expansion, checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -913,5 +932,5 @@ Gate:
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Final legal/user-facing policy review remains required before checkout opens.
-5. External source gate: resolve the KASI mismatch rows recorded in `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md` before broader public beta expansion.
+5. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
 6. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.

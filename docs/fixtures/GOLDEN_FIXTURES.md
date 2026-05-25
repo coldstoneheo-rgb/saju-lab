@@ -19,15 +19,15 @@
 - 2024-02-04 17:26 Asia/Seoul: 입춘 1분 전, 이전 연주/월주 유지
 - 2024-02-04 17:27 Asia/Seoul: 입춘 동시각, 새 연주/월주 적용
 - 2024-02-04 17:28 Asia/Seoul: 입춘 1분 후, 새 연주/월주 유지
-- 2024-03-05 11:21 Asia/Seoul: 경칩 1분 전, 이전 월주 유지
-- 2024-03-05 11:22 Asia/Seoul: 경칩 동시각, 새 월주 적용
-- 2024-03-05 11:23 Asia/Seoul: 경칩 1분 후, 새 월주 유지
+- 2024-03-05 11:22 Asia/Seoul: 경칩 1분 전, 이전 월주 유지
+- 2024-03-05 11:23 Asia/Seoul: 경칩 동시각, 새 월주 적용
+- 2024-03-05 11:24 Asia/Seoul: 경칩 1분 후, 새 월주 유지
 - 2010-06-21 23:00 Asia/Seoul: 현재 MVP 정책상 다음 civil date 일주로 넘기지 않고 입력 날짜의 일주 유지
 
 ## 출처 상태
 - 현재 내장 절기표는 fixture와 경계 테스트에 필요한 제한 범위만 포함한다.
-- 2024년 확장 경계는 공개 절기표 기준으로 테스트에 고정되어 있지만, 이 저장소 안에서 KASI 원자료 재검증 완료로 표시하지 않는다.
-- 공개 베타 범위 확대 또는 넓은 날짜 지원 전에는 `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md`의 절차에 따라 KASI 원자료와 다시 대조해야 한다.
+- 2024년 확장 경계와 2025년 상한 경계는 Phase 4U에서 KASI 원자료 기준으로 맞춘다.
+- 공개 베타 범위 확대 또는 넓은 날짜 지원 전에는 fixture-limited 과거 행과 새로 추가할 절기표를 `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md`의 절차에 따라 다시 대조해야 한다.
 
 ## 검증 절차
 - 표준 절기표 및 외부 계산기 비교
@@ -46,7 +46,7 @@
 > 참고: Phase 2A는 MVP 계산 코어를 테스트 가능하게 만들기 위한 제한 범위 구현이다.
 > 절기 테이블은 아래 fixture 및 경계 테스트에 필요한 연도부터 내장하며, 전체 연도 범위는 이후 단계에서 확장한다.
 > Phase 2D는 기존 fixture 범위 안에서 before/at/after 경계 회귀 테스트와 23:00 자시 정책 테스트를 추가했다.
-> Phase 2E는 2024년 월주 변경 절기의 fixture matrix를 확장한다. 아래 시각은 Uncle Tools 공개 절기표가 NASA DE441 및 한국천문연구원 특일 정보를 바탕으로 계산했다고 밝힌 2024년 절입 시각을 기준으로 기록했다. 상용/공개 베타 전에는 KASI 원자료와 추가 교차 검증이 필요하다.
+> Phase 2E는 2024년 월주 변경 절기의 fixture matrix를 확장했다. Phase 4U는 KASI 2024/2025 역서 기준으로 내장 2024 matrix와 2025 상한 경계의 불일치 행을 맞췄다.
 
 ### Fixture 1
 - 입력: 1990-01-01 10:30 Asia/Seoul
@@ -78,7 +78,7 @@
 
 ### Fixture 5
 - 입력: 2024-02-04 17:27 Asia/Seoul (입춘 경계)
-- 기준 절기 데이터 출처 및 현재 검증 상태: public-table fixed; KASI 원자료 재검증 필요
+- 기준 절기 데이터 출처 및 현재 검증 상태: KASI revalidated for this row
 - 계산 결과(연/월/일/시주): 갑진 / 병인 / 무술 / 신유
 - 외부 검증 결과: 2024-02-04는 무술일로 공개 만세력 자료와 대조, 입춘 동시각은 새 절기 적용
 - 차이 발생 시 원인 추적: 해당 없음
@@ -90,23 +90,23 @@
 
 | 절기 | 절입 시각(KST) | 경계 직전 월주 | 경계 동시각/직후 월주 | 검증 상태 |
 | --- | --- | --- | --- | --- |
-| 청명 | 2024-04-04 16:02 | 정묘 | 무진 | public-table fixed; KASI 원자료 재검증 필요 |
-| 입하 | 2024-05-05 09:10 | 무진 | 기사 | public-table fixed; KASI 원자료 재검증 필요 |
-| 망종 | 2024-06-05 13:09 | 기사 | 경오 | public-table fixed; KASI 원자료 재검증 필요 |
-| 소서 | 2024-07-06 23:20 | 경오 | 신미 | public-table fixed; KASI 원자료 재검증 필요 |
-| 입추 | 2024-08-07 09:09 | 신미 | 임신 | public-table fixed; KASI 원자료 재검증 필요 |
-| 백로 | 2024-09-07 12:11 | 임신 | 계유 | public-table fixed; KASI 원자료 재검증 필요 |
-| 한로 | 2024-10-08 03:59 | 계유 | 갑술 | public-table fixed; KASI 원자료 재검증 필요 |
-| 입동 | 2024-11-07 07:20 | 갑술 | 을해 | public-table fixed; KASI 원자료 재검증 필요 |
-| 대설 | 2024-12-07 00:17 | 을해 | 병자 | public-table fixed; KASI 원자료 재검증 필요 |
+| 청명 | 2024-04-04 16:02 | 정묘 | 무진 | KASI revalidated for this row |
+| 입하 | 2024-05-05 09:10 | 무진 | 기사 | KASI revalidated for this row |
+| 망종 | 2024-06-05 13:10 | 기사 | 경오 | KASI revalidated for this row |
+| 소서 | 2024-07-06 23:20 | 경오 | 신미 | KASI revalidated for this row |
+| 입추 | 2024-08-07 09:09 | 신미 | 임신 | KASI revalidated for this row |
+| 백로 | 2024-09-07 12:11 | 임신 | 계유 | KASI revalidated for this row |
+| 한로 | 2024-10-08 04:00 | 계유 | 갑술 | KASI revalidated for this row |
+| 입동 | 2024-11-07 07:20 | 갑술 | 을해 | KASI revalidated for this row |
+| 대설 | 2024-12-07 00:17 | 을해 | 병자 | KASI revalidated for this row |
 
 ### Phase 2E 출처 메모
 - Uncle Tools 2024년 24절기: https://uncle.tools/manse/solar-terms/2024
 - Uncle Tools 2025년 24절기: https://uncle.tools/manse/solar-terms/2025
 - 위 페이지는 NASA DE441 및 한국천문연구원 특일 정보 기반 계산이라고 밝힌다.
-- 2025-01-05 11:32 소한과 2025-02-03 23:10 입춘은 2024년 12월/2025년 1월 경계 상한으로만 내장했다.
+- 2025-01-05 11:33 소한과 2025-02-03 23:10 입춘은 2024년 12월/2025년 1월 경계 상한으로만 내장했다.
 
 ### Phase 4T KASI 대조 메모
 - KASI 2024/2025 역서 PDF와 현재 내장 2024 경계 matrix 및 2025 상한 경계를 대조한 결과는 `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`에 기록한다.
-- KASI 원문 기준으로 2024 경칩, 2024 망종, 2024 한로, 2025 소한은 현재 내장 시각과 1분 차이가 있다.
-- 이 문서는 현 계산 동작을 바꾸지 않는다. 불일치 행은 별도 계산 데이터 PR에서 `packages/saju-core/src/solar-terms.ts`와 경계 테스트를 함께 갱신해야 한다.
+- Phase 4U는 KASI 원문 기준으로 2024 경칩, 2024 망종, 2024 한로, 2025 소한의 1분 차이를 계산 데이터와 경계 테스트에 반영한다.
+- 이 정리는 내장 2024 matrix와 2025 상한 경계에 한정되며, 넓은 연도 범위 지원을 의미하지 않는다.

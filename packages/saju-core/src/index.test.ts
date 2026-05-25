@@ -93,7 +93,7 @@ describe("calculatePillars", () => {
   it("keeps the previous month one minute before the Gyeongchip boundary", () => {
     expect(calculatePillars({
       birthDate: "2024-03-05",
-      birthTime: "11:21",
+      birthTime: "11:22",
       timezone: "Asia/Seoul",
       sex: "other"
     }).month).toEqual({ stem: "byeong", branch: "in" });
@@ -102,7 +102,7 @@ describe("calculatePillars", () => {
   it("applies the new month at the exact Gyeongchip boundary", () => {
     expect(calculatePillars({
       birthDate: "2024-03-05",
-      birthTime: "11:22",
+      birthTime: "11:23",
       timezone: "Asia/Seoul",
       sex: "other"
     }).month).toEqual({ stem: "jeong", branch: "myo" });
@@ -111,7 +111,7 @@ describe("calculatePillars", () => {
   it("keeps the new month one minute after the Gyeongchip boundary", () => {
     expect(calculatePillars({
       birthDate: "2024-03-05",
-      birthTime: "11:23",
+      birthTime: "11:24",
       timezone: "Asia/Seoul",
       sex: "other"
     }).month).toEqual({ stem: "jeong", branch: "myo" });
@@ -137,9 +137,9 @@ describe("calculatePillars", () => {
     },
     {
       term: "Mangjong",
-      before: { birthDate: "2024-06-05", birthTime: "13:08", expected: { stem: "gi", branch: "sa" } },
-      exact: { birthDate: "2024-06-05", birthTime: "13:09", expected: { stem: "gyeong", branch: "o" } },
-      after: { birthDate: "2024-06-05", birthTime: "13:10", expected: { stem: "gyeong", branch: "o" } }
+      before: { birthDate: "2024-06-05", birthTime: "13:09", expected: { stem: "gi", branch: "sa" } },
+      exact: { birthDate: "2024-06-05", birthTime: "13:10", expected: { stem: "gyeong", branch: "o" } },
+      after: { birthDate: "2024-06-05", birthTime: "13:11", expected: { stem: "gyeong", branch: "o" } }
     },
     {
       term: "Soseo",
@@ -161,9 +161,9 @@ describe("calculatePillars", () => {
     },
     {
       term: "Hallo",
-      before: { birthDate: "2024-10-08", birthTime: "03:58", expected: { stem: "gye", branch: "yu" } },
-      exact: { birthDate: "2024-10-08", birthTime: "03:59", expected: { stem: "gap", branch: "sul" } },
-      after: { birthDate: "2024-10-08", birthTime: "04:00", expected: { stem: "gap", branch: "sul" } }
+      before: { birthDate: "2024-10-08", birthTime: "03:59", expected: { stem: "gye", branch: "yu" } },
+      exact: { birthDate: "2024-10-08", birthTime: "04:00", expected: { stem: "gap", branch: "sul" } },
+      after: { birthDate: "2024-10-08", birthTime: "04:01", expected: { stem: "gap", branch: "sul" } }
     },
     {
       term: "Ipdong",
@@ -176,6 +176,12 @@ describe("calculatePillars", () => {
       before: { birthDate: "2024-12-07", birthTime: "00:16", expected: { stem: "eul", branch: "hae" } },
       exact: { birthDate: "2024-12-07", birthTime: "00:17", expected: { stem: "byeong", branch: "ja" } },
       after: { birthDate: "2024-12-07", birthTime: "00:18", expected: { stem: "byeong", branch: "ja" } }
+    },
+    {
+      term: "Sohan",
+      before: { birthDate: "2025-01-05", birthTime: "11:32", expected: { stem: "byeong", branch: "ja" } },
+      exact: { birthDate: "2025-01-05", birthTime: "11:33", expected: { stem: "jeong", branch: "chuk" } },
+      after: { birthDate: "2025-01-05", birthTime: "11:34", expected: { stem: "jeong", branch: "chuk" } }
     }
   ];
 
@@ -215,7 +221,8 @@ describe("calculatePillars", () => {
     "2024-09-07",
     "2024-10-08",
     "2024-11-07",
-    "2024-12-07"
+    "2024-12-07",
+    "2025-01-05"
   ])("rejects date-only inputs on the %s solar month boundary date", (birthDate) => {
     expect(() => calculatePillars({
       birthDate,
@@ -305,17 +312,17 @@ describe("solar-term source audit", () => {
   const documented2024Boundaries = [
     { term: "sohan", startsAt: "2024-01-06T05:49", solarYear: 2023, monthOrdinal: 11 },
     { term: "ipchun", startsAt: "2024-02-04T17:27", solarYear: 2024, monthOrdinal: 0 },
-    { term: "gyeongchip", startsAt: "2024-03-05T11:22", solarYear: 2024, monthOrdinal: 1 },
+    { term: "gyeongchip", startsAt: "2024-03-05T11:23", solarYear: 2024, monthOrdinal: 1 },
     { term: "cheongmyeong", startsAt: "2024-04-04T16:02", solarYear: 2024, monthOrdinal: 2 },
     { term: "ipha", startsAt: "2024-05-05T09:10", solarYear: 2024, monthOrdinal: 3 },
-    { term: "mangjong", startsAt: "2024-06-05T13:09", solarYear: 2024, monthOrdinal: 4 },
+    { term: "mangjong", startsAt: "2024-06-05T13:10", solarYear: 2024, monthOrdinal: 4 },
     { term: "soseo", startsAt: "2024-07-06T23:20", solarYear: 2024, monthOrdinal: 5 },
     { term: "ipchu", startsAt: "2024-08-07T09:09", solarYear: 2024, monthOrdinal: 6 },
     { term: "baengno", startsAt: "2024-09-07T12:11", solarYear: 2024, monthOrdinal: 7 },
-    { term: "hallo", startsAt: "2024-10-08T03:59", solarYear: 2024, monthOrdinal: 8 },
+    { term: "hallo", startsAt: "2024-10-08T04:00", solarYear: 2024, monthOrdinal: 8 },
     { term: "ipdong", startsAt: "2024-11-07T07:20", solarYear: 2024, monthOrdinal: 9 },
     { term: "daeseol", startsAt: "2024-12-07T00:17", solarYear: 2024, monthOrdinal: 10 },
-    { term: "sohan", startsAt: "2025-01-05T11:32", solarYear: 2024, monthOrdinal: 11 },
+    { term: "sohan", startsAt: "2025-01-05T11:33", solarYear: 2024, monthOrdinal: 11 },
     { term: "ipchun", startsAt: "2025-02-03T23:10", solarYear: 2025, monthOrdinal: 0 }
   ];
 
