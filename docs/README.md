@@ -55,4 +55,4 @@ The current beta package remains a controlled no-checkout MVP. Do not treat thes
 - Refund and support draft: [policies/REFUND_AND_SUPPORT_DRAFT.md](policies/REFUND_AND_SUPPORT_DRAFT.md)
 - Usage caution draft: [policies/USAGE_CAUTION_DRAFT.md](policies/USAGE_CAUTION_DRAFT.md)
 
-These policy docs are review scaffolds only. Final legal review, real support contact, payment provider selection, and KASI source revalidation remain open gates.
+These policy docs are review scaffolds only. Final legal review, real support contact, payment provider selection, and broader KASI date-range revalidation remain open gates.

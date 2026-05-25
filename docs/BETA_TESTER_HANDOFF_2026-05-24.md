@@ -4,7 +4,7 @@ Date: 2026-05-24
 
 Use this note when inviting a small, controlled tester group to try Saju Lab.
 
-This is a tester handoff for the current no-checkout MVP. It is not public-beta approval, a paid launch, legal policy approval, KASI source revalidation, or permission to add checkout, account storage, server report storage, AI interpretation, analytics, subscription, or a PDF library.
+This is a tester handoff for the current no-checkout MVP. It is not public-beta approval, a paid launch, legal policy approval, broader date-range approval, or permission to add checkout, account storage, server report storage, AI interpretation, analytics, subscription, or a PDF library.
 
 ## Current Test Target
 
@@ -70,7 +70,7 @@ Pause tester sharing and record the issue if any tester reports:
 - `support@example.com` exposed as a real support contact.
 - a filename or exported document that includes birth date, birth time, or other sensitive input.
 - deterministic language such as guaranteed success, unavoidable failure, certain profit, diagnosis, treatment, or legal certainty.
-- a claim that broad date coverage or KASI source revalidation is complete.
+- a claim that broad date coverage is complete.
 - repeated confusion about confidence, missing data, transparency, or the current MVP limits.
 - mobile layout overflow that prevents reading or tapping key controls.
 
@@ -88,5 +88,5 @@ Pause tester sharing and record the issue if any tester reports:
 - Replace placeholder support contact with a real email or form.
 - Choose the final payment provider after settlement, receipt, support, and retention requirements are clear.
 - Complete final legal/user-facing policy review.
-- Revalidate embedded solar-term times against KASI source data before broader public beta expansion.
+- Keep older fixture-limited rows and any broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
 - Get explicit approval before checkout, payment SDK, webhook, login, account, server report storage, subscription, analytics, AI interpretation, or PDF-library implementation.

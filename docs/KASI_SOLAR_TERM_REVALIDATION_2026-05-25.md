@@ -4,18 +4,16 @@ Date: 2026-05-25
 
 This note records a direct evidence pass against Korean Astronomy and Space Science Institute (KASI) almanac PDFs for the embedded 2024 solar-month boundary matrix and the 2025 upper-boundary guard records.
 
-This is not a calculation-data update. The pass found one-minute mismatches, so Saju Lab must not claim that the embedded solar-term table is fully KASI revalidated yet.
+Phase 4T found one-minute mismatches. Phase 4U adopted the KASI minute values for those rows and updated boundary tests, so the embedded 2024 matrix and 2025 upper-boundary guards are now KASI revalidated. This does not claim broad date-range coverage.
 
 ## Scope
 
 Included:
-- 2024 monthly solar-term boundaries currently embedded in `packages/saju-core/src/solar-terms.ts`.
+- 2024 monthly solar-term boundaries embedded in `packages/saju-core/src/solar-terms.ts`.
 - 2025 `소한` and `입춘` records used as upper-boundary guards for the 2024 fixture range.
 - Source, access date, timezone, and row-level match status.
 
 Not included:
-- changing embedded solar-term values.
-- changing boundary tests.
 - broad solar-term table ingestion.
 - date-range expansion.
 - 23:00 자시 day-pillar rollover changes.
@@ -42,9 +40,9 @@ Timezone evidence:
 
 ## Result Summary
 
-Status: BLOCKED for full KASI revalidation.
+Status: RESOLVED for the embedded 2024 matrix and 2025 upper-boundary guards.
 
-The evidence pass confirms several rows, but four embedded rows differ from the KASI almanac by one minute. Because these rows affect exact-boundary behavior, calculation data and boundary tests should be updated only in a separate calculation-data PR after the owner accepts the source change.
+Phase 4U updated the four rows that differed by one minute and added or shifted before, exact, and after boundary tests for those rows. Older fixture-limited rows remain outside this KASI evidence pass.
 
 ## 2024 Embedded Boundary Comparison
 
@@ -52,14 +50,14 @@ The evidence pass confirms several rows, but four embedded rows differ from the 
 | --- | --- | --- | --- |
 | 소한 | 2024-01-06 05:49 | 2024-01-06 05:49 | Match |
 | 입춘 | 2024-02-04 17:27 | 2024-02-04 17:27 | Match |
-| 경칩 | 2024-03-05 11:22 | 2024-03-05 11:23 | KASI mismatch: +1 minute |
+| 경칩 | 2024-03-05 11:23 | 2024-03-05 11:23 | Resolved in Phase 4U |
 | 청명 | 2024-04-04 16:02 | 2024-04-04 16:02 | Match |
 | 입하 | 2024-05-05 09:10 | 2024-05-05 09:10 | Match |
-| 망종 | 2024-06-05 13:09 | 2024-06-05 13:10 | KASI mismatch: +1 minute |
+| 망종 | 2024-06-05 13:10 | 2024-06-05 13:10 | Resolved in Phase 4U |
 | 소서 | 2024-07-06 23:20 | 2024-07-06 23:20 | Match |
 | 입추 | 2024-08-07 09:09 | 2024-08-07 09:09 | Match |
 | 백로 | 2024-09-07 12:11 | 2024-09-07 12:11 | Match |
-| 한로 | 2024-10-08 03:59 | 2024-10-08 04:00 | KASI mismatch: +1 minute |
+| 한로 | 2024-10-08 04:00 | 2024-10-08 04:00 | Resolved in Phase 4U |
 | 입동 | 2024-11-07 07:20 | 2024-11-07 07:20 | Match |
 | 대설 | 2024-12-07 00:17 | 2024-12-07 00:17 | Match |
 
@@ -67,7 +65,7 @@ The evidence pass confirms several rows, but four embedded rows differ from the 
 
 | Term | Embedded KST | KASI 2025 KST | Status |
 | --- | --- | --- | --- |
-| 소한 | 2025-01-05 11:32 | 2025-01-05 11:33 | KASI mismatch: +1 minute |
+| 소한 | 2025-01-05 11:33 | 2025-01-05 11:33 | Resolved in Phase 4U |
 | 입춘 | 2025-02-03 23:10 | 2025-02-03 23:10 | Match |
 
 ## Evidence Notes
@@ -76,12 +74,10 @@ The evidence pass confirms several rows, but four embedded rows differ from the 
 - The 2025 KASI 24-term table lists `소한` as January 5 at 11:33 and `입춘` as February 3 at 23:10.
 - The 2024 and 2025 monthly February pages independently support the `입춘` rows used by the current fixture range.
 
-## Required Follow-Up
+## Remaining Follow-Up
 
 Before broader public beta or wider date-range support:
 
-1. Decide whether Saju Lab should adopt the KASI minute values for the four mismatch rows.
-2. If adopting them, update `packages/saju-core/src/solar-terms.ts` and the affected boundary tests in the same PR.
-3. Re-run before, exact, and after boundary tests for every changed row.
-4. Keep the current 23:00 자시 day-pillar policy unchanged unless that policy is separately approved.
-5. Update `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md` after mismatch resolution.
+1. Keep older fixture-limited rows marked as needing KASI revalidation until they are directly checked.
+2. Do not expand the supported date range without source, update, and regression-test notes.
+3. Keep the current 23:00 자시 day-pillar policy unchanged unless that policy is separately approved.
