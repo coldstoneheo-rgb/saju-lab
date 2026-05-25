@@ -16,7 +16,7 @@ Evidence now supports:
 Still open:
 - agent-actionable product polish before small beta sharing.
 - owner/business decisions before live checkout.
-- KASI source revalidation before broader date-range or public beta expansion.
+- KASI mismatch-row resolution before broader date-range or public beta expansion.
 
 ## Evidence-Backed Closed Gates
 
@@ -66,7 +66,7 @@ These remain blocked until the owner or an external source completes them:
 - real support email or support form.
 - final payment provider and failure-state behavior.
 - final legal/user-facing policy review.
-- KASI source revalidation for embedded solar-term times before broader public beta expansion.
+- KASI source mismatch-row resolution for embedded solar-term times before broader public beta expansion.
 - any checkout, payment SDK, webhook, login, account, server report storage, subscription, analytics, AI interpretation, or PDF-library work.
 
 ## Recommended Next PR
@@ -76,4 +76,4 @@ Next work is blocked mostly on owner or external-source gates:
 - choose a real support email or support form before live checkout.
 - select the final payment provider only after settlement, receipt, support, and retention requirements are clear.
 - complete final legal/user-facing policy review before checkout opens.
-- revalidate embedded solar-term times against KASI source data before broader public beta expansion.
+- resolve the KASI mismatch rows recorded in `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md` before broader public beta expansion.

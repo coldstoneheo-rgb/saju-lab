@@ -22,6 +22,7 @@ Beta tester handoff:
 
 Solar-term source audit:
 - `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md`
+- `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`
 
 ## Mobile Input Flow
 
@@ -129,7 +130,9 @@ These items must not be resolved autonomously by implementation agents.
 These items require direct source verification before broad public beta or wider date-range support.
 
 - [x] Embedded solar-term boundary inventory and current source status are documented.
-- [ ] Embedded solar-term times are revalidated against KASI source data.
+- [x] KASI official almanac evidence pass has been recorded for the 2024 boundary matrix and 2025 upper-boundary records.
+- [ ] Embedded solar-term times are fully revalidated against KASI source data.
+- [ ] KASI mismatch rows are resolved before broader public beta or wider date-range support.
 - [ ] Fixture-limited date coverage is still visible to users as an MVP limitation.
 - [ ] Any future broader solar-term table has source, update, and regression-test notes.
 
