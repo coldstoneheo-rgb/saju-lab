@@ -26,8 +26,9 @@ Not included:
 | `public-table fixed` | Fixed from public solar-term table references or public almanac cross-checks, but not directly revalidated from KASI source data in this repository. | No |
 | `needs KASI revalidation` | Must be checked against KASI source data before broader public beta or wider date-range support. | No |
 | `KASI revalidated` | Checked against KASI source data with source name, access date, timezone, and minute-rounding policy recorded. | Yes, only for the checked rows |
+| `KASI mismatch` | Direct KASI source comparison found a minute value that differs from the embedded table. Requires a separate calculation-data decision before it can be treated as revalidated. | No |
 
-Current project status: `fixture-limited` and `needs KASI revalidation`.
+Current project status: partially compared against KASI source data for the 2024 matrix and 2025 upper-boundary guards, with mismatch rows still open. See `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`.
 
 ## Embedded Boundary Inventory
 
@@ -47,20 +48,20 @@ These are the boundary minutes currently embedded in the calculation core.
 | 입춘 | 2015-02-04 12:58 | 2015 | 0 | 2015 year boundary | fixture-limited; needs KASI revalidation |
 | 대설 | 2015-12-07 19:53 | 2015 | 10 | 2015 fixture active month boundary | fixture-limited; needs KASI revalidation |
 | 소한 | 2016-01-06 07:08 | 2015 | 11 | 2015 fixture upper month boundary | fixture-limited; needs KASI revalidation |
-| 소한 | 2024-01-06 05:49 | 2023 | 11 | 2024 Ipchun lower month boundary | public-table fixed; needs KASI revalidation |
-| 입춘 | 2024-02-04 17:27 | 2024 | 0 | 2024 year/month boundary tests | public-table fixed; needs KASI revalidation |
-| 경칩 | 2024-03-05 11:22 | 2024 | 1 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 청명 | 2024-04-04 16:02 | 2024 | 2 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 입하 | 2024-05-05 09:10 | 2024 | 3 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 망종 | 2024-06-05 13:09 | 2024 | 4 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 소서 | 2024-07-06 23:20 | 2024 | 5 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 입추 | 2024-08-07 09:09 | 2024 | 6 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 백로 | 2024-09-07 12:11 | 2024 | 7 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 한로 | 2024-10-08 03:59 | 2024 | 8 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 입동 | 2024-11-07 07:20 | 2024 | 9 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 대설 | 2024-12-07 00:17 | 2024 | 10 | 2024 month boundary tests | public-table fixed; needs KASI revalidation |
-| 소한 | 2025-01-05 11:32 | 2024 | 11 | 2024 upper month boundary guard | public-table fixed; needs KASI revalidation |
-| 입춘 | 2025-02-03 23:10 | 2025 | 0 | 2025 upper range guard and year boundary | public-table fixed; needs KASI revalidation |
+| 소한 | 2024-01-06 05:49 | 2023 | 11 | 2024 Ipchun lower month boundary | KASI revalidated for this row |
+| 입춘 | 2024-02-04 17:27 | 2024 | 0 | 2024 year/month boundary tests | KASI revalidated for this row |
+| 경칩 | 2024-03-05 11:22 | 2024 | 1 | 2024 month boundary tests | KASI mismatch: 2024 almanac lists 11:23 |
+| 청명 | 2024-04-04 16:02 | 2024 | 2 | 2024 month boundary tests | KASI revalidated for this row |
+| 입하 | 2024-05-05 09:10 | 2024 | 3 | 2024 month boundary tests | KASI revalidated for this row |
+| 망종 | 2024-06-05 13:09 | 2024 | 4 | 2024 month boundary tests | KASI mismatch: 2024 almanac lists 13:10 |
+| 소서 | 2024-07-06 23:20 | 2024 | 5 | 2024 month boundary tests | KASI revalidated for this row |
+| 입추 | 2024-08-07 09:09 | 2024 | 6 | 2024 month boundary tests | KASI revalidated for this row |
+| 백로 | 2024-09-07 12:11 | 2024 | 7 | 2024 month boundary tests | KASI revalidated for this row |
+| 한로 | 2024-10-08 03:59 | 2024 | 8 | 2024 month boundary tests | KASI mismatch: 2024 almanac lists 04:00 |
+| 입동 | 2024-11-07 07:20 | 2024 | 9 | 2024 month boundary tests | KASI revalidated for this row |
+| 대설 | 2024-12-07 00:17 | 2024 | 10 | 2024 month boundary tests | KASI revalidated for this row |
+| 소한 | 2025-01-05 11:32 | 2024 | 11 | 2024 upper month boundary guard | KASI mismatch: 2025 almanac lists 11:33 |
+| 입춘 | 2025-02-03 23:10 | 2025 | 0 | 2025 upper range guard and year boundary | KASI revalidated for this row |
 
 ## Current Test Coverage
 
@@ -73,7 +74,7 @@ The current automated tests cover:
 - current MVP policy that 23:00 자시 does not roll the day pillar to the next civil date.
 
 The current automated tests do not prove:
-- direct KASI source agreement.
+- full direct KASI source agreement for mismatch rows recorded in `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`.
 - broad date-range correctness.
 - alternative school behavior for 23:00 자시 rollover.
 - support for timezones other than `Asia/Seoul`.

@@ -105,3 +105,8 @@
 - Uncle Tools 2025년 24절기: https://uncle.tools/manse/solar-terms/2025
 - 위 페이지는 NASA DE441 및 한국천문연구원 특일 정보 기반 계산이라고 밝힌다.
 - 2025-01-05 11:32 소한과 2025-02-03 23:10 입춘은 2024년 12월/2025년 1월 경계 상한으로만 내장했다.
+
+### Phase 4T KASI 대조 메모
+- KASI 2024/2025 역서 PDF와 현재 내장 2024 경계 matrix 및 2025 상한 경계를 대조한 결과는 `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`에 기록한다.
+- KASI 원문 기준으로 2024 경칩, 2024 망종, 2024 한로, 2025 소한은 현재 내장 시각과 1분 차이가 있다.
+- 이 문서는 현 계산 동작을 바꾸지 않는다. 불일치 행은 별도 계산 데이터 PR에서 `packages/saju-core/src/solar-terms.ts`와 경계 테스트를 함께 갱신해야 한다.

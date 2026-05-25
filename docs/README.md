@@ -26,6 +26,7 @@ The current beta package remains a controlled no-checkout MVP. Do not treat thes
 
 - Solar term calculation spec: [algorithms/SOLAR_TERM_SPEC.md](algorithms/SOLAR_TERM_SPEC.md)
 - Solar term source audit: [SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md](SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md)
+- KASI solar-term revalidation evidence: [KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md](KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md)
 - saju-core interface spec: [packages/saju-core/INTERFACE_SPEC.md](packages/saju-core/INTERFACE_SPEC.md)
 - Report schema v1: [REPORT_SCHEMA_V1.md](REPORT_SCHEMA_V1.md)
 - Golden fixtures draft: [fixtures/GOLDEN_FIXTURES.md](fixtures/GOLDEN_FIXTURES.md)

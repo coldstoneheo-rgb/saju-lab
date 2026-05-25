@@ -40,6 +40,7 @@ Last updated: 2026-05-25
 - Phase 4Q recorded mobile visual smoke evidence for beta-facing home and policy routes.
 - Phase 4R prepared the controlled beta tester handoff note.
 - Phase 4S recorded the embedded solar-term source audit and kept KASI revalidation open as an external-source gate.
+- Phase 4T recorded KASI 2024/2025 almanac evidence and identified one-minute mismatch rows that must be resolved before closing the external-source gate.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -436,6 +437,24 @@ Exit Criteria:
 - `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md` exists and records the current embedded boundary inventory.
 - Related docs continue to mark KASI source revalidation as open before broader public beta or wider date-range support.
 - Existing boundary behavior remains unchanged.
+- No broad solar-term ingestion, date-range expansion, checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4T: KASI Solar-Term Revalidation Evidence Pass
+
+Status: Complete.
+
+Goal: compare the current embedded 2024 solar-month boundary matrix and 2025 upper-boundary guard records against official KASI almanac PDFs without changing calculation behavior while mismatch rows remain unresolved.
+
+Deliverables:
+- Add a dated KASI evidence document for the 2024 and 2025 official almanac PDF comparison.
+- Record source URLs, access date, extraction method, timezone evidence, and row-level match status.
+- Identify the 1-minute mismatch rows for 2024 경칩, 2024 망종, 2024 한로, and 2025 소한.
+- Update source-audit, fixture, readiness, RC status, docs index, and roadmap docs so the external-source gate stays open until the mismatches are resolved.
+
+Exit Criteria:
+- `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md` exists and records the evidence pass.
+- Matching rows are distinguished from mismatch rows without claiming full KASI revalidation.
+- Existing calculation behavior and boundary tests remain unchanged in this evidence-only PR.
 - No broad solar-term ingestion, date-range expansion, checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
@@ -894,5 +913,5 @@ Gate:
 2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
 3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
 4. Final legal/user-facing policy review remains required before checkout opens.
-5. External source gate: use the solar-term source audit to revalidate embedded solar-term times against KASI source data before broader public beta expansion.
+5. External source gate: resolve the KASI mismatch rows recorded in `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md` before broader public beta expansion.
 6. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
