@@ -85,4 +85,3 @@ Before broader public beta or wider date-range support:
 3. Re-run before, exact, and after boundary tests for every changed row.
 4. Keep the current 23:00 자시 day-pillar policy unchanged unless that policy is separately approved.
 5. Update `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md` after mismatch resolution.
-
