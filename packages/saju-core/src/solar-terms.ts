@@ -22,12 +22,12 @@ export const SOLAR_MONTH_BOUNDARIES: SolarMonthBoundary[] = [
   { term: "ipchun", startsAt: "1990-02-04T11:14", solarYear: 1990, monthOrdinal: 0 },
 
   { term: "daeseol", startsAt: "1999-12-07T22:48", solarYear: 1999, monthOrdinal: 10 },
-  { term: "sohan", startsAt: "2000-01-06T09:00", solarYear: 1999, monthOrdinal: 11 },
+  { term: "sohan", startsAt: "2000-01-06T10:01", solarYear: 1999, monthOrdinal: 11 },
   { term: "ipchun", startsAt: "2000-02-04T21:40", solarYear: 2000, monthOrdinal: 0 },
 
   { term: "ipchun", startsAt: "2010-02-04T07:48", solarYear: 2010, monthOrdinal: 0 },
   { term: "mangjong", startsAt: "2010-06-06T03:49", solarYear: 2010, monthOrdinal: 4 },
-  { term: "soseo", startsAt: "2010-07-07T14:03", solarYear: 2010, monthOrdinal: 5 },
+  { term: "soseo", startsAt: "2010-07-07T14:02", solarYear: 2010, monthOrdinal: 5 },
 
   { term: "ipchun", startsAt: "2015-02-04T12:58", solarYear: 2015, monthOrdinal: 0 },
   { term: "daeseol", startsAt: "2015-12-07T19:53", solarYear: 2015, monthOrdinal: 10 },

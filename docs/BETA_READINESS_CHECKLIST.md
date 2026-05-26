@@ -23,6 +23,7 @@ Beta tester handoff:
 Solar-term source audit:
 - `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md`
 - `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`
+- `docs/PUBLIC_DATA_SOLAR_TERM_COLLECTION.md`
 
 ## Mobile Input Flow
 
@@ -133,6 +134,9 @@ These items require direct source verification before broad public beta or wider
 - [x] KASI official almanac evidence pass has been recorded for the 2024 boundary matrix and 2025 upper-boundary records.
 - [x] Embedded 2024 matrix and 2025 upper-boundary guard times are revalidated against KASI source data.
 - [x] KASI mismatch rows for the embedded 2024 matrix and 2025 upper-boundary guards are resolved.
+- [x] data.go.kr API collection path is documented for historical fixture revalidation.
+- [x] data.go.kr 2000-2016 solar-term fixture JSON is generated and reviewed.
+- [ ] 1989-1999 solar-term records have an approved non-OCR source or KASI/public-data confirmation path.
 - [ ] Fixture-limited date coverage is still visible to users as an MVP limitation.
 - [ ] Any future broader solar-term table has source, update, and regression-test notes.
 

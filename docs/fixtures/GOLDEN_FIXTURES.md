@@ -28,6 +28,7 @@
 - 현재 내장 절기표는 fixture와 경계 테스트에 필요한 제한 범위만 포함한다.
 - 2024년 확장 경계와 2025년 상한 경계는 Phase 4U에서 KASI 원자료 기준으로 맞춘다.
 - 공개 베타 범위 확대 또는 넓은 날짜 지원 전에는 fixture-limited 과거 행과 새로 추가할 절기표를 `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md`의 절차에 따라 다시 대조해야 한다.
+- Phase 4V부터 과거 행 재검증은 KASI 웹 이미지 OCR이 아니라 data.go.kr `한국천문연구원_특일 정보` API 수집 결과를 기준으로 진행한다. 해당 API는 2000-2016 fixture를 생성했으며, 1989-1999는 정상 응답이지만 레코드가 없어 별도 승인 출처가 필요하다.
 
 ## 검증 절차
 - 표준 절기표 및 외부 계산기 비교
@@ -57,21 +58,21 @@
 
 ### Fixture 2
 - 입력: 2000-02-04 12:00 Asia/Seoul (입춘 이전)
-- 기준 절기 데이터 출처 및 현재 검증 상태: fixture-limited; KASI 원자료 재검증 필요
+- 기준 절기 데이터 출처 및 현재 검증 상태: KASI revalidated for this row
 - 계산 결과(연/월/일/시주): 기묘 / 정축 / 임진 / 병오
 - 외부 검증 결과: 내장 입춘 경계 기준으로 테스트 고정
 - 차이 발생 시 원인 추적: 전체 KASI 테이블 확장 시 재검증
 
 ### Fixture 3
 - 입력: 2010-06-21 23:59 Asia/Seoul (하지 근접)
-- 기준 절기 데이터 출처 및 현재 검증 상태: fixture-limited; KASI 원자료 재검증 필요
+- 기준 절기 데이터 출처 및 현재 검증 상태: KASI revalidated for this row
 - 계산 결과(연/월/일/시주): 경인 / 임오 / 임인 / 경자
 - 외부 검증 결과: 망종 이후, 소서 이전 월 경계로 테스트 고정
 - 차이 발생 시 원인 추적: 자시를 다음 날로 넘기는 유파는 별도 옵션으로 분리 필요
 
 ### Fixture 4
 - 입력: 2015-12-22 00:30 Asia/Seoul (동지 근접)
-- 기준 절기 데이터 출처 및 현재 검증 상태: fixture-limited; KASI 원자료 재검증 필요
+- 기준 절기 데이터 출처 및 현재 검증 상태: KASI revalidated for this row
 - 계산 결과(연/월/일/시주): 을미 / 무자 / 임신 / 경자
 - 외부 검증 결과: 동지는 월주 경계가 아니며 대설 이후 자월로 테스트 고정
 - 차이 발생 시 원인 추적: 해당 없음
@@ -110,3 +111,9 @@
 - KASI 2024/2025 역서 PDF와 현재 내장 2024 경계 matrix 및 2025 상한 경계를 대조한 결과는 `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`에 기록한다.
 - Phase 4U는 KASI 원문 기준으로 2024 경칩, 2024 망종, 2024 한로, 2025 소한의 1분 차이를 계산 데이터와 경계 테스트에 반영한다.
 - 이 정리는 내장 2024 matrix와 2025 상한 경계에 한정되며, 넓은 연도 범위 지원을 의미하지 않는다.
+
+### Phase 4V 공공데이터 API 수집 메모
+
+- `docs/PUBLIC_DATA_SOLAR_TERM_COLLECTION.md`는 data.go.kr `get24DivisionsInfo` 수집 절차와 로컬 fixture 생성 방식을 기록한다.
+- `docs/fixtures/kasi-special-days-solar-terms-2000-2016.json`은 2000-2016 API 제공 범위 안의 embedded comparison 일치를 기록한다.
+- 1990 fixture는 API 미제공 범위에 있어 `fixture-limited; KASI 원자료 재검증 필요`로 유지한다.
