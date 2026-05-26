@@ -1,6 +1,6 @@
 # Saju Lab Beta Readiness Checklist
 
-Last updated: 2026-05-18
+Last updated: 2026-05-27
 
 Use this checklist before sharing the MVP with a small beta group.
 
@@ -137,7 +137,7 @@ These items require direct source verification before broad public beta or wider
 - [x] data.go.kr API collection path is documented for historical fixture revalidation.
 - [x] data.go.kr 2000-2016 solar-term fixture JSON is generated and reviewed.
 - [ ] 1989-1999 solar-term records have an approved non-OCR source or KASI/public-data confirmation path.
-- [ ] Fixture-limited date coverage is still visible to users as an MVP limitation.
+- [x] Fixture-limited date coverage is still visible to users as an MVP limitation.
 - [ ] Any future broader solar-term table has source, update, and regression-test notes.
 
 ## Manual Verification Commands

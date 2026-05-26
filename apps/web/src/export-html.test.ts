@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { calculatePillars, generatePaidReportV1, generateReportV1, type BirthInput } from "@saju-lab/saju-core";
+import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
 import { buildFreeReportHtml, buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
 import { buildFreeReportFilename } from "./report-filenames.js";
 
@@ -44,6 +45,11 @@ describe("free report export HTML", () => {
     expect(html).toContain("본 리포트는 정보/오락 목적이며, 금융, 의학, 법률 자문이 아닙니다.");
     expect(html).toContain("입력값은 서버 저장이나 외부 전송 없이 이 브라우저에서만 처리됩니다.");
     expect(html).toContain("<h2>투명성 노트</h2>");
+    expect(html).toContain(`<h2>${calculationCoverageCopy.headline}</h2>`);
+    expect(html).toContain(calculationCoverageCopy.summary);
+    for (const item of calculationCoverageCopy.items) {
+      expect(html).toContain(item);
+    }
     expect(html).toContain("입력된 생년월일: 1990-01-01");
     expect(html).toContain("타임존: Asia/Seoul");
     expect(html).toContain("커리어와 재무 문장은 현실 자료와 함께 검토하세요.");
@@ -113,6 +119,11 @@ describe("paid report export HTML", () => {
     expect(html).toContain("신뢰도 보통");
     expect(html).toContain("정보/오락 목적");
     expect(html).toContain("서버 보관을 포함하지 않는 로컬 다운로드 중심 모델");
+    expect(html).toContain(`<h2>${calculationCoverageCopy.headline}</h2>`);
+    expect(html).toContain(calculationCoverageCopy.summary);
+    for (const item of calculationCoverageCopy.items) {
+      expect(html).toContain(item);
+    }
     expect(html).toContain("id=\"print-guide\"");
     expect(html).toContain("브라우저 인쇄에서 PDF 저장을 선택");
     expect(html).toContain("현재 단계에서는 결제, 계정 저장, 서버 보관을 포함하지 않습니다.");

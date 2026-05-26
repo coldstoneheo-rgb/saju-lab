@@ -1,4 +1,5 @@
 import { getSajuTerm, type BirthInput, type PaidReportV1, type ReportV1, type SajuTerm } from "@saju-lab/saju-core";
+import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
 
 interface ExportSection {
   id: string;
@@ -64,6 +65,7 @@ export function buildFreeReportHtml(report: ReportV1): string {
         ${renderDownloadedPillar(getSajuTerm("timePillar"), report.pillars.time)}
       </div>
       ${renderDownloadedFreeSummary(freeSummary)}
+      ${renderCoverageSection()}
       ${sections.map(([title, items]) => renderDownloadedSection(title, items)).join("")}
       <footer>${escapeHtml(report.overview.disclaimers[0] ?? "")} 커리어와 재무 문장은 현실 자료와 함께 검토하세요.</footer>
     </main>
@@ -155,6 +157,7 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
         </div>
         <p class="notice">${escapeHtml(paidReport.cover.scopeNote)} ${escapeHtml(paidReport.cover.privacyNote)}</p>
         <p class="notice">${escapeHtml(paidReport.transparencyAppendix.disclaimers.join(" "))}</p>
+        <p class="notice">${escapeHtml(calculationCoverageCopy.summary)}</p>
         <p class="notice"><strong>PDF 저장 안내:</strong> 이 HTML 문서를 연 뒤 브라우저 인쇄에서 PDF 저장을 선택하세요. 현재 단계에서는 결제, 계정 저장, 서버 보관을 포함하지 않습니다.</p>
       </article>
       <nav class="toc" aria-label="목차">
@@ -195,6 +198,7 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
         <p>이 문서는 브라우저 인쇄 기능에서 PDF로 저장하기 위한 상세 리포트 HTML입니다. 파일명은 생성일 기준으로 만들고, 생년월일이나 출생시간을 넣지 않습니다.</p>
         <ol>${paidReport.pdf.printHints.map((hint) => `<li>${escapeHtml(hint)}</li>`).join("")}</ol>
       </section>
+      ${renderCoverageSection()}
       <section id="transparency">
         <h2>투명성 부록</h2>
         <ul>${[...paidReport.transparencyAppendix.certain, ...paidReport.transparencyAppendix.inferred, ...paidReport.transparencyAppendix.missingDataNotes, ...paidReport.transparencyAppendix.disclaimers].map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
@@ -239,6 +243,10 @@ function renderDownloadedPillar(term: SajuTerm, value: { stem: string; branch: s
 
 function renderDownloadedFreeSummary(summary: { keywords: string[]; comment: string }): string {
   return `<section><h2>월간 무료 하이라이트</h2><div class="keywords">${summary.keywords.map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}</div><p>${escapeHtml(summary.comment)}</p></section>`;
+}
+
+function renderCoverageSection(): string {
+  return `<section><h2>${escapeHtml(calculationCoverageCopy.headline)}</h2><p>${escapeHtml(calculationCoverageCopy.summary)}</p><ul>${calculationCoverageCopy.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
 }
 
 function renderDownloadedSection(title: string, items: readonly string[]): string {

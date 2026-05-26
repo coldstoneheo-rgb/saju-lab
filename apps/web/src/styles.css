@@ -209,6 +209,7 @@ input {
 .savePanel,
 .reportNotice,
 .privacyNote,
+.coverageNote,
 .safetyNote {
   border: 1px solid var(--border-soft);
   border-radius: 8px;
@@ -414,6 +415,7 @@ input {
 }
 
 .privacyNote,
+.coverageNote,
 .safetyNote {
   display: grid;
   gap: 6px;
@@ -427,6 +429,7 @@ input {
 }
 
 .privacyNote strong,
+.coverageNote strong,
 .safetyNote strong {
   display: flex;
   align-items: center;
@@ -435,8 +438,19 @@ input {
 }
 
 .privacyNote p,
+.coverageNote p,
 .safetyNote p {
   margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.coverageNote ul {
+  display: grid;
+  gap: 6px;
+  margin: 2px 0 0;
+  padding-left: 18px;
   color: var(--text-muted);
   font-size: 13px;
   line-height: 1.5;

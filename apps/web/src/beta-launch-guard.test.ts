@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
 import { checkoutVerificationGuard } from "./checkout-verification-guard.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
 import { policyLinkGuard } from "./policy-link-guard.js";
@@ -63,5 +64,18 @@ describe("beta launch guard", () => {
       "paid report body",
       "PDF-ready HTML"
     ]);
+  });
+
+  it("keeps the fixture-limited calculation boundary visible in user-facing copy", () => {
+    const copy = [
+      calculationCoverageCopy.headline,
+      calculationCoverageCopy.summary,
+      ...calculationCoverageCopy.items
+    ].join(" ");
+
+    expect(copy).toContain("현재 MVP 계산 범위");
+    expect(copy).toContain("2000-2016년 24절기 fixture");
+    expect(copy).toContain("1989-1999년 절기 기록");
+    expect(copy).toContain("결과를 억지로 만들지 않고");
   });
 });
