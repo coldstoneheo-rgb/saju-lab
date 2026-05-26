@@ -19,8 +19,10 @@ from typing import Iterable
 
 ENDPOINT = "https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService"
 OPERATION = "get24DivisionsInfo"
-DEFAULT_OUTPUT = Path("docs/fixtures/kasi-special-days-solar-terms-2000-2016.json")
-DEFAULT_EMBEDDED_TABLE = Path("packages/saju-core/src/solar-terms.ts")
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent
+DEFAULT_OUTPUT = REPO_ROOT / "docs/fixtures/kasi-special-days-solar-terms-2000-2016.json"
+DEFAULT_EMBEDDED_TABLE = REPO_ROOT / "packages/saju-core/src/solar-terms.ts"
 SERVICE_KEY_ENV_NAMES = (
     "KASI_SPECIAL_DAYS_SERVICE_KEY",
     "PUBLIC_DATA_API_KEY",
@@ -147,13 +149,13 @@ def resolve_service_key(env_name: str, service_key_file: Path | None) -> str:
     if service_key_file is not None:
         key = service_key_file.read_text(encoding="utf-8").strip()
         if key:
-            return key
+            return urllib.parse.unquote(key)
 
     env_names = (env_name,) if env_name else SERVICE_KEY_ENV_NAMES
     for name in env_names:
         key = os.environ.get(name)
         if key:
-            return key
+            return urllib.parse.unquote(key)
 
     env_list = ", ".join(SERVICE_KEY_ENV_NAMES)
     raise SystemExit(f"Missing data.go.kr service key. Set one of: {env_list}.")
@@ -181,7 +183,13 @@ def fetch_month(endpoint: str, service_key: str, year: int, month: int) -> list[
     with urllib.request.urlopen(url, timeout=30) as response:
         xml = response.read()
 
-    root = ET.fromstring(xml)
+    try:
+        root = ET.fromstring(xml)
+    except ET.ParseError as error:
+        sample = xml[:500].decode("utf-8", errors="replace")
+        raise RuntimeError(
+            f"Failed to parse XML response for {year:04d}-{month:02d}. Response sample: {sample}"
+        ) from error
     result_code = root.findtext("./header/resultCode")
     result_msg = root.findtext("./header/resultMsg")
     if result_code != "00":
@@ -291,8 +299,8 @@ def compare_embedded(
     start_year: int,
     end_year: int,
 ) -> list[dict[str, str]]:
-    api_by_term_and_date = {
-        (record.term, record.startsAt[:10]): record
+    api_by_term_year_month = {
+        (record.term, int(record.startsAt[:4]), int(record.startsAt[5:7])): record
         for record in records
     }
     comparison: list[dict[str, str]] = []
@@ -303,8 +311,9 @@ def compare_embedded(
         if embedded_year < start_year or embedded_year > end_year:
             continue
 
-        key = (boundary["term"], embedded_starts_at[:10])
-        api_record = api_by_term_and_date.get(key)
+        embedded_month = int(embedded_starts_at[5:7])
+        key = (boundary["term"], embedded_year, embedded_month)
+        api_record = api_by_term_year_month.get(key)
 
         if api_record is None:
             comparison.append({
