@@ -1,6 +1,6 @@
 # Saju Lab Development Roadmap
 
-Last updated: 2026-05-25
+Last updated: 2026-05-26
 
 ## Roadmap Principles
 
@@ -42,6 +42,7 @@ Last updated: 2026-05-25
 - Phase 4S recorded the embedded solar-term source audit and kept KASI revalidation open as an external-source gate.
 - Phase 4T recorded KASI 2024/2025 almanac evidence and identified one-minute mismatch rows for follow-up.
 - Phase 4U aligned those mismatch rows with KASI minute values and added boundary regression coverage.
+- Phase 4V switches historical fixture revalidation from brittle KASI web-image/OCR parsing to the data.go.kr `한국천문연구원_특일 정보` API collection path and records the API-supported 2000-2016 fixture plus the 1989-1999 source gap.
 - Phase 5 defined the first paid upgrade path as a one-time detailed report with PDF export, while keeping payment/account work separately gated.
 - Phase 5A added the paid detailed report data model, rules-only generator, and PDF-ready HTML output without checkout, login, or server storage.
 - Phase 5B hardened the paid export HTML with a cover, table of contents, print-aware layout, and export-specific tests.
@@ -475,6 +476,26 @@ Exit Criteria:
 - Boundary tests prove that the old mismatch minute is now the previous month and the KASI minute is the exact transition.
 - Docs avoid claiming broad date-range support or full historical KASI ingestion.
 - No broad solar-term ingestion, date-range expansion, checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 4V: Public Data Solar-Term Collection Path
+
+Status: Complete for the API-supported 2000-2016 range; 1989-1999 remains an external-source gap.
+
+Goal: replace the abandoned historical almanac image/OCR approach with a repeatable data.go.kr API collection path for historical 24절기 records.
+
+Deliverables:
+- Add a standard-library collection script for `SpcdeInfoService/get24DivisionsInfo`.
+- Support service keys through local environment variables or ignored key files without committing secrets.
+- Normalize API rows to `YYYY-MM-DDTHH:mm` KST and compare them against the embedded `SOLAR_MONTH_BOUNDARIES` table.
+- Generate and review the API-supported `docs/fixtures/kasi-special-days-solar-terms-2000-2016.json` fixture.
+- Document the API's 1989-1999 zero-record responses and keep those rows open until a separate approved source is chosen.
+
+Exit Criteria:
+- `python scripts/collect_public_data_solar_terms.py` generates `docs/fixtures/kasi-special-days-solar-terms-2000-2016.json` with complete per-year checks.
+- Embedded rows in the 2000-2016 API-supported range are marked revalidated only if the generated fixture comparison reports matches.
+- The observed 2000 소한 and 2010 소서 minute mismatches are resolved with calculation data and evidence docs in the same PR.
+- A 1989-2016 run remains a source-availability probe and fails completeness until a pre-2000 source is approved.
+- No broad date-range expansion, checkout, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Historical Phase Details
 

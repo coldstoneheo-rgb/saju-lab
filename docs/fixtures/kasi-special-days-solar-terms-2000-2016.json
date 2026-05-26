@@ -1,0 +1,7876 @@
+{
+  "metadata": {
+    "source": "data.go.kr 한국천문연구원_특일 정보",
+    "endpoint": "https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService",
+    "operation": "get24DivisionsInfo",
+    "startYear": 2000,
+    "endYear": 2016,
+    "accessedAt": "2026-05-26T13:51:55+00:00",
+    "timezone": "KST, as returned by the API kst field",
+    "serviceKeyEnvNames": [
+      "KASI_SPECIAL_DAYS_SERVICE_KEY",
+      "PUBLIC_DATA_API_KEY",
+      "DATA_GO_KR_API_KEY",
+      "SERVICE_KEY",
+      "SPCDE_API_KEY"
+    ],
+    "recordCount": 408,
+    "expectedRecordCount": 408
+  },
+  "records": [
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2000-01-06T10:01",
+      "locdate": "20000106",
+      "kst": "1001",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "1001",
+        "locdate": "20000106",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2000-01-21T03:23",
+      "locdate": "20000121",
+      "kst": "0323",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0323",
+        "locdate": "20000121",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2000-02-04T21:40",
+      "locdate": "20000204",
+      "kst": "2140",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "2140",
+        "locdate": "20000204",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2000-02-19T17:33",
+      "locdate": "20000219",
+      "kst": "1733",
+      "sunLongitude": "",
+      "termSource": "monthSlotFallback",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "1733",
+        "locdate": "20000219",
+        "seq": "1",
+        "normalizedDateName": "우수",
+        "normalizationReason": "dateName did not match the expected 24-term month slot"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2000-03-05T15:43",
+      "locdate": "20000305",
+      "kst": "1543",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "1543",
+        "locdate": "20000305",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2000-03-20T16:35",
+      "locdate": "20000320",
+      "kst": "1635",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "1635",
+        "locdate": "20000320",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2000-04-04T20:32",
+      "locdate": "20000404",
+      "kst": "2032",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "2032",
+        "locdate": "20000404",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2000-04-20T03:40",
+      "locdate": "20000420",
+      "kst": "0340",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0340",
+        "locdate": "20000420",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2000-05-05T13:50",
+      "locdate": "20000505",
+      "kst": "1350",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1350",
+        "locdate": "20000505",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2000-05-21T02:49",
+      "locdate": "20000521",
+      "kst": "0249",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "0249",
+        "locdate": "20000521",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2000-06-05T17:59",
+      "locdate": "20000605",
+      "kst": "1759",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "1759",
+        "locdate": "20000605",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2000-06-21T10:48",
+      "locdate": "20000621",
+      "kst": "1048",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "1048",
+        "locdate": "20000621",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2000-07-07T04:14",
+      "locdate": "20000707",
+      "kst": "0414",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "0414",
+        "locdate": "20000707",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2000-07-22T21:43",
+      "locdate": "20000722",
+      "kst": "2143",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "2143",
+        "locdate": "20000722",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2000-08-07T14:03",
+      "locdate": "20000807",
+      "kst": "1403",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1403",
+        "locdate": "20000807",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2000-08-23T04:49",
+      "locdate": "20000823",
+      "kst": "0449",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "0449",
+        "locdate": "20000823",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2000-09-07T16:59",
+      "locdate": "20000907",
+      "kst": "1659",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "1659",
+        "locdate": "20000907",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2000-09-23T02:28",
+      "locdate": "20000923",
+      "kst": "0228",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "0228",
+        "locdate": "20000923",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2000-10-08T08:38",
+      "locdate": "20001008",
+      "kst": "0838",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "0838",
+        "locdate": "20001008",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2000-10-23T11:47",
+      "locdate": "20001023",
+      "kst": "1147",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "1147",
+        "locdate": "20001023",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2000-11-07T11:48",
+      "locdate": "20001107",
+      "kst": "1148",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "1148",
+        "locdate": "20001107",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2000-11-22T09:19",
+      "locdate": "20001122",
+      "kst": "0919",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0919",
+        "locdate": "20001122",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2000-12-07T04:37",
+      "locdate": "20001207",
+      "kst": "0437",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "0437",
+        "locdate": "20001207",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2000-12-21T22:37",
+      "locdate": "20001221",
+      "kst": "2237",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "2237",
+        "locdate": "20001221",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2001-01-05T15:49",
+      "locdate": "20010105",
+      "kst": "1549",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "1549",
+        "locdate": "20010105",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2001-01-20T09:16",
+      "locdate": "20010120",
+      "kst": "0916",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0916",
+        "locdate": "20010120",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2001-02-04T03:29",
+      "locdate": "20010204",
+      "kst": "0329",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "0329",
+        "locdate": "20010204",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2001-02-18T23:27",
+      "locdate": "20010218",
+      "kst": "2327",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "2327",
+        "locdate": "20010218",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2001-03-05T21:33",
+      "locdate": "20010305",
+      "kst": "2133",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "2133",
+        "locdate": "20010305",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2001-03-20T22:31",
+      "locdate": "20010320",
+      "kst": "2231",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "2231",
+        "locdate": "20010320",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2001-04-05T02:24",
+      "locdate": "20010405",
+      "kst": "0224",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "0224",
+        "locdate": "20010405",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2001-04-20T09:36",
+      "locdate": "20010420",
+      "kst": "0936",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0936",
+        "locdate": "20010420",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2001-05-05T19:45",
+      "locdate": "20010505",
+      "kst": "1945",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1945",
+        "locdate": "20010505",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2001-05-21T08:44",
+      "locdate": "20010521",
+      "kst": "0844",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "0844",
+        "locdate": "20010521",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2001-06-05T23:54",
+      "locdate": "20010605",
+      "kst": "2354",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "2354",
+        "locdate": "20010605",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2001-06-21T16:38",
+      "locdate": "20010621",
+      "kst": "1638",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "1638",
+        "locdate": "20010621",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2001-07-07T10:07",
+      "locdate": "20010707",
+      "kst": "1007",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "1007",
+        "locdate": "20010707",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2001-07-23T03:26",
+      "locdate": "20010723",
+      "kst": "0326",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "0326",
+        "locdate": "20010723",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2001-08-07T19:52",
+      "locdate": "20010807",
+      "kst": "1952",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1952",
+        "locdate": "20010807",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2001-08-23T10:27",
+      "locdate": "20010823",
+      "kst": "1027",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "1027",
+        "locdate": "20010823",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2001-09-07T22:46",
+      "locdate": "20010907",
+      "kst": "2246",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "2246",
+        "locdate": "20010907",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2001-09-23T08:04",
+      "locdate": "20010923",
+      "kst": "0804",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "0804",
+        "locdate": "20010923",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2001-10-08T14:25",
+      "locdate": "20011008",
+      "kst": "1425",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "1425",
+        "locdate": "20011008",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2001-10-23T17:26",
+      "locdate": "20011023",
+      "kst": "1726",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "1726",
+        "locdate": "20011023",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2001-11-07T17:37",
+      "locdate": "20011107",
+      "kst": "1737",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "1737",
+        "locdate": "20011107",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2001-11-22T15:00",
+      "locdate": "20011122",
+      "kst": "1500",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "1500",
+        "locdate": "20011122",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2001-12-07T10:29",
+      "locdate": "20011207",
+      "kst": "1029",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "1029",
+        "locdate": "20011207",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2001-12-22T04:21",
+      "locdate": "20011222",
+      "kst": "0421",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "0421",
+        "locdate": "20011222",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2002-01-05T21:44",
+      "locdate": "20020105",
+      "kst": "2144",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "2144",
+        "locdate": "20020105",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2002-01-20T15:02",
+      "locdate": "20020120",
+      "kst": "1502",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "1502",
+        "locdate": "20020120",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2002-02-04T09:24",
+      "locdate": "20020204",
+      "kst": "0924",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "0924",
+        "locdate": "20020204",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2002-02-19T05:13",
+      "locdate": "20020219",
+      "kst": "0513",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "0513",
+        "locdate": "20020219",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2002-03-06T03:28",
+      "locdate": "20020306",
+      "kst": "0328",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "0328",
+        "locdate": "20020306",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2002-03-21T04:16",
+      "locdate": "20020321",
+      "kst": "0416",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "0416",
+        "locdate": "20020321",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2002-04-05T08:18",
+      "locdate": "20020405",
+      "kst": "0818",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "0818",
+        "locdate": "20020405",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2002-04-20T15:20",
+      "locdate": "20020420",
+      "kst": "1520",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "1520",
+        "locdate": "20020420",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2002-05-06T01:37",
+      "locdate": "20020506",
+      "kst": "0137",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "0137",
+        "locdate": "20020506",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2002-05-21T14:29",
+      "locdate": "20020521",
+      "kst": "1429",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "1429",
+        "locdate": "20020521",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2002-06-06T05:45",
+      "locdate": "20020606",
+      "kst": "0545",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "0545",
+        "locdate": "20020606",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2002-06-21T22:24",
+      "locdate": "20020621",
+      "kst": "2224",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "2224",
+        "locdate": "20020621",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2002-07-07T15:56",
+      "locdate": "20020707",
+      "kst": "1556",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "1556",
+        "locdate": "20020707",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2002-07-23T09:15",
+      "locdate": "20020723",
+      "kst": "0915",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "0915",
+        "locdate": "20020723",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2002-08-08T01:39",
+      "locdate": "20020808",
+      "kst": "0139",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "0139",
+        "locdate": "20020808",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2002-08-23T16:17",
+      "locdate": "20020823",
+      "kst": "1617",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "1617",
+        "locdate": "20020823",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2002-09-08T04:31",
+      "locdate": "20020908",
+      "kst": "0431",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "0431",
+        "locdate": "20020908",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2002-09-23T13:55",
+      "locdate": "20020923",
+      "kst": "1355",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "1355",
+        "locdate": "20020923",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2002-10-08T20:09",
+      "locdate": "20021008",
+      "kst": "2009",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "2009",
+        "locdate": "20021008",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2002-10-23T23:18",
+      "locdate": "20021023",
+      "kst": "2318",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "2318",
+        "locdate": "20021023",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2002-11-07T23:22",
+      "locdate": "20021107",
+      "kst": "2322",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "2322",
+        "locdate": "20021107",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2002-11-22T20:54",
+      "locdate": "20021122",
+      "kst": "2054",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "2054",
+        "locdate": "20021122",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2002-12-07T16:14",
+      "locdate": "20021207",
+      "kst": "1614",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "1614",
+        "locdate": "20021207",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2002-12-22T10:14",
+      "locdate": "20021222",
+      "kst": "1014",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "1014",
+        "locdate": "20021222",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2003-01-06T03:28",
+      "locdate": "20030106",
+      "kst": "0328",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "0328",
+        "locdate": "20030106",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2003-01-20T20:53",
+      "locdate": "20030120",
+      "kst": "2053",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "2053",
+        "locdate": "20030120",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2003-02-04T15:05",
+      "locdate": "20030204",
+      "kst": "1505",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "1505",
+        "locdate": "20030204",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2003-02-19T11:00",
+      "locdate": "20030219",
+      "kst": "1100",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "1100",
+        "locdate": "20030219",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2003-03-06T09:05",
+      "locdate": "20030306",
+      "kst": "0905",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "0905",
+        "locdate": "20030306",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2003-03-21T10:00",
+      "locdate": "20030321",
+      "kst": "1000",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "1000",
+        "locdate": "20030321",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2003-04-05T13:52",
+      "locdate": "20030405",
+      "kst": "1352",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "1352",
+        "locdate": "20030405",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2003-04-20T21:03",
+      "locdate": "20030420",
+      "kst": "2103",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "2103",
+        "locdate": "20030420",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2003-05-06T07:10",
+      "locdate": "20030506",
+      "kst": "0710",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "0710",
+        "locdate": "20030506",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2003-05-21T20:12",
+      "locdate": "20030521",
+      "kst": "2012",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "2012",
+        "locdate": "20030521",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2003-06-06T11:20",
+      "locdate": "20030606",
+      "kst": "1120",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "1120",
+        "locdate": "20030606",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2003-06-22T04:10",
+      "locdate": "20030622",
+      "kst": "0410",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "0410",
+        "locdate": "20030622",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2003-07-07T21:36",
+      "locdate": "20030707",
+      "kst": "2136",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "2136",
+        "locdate": "20030707",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2003-07-23T15:04",
+      "locdate": "20030723",
+      "kst": "1504",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "1504",
+        "locdate": "20030723",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2003-08-08T07:24",
+      "locdate": "20030808",
+      "kst": "0724",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "0724",
+        "locdate": "20030808",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2003-08-23T22:08",
+      "locdate": "20030823",
+      "kst": "2208",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "2208",
+        "locdate": "20030823",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2003-09-08T10:20",
+      "locdate": "20030908",
+      "kst": "1020",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "1020",
+        "locdate": "20030908",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2003-09-23T19:47",
+      "locdate": "20030923",
+      "kst": "1947",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "1947",
+        "locdate": "20030923",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2003-10-09T02:01",
+      "locdate": "20031009",
+      "kst": "0201",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "0201",
+        "locdate": "20031009",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2003-10-24T05:08",
+      "locdate": "20031024",
+      "kst": "0508",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "0508",
+        "locdate": "20031024",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2003-11-08T05:13",
+      "locdate": "20031108",
+      "kst": "0513",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "0513",
+        "locdate": "20031108",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2003-11-23T02:43",
+      "locdate": "20031123",
+      "kst": "0243",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0243",
+        "locdate": "20031123",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2003-12-07T22:05",
+      "locdate": "20031207",
+      "kst": "2205",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "2205",
+        "locdate": "20031207",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2003-12-22T16:04",
+      "locdate": "20031222",
+      "kst": "1604",
+      "sunLongitude": "",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "1604",
+        "locdate": "20031222",
+        "seq": "1"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2004-01-06T09:19",
+      "locdate": "20040106",
+      "kst": "0919",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "0919",
+        "locdate": "20040106",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2004-01-21T02:42",
+      "locdate": "20040121",
+      "kst": "0242",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0242",
+        "locdate": "20040121",
+        "seq": "2",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2004-02-04T20:56",
+      "locdate": "20040204",
+      "kst": "2056",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "2056",
+        "locdate": "20040204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2004-02-19T16:50",
+      "locdate": "20040219",
+      "kst": "1650",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "1650",
+        "locdate": "20040219",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2004-03-05T14:56",
+      "locdate": "20040305",
+      "kst": "1456",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "1456",
+        "locdate": "20040305",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2004-03-20T15:49",
+      "locdate": "20040320",
+      "kst": "1549",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "1549",
+        "locdate": "20040320",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2004-04-04T19:43",
+      "locdate": "20040404",
+      "kst": "1943",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "1943",
+        "locdate": "20040404",
+        "seq": "1",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2004-04-20T02:50",
+      "locdate": "20040420",
+      "kst": "0250",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0250",
+        "locdate": "20040420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2004-05-05T13:02",
+      "locdate": "20040505",
+      "kst": "1302",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1302",
+        "locdate": "20040505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2004-05-21T01:59",
+      "locdate": "20040521",
+      "kst": "0159",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "0159",
+        "locdate": "20040521",
+        "seq": "1",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2004-06-05T17:14",
+      "locdate": "20040605",
+      "kst": "1714",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "1714",
+        "locdate": "20040605",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2004-06-21T09:57",
+      "locdate": "20040621",
+      "kst": "0957",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "0957",
+        "locdate": "20040621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2004-07-07T03:31",
+      "locdate": "20040707",
+      "kst": "0331",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "0331",
+        "locdate": "20040707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2004-07-22T20:50",
+      "locdate": "20040722",
+      "kst": "2050",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "2050",
+        "locdate": "20040722",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2004-08-07T13:20",
+      "locdate": "20040807",
+      "kst": "1320",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1320",
+        "locdate": "20040807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2004-08-23T03:53",
+      "locdate": "20040823",
+      "kst": "0353",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "0353",
+        "locdate": "20040823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2004-09-07T16:13",
+      "locdate": "20040907",
+      "kst": "1613",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "1613",
+        "locdate": "20040907",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2004-09-23T01:30",
+      "locdate": "20040923",
+      "kst": "0130",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "0130",
+        "locdate": "20040923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2004-10-08T07:49",
+      "locdate": "20041008",
+      "kst": "0749",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "0749",
+        "locdate": "20041008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2004-10-23T10:49",
+      "locdate": "20041023",
+      "kst": "1049",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "1049",
+        "locdate": "20041023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2004-11-07T10:59",
+      "locdate": "20041107",
+      "kst": "1059",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "1059",
+        "locdate": "20041107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2004-11-22T08:22",
+      "locdate": "20041122",
+      "kst": "0822",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0822",
+        "locdate": "20041122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2004-12-07T03:49",
+      "locdate": "20041207",
+      "kst": "0349",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "0349",
+        "locdate": "20041207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2004-12-21T21:42",
+      "locdate": "20041221",
+      "kst": "2142",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "2142",
+        "locdate": "20041221",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2005-01-05T15:03",
+      "locdate": "20050105",
+      "kst": "1503",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "1503",
+        "locdate": "20050105",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2005-01-20T08:22",
+      "locdate": "20050120",
+      "kst": "0822",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0822",
+        "locdate": "20050120",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2005-02-04T02:43",
+      "locdate": "20050204",
+      "kst": "0243",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "0243",
+        "locdate": "20050204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2005-02-18T22:32",
+      "locdate": "20050218",
+      "kst": "2232",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "2232",
+        "locdate": "20050218",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2005-03-05T20:45",
+      "locdate": "20050305",
+      "kst": "2045",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "2045",
+        "locdate": "20050305",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2005-03-20T21:33",
+      "locdate": "20050320",
+      "kst": "2133",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "2133",
+        "locdate": "20050320",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2005-04-05T01:34",
+      "locdate": "20050405",
+      "kst": "0134",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "0134",
+        "locdate": "20050405",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2005-04-20T08:37",
+      "locdate": "20050420",
+      "kst": "0837",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0837",
+        "locdate": "20050420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2005-05-05T18:53",
+      "locdate": "20050505",
+      "kst": "1853",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1853",
+        "locdate": "20050505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2005-05-21T07:47",
+      "locdate": "20050521",
+      "kst": "0747",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "0747",
+        "locdate": "20050521",
+        "seq": "1",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2005-06-05T23:02",
+      "locdate": "20050605",
+      "kst": "2302",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "2302",
+        "locdate": "20050605",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2005-06-21T15:46",
+      "locdate": "20050621",
+      "kst": "1546",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "1546",
+        "locdate": "20050621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2005-07-07T09:17",
+      "locdate": "20050707",
+      "kst": "0917",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "0917",
+        "locdate": "20050707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2005-07-23T02:41",
+      "locdate": "20050723",
+      "kst": "0241",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "0241",
+        "locdate": "20050723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2005-08-07T19:03",
+      "locdate": "20050807",
+      "kst": "1903",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1903",
+        "locdate": "20050807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2005-08-23T09:45",
+      "locdate": "20050823",
+      "kst": "0945",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "0945",
+        "locdate": "20050823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2005-09-07T21:57",
+      "locdate": "20050907",
+      "kst": "2157",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "2157",
+        "locdate": "20050907",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2005-09-23T07:23",
+      "locdate": "20050923",
+      "kst": "0723",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "0723",
+        "locdate": "20050923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2005-10-08T13:33",
+      "locdate": "20051008",
+      "kst": "1333",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "1333",
+        "locdate": "20051008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2005-10-23T16:42",
+      "locdate": "20051023",
+      "kst": "1642",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "1642",
+        "locdate": "20051023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2005-11-07T16:42",
+      "locdate": "20051107",
+      "kst": "1642",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "1642",
+        "locdate": "20051107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2005-11-22T14:15",
+      "locdate": "20051122",
+      "kst": "1415",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "1415",
+        "locdate": "20051122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2005-12-07T09:33",
+      "locdate": "20051207",
+      "kst": "0933",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "0933",
+        "locdate": "20051207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2005-12-22T03:35",
+      "locdate": "20051222",
+      "kst": "0335",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "0335",
+        "locdate": "20051222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2006-01-05T20:47",
+      "locdate": "20060105",
+      "kst": "2047",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "2047",
+        "locdate": "20060105",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2006-01-20T14:15",
+      "locdate": "20060120",
+      "kst": "1415",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "1415",
+        "locdate": "20060120",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2006-02-04T08:27",
+      "locdate": "20060204",
+      "kst": "0827",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "0827",
+        "locdate": "20060204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2006-02-19T04:26",
+      "locdate": "20060219",
+      "kst": "0426",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "0426",
+        "locdate": "20060219",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2006-03-06T02:29",
+      "locdate": "20060306",
+      "kst": "0229",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "0229",
+        "locdate": "20060306",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2006-03-21T03:26",
+      "locdate": "20060321",
+      "kst": "0326",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "0326",
+        "locdate": "20060321",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2006-04-05T07:15",
+      "locdate": "20060405",
+      "kst": "0715",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "0715",
+        "locdate": "20060405",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2006-04-20T14:26",
+      "locdate": "20060420",
+      "kst": "1426",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "1426",
+        "locdate": "20060420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2006-05-06T00:31",
+      "locdate": "20060506",
+      "kst": "0031",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "0031",
+        "locdate": "20060506",
+        "seq": "1",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2006-05-21T13:32",
+      "locdate": "20060521",
+      "kst": "1332",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "1332",
+        "locdate": "20060521",
+        "seq": "1",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2006-06-06T04:37",
+      "locdate": "20060606",
+      "kst": "0437",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "0437",
+        "locdate": "20060606",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2006-06-21T21:26",
+      "locdate": "20060621",
+      "kst": "2126",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "2126",
+        "locdate": "20060621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2006-07-07T14:51",
+      "locdate": "20060707",
+      "kst": "1451",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "1451",
+        "locdate": "20060707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2006-07-23T08:18",
+      "locdate": "20060723",
+      "kst": "0818",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "0818",
+        "locdate": "20060723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2006-08-08T00:41",
+      "locdate": "20060808",
+      "kst": "0041",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "0041",
+        "locdate": "20060808",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2006-08-23T15:23",
+      "locdate": "20060823",
+      "kst": "1523",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "1523",
+        "locdate": "20060823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2006-09-08T03:39",
+      "locdate": "20060908",
+      "kst": "0339",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "0339",
+        "locdate": "20060908",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2006-09-23T13:03",
+      "locdate": "20060923",
+      "kst": "1303",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "1303",
+        "locdate": "20060923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2006-10-08T19:21",
+      "locdate": "20061008",
+      "kst": "1921",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "1921",
+        "locdate": "20061008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2006-10-23T22:26",
+      "locdate": "20061023",
+      "kst": "2226",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "2226",
+        "locdate": "20061023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2006-11-07T22:35",
+      "locdate": "20061107",
+      "kst": "2235",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "2235",
+        "locdate": "20061107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2006-11-22T20:02",
+      "locdate": "20061122",
+      "kst": "2002",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "2002",
+        "locdate": "20061122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2006-12-07T15:27",
+      "locdate": "20061207",
+      "kst": "1527",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "1527",
+        "locdate": "20061207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2006-12-22T09:22",
+      "locdate": "20061222",
+      "kst": "0922",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "0922",
+        "locdate": "20061222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2007-01-06T02:40",
+      "locdate": "20070106",
+      "kst": "0240",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "0240",
+        "locdate": "20070106",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2007-01-20T20:01",
+      "locdate": "20070120",
+      "kst": "2001",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "2001",
+        "locdate": "20070120",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2007-02-04T14:18",
+      "locdate": "20070204",
+      "kst": "1418",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "1418",
+        "locdate": "20070204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2007-02-19T10:09",
+      "locdate": "20070219",
+      "kst": "1009",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "1009",
+        "locdate": "20070219",
+        "seq": "2",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2007-03-06T08:18",
+      "locdate": "20070306",
+      "kst": "0818",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "0818",
+        "locdate": "20070306",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2007-03-21T09:07",
+      "locdate": "20070321",
+      "kst": "0907",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "0907",
+        "locdate": "20070321",
+        "seq": "2",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2007-04-05T13:05",
+      "locdate": "20070405",
+      "kst": "1305",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "1305",
+        "locdate": "20070405",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2007-04-20T20:07",
+      "locdate": "20070420",
+      "kst": "2007",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "2007",
+        "locdate": "20070420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2007-05-06T06:20",
+      "locdate": "20070506",
+      "kst": "0620",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "0620",
+        "locdate": "20070506",
+        "seq": "1",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2007-05-21T19:12",
+      "locdate": "20070521",
+      "kst": "1912",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "1912",
+        "locdate": "20070521",
+        "seq": "2",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2007-06-06T10:27",
+      "locdate": "20070606",
+      "kst": "1027",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "1027",
+        "locdate": "20070606",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2007-06-22T03:06",
+      "locdate": "20070622",
+      "kst": "0306",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "0306",
+        "locdate": "20070622",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2007-07-07T20:42",
+      "locdate": "20070707",
+      "kst": "2042",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "2042",
+        "locdate": "20070707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2007-07-23T14:00",
+      "locdate": "20070723",
+      "kst": "1400",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "1400",
+        "locdate": "20070723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2007-08-08T06:31",
+      "locdate": "20070808",
+      "kst": "0631",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "0631",
+        "locdate": "20070808",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2007-08-23T21:08",
+      "locdate": "20070823",
+      "kst": "2108",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "2108",
+        "locdate": "20070823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2007-09-08T09:29",
+      "locdate": "20070908",
+      "kst": "0929",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "0929",
+        "locdate": "20070908",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2007-09-23T18:51",
+      "locdate": "20070923",
+      "kst": "1851",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "1851",
+        "locdate": "20070923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2007-10-09T01:11",
+      "locdate": "20071009",
+      "kst": "0111",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "0111",
+        "locdate": "20071009",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2007-10-24T04:15",
+      "locdate": "20071024",
+      "kst": "0415",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "0415",
+        "locdate": "20071024",
+        "seq": "2",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2007-11-08T04:24",
+      "locdate": "20071108",
+      "kst": "0424",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "0424",
+        "locdate": "20071108",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2007-11-23T01:50",
+      "locdate": "20071123",
+      "kst": "0150",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0150",
+        "locdate": "20071123",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2007-12-07T21:14",
+      "locdate": "20071207",
+      "kst": "2114",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "2114",
+        "locdate": "20071207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2007-12-22T15:08",
+      "locdate": "20071222",
+      "kst": "1508",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "1508",
+        "locdate": "20071222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2008-01-06T08:25",
+      "locdate": "20080106",
+      "kst": "0825",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "0825",
+        "locdate": "20080106",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2008-01-21T01:43",
+      "locdate": "20080121",
+      "kst": "0143",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0143",
+        "locdate": "20080121",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2008-02-04T20:00",
+      "locdate": "20080204",
+      "kst": "2000",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "2000",
+        "locdate": "20080204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2008-02-19T15:49",
+      "locdate": "20080219",
+      "kst": "1549",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "1549",
+        "locdate": "20080219",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2008-03-05T13:59",
+      "locdate": "20080305",
+      "kst": "1359",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "1359",
+        "locdate": "20080305",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2008-03-20T14:48",
+      "locdate": "20080320",
+      "kst": "1448",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "1448",
+        "locdate": "20080320",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2008-04-04T18:46",
+      "locdate": "20080404",
+      "kst": "1846",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "1846",
+        "locdate": "20080404",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2008-04-20T01:51",
+      "locdate": "20080420",
+      "kst": "0151",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0151",
+        "locdate": "20080420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2008-05-05T12:03",
+      "locdate": "20080505",
+      "kst": "1203",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1203",
+        "locdate": "20080505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2008-05-21T01:01",
+      "locdate": "20080521",
+      "kst": "0101",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "0101",
+        "locdate": "20080521",
+        "seq": "1",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2008-06-05T16:12",
+      "locdate": "20080605",
+      "kst": "1612",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "1612",
+        "locdate": "20080605",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2008-06-21T08:59",
+      "locdate": "20080621",
+      "kst": "0859",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "0859",
+        "locdate": "20080621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2008-07-07T02:27",
+      "locdate": "20080707",
+      "kst": "0227",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "0227",
+        "locdate": "20080707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2008-07-22T19:55",
+      "locdate": "20080722",
+      "kst": "1955",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "1955",
+        "locdate": "20080722",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2008-08-07T12:16",
+      "locdate": "20080807",
+      "kst": "1216",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1216",
+        "locdate": "20080807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2008-08-23T03:02",
+      "locdate": "20080823",
+      "kst": "0302",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "0302",
+        "locdate": "20080823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2008-09-07T15:14",
+      "locdate": "20080907",
+      "kst": "1514",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "1514",
+        "locdate": "20080907",
+        "seq": "2",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2008-09-23T00:44",
+      "locdate": "20080923",
+      "kst": "0044",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "0044",
+        "locdate": "20080923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2008-10-08T06:57",
+      "locdate": "20081008",
+      "kst": "0657",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "0657",
+        "locdate": "20081008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2008-10-23T10:09",
+      "locdate": "20081023",
+      "kst": "1009",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "1009",
+        "locdate": "20081023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2008-11-07T10:10",
+      "locdate": "20081107",
+      "kst": "1010",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "1010",
+        "locdate": "20081107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2008-11-22T07:44",
+      "locdate": "20081122",
+      "kst": "0744",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0744",
+        "locdate": "20081122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2008-12-07T03:02",
+      "locdate": "20081207",
+      "kst": "0302",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "0302",
+        "locdate": "20081207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2008-12-21T21:04",
+      "locdate": "20081221",
+      "kst": "2104",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "2104",
+        "locdate": "20081221",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2009-01-05T14:14",
+      "locdate": "20090105",
+      "kst": "1414",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "1414",
+        "locdate": "20090105",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2009-01-20T07:40",
+      "locdate": "20090120",
+      "kst": "0740",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0740",
+        "locdate": "20090120",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2009-02-04T01:50",
+      "locdate": "20090204",
+      "kst": "0150",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "0150",
+        "locdate": "20090204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2009-02-18T21:46",
+      "locdate": "20090218",
+      "kst": "2146",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "2146",
+        "locdate": "20090218",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2009-03-05T19:47",
+      "locdate": "20090305",
+      "kst": "1947",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "1947",
+        "locdate": "20090305",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2009-03-20T20:44",
+      "locdate": "20090320",
+      "kst": "2044",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "2044",
+        "locdate": "20090320",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2009-04-05T00:34",
+      "locdate": "20090405",
+      "kst": "0034",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "0034",
+        "locdate": "20090405",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2009-04-20T07:44",
+      "locdate": "20090420",
+      "kst": "0744",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0744",
+        "locdate": "20090420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2009-05-05T17:51",
+      "locdate": "20090505",
+      "kst": "1751",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1751",
+        "locdate": "20090505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2009-05-21T06:51",
+      "locdate": "20090521",
+      "kst": "0651",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "0651",
+        "locdate": "20090521",
+        "seq": "2",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2009-06-05T21:59",
+      "locdate": "20090605",
+      "kst": "2159",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "2159",
+        "locdate": "20090605",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2009-06-21T14:45",
+      "locdate": "20090621",
+      "kst": "1445",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "1445",
+        "locdate": "20090621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2009-07-07T08:13",
+      "locdate": "20090707",
+      "kst": "0813",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "0813",
+        "locdate": "20090707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2009-07-23T01:36",
+      "locdate": "20090723",
+      "kst": "0136",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "0136",
+        "locdate": "20090723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2009-08-07T18:01",
+      "locdate": "20090807",
+      "kst": "1801",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1801",
+        "locdate": "20090807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2009-08-23T08:38",
+      "locdate": "20090823",
+      "kst": "0838",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "0838",
+        "locdate": "20090823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2009-09-07T20:58",
+      "locdate": "20090907",
+      "kst": "2058",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "2058",
+        "locdate": "20090907",
+        "seq": "2",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2009-09-23T06:19",
+      "locdate": "20090923",
+      "kst": "0619",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "0619",
+        "locdate": "20090923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2009-10-08T12:40",
+      "locdate": "20091008",
+      "kst": "1240",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "1240",
+        "locdate": "20091008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2009-10-23T15:43",
+      "locdate": "20091023",
+      "kst": "1543",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "1543",
+        "locdate": "20091023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2009-11-07T15:56",
+      "locdate": "20091107",
+      "kst": "1556",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "1556",
+        "locdate": "20091107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2009-11-22T13:22",
+      "locdate": "20091122",
+      "kst": "1322",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "1322",
+        "locdate": "20091122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2009-12-07T08:52",
+      "locdate": "20091207",
+      "kst": "0852",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "0852",
+        "locdate": "20091207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2009-12-22T02:47",
+      "locdate": "20091222",
+      "kst": "0247",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "0247",
+        "locdate": "20091222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2010-01-05T20:09",
+      "locdate": "20100105",
+      "kst": "2009",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "2009",
+        "locdate": "20100105",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2010-01-20T13:28",
+      "locdate": "20100120",
+      "kst": "1328",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "1328",
+        "locdate": "20100120",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2010-02-04T07:48",
+      "locdate": "20100204",
+      "kst": "0748",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "0748",
+        "locdate": "20100204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2010-02-19T03:36",
+      "locdate": "20100219",
+      "kst": "0336",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "0336",
+        "locdate": "20100219",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2010-03-06T01:46",
+      "locdate": "20100306",
+      "kst": "0146",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "0146",
+        "locdate": "20100306",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2010-03-21T02:32",
+      "locdate": "20100321",
+      "kst": "0232",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "0232",
+        "locdate": "20100321",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2010-04-05T06:30",
+      "locdate": "20100405",
+      "kst": "0630",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "0630",
+        "locdate": "20100405",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2010-04-20T13:30",
+      "locdate": "20100420",
+      "kst": "1330",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "1330",
+        "locdate": "20100420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2010-05-05T23:44",
+      "locdate": "20100505",
+      "kst": "2344",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "2344",
+        "locdate": "20100505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2010-05-21T12:34",
+      "locdate": "20100521",
+      "kst": "1234",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "1234",
+        "locdate": "20100521",
+        "seq": "3",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2010-06-06T03:49",
+      "locdate": "20100606",
+      "kst": "0349",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "0349",
+        "locdate": "20100606",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2010-06-21T20:28",
+      "locdate": "20100621",
+      "kst": "2028",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "2028",
+        "locdate": "20100621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2010-07-07T14:02",
+      "locdate": "20100707",
+      "kst": "1402",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "1402",
+        "locdate": "20100707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2010-07-23T07:21",
+      "locdate": "20100723",
+      "kst": "0721",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "0721",
+        "locdate": "20100723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2010-08-07T23:49",
+      "locdate": "20100807",
+      "kst": "2349",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "2349",
+        "locdate": "20100807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2010-08-23T14:27",
+      "locdate": "20100823",
+      "kst": "1427",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "1427",
+        "locdate": "20100823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2010-09-08T02:45",
+      "locdate": "20100908",
+      "kst": "0245",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "0245",
+        "locdate": "20100908",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2010-09-23T12:09",
+      "locdate": "20100923",
+      "kst": "1209",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "1209",
+        "locdate": "20100923",
+        "seq": "2",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2010-10-08T18:26",
+      "locdate": "20101008",
+      "kst": "1826",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "1826",
+        "locdate": "20101008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2010-10-23T21:35",
+      "locdate": "20101023",
+      "kst": "2135",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "2135",
+        "locdate": "20101023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2010-11-07T21:42",
+      "locdate": "20101107",
+      "kst": "2142",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "2142",
+        "locdate": "20101107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2010-11-22T19:14",
+      "locdate": "20101122",
+      "kst": "1914",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "1914",
+        "locdate": "20101122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2010-12-07T14:38",
+      "locdate": "20101207",
+      "kst": "1438",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "1438",
+        "locdate": "20101207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2010-12-22T08:38",
+      "locdate": "20101222",
+      "kst": "0838",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "0838",
+        "locdate": "20101222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2011-01-06T01:55",
+      "locdate": "20110106",
+      "kst": "0155",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "0155",
+        "locdate": "20110106",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2011-01-21T19:18",
+      "locdate": "20110121",
+      "kst": "1918",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "1918",
+        "locdate": "20110121",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2011-02-04T13:33",
+      "locdate": "20110204",
+      "kst": "1333",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "1333",
+        "locdate": "20110204",
+        "seq": "2",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2011-02-19T09:25",
+      "locdate": "20110219",
+      "kst": "0925",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "0925",
+        "locdate": "20110219",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2011-03-06T07:30",
+      "locdate": "20110306",
+      "kst": "0730",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "0730",
+        "locdate": "20110306",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2011-03-21T08:21",
+      "locdate": "20110321",
+      "kst": "0821",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "0821",
+        "locdate": "20110321",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2011-04-05T12:12",
+      "locdate": "20110405",
+      "kst": "1212",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "1212",
+        "locdate": "20110405",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2011-04-20T19:17",
+      "locdate": "20110420",
+      "kst": "1917",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "1917",
+        "locdate": "20110420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2011-05-06T05:23",
+      "locdate": "20110506",
+      "kst": "0523",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "0523",
+        "locdate": "20110506",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2011-05-21T18:21",
+      "locdate": "20110521",
+      "kst": "1821",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "1821",
+        "locdate": "20110521",
+        "seq": "2",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2011-06-06T09:27",
+      "locdate": "20110606",
+      "kst": "0927",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "0927",
+        "locdate": "20110606",
+        "seq": "3",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2011-06-22T02:16",
+      "locdate": "20110622",
+      "kst": "0216",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "0216",
+        "locdate": "20110622",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2011-07-07T19:42",
+      "locdate": "20110707",
+      "kst": "1942",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "1942",
+        "locdate": "20110707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2011-07-23T13:12",
+      "locdate": "20110723",
+      "kst": "1312",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "1312",
+        "locdate": "20110723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2011-08-08T05:33",
+      "locdate": "20110808",
+      "kst": "0533",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "0533",
+        "locdate": "20110808",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2011-08-23T20:21",
+      "locdate": "20110823",
+      "kst": "2021",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "2021",
+        "locdate": "20110823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2011-09-08T08:34",
+      "locdate": "20110908",
+      "kst": "0834",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "0834",
+        "locdate": "20110908",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2011-09-23T18:05",
+      "locdate": "20110923",
+      "kst": "1805",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "1805",
+        "locdate": "20110923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2011-10-09T00:19",
+      "locdate": "20111009",
+      "kst": "0019",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "0019",
+        "locdate": "20111009",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2011-10-24T03:30",
+      "locdate": "20111024",
+      "kst": "0330",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "0330",
+        "locdate": "20111024",
+        "seq": "2",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2011-11-08T09:26",
+      "locdate": "20111108",
+      "kst": "0926",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "0926",
+        "locdate": "20111108",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2011-11-23T01:08",
+      "locdate": "20111123",
+      "kst": "0108",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0108",
+        "locdate": "20111123",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2011-12-07T20:29",
+      "locdate": "20111207",
+      "kst": "2029",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "2029",
+        "locdate": "20111207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2011-12-22T14:30",
+      "locdate": "20111222",
+      "kst": "1430",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "1430",
+        "locdate": "20111222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2012-01-06T07:44",
+      "locdate": "20120106",
+      "kst": "0744",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "0744",
+        "locdate": "20120106",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2012-01-21T01:10",
+      "locdate": "20120121",
+      "kst": "0110",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0110",
+        "locdate": "20120121",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2012-02-04T19:22",
+      "locdate": "20120204",
+      "kst": "1922",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "1922",
+        "locdate": "20120204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2012-02-19T15:17",
+      "locdate": "20120219",
+      "kst": "1517",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "1517",
+        "locdate": "20120219",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2012-03-05T13:21",
+      "locdate": "20120305",
+      "kst": "1321",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "1321",
+        "locdate": "20120305",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2012-03-20T14:14",
+      "locdate": "20120320",
+      "kst": "1414",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "1414",
+        "locdate": "20120320",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2012-04-04T18:05",
+      "locdate": "20120404",
+      "kst": "1805",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "1805",
+        "locdate": "20120404",
+        "seq": "1",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2012-04-20T01:12",
+      "locdate": "20120420",
+      "kst": "0112",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0112",
+        "locdate": "20120420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2012-05-05T11:20",
+      "locdate": "20120505",
+      "kst": "1120",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1120",
+        "locdate": "20120505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2012-05-21T00:15",
+      "locdate": "20120521",
+      "kst": "0015",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "0015",
+        "locdate": "20120521",
+        "seq": "3",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2012-06-05T15:26",
+      "locdate": "20120605",
+      "kst": "1526",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "1526",
+        "locdate": "20120605",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2012-06-21T08:09",
+      "locdate": "20120621",
+      "kst": "0809",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "0809",
+        "locdate": "20120621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2012-07-07T01:41",
+      "locdate": "20120707",
+      "kst": "0141",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "0141",
+        "locdate": "20120707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2012-07-22T19:01",
+      "locdate": "20120722",
+      "kst": "1901",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "1901",
+        "locdate": "20120722",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2012-08-07T11:30",
+      "locdate": "20120807",
+      "kst": "1130",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1130",
+        "locdate": "20120807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2012-08-23T02:07",
+      "locdate": "20120823",
+      "kst": "0207",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "0207",
+        "locdate": "20120823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2012-09-07T14:29",
+      "locdate": "20120907",
+      "kst": "1429",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "1429",
+        "locdate": "20120907",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2012-09-22T23:49",
+      "locdate": "20120922",
+      "kst": "2349",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "2349",
+        "locdate": "20120922",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2012-10-08T06:12",
+      "locdate": "20121008",
+      "kst": "0612",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "0612",
+        "locdate": "20121008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2012-10-23T09:13",
+      "locdate": "20121023",
+      "kst": "0913",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "0913",
+        "locdate": "20121023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2012-11-07T09:26",
+      "locdate": "20121107",
+      "kst": "0926",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "0926",
+        "locdate": "20121107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2012-11-22T06:50",
+      "locdate": "20121122",
+      "kst": "0650",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0650",
+        "locdate": "20121122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2012-12-07T02:19",
+      "locdate": "20121207",
+      "kst": "0219",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "0219",
+        "locdate": "20121207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2012-12-21T20:11",
+      "locdate": "20121221",
+      "kst": "2011",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "2011",
+        "locdate": "20121221",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2013-01-05T13:34",
+      "locdate": "20130105",
+      "kst": "1334",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "1334",
+        "locdate": "20130105",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2013-01-20T06:52",
+      "locdate": "20130120",
+      "kst": "0652",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0652",
+        "locdate": "20130120",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2013-02-04T01:13",
+      "locdate": "20130204",
+      "kst": "0113",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "0113",
+        "locdate": "20130204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2013-02-18T21:01",
+      "locdate": "20130218",
+      "kst": "2101",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "2101",
+        "locdate": "20130218",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2013-03-05T19:15",
+      "locdate": "20130305",
+      "kst": "1915",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "1915",
+        "locdate": "20130305",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2013-03-20T20:02",
+      "locdate": "20130320",
+      "kst": "2002",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "2002",
+        "locdate": "20130320",
+        "seq": "2",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2013-04-05T00:02",
+      "locdate": "20130405",
+      "kst": "0002",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "0002",
+        "locdate": "20130405",
+        "seq": "3",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2013-04-20T07:03",
+      "locdate": "20130420",
+      "kst": "0703",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0703",
+        "locdate": "20130420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2013-05-05T17:18",
+      "locdate": "20130505",
+      "kst": "1718",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1718",
+        "locdate": "20130505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2013-05-21T06:09",
+      "locdate": "20130521",
+      "kst": "0609",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "0609",
+        "locdate": "20130521",
+        "seq": "2",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2013-06-05T21:23",
+      "locdate": "20130605",
+      "kst": "2123",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "2123",
+        "locdate": "20130605",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2013-06-21T14:04",
+      "locdate": "20130621",
+      "kst": "1404",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "1404",
+        "locdate": "20130621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2013-07-07T07:34",
+      "locdate": "20130707",
+      "kst": "0734",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "0734",
+        "locdate": "20130707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2013-07-23T00:56",
+      "locdate": "20130723",
+      "kst": "0056",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "0056",
+        "locdate": "20130723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2013-08-07T17:20",
+      "locdate": "20130807",
+      "kst": "1720",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1720",
+        "locdate": "20130807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2013-08-23T08:02",
+      "locdate": "20130823",
+      "kst": "0802",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "0802",
+        "locdate": "20130823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2013-09-07T20:16",
+      "locdate": "20130907",
+      "kst": "2016",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "2016",
+        "locdate": "20130907",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2013-09-23T05:44",
+      "locdate": "20130923",
+      "kst": "0544",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "0544",
+        "locdate": "20130923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2013-10-08T11:58",
+      "locdate": "20131008",
+      "kst": "1158",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "1158",
+        "locdate": "20131008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2013-10-23T15:10",
+      "locdate": "20131023",
+      "kst": "1510",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "1510",
+        "locdate": "20131023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2013-11-07T15:14",
+      "locdate": "20131107",
+      "kst": "1514",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "1514",
+        "locdate": "20131107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2013-11-22T12:48",
+      "locdate": "20131122",
+      "kst": "1248",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "1248",
+        "locdate": "20131122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2013-12-07T08:08",
+      "locdate": "20131207",
+      "kst": "0808",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "0808",
+        "locdate": "20131207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2013-12-22T02:11",
+      "locdate": "20131222",
+      "kst": "0211",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "0211",
+        "locdate": "20131222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2014-01-05T19:24",
+      "locdate": "20140105",
+      "kst": "1924",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "1924",
+        "locdate": "20140105",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2014-01-20T12:51",
+      "locdate": "20140120",
+      "kst": "1251",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "1251",
+        "locdate": "20140120",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2014-02-04T07:03",
+      "locdate": "20140204",
+      "kst": "0703",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "0703",
+        "locdate": "20140204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2014-02-19T02:59",
+      "locdate": "20140219",
+      "kst": "0259",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "0259",
+        "locdate": "20140219",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2014-03-06T01:02",
+      "locdate": "20140306",
+      "kst": "0102",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "0102",
+        "locdate": "20140306",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2014-03-21T01:57",
+      "locdate": "20140321",
+      "kst": "0157",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "0157",
+        "locdate": "20140321",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2014-04-05T05:47",
+      "locdate": "20140405",
+      "kst": "0547",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "0547",
+        "locdate": "20140405",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2014-04-20T12:55",
+      "locdate": "20140420",
+      "kst": "1255",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "1255",
+        "locdate": "20140420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2014-05-05T22:59",
+      "locdate": "20140505",
+      "kst": "2259",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "2259",
+        "locdate": "20140505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2014-05-21T11:59",
+      "locdate": "20140521",
+      "kst": "1159",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "1159",
+        "locdate": "20140521",
+        "seq": "2",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2014-06-06T03:03",
+      "locdate": "20140606",
+      "kst": "0303",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "0303",
+        "locdate": "20140606",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2014-06-21T19:51",
+      "locdate": "20140621",
+      "kst": "1951",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "1951",
+        "locdate": "20140621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2014-07-07T13:15",
+      "locdate": "20140707",
+      "kst": "1315",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "1315",
+        "locdate": "20140707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2014-07-23T06:41",
+      "locdate": "20140723",
+      "kst": "0641",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "0641",
+        "locdate": "20140723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2014-08-07T23:02",
+      "locdate": "20140807",
+      "kst": "2302",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "2302",
+        "locdate": "20140807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2014-08-23T13:46",
+      "locdate": "20140823",
+      "kst": "1346",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "1346",
+        "locdate": "20140823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2014-09-08T02:01",
+      "locdate": "20140908",
+      "kst": "0201",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "0201",
+        "locdate": "20140908",
+        "seq": "2",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2014-09-23T11:29",
+      "locdate": "20140923",
+      "kst": "1129",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "1129",
+        "locdate": "20140923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2014-10-08T17:47",
+      "locdate": "20141008",
+      "kst": "1747",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "1747",
+        "locdate": "20141008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2014-10-23T20:57",
+      "locdate": "20141023",
+      "kst": "2057",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "2057",
+        "locdate": "20141023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2014-11-07T21:07",
+      "locdate": "20141107",
+      "kst": "2107",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "2107",
+        "locdate": "20141107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2014-11-22T18:38",
+      "locdate": "20141122",
+      "kst": "1838",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "1838",
+        "locdate": "20141122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2014-12-07T14:04",
+      "locdate": "20141207",
+      "kst": "1404",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "1404",
+        "locdate": "20141207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2014-12-22T08:03",
+      "locdate": "20141222",
+      "kst": "0803",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "0803",
+        "locdate": "20141222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2015-01-06T01:20",
+      "locdate": "20150106",
+      "kst": "0120",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "0120",
+        "locdate": "20150106",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2015-01-20T18:43",
+      "locdate": "20150120",
+      "kst": "1843",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "1843",
+        "locdate": "20150120",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2015-02-04T12:58",
+      "locdate": "20150204",
+      "kst": "1258",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "1258",
+        "locdate": "20150204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2015-02-19T08:50",
+      "locdate": "20150219",
+      "kst": "0850",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "0850",
+        "locdate": "20150219",
+        "seq": "2",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2015-03-06T06:56",
+      "locdate": "20150306",
+      "kst": "0656",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "0656",
+        "locdate": "20150306",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2015-03-21T07:45",
+      "locdate": "20150321",
+      "kst": "0745",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "0745",
+        "locdate": "20150321",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2015-04-05T11:39",
+      "locdate": "20150405",
+      "kst": "1139",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "1139",
+        "locdate": "20150405",
+        "seq": "2",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2015-04-20T18:42",
+      "locdate": "20150420",
+      "kst": "1842",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "1842",
+        "locdate": "20150420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2015-05-06T04:52",
+      "locdate": "20150506",
+      "kst": "0452",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "0452",
+        "locdate": "20150506",
+        "seq": "1",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2015-05-21T17:45",
+      "locdate": "20150521",
+      "kst": "1745",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "1745",
+        "locdate": "20150521",
+        "seq": "2",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2015-06-06T08:58",
+      "locdate": "20150606",
+      "kst": "0858",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "0858",
+        "locdate": "20150606",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2015-06-22T01:58",
+      "locdate": "20150622",
+      "kst": "0158",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "0158",
+        "locdate": "20150622",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2015-07-07T19:12",
+      "locdate": "20150707",
+      "kst": "1912",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "1912",
+        "locdate": "20150707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2015-07-23T12:30",
+      "locdate": "20150723",
+      "kst": "1230",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "1230",
+        "locdate": "20150723",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2015-08-08T05:01",
+      "locdate": "20150808",
+      "kst": "0501",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "0501",
+        "locdate": "20150808",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2015-08-23T19:37",
+      "locdate": "20150823",
+      "kst": "1937",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "1937",
+        "locdate": "20150823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2015-09-08T07:59",
+      "locdate": "20150908",
+      "kst": "0759",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "0759",
+        "locdate": "20150908",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2015-09-23T17:20",
+      "locdate": "20150923",
+      "kst": "1720",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "1720",
+        "locdate": "20150923",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2015-10-08T23:43",
+      "locdate": "20151008",
+      "kst": "2343",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "2343",
+        "locdate": "20151008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2015-10-24T02:47",
+      "locdate": "20151024",
+      "kst": "0247",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "0247",
+        "locdate": "20151024",
+        "seq": "2",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2015-11-08T02:58",
+      "locdate": "20151108",
+      "kst": "0258",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "0258",
+        "locdate": "20151108",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2015-11-23T00:25",
+      "locdate": "20151123",
+      "kst": "0025",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0025",
+        "locdate": "20151123",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2015-12-07T19:53",
+      "locdate": "20151207",
+      "kst": "1953",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "1953",
+        "locdate": "20151207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2015-12-22T13:48",
+      "locdate": "20151222",
+      "kst": "1348",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "1348",
+        "locdate": "20151222",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "startsAt": "2016-01-06T07:08",
+      "locdate": "20160106",
+      "kst": "0708",
+      "sunLongitude": "285",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소한",
+        "isHoliday": "N",
+        "kst": "0708",
+        "locdate": "20160106",
+        "seq": "1",
+        "sunLongitude": "285"
+      }
+    },
+    {
+      "term": "daehan",
+      "nameKo": "대한",
+      "startsAt": "2016-01-21T00:27",
+      "locdate": "20160121",
+      "kst": "0027",
+      "sunLongitude": "300",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대한",
+        "isHoliday": "N",
+        "kst": "0027",
+        "locdate": "20160121",
+        "seq": "1",
+        "sunLongitude": "300"
+      }
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "startsAt": "2016-02-04T18:46",
+      "locdate": "20160204",
+      "kst": "1846",
+      "sunLongitude": "315",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입춘",
+        "isHoliday": "N",
+        "kst": "1846",
+        "locdate": "20160204",
+        "seq": "1",
+        "sunLongitude": "315"
+      }
+    },
+    {
+      "term": "usu",
+      "nameKo": "우수",
+      "startsAt": "2016-02-19T14:34",
+      "locdate": "20160219",
+      "kst": "1434",
+      "sunLongitude": "330",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "우수",
+        "isHoliday": "N",
+        "kst": "1434",
+        "locdate": "20160219",
+        "seq": "1",
+        "sunLongitude": "330"
+      }
+    },
+    {
+      "term": "gyeongchip",
+      "nameKo": "경칩",
+      "startsAt": "2016-03-05T12:43",
+      "locdate": "20160305",
+      "kst": "1243",
+      "sunLongitude": "345",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "경칩",
+        "isHoliday": "N",
+        "kst": "1243",
+        "locdate": "20160305",
+        "seq": "1",
+        "sunLongitude": "345"
+      }
+    },
+    {
+      "term": "chunbun",
+      "nameKo": "춘분",
+      "startsAt": "2016-03-20T13:30",
+      "locdate": "20160320",
+      "kst": "1330",
+      "sunLongitude": "0",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "춘분",
+        "isHoliday": "N",
+        "kst": "1330",
+        "locdate": "20160320",
+        "seq": "1",
+        "sunLongitude": "0"
+      }
+    },
+    {
+      "term": "cheongmyeong",
+      "nameKo": "청명",
+      "startsAt": "2016-04-04T17:27",
+      "locdate": "20160404",
+      "kst": "1727",
+      "sunLongitude": "15",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "청명",
+        "isHoliday": "N",
+        "kst": "1727",
+        "locdate": "20160404",
+        "seq": "1",
+        "sunLongitude": "15"
+      }
+    },
+    {
+      "term": "gogu",
+      "nameKo": "곡우",
+      "startsAt": "2016-04-20T00:29",
+      "locdate": "20160420",
+      "kst": "0029",
+      "sunLongitude": "30",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "곡우",
+        "isHoliday": "N",
+        "kst": "0029",
+        "locdate": "20160420",
+        "seq": "2",
+        "sunLongitude": "30"
+      }
+    },
+    {
+      "term": "ipha",
+      "nameKo": "입하",
+      "startsAt": "2016-05-05T10:42",
+      "locdate": "20160505",
+      "kst": "1042",
+      "sunLongitude": "45",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입하",
+        "isHoliday": "N",
+        "kst": "1042",
+        "locdate": "20160505",
+        "seq": "2",
+        "sunLongitude": "45"
+      }
+    },
+    {
+      "term": "soman",
+      "nameKo": "소만",
+      "startsAt": "2016-05-20T23:36",
+      "locdate": "20160520",
+      "kst": "2336",
+      "sunLongitude": "60",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소만",
+        "isHoliday": "N",
+        "kst": "2336",
+        "locdate": "20160520",
+        "seq": "1",
+        "sunLongitude": "60"
+      }
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "startsAt": "2016-06-05T14:48",
+      "locdate": "20160605",
+      "kst": "1448",
+      "sunLongitude": "75",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "망종",
+        "isHoliday": "N",
+        "kst": "1448",
+        "locdate": "20160605",
+        "seq": "2",
+        "sunLongitude": "75"
+      }
+    },
+    {
+      "term": "haji",
+      "nameKo": "하지",
+      "startsAt": "2016-06-21T07:34",
+      "locdate": "20160621",
+      "kst": "0734",
+      "sunLongitude": "90",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "하지",
+        "isHoliday": "N",
+        "kst": "0734",
+        "locdate": "20160621",
+        "seq": "1",
+        "sunLongitude": "90"
+      }
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "startsAt": "2016-07-07T01:03",
+      "locdate": "20160707",
+      "kst": "0103",
+      "sunLongitude": "105",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소서",
+        "isHoliday": "N",
+        "kst": "0103",
+        "locdate": "20160707",
+        "seq": "1",
+        "sunLongitude": "105"
+      }
+    },
+    {
+      "term": "daeseo",
+      "nameKo": "대서",
+      "startsAt": "2016-07-22T18:30",
+      "locdate": "20160722",
+      "kst": "1830",
+      "sunLongitude": "120",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대서",
+        "isHoliday": "N",
+        "kst": "1830",
+        "locdate": "20160722",
+        "seq": "1",
+        "sunLongitude": "120"
+      }
+    },
+    {
+      "term": "ipchu",
+      "nameKo": "입추",
+      "startsAt": "2016-08-07T10:53",
+      "locdate": "20160807",
+      "kst": "1053",
+      "sunLongitude": "135",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입추",
+        "isHoliday": "N",
+        "kst": "1053",
+        "locdate": "20160807",
+        "seq": "1",
+        "sunLongitude": "135"
+      }
+    },
+    {
+      "term": "cheoseo",
+      "nameKo": "처서",
+      "startsAt": "2016-08-23T01:38",
+      "locdate": "20160823",
+      "kst": "0138",
+      "sunLongitude": "150",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "처서",
+        "isHoliday": "N",
+        "kst": "0138",
+        "locdate": "20160823",
+        "seq": "1",
+        "sunLongitude": "150"
+      }
+    },
+    {
+      "term": "baengno",
+      "nameKo": "백로",
+      "startsAt": "2016-09-07T13:51",
+      "locdate": "20160907",
+      "kst": "1351",
+      "sunLongitude": "165",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "백로",
+        "isHoliday": "N",
+        "kst": "1351",
+        "locdate": "20160907",
+        "seq": "1",
+        "sunLongitude": "165"
+      }
+    },
+    {
+      "term": "chubun",
+      "nameKo": "추분",
+      "startsAt": "2016-09-22T23:21",
+      "locdate": "20160922",
+      "kst": "2321",
+      "sunLongitude": "180",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "추분",
+        "isHoliday": "N",
+        "kst": "2321",
+        "locdate": "20160922",
+        "seq": "1",
+        "sunLongitude": "180"
+      }
+    },
+    {
+      "term": "hallo",
+      "nameKo": "한로",
+      "startsAt": "2016-10-08T05:33",
+      "locdate": "20161008",
+      "kst": "0533",
+      "sunLongitude": "195",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "한로",
+        "isHoliday": "N",
+        "kst": "0533",
+        "locdate": "20161008",
+        "seq": "2",
+        "sunLongitude": "195"
+      }
+    },
+    {
+      "term": "sanggang",
+      "nameKo": "상강",
+      "startsAt": "2016-10-23T08:45",
+      "locdate": "20161023",
+      "kst": "0845",
+      "sunLongitude": "210",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "상강",
+        "isHoliday": "N",
+        "kst": "0845",
+        "locdate": "20161023",
+        "seq": "1",
+        "sunLongitude": "210"
+      }
+    },
+    {
+      "term": "ipdong",
+      "nameKo": "입동",
+      "startsAt": "2016-11-07T08:48",
+      "locdate": "20161107",
+      "kst": "0848",
+      "sunLongitude": "225",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "입동",
+        "isHoliday": "N",
+        "kst": "0848",
+        "locdate": "20161107",
+        "seq": "1",
+        "sunLongitude": "225"
+      }
+    },
+    {
+      "term": "soseol",
+      "nameKo": "소설",
+      "startsAt": "2016-11-22T06:22",
+      "locdate": "20161122",
+      "kst": "0622",
+      "sunLongitude": "240",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "소설",
+        "isHoliday": "N",
+        "kst": "0622",
+        "locdate": "20161122",
+        "seq": "1",
+        "sunLongitude": "240"
+      }
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "startsAt": "2016-12-07T01:41",
+      "locdate": "20161207",
+      "kst": "0141",
+      "sunLongitude": "255",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "대설",
+        "isHoliday": "N",
+        "kst": "0141",
+        "locdate": "20161207",
+        "seq": "1",
+        "sunLongitude": "255"
+      }
+    },
+    {
+      "term": "dongji",
+      "nameKo": "동지",
+      "startsAt": "2016-12-21T19:44",
+      "locdate": "20161221",
+      "kst": "1944",
+      "sunLongitude": "270",
+      "termSource": "dateName",
+      "sourceOperation": "get24DivisionsInfo",
+      "raw": {
+        "dateKind": "03",
+        "dateName": "동지",
+        "isHoliday": "N",
+        "kst": "1944",
+        "locdate": "20161221",
+        "seq": "1",
+        "sunLongitude": "270"
+      }
+    }
+  ],
+  "completeness": [
+    {
+      "year": "2000",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2001",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2002",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2003",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2004",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2005",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2006",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2007",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2008",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2009",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2010",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2011",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2012",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2013",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2014",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2015",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    },
+    {
+      "year": "2016",
+      "recordCount": "24",
+      "expectedRecordCount": "24",
+      "status": "complete",
+      "missingTerms": "",
+      "duplicateTerms": ""
+    }
+  ],
+  "embeddedComparison": [
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "embeddedStartsAt": "2000-01-06T10:01",
+      "apiStartsAt": "2000-01-06T10:01",
+      "status": "match"
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "embeddedStartsAt": "2000-02-04T21:40",
+      "apiStartsAt": "2000-02-04T21:40",
+      "status": "match"
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "embeddedStartsAt": "2010-02-04T07:48",
+      "apiStartsAt": "2010-02-04T07:48",
+      "status": "match"
+    },
+    {
+      "term": "mangjong",
+      "nameKo": "망종",
+      "embeddedStartsAt": "2010-06-06T03:49",
+      "apiStartsAt": "2010-06-06T03:49",
+      "status": "match"
+    },
+    {
+      "term": "soseo",
+      "nameKo": "소서",
+      "embeddedStartsAt": "2010-07-07T14:02",
+      "apiStartsAt": "2010-07-07T14:02",
+      "status": "match"
+    },
+    {
+      "term": "ipchun",
+      "nameKo": "입춘",
+      "embeddedStartsAt": "2015-02-04T12:58",
+      "apiStartsAt": "2015-02-04T12:58",
+      "status": "match"
+    },
+    {
+      "term": "daeseol",
+      "nameKo": "대설",
+      "embeddedStartsAt": "2015-12-07T19:53",
+      "apiStartsAt": "2015-12-07T19:53",
+      "status": "match"
+    },
+    {
+      "term": "sohan",
+      "nameKo": "소한",
+      "embeddedStartsAt": "2016-01-06T07:08",
+      "apiStartsAt": "2016-01-06T07:08",
+      "status": "match"
+    }
+  ]
+}

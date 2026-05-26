@@ -28,7 +28,7 @@ Not included:
 | `KASI revalidated` | Checked against KASI source data with source name, access date, timezone, and minute-rounding policy recorded. | Yes, only for the checked rows |
 | `KASI mismatch` | Direct KASI source comparison found a minute value that differs from the embedded table. Requires a separate calculation-data decision before it can be treated as revalidated. | No |
 
-Current project status: KASI revalidated for the embedded 2024 matrix and 2025 upper-boundary guards after Phase 4U mismatch resolution. Older fixture-limited rows still need KASI revalidation before broader date-range support. See `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`.
+Current project status: KASI revalidated for the embedded 2024 matrix and 2025 upper-boundary guards after Phase 4U mismatch resolution. Phase 4V replaces the abandoned web-image/OCR path with the data.go.kr `get24DivisionsInfo` collection script documented in `docs/PUBLIC_DATA_SOLAR_TERM_COLLECTION.md`. The generated 2000-2016 API fixture revalidates embedded rows in that available range; 1989-1999 still need a separate approved source because the API returns no records for those years.
 
 ## Embedded Boundary Inventory
 
@@ -40,14 +40,14 @@ These are the boundary minutes currently embedded in the calculation core.
 | 소한 | 1990-01-05 23:33 | 1989 | 11 | 1990 fixture active month boundary | fixture-limited; needs KASI revalidation |
 | 입춘 | 1990-02-04 11:14 | 1990 | 0 | 1990 fixture upper month boundary and year boundary | fixture-limited; needs KASI revalidation |
 | 대설 | 1999-12-07 22:48 | 1999 | 10 | 2000 fixture lower month boundary | fixture-limited; needs KASI revalidation |
-| 소한 | 2000-01-06 09:00 | 1999 | 11 | 2000 fixture active month boundary | fixture-limited; needs KASI revalidation |
-| 입춘 | 2000-02-04 21:40 | 2000 | 0 | 2000 fixture upper month boundary and year boundary | fixture-limited; needs KASI revalidation |
-| 입춘 | 2010-02-04 07:48 | 2010 | 0 | 2010 year boundary | fixture-limited; needs KASI revalidation |
-| 망종 | 2010-06-06 03:49 | 2010 | 4 | 2010 fixture active month boundary | fixture-limited; needs KASI revalidation |
-| 소서 | 2010-07-07 14:03 | 2010 | 5 | 2010 fixture upper month boundary | fixture-limited; needs KASI revalidation |
-| 입춘 | 2015-02-04 12:58 | 2015 | 0 | 2015 year boundary | fixture-limited; needs KASI revalidation |
-| 대설 | 2015-12-07 19:53 | 2015 | 10 | 2015 fixture active month boundary | fixture-limited; needs KASI revalidation |
-| 소한 | 2016-01-06 07:08 | 2015 | 11 | 2015 fixture upper month boundary | fixture-limited; needs KASI revalidation |
+| 소한 | 2000-01-06 10:01 | 1999 | 11 | 2000 fixture active month boundary | KASI revalidated for this row |
+| 입춘 | 2000-02-04 21:40 | 2000 | 0 | 2000 fixture upper month boundary and year boundary | KASI revalidated for this row |
+| 입춘 | 2010-02-04 07:48 | 2010 | 0 | 2010 year boundary | KASI revalidated for this row |
+| 망종 | 2010-06-06 03:49 | 2010 | 4 | 2010 fixture active month boundary | KASI revalidated for this row |
+| 소서 | 2010-07-07 14:02 | 2010 | 5 | 2010 fixture upper month boundary | KASI revalidated for this row |
+| 입춘 | 2015-02-04 12:58 | 2015 | 0 | 2015 year boundary | KASI revalidated for this row |
+| 대설 | 2015-12-07 19:53 | 2015 | 10 | 2015 fixture active month boundary | KASI revalidated for this row |
+| 소한 | 2016-01-06 07:08 | 2015 | 11 | 2015 fixture upper month boundary | KASI revalidated for this row |
 | 소한 | 2024-01-06 05:49 | 2023 | 11 | 2024 Ipchun lower month boundary | KASI revalidated for this row |
 | 입춘 | 2024-02-04 17:27 | 2024 | 0 | 2024 year/month boundary tests | KASI revalidated for this row |
 | 경칩 | 2024-03-05 11:23 | 2024 | 1 | 2024 month boundary tests | KASI revalidated for this row |
@@ -93,3 +93,5 @@ Before broader public beta or wider date-range support, record:
 7. Regression test evidence after updates.
 
 Until those items exist, keep the external-source gate open.
+
+Phase 4V note: use `python scripts/collect_public_data_solar_terms.py` after configuring a data.go.kr service key. Do not use KASI almanac image OCR as source evidence for historical fixture rows. The approved API currently supports fixture generation for 2000-2016; 1989-1999 remains an open source gap.

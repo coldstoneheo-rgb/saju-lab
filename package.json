@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
+    "collect:solar-terms": "python scripts/collect_public_data_solar_terms.py",
     "verify": "npm run typecheck && npm test && npm run build && npm audit --audit-level=moderate && git diff --check",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present"
