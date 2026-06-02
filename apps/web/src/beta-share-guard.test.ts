@@ -5,7 +5,7 @@ import { betaShareGuard } from "./beta-share-guard.js";
 import { policyLinkGuard } from "./policy-link-guard.js";
 
 describe("beta share guard", () => {
-  it("keeps tester handoff placeholders explicit until the operator fills real beta details", () => {
+  it("keeps the tracked tester handoff as a placeholder template", () => {
     expect(handoffNote).toContain(betaShareGuard.operatorBuildPlaceholder);
     expect(handoffNote).toContain(betaShareGuard.feedbackChannelPlaceholder);
     expect(handoffNote).toContain("operator before sending");
@@ -25,6 +25,8 @@ describe("beta share guard", () => {
   it("keeps the share checklist tied to operator-only values and forbidden scope", () => {
     expect(shareChecklist).toContain(betaShareGuard.operatorBuildPlaceholder);
     expect(shareChecklist).toContain(betaShareGuard.feedbackChannelPlaceholder);
+    expect(shareChecklist).toContain(betaShareGuard.copiedMessageInstruction);
+    expect(shareChecklist).toContain("Do not commit real beta URLs or private feedback channels");
     expect(shareChecklist).toContain(policyLinkGuard.placeholderSupportContact);
 
     for (const forbiddenScope of betaShareGuard.forbiddenBeforeApproval) {

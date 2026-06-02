@@ -6,8 +6,9 @@ This checklist is for a no-checkout MVP beta only. It does not approve public be
 
 ## Operator Inputs
 
-- [ ] Replace `TBD by operator before sending` in `docs/BETA_TESTER_HANDOFF_2026-05-24.md` with the real beta build or URL.
-- [ ] Replace `[피드백 채널 입력]` in `docs/BETA_TESTER_HANDOFF_2026-05-24.md` with the real private feedback channel.
+- [ ] Copy the content of `docs/BETA_TESTER_HANDOFF_2026-05-24.md` and replace `TBD by operator before sending` with the real beta build or URL in the copied tester message.
+- [ ] Replace `[피드백 채널 입력]` with the real private feedback channel in the copied tester message.
+- [ ] Do not commit real beta URLs or private feedback channels to the tracked handoff template.
 - [ ] Confirm testers should not send detailed report contents or personal birth input through public channels.
 
 ## Smoke Checks
