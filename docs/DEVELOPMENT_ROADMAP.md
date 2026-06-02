@@ -1,11 +1,12 @@
 # Saju Lab Development Roadmap
 
-Last updated: 2026-06-02
+Last updated: 2026-06-03
 
 ## Roadmap Principles
 
 - Ship the smallest trustworthy report-first experience first.
 - Lock calculation correctness before expanding paid, AI, or global features.
+- Bring AI interpretation into the roadmap as a clearly labeled enhancement layer, not as a hidden replacement for deterministic calculation.
 - Treat transparency and tone as product requirements, not final polish.
 - Keep each phase testable with visible exit criteria.
 
@@ -58,6 +59,7 @@ Last updated: 2026-06-02
 - Phase 5L surfaced the current fixture-limited calculation boundary in user-facing app copy and local export documents.
 - Phase 5M separated remaining beta-service work into operator, agent-actionable, owner/business, external-source, and forbidden-until-approved categories.
 - Phase 5N refreshed beta smoke evidence, added a beta share checklist, and guarded tester-handoff placeholders before small-beta sharing.
+- Phase 6 now prioritizes an AI interpretation layer immediately after controlled beta feedback, while keeping deterministic rules-only reports as the fallback and source-of-truth calculation path.
 
 ## Completed Work
 
@@ -989,29 +991,106 @@ Exit Criteria:
 - Browser visual evidence is not overclaimed when a fresh browser-capable target-build pass has not run.
 - No checkout code, payment SDK, webhook, login, account storage, server report storage, analytics, AI interpretation, subscription, or PDF library is introduced.
 
-## Phase 6: Post-Beta Expansion
+## Phase 6: AI Interpretation Layer
 
-Goal: expand only after the MVP proves understandable and trustworthy.
+Goal: make Saju Lab feel like an AI-assisted Saju app while preserving the deterministic calculation core, transparent uncertainty language, and safety boundaries proven during beta.
+
+Principles:
+- AI must not calculate pillars, solar terms, or date boundaries. `packages/saju-core` remains the source of truth for calculation and rules-only report structure.
+- AI output must be labeled as AI-assisted interpretation, not deterministic fact.
+- Rules-only report generation must remain available as the fallback when the AI call fails, times out, is disabled, or violates safety checks.
+- Birth input, calculated pillars, and report text must not be stored server-side unless a separate retention decision explicitly approves it.
+- Raw birth date, birth time, sex, and other direct PII must not be transmitted to the LLM provider; prompts should use a sanitized, minimum-necessary interpretation payload.
+- The client must not provide arbitrary prompt text or trusted report summaries. Server-side code should construct the prompt from controlled inputs and `saju-core` output.
+- AI prompts must avoid medical, legal, investment, guaranteed-success, fear-based, or deterministic prediction language.
+
+### Phase 6A: AI Interpretation Policy And Prompt Contract
+
+Status: Planned.
+
+Goal: define exactly how AI-assisted interpretation can be added before any LLM API is configured.
+
+Deliverables:
+- AI interpretation policy covering disclosure, user-facing labels, privacy, retention, prompt safety, and fallback behavior.
+- Prompt contract that uses a sanitized subset of `ReportV1` or `PaidReportV1`, excluding raw birth date, birth time, sex, and direct PII before any LLM provider call.
+- Output schema for AI-expanded sections, including confidence, source report references, and safety notes.
+- Red-team checklist for deterministic prediction, professional advice, sensitive-data leakage, and overconfident wording.
+- Provider decision notes for OpenAI or other LLM APIs, including model choice, cost ceiling, timeout, and no-storage expectations.
+
+Exit Criteria:
+- The app can describe what AI will and will not do before implementation begins.
+- AI is scoped as interpretation and language expansion only, not calculation.
+- Raw birth inputs are excluded from the LLM payload, and the prompt contract defines the minimum necessary calculated/report fields.
+- Required user-facing disclosure copy is drafted in Korean.
+- Failure and fallback behavior is defined.
+- No LLM API key, network call, checkout code, login, account storage, server report storage, analytics, subscription, or PDF library is introduced.
+
+### Phase 6B: AI Interpretation Prototype
+
+Status: Planned.
+
+Goal: add a controlled AI-assisted interpretation prototype that enriches the existing rules-only report without replacing it.
+
+Deliverables:
+- Server-side AI route or function that statelessly generates the prompt from structured inputs using `saju-core`, preventing client-side prompt manipulation.
+- Sanitizer tests proving raw birth date, birth time, sex, and other direct PII are omitted from the LLM payload.
+- Environment-variable based API key configuration with no client-side exposure.
+- Prompt builder tests that verify forbidden payload fields, required disclosure, and deterministic fallback.
+- AI output safety guard that rejects or falls back on deterministic/professional-advice wording.
+- UI state for AI-disabled, loading, success, failure, and fallback.
+- Clear Korean label such as `AI 보조 해석` with explanation that calculation and base report are rules-based.
+
+Exit Criteria:
+- Users can see an AI-assisted interpretation layer on top of the rules-only report.
+- The app remains useful if the AI request fails.
+- API keys are never bundled into the browser.
+- The server does not trust client-supplied prompt text or report summaries for LLM calls.
+- The LLM provider receives only sanitized calculated/report context, not raw birth inputs.
+- Generated AI copy is visibly separated from certain calculation facts and rules-only interpretations.
+- Tests cover prompt construction, fallback, forbidden phrases, and client/server boundary.
+- No checkout, payment SDK, webhook, login, account storage, server report storage, analytics, subscription, or PDF library is introduced.
+
+### Phase 6C: AI Report Quality And Beta Feedback
+
+Status: Planned.
+
+Goal: decide whether AI-assisted interpretation is strong and safe enough to become part of the paid product path.
+
+Deliverables:
+- Beta feedback questions focused on AI usefulness, clarity, tone, and trust.
+- Side-by-side comparison of rules-only and AI-assisted sections.
+- Cost and latency observations.
+- Korean tone review against `docs/TONE_GUIDE.md`.
+- Decision record: keep, revise, gate behind paid report, or pause AI work.
+
+Exit Criteria:
+- AI value is measured against real beta feedback, not assumed.
+- Safety and trust issues are documented before paid checkout work resumes.
+- The first paid SKU can decide whether AI belongs in the one-time detailed report, a premium add-on, or a later subscription feature.
+
+## Phase 7: Paid And Post-Beta Expansion
+
+Goal: expand only after the MVP and AI interpretation layer prove understandable, useful, and trustworthy.
 
 Candidate Work:
+- Payment integration for the one-time detailed report.
 - Account and saved reports.
-- Payment and subscription reports.
-- PDF export for one-time detailed reports.
+- Subscription updates.
 - English localization.
-- AI-assisted interpretation with explicit AI disclosure.
 - Deeper yearly/monthly trend modules.
 - Shareable report summaries.
 
 Gate:
-- Do not start this phase until calculation fixtures, report snapshots, and beta UX feedback are stable.
+- Do not start this phase until calculation fixtures, report snapshots, beta UX feedback, and AI interpretation safety feedback are stable.
 
 ## Immediate Next Actions
 
 1. Operator action required: fill the current beta build or URL in `docs/BETA_TESTER_HANDOFF_2026-05-24.md` before sending invites.
 2. Operator action required: replace the tester feedback-channel placeholder before sending invites.
 3. Operator action required: run the target-build smoke flow in `docs/BETA_SHARE_CHECKLIST.md` and `docs/BETA_OPERATOR_PACK_2026-05-18.md`.
-4. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
-5. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
-6. Final legal/user-facing policy review remains required before checkout opens.
-7. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
-8. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
+4. Next planning PR: define Phase 6A AI interpretation policy, prompt contract, provider choice, safety guard, and fallback behavior.
+5. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
+6. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
+7. Final legal/user-facing policy review remains required before checkout opens.
+8. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
+9. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.

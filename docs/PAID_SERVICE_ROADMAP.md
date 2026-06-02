@@ -1,6 +1,6 @@
 # Paid Service Roadmap
 
-Last updated: 2026-05-15
+Last updated: 2026-06-03
 
 ## Direction
 
@@ -14,8 +14,9 @@ The implementation-ready scope for the first paid SKU is defined in `docs/PAID_R
 | --- | --- | --- | --- |
 | Free MVP | Basic report, confidence note, monthly/daily keywords, HTML download | Understand and save the product quickly | No account required |
 | One-Time Detailed Report | Career/finance deep report, yearly/monthly expansion, PDF export | Pay for a richer single analysis | First paid SKU; see `docs/PAID_REPORT_PRD.md` |
+| AI-Assisted Interpretation | AI-expanded report language on top of rules-only calculation | Makes the app feel personalized and conversational | Move into post-beta Phase 6; must disclose AI assistance clearly |
 | Subscription | Monthly updates, saved reports, change tracking, reminders | Ongoing guidance and habit loop | Requires account and privacy policy |
-| Premium Add-On | AI-assisted Q&A, personalized scenarios, bilingual report | Higher-touch interpretation | Must disclose AI assistance clearly |
+| Premium Add-On | AI-assisted Q&A, personalized scenarios, bilingual report | Higher-touch interpretation | Later than bounded AI report expansion |
 
 ## Free MVP Boundary
 
@@ -60,6 +61,28 @@ Required gates before payment work:
 - data retention decision
 - customer support contact path
 
+## AI-Assisted Interpretation Scope
+
+AI should move earlier than subscription, but it should start as a bounded interpretation layer rather than open-ended chat.
+
+Included in the first AI pass:
+- AI-expanded wording for the existing free or paid report sections
+- clear `AI 보조 해석` disclosure
+- deterministic rules-only fallback
+- prompt and output safety checks
+- no client-side API key exposure
+- sanitized prompt payload that excludes raw birth date, birth time, sex, and other direct PII
+- server-side prompt construction from controlled `saju-core` output, not client-supplied prompt text
+
+Excluded from the first AI pass:
+- AI pillar calculation
+- transmission of raw birth date, birth time, sex, or other direct PII to the LLM provider
+- open-ended medical, legal, investment, or crisis advice
+- guaranteed prediction language
+- saved chat history
+- account-based personalization
+- server-side report storage unless separately approved
+
 ## Subscription Scope
 
 Subscription should start only after the one-time paid report has real usage feedback.
@@ -103,7 +126,9 @@ Paid features must preserve:
 4. Report export-ready schema
 5. One-time detailed report content depth and PDF export
 6. Privacy/refund/contact policy gates
-7. Payment integration
-8. Account and saved report storage
-9. Subscription updates
-10. AI-assisted premium layer
+7. AI interpretation policy and prompt contract
+8. AI-assisted report interpretation prototype
+9. Payment integration
+10. Account and saved report storage
+11. Subscription updates
+12. AI-assisted Q&A premium layer
