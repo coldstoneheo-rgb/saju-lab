@@ -83,4 +83,3 @@ Before inviting testers, the next safest implementation PR is a **post-PR #46 be
 3. Check known-time report generation, time-unknown report generation, local HTML export copy, policy draft routes, paid readiness copy, and the calculation coverage note.
 4. Record results in a dated evidence document.
 5. Update `docs/BETA_READINESS_CHECKLIST.md` only for checks that have direct evidence.
-
