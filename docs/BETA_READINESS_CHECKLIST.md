@@ -136,6 +136,7 @@ These items are required before sending small-beta invites, but they require the
 - [ ] Current beta build or URL is filled in `docs/BETA_TESTER_HANDOFF_2026-05-24.md`.
 - [ ] Feedback channel placeholder in the tester message is replaced.
 - [ ] Pre-beta smoke flow in `docs/BETA_OPERATOR_PACK_2026-05-18.md` is run against the target build.
+- [ ] Tester instructions include the current MVP limits.
 
 ## External Source Gates
 
