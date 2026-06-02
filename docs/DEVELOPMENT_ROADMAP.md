@@ -1000,6 +1000,8 @@ Principles:
 - AI output must be labeled as AI-assisted interpretation, not deterministic fact.
 - Rules-only report generation must remain available as the fallback when the AI call fails, times out, is disabled, or violates safety checks.
 - Birth input, calculated pillars, and report text must not be stored server-side unless a separate retention decision explicitly approves it.
+- Raw birth date, birth time, sex, and other direct PII must not be transmitted to the LLM provider; prompts should use a sanitized, minimum-necessary interpretation payload.
+- The client must not provide arbitrary prompt text or trusted report summaries. Server-side code should construct the prompt from controlled inputs and `saju-core` output.
 - AI prompts must avoid medical, legal, investment, guaranteed-success, fear-based, or deterministic prediction language.
 
 ### Phase 6A: AI Interpretation Policy And Prompt Contract
@@ -1010,7 +1012,7 @@ Goal: define exactly how AI-assisted interpretation can be added before any LLM 
 
 Deliverables:
 - AI interpretation policy covering disclosure, user-facing labels, privacy, retention, prompt safety, and fallback behavior.
-- Prompt contract that uses `ReportV1` or `PaidReportV1` as structured input instead of raw free-form birth data.
+- Prompt contract that uses a sanitized subset of `ReportV1` or `PaidReportV1`, excluding raw birth date, birth time, sex, and direct PII before any LLM provider call.
 - Output schema for AI-expanded sections, including confidence, source report references, and safety notes.
 - Red-team checklist for deterministic prediction, professional advice, sensitive-data leakage, and overconfident wording.
 - Provider decision notes for OpenAI or other LLM APIs, including model choice, cost ceiling, timeout, and no-storage expectations.
@@ -1018,6 +1020,7 @@ Deliverables:
 Exit Criteria:
 - The app can describe what AI will and will not do before implementation begins.
 - AI is scoped as interpretation and language expansion only, not calculation.
+- Raw birth inputs are excluded from the LLM payload, and the prompt contract defines the minimum necessary calculated/report fields.
 - Required user-facing disclosure copy is drafted in Korean.
 - Failure and fallback behavior is defined.
 - No LLM API key, network call, checkout code, login, account storage, server report storage, analytics, subscription, or PDF library is introduced.
@@ -1029,7 +1032,8 @@ Status: Planned.
 Goal: add a controlled AI-assisted interpretation prototype that enriches the existing rules-only report without replacing it.
 
 Deliverables:
-- Server-side AI route or function that accepts a bounded report summary, not arbitrary user chat.
+- Server-side AI route or function that statelessly generates the prompt from structured inputs using `saju-core`, preventing client-side prompt manipulation.
+- Sanitizer tests proving raw birth date, birth time, sex, and other direct PII are omitted from the LLM payload.
 - Environment-variable based API key configuration with no client-side exposure.
 - Prompt builder tests that verify forbidden payload fields, required disclosure, and deterministic fallback.
 - AI output safety guard that rejects or falls back on deterministic/professional-advice wording.
@@ -1040,6 +1044,8 @@ Exit Criteria:
 - Users can see an AI-assisted interpretation layer on top of the rules-only report.
 - The app remains useful if the AI request fails.
 - API keys are never bundled into the browser.
+- The server does not trust client-supplied prompt text or report summaries for LLM calls.
+- The LLM provider receives only sanitized calculated/report context, not raw birth inputs.
 - Generated AI copy is visibly separated from certain calculation facts and rules-only interpretations.
 - Tests cover prompt construction, fallback, forbidden phrases, and client/server boundary.
 - No checkout, payment SDK, webhook, login, account storage, server report storage, analytics, subscription, or PDF library is introduced.

@@ -71,9 +71,12 @@ Included in the first AI pass:
 - deterministic rules-only fallback
 - prompt and output safety checks
 - no client-side API key exposure
+- sanitized prompt payload that excludes raw birth date, birth time, sex, and other direct PII
+- server-side prompt construction from controlled `saju-core` output, not client-supplied prompt text
 
 Excluded from the first AI pass:
 - AI pillar calculation
+- transmission of raw birth date, birth time, sex, or other direct PII to the LLM provider
 - open-ended medical, legal, investment, or crisis advice
 - guaranteed prediction language
 - saved chat history
