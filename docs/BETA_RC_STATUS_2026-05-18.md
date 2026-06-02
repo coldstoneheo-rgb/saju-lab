@@ -9,6 +9,7 @@ Saju Lab has enough automated and manual evidence to continue beta-readiness har
 Evidence now supports:
 - rules-only report generation on the current fixture-limited calculation range.
 - mobile and desktop smoke checks from the Phase 4F browser QA pass.
+- post-PR #47 automated beta smoke evidence and share-guard checks.
 - human-controlled Chrome confirmation for the native boundary-date error flow.
 - human-controlled Chrome confirmation for local free HTML download/open behavior.
 - CI verification for typecheck, tests, build, audit, and whitespace checks.
@@ -27,6 +28,7 @@ Still open:
 | Boundary-date rejection and friendly error mapping are covered by tests | `apps/web/src/friendly-error.test.ts`, `packages/saju-core/src/index.test.ts` | Closed for current fixture scope |
 | Free export content and safe filename behavior are covered by tests | `apps/web/src/export-html.test.ts`, `apps/web/src/report-filenames.test.ts` | Closed for current free export scope |
 | No live checkout or server-storage claim appears in guarded user-facing copy | `apps/web/src/beta-launch-guard.test.ts`, `apps/web/src/paid-readiness-copy.test.ts` | Closed for current guarded copy |
+| Tester handoff placeholders and MVP limits remain visible before sharing | `apps/web/src/beta-share-guard.test.ts`, `docs/BETA_SHARE_CHECKLIST.md` | Closed for current no-checkout beta package |
 
 ## Agent-Actionable Remaining Gaps
 
@@ -76,7 +78,7 @@ Current remaining beta-service work is tracked in `docs/BETA_SERVICE_REMAINING_W
 Next work is blocked mostly on operator, owner, or external-source gates:
 - fill the beta tester handoff build or URL before sending invites.
 - replace the tester feedback-channel placeholder before sending invites.
-- run the pre-beta smoke flow in `docs/BETA_OPERATOR_PACK_2026-05-18.md` against the target build before sending invites.
+- run the pre-beta smoke flow in `docs/BETA_OPERATOR_PACK_2026-05-18.md` and `docs/BETA_SHARE_CHECKLIST.md` against the target build before sending invites.
 - choose a real support email or support form before live checkout.
 - select the final payment provider only after settlement, receipt, support, and retention requirements are clear.
 - complete final legal/user-facing policy review before checkout opens.

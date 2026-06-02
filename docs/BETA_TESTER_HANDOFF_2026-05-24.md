@@ -25,6 +25,7 @@ Operators should complete these checks before sharing the link or build:
 4. Confirm testers should avoid sending sensitive report contents through support or feedback channels.
 5. Keep the operator pack open: `docs/BETA_OPERATOR_PACK_2026-05-18.md`.
 6. Keep the readiness checklist open: `docs/BETA_READINESS_CHECKLIST.md`.
+7. Keep the share checklist open: `docs/BETA_SHARE_CHECKLIST.md`.
 
 ## Suggested Tester Message
 
@@ -77,6 +78,8 @@ Pause tester sharing and record the issue if any tester reports:
 ## Evidence Links
 
 - Remaining beta-service work: `docs/BETA_SERVICE_REMAINING_WORK_2026-06-02.md`
+- Beta share checklist: `docs/BETA_SHARE_CHECKLIST.md`
+- Latest beta smoke evidence: `docs/BETA_SMOKE_EVIDENCE_2026-06-02.md`
 - Operator pack: `docs/BETA_OPERATOR_PACK_2026-05-18.md`
 - Beta readiness checklist: `docs/BETA_READINESS_CHECKLIST.md`
 - RC status: `docs/BETA_RC_STATUS_2026-05-18.md`

@@ -39,10 +39,10 @@ These can be handled by implementation agents in future PRs without opening chec
 
 | Task | Suggested Next PR Shape | Notes |
 | --- | --- | --- |
-| Refresh beta QA evidence after PR #46. | Run the current app through the beta smoke checklist and add a dated evidence doc. | Useful after the Vitest upgrade and calculation coverage copy change. |
-| Add automated checks for tester-handoff placeholders. | Guard that the handoff still names unresolved placeholders and does not expose fake support as real. | Prevents accidental invite copy drift. |
-| Add a compact beta share checklist to README/docs index. | Link the remaining-work matrix, operator pack, handoff note, and readiness checklist. | Helps future sessions find the launch materials quickly. |
-| Improve mobile visual evidence for the calculation coverage note. | Record a new visual smoke result including the Phase 5L coverage card. | Builds confidence before external testers see it. |
+| Refresh beta QA evidence after PR #46/#47. | Run the current app through the beta smoke checklist and add a dated evidence doc. | Closed by `docs/BETA_SMOKE_EVIDENCE_2026-06-02.md` for automated evidence; target-build operator smoke remains open. |
+| Add automated checks for tester-handoff placeholders. | Guard that the handoff still names unresolved placeholders and does not expose fake support as real. | Closed by `apps/web/src/beta-share-guard.test.ts`. |
+| Add a compact beta share checklist to README/docs index. | Link the remaining-work matrix, operator pack, handoff note, and readiness checklist. | Closed by `docs/BETA_SHARE_CHECKLIST.md`. |
+| Improve mobile visual evidence for the calculation coverage note. | Record a new visual smoke result including the Phase 5L coverage card. | Still open for a browser-capable target-build pass before tester invites. |
 
 ## Priority 3: Owner Or Business Decisions
 
@@ -83,3 +83,10 @@ Before inviting testers, the next safest implementation PR is a **post-PR #46 be
 3. Check known-time report generation, time-unknown report generation, local HTML export copy, policy draft routes, paid readiness copy, and the calculation coverage note.
 4. Record results in a dated evidence document.
 5. Update `docs/BETA_READINESS_CHECKLIST.md` only for checks that have direct evidence.
+
+After Phase 5N, the next remaining beta tasks are operator-owned:
+
+1. Fill the real beta build or URL.
+2. Fill the real private feedback channel.
+3. Run the target-build smoke flow in `docs/BETA_SHARE_CHECKLIST.md` and `docs/BETA_OPERATOR_PACK_2026-05-18.md`.
+4. Keep owner/business and external-source gates open until the owner or source evidence resolves them.
