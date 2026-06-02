@@ -57,6 +57,7 @@ Last updated: 2026-06-02
 - Phase 5K defined checkout/session verification boundaries before payment code.
 - Phase 5L surfaced the current fixture-limited calculation boundary in user-facing app copy and local export documents.
 - Phase 5M separated remaining beta-service work into operator, agent-actionable, owner/business, external-source, and forbidden-until-approved categories.
+- Phase 5N refreshed beta smoke evidence, added a beta share checklist, and guarded tester-handoff placeholders before small-beta sharing.
 
 ## Completed Work
 
@@ -969,6 +970,25 @@ Exit Criteria:
 - Owner/business and external-source gates remain open and are not overclaimed.
 - No checkout code, payment SDK, webhook, login, account storage, server report storage, analytics, AI interpretation, subscription, or PDF library is introduced.
 
+## Phase 5N: Beta Smoke Evidence And Share Guards
+
+Status: Complete.
+
+Goal: close the remaining agent-actionable beta hardening work before operator target setup, without pretending the operator, owner, legal, or external-source gates are complete.
+
+Deliverables:
+- Dated beta smoke evidence after PR #46/#47.
+- Beta share checklist for operator inputs, smoke checks, copy/scope guard, and stop-before-sharing conditions.
+- Guard data and tests that keep tester-handoff placeholders explicit until the operator fills real beta details.
+- Beta readiness, RC status, handoff, operator pack, README, and docs index links to the new evidence and checklist.
+
+Exit Criteria:
+- The controlled-beta sharing package has one checklist for the operator to follow.
+- Tester handoff copy still contains the build/URL and feedback-channel placeholders, and the tests protect those placeholders before real values are provided.
+- The current MVP limits remain visible before testers are invited.
+- Browser visual evidence is not overclaimed when a fresh browser-capable target-build pass has not run.
+- No checkout code, payment SDK, webhook, login, account storage, server report storage, analytics, AI interpretation, subscription, or PDF library is introduced.
+
 ## Phase 6: Post-Beta Expansion
 
 Goal: expand only after the MVP proves understandable and trustworthy.
@@ -989,10 +1009,9 @@ Gate:
 
 1. Operator action required: fill the current beta build or URL in `docs/BETA_TESTER_HANDOFF_2026-05-24.md` before sending invites.
 2. Operator action required: replace the tester feedback-channel placeholder before sending invites.
-3. Operator action required: run the pre-beta smoke flow in `docs/BETA_OPERATOR_PACK_2026-05-18.md` against the target build.
-4. Agent-actionable next PR: refresh beta smoke evidence after PR #46 and Phase 5M.
-5. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
-6. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
-7. Final legal/user-facing policy review remains required before checkout opens.
-8. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
-9. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
+3. Operator action required: run the target-build smoke flow in `docs/BETA_SHARE_CHECKLIST.md` and `docs/BETA_OPERATOR_PACK_2026-05-18.md`.
+4. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
+5. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
+6. Final legal/user-facing policy review remains required before checkout opens.
+7. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
+8. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.

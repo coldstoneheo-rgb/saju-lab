@@ -39,6 +39,7 @@ Before inviting testers:
 6. Visit `/policies/privacy`, `/policies/refund-support`, and `/policies/usage-caution`.
 7. Confirm no live purchase button, real-payment language, account-storage claim, or server-report-history claim appears.
 8. Tell testers that results are explanatory and for information/entertainment, not professional advice.
+9. Complete the share checklist in `docs/BETA_SHARE_CHECKLIST.md`.
 
 ## Tester Instructions
 
@@ -89,6 +90,8 @@ For a no-checkout MVP beta, rollback is operational:
 ## Still Required Before Wider Beta Or Checkout
 
 - Remaining beta-service work matrix: `docs/BETA_SERVICE_REMAINING_WORK_2026-06-02.md`.
+- Beta share checklist: `docs/BETA_SHARE_CHECKLIST.md`.
+- Latest beta smoke evidence: `docs/BETA_SMOKE_EVIDENCE_2026-06-02.md`.
 - Real support email or support form.
 - Final payment provider and failure-state behavior.
 - Final legal/user-facing policy review.

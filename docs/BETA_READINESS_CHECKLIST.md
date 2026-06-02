@@ -7,6 +7,7 @@ Use this checklist before sharing the MVP with a small beta group.
 Detailed manual steps live in `docs/BETA_MANUAL_QA_RUNBOOK.md`.
 
 Latest QA evidence:
+- `docs/BETA_SMOKE_EVIDENCE_2026-06-02.md`
 - `docs/BETA_MANUAL_QA_RESULTS_2026-05-17.md`
 - `docs/BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md`
 - `docs/BETA_MOBILE_VISUAL_SMOKE_2026-05-18.md`
@@ -19,6 +20,9 @@ Current RC status:
 
 Beta operator pack:
 - `docs/BETA_OPERATOR_PACK_2026-05-18.md`
+
+Beta share checklist:
+- `docs/BETA_SHARE_CHECKLIST.md`
 
 Beta tester handoff:
 - `docs/BETA_TESTER_HANDOFF_2026-05-24.md`
@@ -119,6 +123,8 @@ These items can be improved by implementation agents before small beta sharing, 
 - [x] Small-beta operator pack exists with release notes, known limitations, feedback prompts, and rollback notes.
 - [x] Mobile visual smoke metrics cover beta-facing home and policy routes without horizontal overflow or live-purchase/support leaks.
 - [x] Beta tester handoff note exists with test target placeholder, tester flow, feedback questions, stop conditions, and current MVP limits.
+- [x] Beta share checklist exists for operator inputs, target-build smoke checks, and stop-before-sharing scope guards.
+- [x] Tester handoff placeholders and MVP-limit copy are guarded by automated tests.
 
 ## Owner And Business Gates
 
