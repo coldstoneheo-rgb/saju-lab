@@ -88,6 +88,7 @@ For a no-checkout MVP beta, rollback is operational:
 
 ## Still Required Before Wider Beta Or Checkout
 
+- Remaining beta-service work matrix: `docs/BETA_SERVICE_REMAINING_WORK_2026-06-02.md`.
 - Real support email or support form.
 - Final payment provider and failure-state behavior.
 - Final legal/user-facing policy review.

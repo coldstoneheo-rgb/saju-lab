@@ -1,6 +1,6 @@
 # Saju Lab Development Roadmap
 
-Last updated: 2026-05-27
+Last updated: 2026-06-02
 
 ## Roadmap Principles
 
@@ -56,6 +56,7 @@ Last updated: 2026-05-27
 - Phase 5J scaffolded user-facing policy draft pages without opening checkout.
 - Phase 5K defined checkout/session verification boundaries before payment code.
 - Phase 5L surfaced the current fixture-limited calculation boundary in user-facing app copy and local export documents.
+- Phase 5M separated remaining beta-service work into operator, agent-actionable, owner/business, external-source, and forbidden-until-approved categories.
 
 ## Completed Work
 
@@ -950,6 +951,24 @@ Exit Criteria:
 - Unsupported dates remain blocked by the calculation core instead of being inferred.
 - No calculation table expansion, checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
+## Phase 5M: Beta Service Remaining Work Matrix
+
+Status: Complete.
+
+Goal: make the remaining path to a controlled small beta explicit without confusing agent-actionable work with owner, operator, legal, or external-source gates.
+
+Deliverables:
+- Dated remaining-work matrix for beta service readiness.
+- Beta readiness checklist update that distinguishes operator gates from owner/business gates.
+- Handoff, operator pack, and RC status links to the remaining-work matrix.
+- Updated immediate next actions that reflect the current post-Phase 5L state.
+
+Exit Criteria:
+- The next beta-service tasks are visible without reading merged PR history.
+- Operator-only tasks such as target URL/build and feedback channel setup are not marked complete by agents.
+- Owner/business and external-source gates remain open and are not overclaimed.
+- No checkout code, payment SDK, webhook, login, account storage, server report storage, analytics, AI interpretation, subscription, or PDF library is introduced.
+
 ## Phase 6: Post-Beta Expansion
 
 Goal: expand only after the MVP proves understandable and trustworthy.
@@ -969,8 +988,11 @@ Gate:
 ## Immediate Next Actions
 
 1. Operator action required: fill the current beta build or URL in `docs/BETA_TESTER_HANDOFF_2026-05-24.md` before sending invites.
-2. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
-3. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
-4. Final legal/user-facing policy review remains required before checkout opens.
-5. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
-6. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
+2. Operator action required: replace the tester feedback-channel placeholder before sending invites.
+3. Operator action required: run the pre-beta smoke flow in `docs/BETA_OPERATOR_PACK_2026-05-18.md` against the target build.
+4. Agent-actionable next PR: refresh beta smoke evidence after PR #46 and Phase 5M.
+5. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
+6. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
+7. Final legal/user-facing policy review remains required before checkout opens.
+8. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
+9. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.

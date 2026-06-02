@@ -12,6 +12,7 @@ Use this index to find the current source-of-truth docs before changing product 
 ## Beta Readiness
 
 - Beta readiness checklist: [BETA_READINESS_CHECKLIST.md](BETA_READINESS_CHECKLIST.md)
+- Remaining beta-service work: [BETA_SERVICE_REMAINING_WORK_2026-06-02.md](BETA_SERVICE_REMAINING_WORK_2026-06-02.md)
 - Current RC status: [BETA_RC_STATUS_2026-05-18.md](BETA_RC_STATUS_2026-05-18.md)
 - Small-beta operator pack: [BETA_OPERATOR_PACK_2026-05-18.md](BETA_OPERATOR_PACK_2026-05-18.md)
 - Beta tester handoff note: [BETA_TESTER_HANDOFF_2026-05-24.md](BETA_TESTER_HANDOFF_2026-05-24.md)

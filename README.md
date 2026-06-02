@@ -52,6 +52,7 @@ Saju Lab은 전통 명리학(사주)을 기반으로, 현대적인 데이터 해
 - Agent working guide: `AGENTS.md`
 - Development roadmap: `docs/DEVELOPMENT_ROADMAP.md`
 - Beta readiness checklist: `docs/BETA_READINESS_CHECKLIST.md`
+- Beta service remaining work: `docs/BETA_SERVICE_REMAINING_WORK_2026-06-02.md`
 - Beta RC status: `docs/BETA_RC_STATUS_2026-05-18.md`
 - Beta operator pack: `docs/BETA_OPERATOR_PACK_2026-05-18.md`
 - Beta manual QA runbook: `docs/BETA_MANUAL_QA_RUNBOOK.md`

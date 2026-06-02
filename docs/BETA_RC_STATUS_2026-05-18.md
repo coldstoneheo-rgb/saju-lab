@@ -71,8 +71,12 @@ These remain blocked until the owner or an external source completes them:
 
 ## Recommended Next PR
 
-Next work is blocked mostly on owner or external-source gates:
+Current remaining beta-service work is tracked in `docs/BETA_SERVICE_REMAINING_WORK_2026-06-02.md`.
+
+Next work is blocked mostly on operator, owner, or external-source gates:
 - fill the beta tester handoff build or URL before sending invites.
+- replace the tester feedback-channel placeholder before sending invites.
+- run the pre-beta smoke flow in `docs/BETA_OPERATOR_PACK_2026-05-18.md` against the target build before sending invites.
 - choose a real support email or support form before live checkout.
 - select the final payment provider only after settlement, receipt, support, and retention requirements are clear.
 - complete final legal/user-facing policy review before checkout opens.
