@@ -45,6 +45,7 @@ describe("free report export HTML", () => {
     expect(html).toContain("본 리포트는 정보/오락 목적이며, 금융, 의학, 법률 자문이 아닙니다.");
     expect(html).toContain("입력값은 서버 저장이나 외부 전송 없이 이 브라우저에서만 처리됩니다.");
     expect(html).toContain("<h2>투명성 노트</h2>");
+    expect(html).toContain("id=\"calculation-coverage\"");
     expect(html).toContain(`<h2>${calculationCoverageCopy.headline}</h2>`);
     expect(html).toContain(calculationCoverageCopy.summary);
     for (const item of calculationCoverageCopy.items) {
@@ -119,6 +120,8 @@ describe("paid report export HTML", () => {
     expect(html).toContain("신뢰도 보통");
     expect(html).toContain("정보/오락 목적");
     expect(html).toContain("서버 보관을 포함하지 않는 로컬 다운로드 중심 모델");
+    expect(html).toContain("<a href=\"#calculation-coverage\">현재 MVP 계산 범위</a>");
+    expect(html).toContain("id=\"calculation-coverage\"");
     expect(html).toContain(`<h2>${calculationCoverageCopy.headline}</h2>`);
     expect(html).toContain(calculationCoverageCopy.summary);
     for (const item of calculationCoverageCopy.items) {

@@ -1,6 +1,8 @@
 import { getSajuTerm, type BirthInput, type PaidReportV1, type ReportV1, type SajuTerm } from "@saju-lab/saju-core";
 import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
 
+const CALCULATION_COVERAGE_SECTION_ID = "calculation-coverage";
+
 interface ExportSection {
   id: string;
   title: string;
@@ -98,6 +100,7 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
     { id: "monthly-timeline", title: "월별 확장 흐름" },
     { id: "glossary", title: "용어 해설" },
     { id: "print-guide", title: "PDF 저장 안내" },
+    { id: CALCULATION_COVERAGE_SECTION_ID, title: calculationCoverageCopy.headline },
     { id: "transparency", title: "투명성 부록" }
   ];
 
@@ -246,7 +249,7 @@ function renderDownloadedFreeSummary(summary: { keywords: string[]; comment: str
 }
 
 function renderCoverageSection(): string {
-  return `<section><h2>${escapeHtml(calculationCoverageCopy.headline)}</h2><p>${escapeHtml(calculationCoverageCopy.summary)}</p><ul>${calculationCoverageCopy.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
+  return `<section id="${CALCULATION_COVERAGE_SECTION_ID}"><h2>${escapeHtml(calculationCoverageCopy.headline)}</h2><p>${escapeHtml(calculationCoverageCopy.summary)}</p><ul>${calculationCoverageCopy.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
 }
 
 function renderDownloadedSection(title: string, items: readonly string[]): string {
