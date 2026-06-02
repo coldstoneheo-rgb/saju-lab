@@ -50,7 +50,7 @@ export const REPORT_COPY_KO = {
   "report.rules.transparency.dayPillar": "계산된 일주: {dayPillar}",
   "report.rules.transparency.pillarMeaning": "연주, 월주, 일주, 시주는 사주 구조를 나눠 보는 기둥입니다. 이 리포트에서는 어려운 용어를 단독으로 두지 않고 쉬운 설명을 함께 제공합니다.",
   "report.rules.transparency.ruleBased": "성향, 커리어, 재무 문장은 계산된 기둥을 바탕으로 한 규칙 기반 해석이며 확정적 예측이 아닙니다.",
-  "report.rules.transparency.fixtureRange": "현재 계산 코어는 내장된 검증 fixture 범위에서 우선 동작하며, 절기 데이터 범위는 단계적으로 확장됩니다.",
+  "report.rules.transparency.fixtureRange": "현재 MVP는 검증된 절기 데이터가 있는 범위부터 계산하며, 지원 범위를 벗어난 날짜는 결과를 억지로 만들지 않습니다.",
   "report.rules.transparency.missingBirthTime": "출생시간 정보가 없어 시주와 일부 해석의 신뢰도가 낮아질 수 있습니다.",
   "report.rules.tone.gap.label": "성장",
   "report.rules.tone.gap.summary": "새로운 방향을 열고 가능성을 키우는 힘이 두드러집니다.",

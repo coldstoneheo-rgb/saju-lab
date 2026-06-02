@@ -1,6 +1,6 @@
 # Saju Lab Development Roadmap
 
-Last updated: 2026-05-26
+Last updated: 2026-05-27
 
 ## Roadmap Principles
 
@@ -55,6 +55,7 @@ Last updated: 2026-05-26
 - Phase 5I defined support contact and user-facing policy link structure before live checkout.
 - Phase 5J scaffolded user-facing policy draft pages without opening checkout.
 - Phase 5K defined checkout/session verification boundaries before payment code.
+- Phase 5L surfaced the current fixture-limited calculation boundary in user-facing app copy and local export documents.
 
 ## Completed Work
 
@@ -930,6 +931,24 @@ Exit Criteria:
 - App guard data keeps checkout/session verification limited to payment metadata.
 - The paid readiness copy explains that payment verification should not transmit Saju report data.
 - No checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
+
+## Phase 5L: Visible Calculation Coverage Boundary
+
+Status: Complete.
+
+Goal: make the current MVP calculation coverage visible to beta users without widening date support or overclaiming historical source coverage.
+
+Deliverables:
+- User-facing calculation coverage note near the birth input flow.
+- Free and paid local HTML exports that include the same calculation coverage boundary.
+- Guard coverage that keeps the fixture-limited boundary visible in user-facing copy.
+- Beta readiness update closing the user-visible fixture-limited coverage gate.
+
+Exit Criteria:
+- Users can see that Saju Lab calculates from verified solar-term data first and expands coverage gradually.
+- The 2000-2016 data.go.kr fixture and 1989-1999 source gap are described plainly without implying unsupported dates are verified.
+- Unsupported dates remain blocked by the calculation core instead of being inferred.
+- No calculation table expansion, checkout code, payment SDK, webhook, login, account storage, server report storage, AI interpretation, subscription, analytics, or PDF library is introduced.
 
 ## Phase 6: Post-Beta Expansion
 

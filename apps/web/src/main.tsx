@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, ShieldCheck, Sparkles, Sun, UserRound } from "lucide-react";
 import { buildFreeReportHtml, buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
+import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
 import { toFriendlyError } from "./friendly-error.js";
 import { validateInputDraft } from "./input-validation.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
@@ -157,6 +158,7 @@ function App(): JSX.Element {
         </form>
 
         <PrivacyNote />
+        <CalculationCoverageNote />
         <ReportView paidReport={paidReport} report={report} />
       </section>
     </main>
@@ -371,6 +373,20 @@ function PrivacyNote(): JSX.Element {
     <section className="privacyNote" aria-label="개인정보 처리 안내">
       <strong><CheckCircle2 size={18} /> 로컬 처리 안내</strong>
       <p>현재 MVP는 로그인, 계정 저장, 서버 동기화를 제공하지 않습니다. 입력한 생년월일과 출생시간은 이 브라우저에서 리포트를 만드는 데만 사용됩니다.</p>
+    </section>
+  );
+}
+
+function CalculationCoverageNote(): JSX.Element {
+  return (
+    <section className="coverageNote" aria-label="현재 MVP 계산 범위 안내">
+      <strong><CalendarDays size={18} /> {calculationCoverageCopy.headline}</strong>
+      <p>{calculationCoverageCopy.summary}</p>
+      <ul>
+        {calculationCoverageCopy.items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
     </section>
   );
 }
