@@ -11,6 +11,9 @@ Latest QA evidence:
 - `docs/BETA_HUMAN_BROWSER_QA_RESULTS_2026-05-17.md`
 - `docs/BETA_MOBILE_VISUAL_SMOKE_2026-05-18.md`
 
+Remaining beta-service work:
+- `docs/BETA_SERVICE_REMAINING_WORK_2026-06-02.md`
+
 Current RC status:
 - `docs/BETA_RC_STATUS_2026-05-18.md`
 
@@ -125,6 +128,14 @@ These items must not be resolved autonomously by implementation agents.
 - [ ] Final payment provider is selected after settlement, receipt, refund, and support needs are clear.
 - [ ] Final legal/user-facing policy review is complete before checkout opens.
 - [ ] Account, saved report storage, or subscription scope is explicitly approved before it is implemented.
+
+## Operator Gates
+
+These items are required before sending small-beta invites, but they require the operator's actual target URL/build and feedback channel.
+
+- [ ] Current beta build or URL is filled in `docs/BETA_TESTER_HANDOFF_2026-05-24.md`.
+- [ ] Feedback channel placeholder in the tester message is replaced.
+- [ ] Pre-beta smoke flow in `docs/BETA_OPERATOR_PACK_2026-05-18.md` is run against the target build.
 
 ## External Source Gates
 
