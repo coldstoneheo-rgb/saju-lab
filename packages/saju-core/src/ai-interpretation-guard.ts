@@ -12,27 +12,36 @@ export const aiInterpretationGuard = {
     "rules-only report section summaries",
     "confidence level",
     "missing-data notes",
-    "transparency notes",
-    "safety disclaimers"
+    "transparency notes after input echo scrub",
+    "safety disclaimers",
+    "time-known status",
+    "locale"
   ],
   forbiddenPromptPayload: [
     "raw birth date",
     "raw birth time",
     "sex",
+    "timezone as raw user input",
     "name",
     "email",
     "phone number",
     "direct PII",
+    "payment identifiers",
+    "support messages",
+    "local HTML or PDF-ready HTML body",
     "client-supplied prompt text",
     "client-supplied report summary"
   ],
   forbiddenOutputClaims: [
     "guaranteed success",
     "guaranteed profit",
+    "guaranteed loss",
     "medical diagnosis",
+    "medical treatment",
     "legal certainty",
     "investment recommendation",
-    "unavoidable failure"
+    "unavoidable failure",
+    "fear-based pressure"
   ],
   requiredUiStates: ["ai_disabled", "loading", "success", "failed", "rules_only_fallback"]
 } as const;

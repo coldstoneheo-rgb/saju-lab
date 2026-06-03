@@ -40,7 +40,11 @@ Do not transmit to the LLM provider:
 - raw birth date.
 - raw birth time.
 - sex.
+- timezone as raw user input.
 - name, email, phone number, or other direct PII.
+- payment identifiers.
+- support messages.
+- local HTML or PDF-ready HTML body.
 - free-form user messages.
 - client-supplied prompt text.
 - client-supplied report summaries treated as trusted data.
@@ -61,8 +65,8 @@ The client must not send arbitrary prompts to the LLM route.
 The server-side route should:
 1. receive only structured, validated input needed to regenerate the report.
 2. run `saju-core` statelessly on the server.
-3. build a sanitized prompt payload from calculated pillars, rules-only report sections, confidence, missing-data notes, transparency notes, and disclaimers.
-4. exclude raw birth date, raw birth time, sex, and direct PII before the LLM provider call.
+3. build a sanitized prompt payload from calculated pillars, rules-only report sections, confidence, missing-data notes, input-scrubbed transparency notes, and disclaimers.
+4. exclude raw birth date, raw birth time, sex, timezone as raw user input, direct PII, payment identifiers, support messages, and local HTML or PDF-ready HTML before the LLM provider call.
 5. apply output safety checks before returning AI text to the UI.
 
 ## Fallback
@@ -95,5 +99,5 @@ AI output must be rejected or regenerated if it contains:
 
 - AI disclosure, privacy, prompt, fallback, and safety rules are documented.
 - Prompt contract excludes raw birth input and direct PII.
-- Guard tests protect AI-disabled default, no client API key exposure, no client-controlled prompts, and required fallback.
+- Guard tests live in `packages/saju-core` and protect AI-disabled default, no client API key exposure, no client-controlled prompts, sanitized payload boundaries, and required fallback.
 - No LLM API key, provider SDK, network call, checkout, login, account storage, server report storage, analytics, subscription, or PDF library is introduced.

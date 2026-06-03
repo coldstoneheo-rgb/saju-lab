@@ -15,18 +15,32 @@ describe("AI interpretation guard", () => {
     expect(aiInterpretationGuard.promptSource).toContain("saju-core");
   });
 
-  it("excludes raw birth input and direct PII from LLM payloads", () => {
-    expect(aiInterpretationGuard.allowedPromptPayload).toContain("calculated pillars");
-    expect(aiInterpretationGuard.allowedPromptPayload).toContain("rules-only report section summaries");
+  it("aligns allowed prompt payload with the contract", () => {
+    expect(aiInterpretationGuard.allowedPromptPayload).toEqual([
+      "calculated pillars",
+      "rules-only report section summaries",
+      "confidence level",
+      "missing-data notes",
+      "transparency notes after input echo scrub",
+      "safety disclaimers",
+      "time-known status",
+      "locale"
+    ]);
+  });
 
+  it("excludes raw birth input, direct PII, and local report bodies from LLM payloads", () => {
     expect(aiInterpretationGuard.forbiddenPromptPayload).toEqual([
       "raw birth date",
       "raw birth time",
       "sex",
+      "timezone as raw user input",
       "name",
       "email",
       "phone number",
       "direct PII",
+      "payment identifiers",
+      "support messages",
+      "local HTML or PDF-ready HTML body",
       "client-supplied prompt text",
       "client-supplied report summary"
     ]);
@@ -42,8 +56,16 @@ describe("AI interpretation guard", () => {
       "rules_only_fallback"
     ]);
 
-    expect(aiInterpretationGuard.forbiddenOutputClaims).toContain("guaranteed profit");
-    expect(aiInterpretationGuard.forbiddenOutputClaims).toContain("medical diagnosis");
-    expect(aiInterpretationGuard.forbiddenOutputClaims).toContain("investment recommendation");
+    expect(aiInterpretationGuard.forbiddenOutputClaims).toEqual([
+      "guaranteed success",
+      "guaranteed profit",
+      "guaranteed loss",
+      "medical diagnosis",
+      "medical treatment",
+      "legal certainty",
+      "investment recommendation",
+      "unavoidable failure",
+      "fear-based pressure"
+    ]);
   });
 });
