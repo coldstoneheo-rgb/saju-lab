@@ -8,6 +8,8 @@ Saju Lab should evolve from a free report-first MVP into a paid service by incre
 
 The implementation-ready scope for the first paid SKU is defined in `docs/PAID_REPORT_PRD.md`.
 
+The AI interpretation boundary is defined in `docs/AI_INTERPRETATION_POLICY.md` and `docs/AI_PROMPT_CONTRACT.md`.
+
 ## Product Ladder
 
 | Stage | Offer | User Value | Notes |

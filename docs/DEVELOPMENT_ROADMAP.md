@@ -60,6 +60,7 @@ Last updated: 2026-06-03
 - Phase 5M separated remaining beta-service work into operator, agent-actionable, owner/business, external-source, and forbidden-until-approved categories.
 - Phase 5N refreshed beta smoke evidence, added a beta share checklist, and guarded tester-handoff placeholders before small-beta sharing.
 - Phase 6 now prioritizes an AI interpretation layer immediately after controlled beta feedback, while keeping deterministic rules-only reports as the fallback and source-of-truth calculation path.
+- Phase 6A defines the AI interpretation policy, sanitized prompt contract, provider decision draft, and guard coverage before any LLM API call is introduced.
 
 ## Completed Work
 
@@ -1006,7 +1007,7 @@ Principles:
 
 ### Phase 6A: AI Interpretation Policy And Prompt Contract
 
-Status: Planned.
+Status: Complete.
 
 Goal: define exactly how AI-assisted interpretation can be added before any LLM API is configured.
 
@@ -1015,7 +1016,8 @@ Deliverables:
 - Prompt contract that uses a sanitized subset of `ReportV1` or `PaidReportV1`, excluding raw birth date, birth time, sex, and direct PII before any LLM provider call.
 - Output schema for AI-expanded sections, including confidence, source report references, and safety notes.
 - Red-team checklist for deterministic prediction, professional advice, sensitive-data leakage, and overconfident wording.
-- Provider decision notes for OpenAI or other LLM APIs, including model choice, cost ceiling, timeout, and no-storage expectations.
+- Provider decision draft for OpenAI and alternative LLM APIs, including model choice criteria, cost ceiling, timeout, and no-storage expectations.
+- Guard data and tests that keep AI disabled by default, block client API-key exposure, reject client-controlled prompt trust, require fallback, and exclude direct PII from LLM payloads.
 
 Exit Criteria:
 - The app can describe what AI will and will not do before implementation begins.
@@ -1088,9 +1090,10 @@ Gate:
 1. Operator action required: fill the current beta build or URL in `docs/BETA_TESTER_HANDOFF_2026-05-24.md` before sending invites.
 2. Operator action required: replace the tester feedback-channel placeholder before sending invites.
 3. Operator action required: run the target-build smoke flow in `docs/BETA_SHARE_CHECKLIST.md` and `docs/BETA_OPERATOR_PACK_2026-05-18.md`.
-4. Next planning PR: define Phase 6A AI interpretation policy, prompt contract, provider choice, safety guard, and fallback behavior.
-5. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
-6. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
-7. Final legal/user-facing policy review remains required before checkout opens.
-8. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
-9. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
+4. Next implementation PR: start Phase 6B AI interpretation prototype with a single provider, server-side prompt construction, sanitized payload tests, and rules-only fallback.
+5. Owner decision required: choose the first AI provider/model and token/latency budget before Phase 6B implementation.
+6. Owner decision required: replace placeholder support contact with a real support email or form before live checkout.
+7. Owner/business decision required: choose the final payment provider only after settlement, receipt, support, and retention needs are clear.
+8. Final legal/user-facing policy review remains required before checkout opens.
+9. External source gate: keep older fixture-limited rows and any future broader solar-term table out of public date coverage until they have direct source, update, and regression-test notes.
+10. Keep account and saved report storage out of the first paid SKU unless the product intentionally moves to subscription.
