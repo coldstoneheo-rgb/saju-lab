@@ -61,6 +61,8 @@ Saju Lab은 전통 명리학(사주)을 기반으로, 현대적인 데이터 해
 - Paid service roadmap: `docs/PAID_SERVICE_ROADMAP.md`
 - Paid detailed report PRD: `docs/PAID_REPORT_PRD.md`
 - Paid checkout readiness gates: `docs/PAID_CHECKOUT_READINESS.md`
+- AI interpretation policy: `docs/AI_INTERPRETATION_POLICY.md`
+- AI prompt contract: `docs/AI_PROMPT_CONTRACT.md`
 - Architecture & goals: `docs/ARCHITECTURE.md`
 - Solar term calculation spec: `docs/algorithms/SOLAR_TERM_SPEC.md`
 - Report tone guide: `docs/TONE_GUIDE.md`

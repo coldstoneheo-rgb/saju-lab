@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Analytics } from "@vercel/analytics/react";
 import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, ShieldCheck, Sparkles, Sun, UserRound } from "lucide-react";
 import { buildFreeReportHtml, buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
 import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
@@ -753,5 +754,6 @@ function termLabel(value: string): string {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />
+    <Analytics />
   </React.StrictMode>
 );
