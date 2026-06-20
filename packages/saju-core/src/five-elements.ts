@@ -49,18 +49,20 @@ export const BRANCH_FIVE_ELEMENT: Record<Branch, FiveElement> = {
   hae: "water"
 };
 
-export function stemElement(stem: Stem): FiveElement {
-  const element = STEM_FIVE_ELEMENT[stem];
+// Accept a plain string so callers can pass Pillar.stem/branch (typed as string)
+// without a cast; the map lookup + undefined guard validates at runtime.
+export function stemElement(stem: string): FiveElement {
+  const element = (STEM_FIVE_ELEMENT as Record<string, FiveElement | undefined>)[stem];
   if (element === undefined) {
-    throw new Error(`Unknown heavenly stem: ${String(stem)}`);
+    throw new Error(`Unknown heavenly stem: ${stem}`);
   }
   return element;
 }
 
-export function branchElement(branch: Branch): FiveElement {
-  const element = BRANCH_FIVE_ELEMENT[branch];
+export function branchElement(branch: string): FiveElement {
+  const element = (BRANCH_FIVE_ELEMENT as Record<string, FiveElement | undefined>)[branch];
   if (element === undefined) {
-    throw new Error(`Unknown earthly branch: ${String(branch)}`);
+    throw new Error(`Unknown earthly branch: ${branch}`);
   }
   return element;
 }
@@ -84,8 +86,8 @@ export function analyzeFiveElements(pillars: PillarsResult): FiveElementAnalysis
   }
 
   for (const pillar of counted) {
-    distribution[stemElement(pillar.stem as Stem)] += 1;
-    distribution[branchElement(pillar.branch as Branch)] += 1;
+    distribution[stemElement(pillar.stem)] += 1;
+    distribution[branchElement(pillar.branch)] += 1;
   }
 
   const pillarsCounted = counted.length;

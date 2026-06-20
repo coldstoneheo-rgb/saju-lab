@@ -48,9 +48,7 @@ describe("stem/branch → five-element mapping", () => {
   });
 
   it("throws on an unknown stem or branch", () => {
-    // @ts-expect-error invalid label guarded at runtime
     expect(() => stemElement("nope")).toThrow();
-    // @ts-expect-error invalid label guarded at runtime
     expect(() => branchElement("nope")).toThrow();
   });
 });
