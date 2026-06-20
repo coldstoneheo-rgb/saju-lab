@@ -82,6 +82,33 @@ export interface ReportV1 {
   };
 }
 
+export type FiveElement = "wood" | "fire" | "earth" | "metal" | "water";
+
+export type FiveElementDistribution = Record<FiveElement, number>;
+
+export interface FiveElementAnalysis {
+  /** Count of each element across the counted stems and branches. */
+  distribution: FiveElementDistribution;
+  /** Total stem+branch slots counted (pillarsCounted * 2). */
+  total: number;
+  /** Number of pillars counted: 4 when the time pillar is known, otherwise 3. */
+  pillarsCounted: number;
+  /** Whether the time pillar contributed to the distribution. */
+  timeIncluded: boolean;
+  /** Elements with a count of 0, in canonical 목화토금수 order. */
+  absent: FiveElement[];
+  /** Below-average elements, most lacking first (deterministic tie-break). */
+  deficient: FiveElement[];
+  /** Above-average elements, most dominant first (deterministic tie-break). */
+  dominant: FiveElement[];
+  /**
+   * All five elements ranked by how much they should be supplemented,
+   * most-needed first. This is the target ranking a downstream naming
+   * step fills (부족 오행 = 작명이 채워야 할 타깃).
+   */
+  supplementPriority: FiveElement[];
+}
+
 export interface PaidReportMeta extends ReportMeta {
   version: "1.0";
   product: "one-time-detailed-report";
