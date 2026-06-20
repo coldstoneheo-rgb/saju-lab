@@ -12,7 +12,7 @@
 - AI 프롬프트 계약(`docs/AI_PROMPT_CONTRACT.md`)을 실제 해석 경로에 연결 (rules-only 보조 위치 유지).
 - `packages/saju-core/src/ai-interpretation-guard.ts` 가드 범위 확장 + 테스트.
 - 절기 픽스처 검증 범위 확대 (KASI 재검증 문서 참조).
-- 잔여 esbuild low 권고(GHSA-g7r4-m6w7-qqqr): moderate 게이트 미만이라 비차단. 향후 vite 업데이트 시 자연 해소 예상.
+- 잔여 esbuild low 권고(GHSA-g7r4-m6w7-qqqr): moderate 게이트 미만이라 비차단. 패치 버전 esbuild 0.28.1은 vite 7.3.5의 `^0.27.0` 범위 밖이라 `overrides` 강제 시 빌드 호환성 위험 → vite 업데이트로 자연 해소 대기.
 
 ## 작업 로그
 | 날짜 | 내용 | 검증 |
