@@ -51,6 +51,7 @@ export type SajuPillarsV1ErrorCode =
   | "INVALID_BODY"
   | "INVALID_CALENDAR"
   | "UNSUPPORTED_CALENDAR"
+  | "UNSUPPORTED_TIMEZONE"
   | "INVALID_BIRTH_DATE"
   | "MISSING_BIRTH_TIME"
   | "INVALID_BIRTH_TIME"
@@ -74,6 +75,19 @@ const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_PATTERN = /^([01]\d|2[0-3]):[0-5]\d$/;
 const SEXES: readonly Sex[] = ["male", "female", "other"];
 const DEFAULT_TIMEZONE = "Asia/Seoul";
+
+function isRealCalendarDate(value: string): boolean {
+  const parts = value.split("-");
+  const year = Number(parts[0]);
+  const month = Number(parts[1]);
+  const day = Number(parts[2]);
+  const probe = new Date(Date.UTC(year, month - 1, day));
+  return (
+    probe.getUTCFullYear() === year &&
+    probe.getUTCMonth() === month - 1 &&
+    probe.getUTCDate() === day
+  );
+}
 
 function failure(
   code: SajuPillarsV1ErrorCode,
@@ -117,9 +131,27 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   if (typeof body.birthDate !== "string" || !DATE_PATTERN.test(body.birthDate)) {
     return failure("INVALID_BIRTH_DATE", "birthDate must be formatted YYYY-MM-DD.", "birthDate");
   }
+  // Format alone admits impossible dates (e.g. 2023-02-29). The engine would reject
+  // them too, but catch it here so the consumer gets INVALID_BIRTH_DATE rather than a
+  // misleading OUT_OF_SUPPORTED_RANGE.
+  if (!isRealCalendarDate(body.birthDate)) {
+    return failure("INVALID_BIRTH_DATE", "birthDate must be a real calendar date.", "birthDate");
+  }
 
   if (!SEXES.includes(body.sex as Sex)) {
     return failure("INVALID_SEX", "sex must be 'male', 'female', or 'other'.", "sex");
+  }
+
+  // The engine supports Asia/Seoul only; reject anything else with a clear code
+  // instead of letting calculatePillars throw into OUT_OF_SUPPORTED_RANGE.
+  const timezone =
+    typeof body.timezone === "string" && body.timezone ? body.timezone : DEFAULT_TIMEZONE;
+  if (timezone !== DEFAULT_TIMEZONE) {
+    return failure(
+      "UNSUPPORTED_TIMEZONE",
+      `saju-pillars-v1 supports the ${DEFAULT_TIMEZONE} timezone only.`,
+      "timezone"
+    );
   }
 
   const timeUnknown = body.timeUnknown === true;
@@ -138,7 +170,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
 
   const birthInput: BirthInput = {
     birthDate: body.birthDate,
-    timezone: typeof body.timezone === "string" && body.timezone ? body.timezone : DEFAULT_TIMEZONE,
+    timezone,
     sex: body.sex as Sex,
     ...(timeUnknown ? {} : { birthTime: body.birthTime as string })
   };

@@ -9,7 +9,15 @@
 // Optional: set SAJU_API_KEY to require an x-api-key header.
 
 import http from "node:http";
+import crypto from "node:crypto";
 import { buildSajuPillarsV1Response } from "../packages/saju-core/dist/index.js";
+
+function apiKeyMatches(expected, provided) {
+  if (!provided) return false;
+  const a = crypto.createHash("sha256").update(expected).digest();
+  const b = crypto.createHash("sha256").update(provided).digest();
+  return crypto.timingSafeEqual(a, b);
+}
 
 const server = http.createServer((req, res) => {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -19,7 +27,7 @@ const server = http.createServer((req, res) => {
     return;
   }
   const requiredKey = process.env.SAJU_API_KEY;
-  if (requiredKey && req.headers["x-api-key"] !== requiredKey) {
+  if (requiredKey && !apiKeyMatches(requiredKey, req.headers["x-api-key"])) {
     res.statusCode = 401;
     res.end(JSON.stringify({ contract: "saju-pillars-v1", error: { code: "UNAUTHORIZED", message: "Missing or invalid x-api-key." } }));
     return;

@@ -124,6 +124,23 @@ describe("saju-pillars-v1 contract — validation", () => {
     }
   });
 
+  it("rejects a well-formatted but impossible calendar date", () => {
+    const result = buildSajuPillarsV1Response({ ...base, birthDate: "2023-02-29" });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.error.code).toBe("INVALID_BIRTH_DATE");
+    }
+  });
+
+  it("rejects a timezone other than Asia/Seoul as unsupported", () => {
+    const result = buildSajuPillarsV1Response({ ...base, timezone: "America/New_York" });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.error.code).toBe("UNSUPPORTED_TIMEZONE");
+      expect(result.error.error.field).toBe("timezone");
+    }
+  });
+
   it("requires birthTime unless timeUnknown is true", () => {
     const { birthTime, ...withoutTime } = base;
     void birthTime;
