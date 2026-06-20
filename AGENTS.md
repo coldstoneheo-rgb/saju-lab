@@ -11,6 +11,7 @@ This repository is in an early planning and implementation phase. Agents working
 
 ## Source Of Truth
 
+- Working guide (Claude Code): `CLAUDE.md`
 - Product requirements: `docs/PRD.md`
 - Architecture direction: `docs/ARCHITECTURE.md`
 - Calculation rules: `docs/algorithms/SOLAR_TERM_SPEC.md`
