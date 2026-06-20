@@ -3,14 +3,15 @@
 > 루프 하네스의 ⑥ 상태 파일. 매 세션 끝에 갱신한다. 거버넌스 규칙은 `AGENTS.md`, 작업 지침은 `CLAUDE.md`.
 
 ## 현재 위치
-- 단계: **Phase 6 — AI 해석(AI-assisted interpretation)** 도입. 병행: **오행 분석 코어 프리미티브**(작명 번들 수익화의 피벗) 착수.
-- 브랜치: `feat/core-ohaeng-distribution` (작업 중).
-- 직전 작업: Claude Code 루프 하네스 + Karpathy 스타일 CLAUDE.md 도입(PR #52). 이후 문서 후속(#53–#56), devlog 훅 검증.
-- 기반 상태: rules-only 무료/유료 리포트 + 픽스처 한정 결정론적 절기 계산이 동작(MVP). 이제 간지→오행 매핑·분포·부족/보완 랭킹 프리미티브 추가.
+- 단계: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A) → 소비 계약 API(HO-B).
+- 브랜치: `feat/api-saju-pillars-v1` (작업 중). 직전 `feat/core-ohaeng-distribution`은 PR #57로 머지됨.
+- 직전 작업: HO-A 오행 프리미티브(PR #57). 그 이전 하네스/문서 후속(#52–#56), devlog 훅 검증.
+- 기반 상태: rules-only 리포트 + 픽스처 한정 절기 계산 + 오행 분포/부족/보완 랭킹(HO-A). 이제 `saju-pillars-v1` HTTP 계약으로 하류(baby-naming-ai) 노출.
 
 ## 다음 후보
-- **HO-B**: 오행 분석을 감싸는 소비 계약/API(HTTP 엔드포인트·baby-naming 통합). 코어 프리미티브 완료로 진행 가능.
+- **baby-naming-ai 소비측 통합**: 안드로이드에서 `POST /api/saju-pillars` 호출 → `supplementPriority`로 보완 한자 작명.
 - 지장간 가중(hidden-stem) 확장: 현재 본기-only 카운트를 가중 분포로 교체(매핑 상수 스왑 지점 마련됨).
+- v1 운영화: `SAJU_API_KEY` 환경 주입, 플랫폼 레이트리밋 설정.
 - AI 프롬프트 계약(`docs/AI_PROMPT_CONTRACT.md`)을 실제 해석 경로에 연결 (rules-only 보조 위치 유지).
 - `packages/saju-core/src/ai-interpretation-guard.ts` 가드 범위 확장 + 테스트.
 - 절기 픽스처 검증 범위 확대 (KASI 재검증 문서 참조).
@@ -27,7 +28,8 @@
 | 2026-06-20 | PR #55: AGENTS.md Source Of Truth에 CLAUDE.md 링크 추가. 리뷰봇 지적 없음 | CI green, 머지(main `e1401ab`) |
 | 2026-06-20 | PR #56: PROGRESS에 #53–#55 후속 기록. 리뷰봇 지적 없음 | CI green, 머지(main `48ac7ae`) |
 | 2026-06-20 | devlog 자동 기록 훅(Stop→`Write-DevLog.ps1`) 설치·검증. 헤드리스 `-p`는 미발화, **인터랙티브 세션에서 정상 발화 확인**(`devlog/saju-lab/YYYY-MM-DD.md`). 설정은 gitignore된 `settings.local.json`이라 커밋 코드 변경 없음 | 사용자 인터랙티브 세션에서 자동 기록 확인 |
-| 2026-06-21 | HO-2026-0620-saju-ohaeng-01: saju-core에 오행(목화토금수) 프리미티브 추가 — 간지→오행 매핑(천간/지지 분리 키잉), 분포 카운트(본기-only), 부족/과다·보완 우선순위 랭킹. `analyzeFiveElements` 등 export, 타입 types.ts 추가. 골든테스트(1990→金부재, 2024→水부재) | `npm run verify` 통과(16 테스트) |
+| 2026-06-21 | HO-2026-0620-saju-ohaeng-01: saju-core에 오행(목화토금수) 프리미티브 추가 — 간지→오행 매핑(천간/지지 분리 키잉), 분포 카운트(본기-only), 부족/과다·보완 우선순위 랭킹. `analyzeFiveElements` 등 export, 타입 types.ts 추가. 골든테스트(1990→金부재, 2024→水부재). 리뷰봇 string-파라미터 제안 검증 후 반영 | `npm run verify` 통과, 머지(main `d810742`) |
+| 2026-06-21 | HO-2026-0620-saju-api-01: `saju-pillars-v1` 소비 계약 노출 — 순수 빌더 `buildSajuPillarsV1Response`(saju-core) + 얇은 Vercel 함수 `/api/saju-pillars`(apps/web 동거) + 문서 `docs/SAJU_PILLARS_API_V1.md` + 실HTTP PoC(`scripts/poc-saju-pillars.mjs`). solar만 지원·lunar 명시 에러, 선택적 x-api-key. PoC 출력이 1990 골든(金 부재)과 값 일치 | `npm run verify` 통과, /api 핸들러 독립 tsc 통과 |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과
