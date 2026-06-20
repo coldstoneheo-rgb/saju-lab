@@ -95,8 +95,9 @@ interface SajuPillarsApi {
 }
 
 data class SajuPillarsRequest(
-  val birthDate: String, val birthTime: String? = null, val timeUnknown: Boolean? = null,
-  val calendar: String = "solar", val timezone: String = "Asia/Seoul", val sex: String
+  val birthDate: String, val sex: String,          // 필수 먼저 → 위치 인수 생성 가능
+  val birthTime: String? = null, val timeUnknown: Boolean? = null,
+  val calendar: String = "solar", val timezone: String = "Asia/Seoul"
 )
 data class SajuPillarsResponse(
   val contract: String, val timeKnown: Boolean,
