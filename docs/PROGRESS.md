@@ -3,9 +3,10 @@
 > 루프 하네스의 ⑥ 상태 파일. 매 세션 끝에 갱신한다. 거버넌스 규칙은 `AGENTS.md`, 작업 지침은 `CLAUDE.md`.
 
 ## 현재 위치
-- 단계: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A, PR #57) → 소비 계약 API(HO-API, PR #58) 완료. 다음은 소비측 통합(HO-B).
-- 브랜치: `main` (PR #58 머지 후 동기화).
-- 직전 작업: `saju-pillars-v1` 계약 노출(PR #58). 그 전 HO-A 오행 프리미티브(#57), 하네스/문서(#52–#56), devlog 훅.
+- 단계: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A, PR #57) → 소비 계약 API(HO-API, PR #58) → 라이브 배포 복구(deploy-fix, PR #60) 완료. 다음은 소비측 통합(HO-C/HO-B).
+- 브랜치: `main` (PR #59 머지 후). deploy-fix는 PR #60 대기 중.
+- 직전 작업: 프로덕션 `/api/saju-pillars` 500 복구(PR #60). 그 전 `saju-pillars-v1` 계약(#58), HO-A 오행(#57), 하네스/문서(#52–#56).
+- 라이브: `https://saju-lab-phi.vercel.app/api/saju-pillars` 골든 POST→200 복구 확인(GET→405). `SAJU_API_KEY` 미설정=개방 상태 → 오케스트레이터가 키 주입 예정.
 - 기반 상태: rules-only 리포트 + 픽스처 절기 계산 + 오행 분포/부족/보완(HO-A) + `POST /api/saju-pillars` 계약(HO-API). 하류 통합용 HO-B 핸드오프 작성됨.
 
 ## 다음 후보
@@ -31,6 +32,7 @@
 | 2026-06-21 | HO-2026-0620-saju-ohaeng-01: saju-core에 오행(목화토금수) 프리미티브 추가 — 간지→오행 매핑(천간/지지 분리 키잉), 분포 카운트(본기-only), 부족/과다·보완 우선순위 랭킹. `analyzeFiveElements` 등 export, 타입 types.ts 추가. 골든테스트(1990→金부재, 2024→水부재). 리뷰봇 string-파라미터 제안 검증 후 반영 | `npm run verify` 통과, 머지(main `d810742`) |
 | 2026-06-21 | HO-2026-0620-saju-api-01: `saju-pillars-v1` 소비 계약 노출 — 순수 빌더 `buildSajuPillarsV1Response`(saju-core) + 얇은 Vercel 함수 `/api/saju-pillars`(apps/web 동거) + 문서 `docs/SAJU_PILLARS_API_V1.md` + 실HTTP PoC(`scripts/poc-saju-pillars.mjs`). solar만 지원·lunar 명시 에러, 선택적 x-api-key. PoC 출력이 1990 골든(金 부재)과 값 일치. 리뷰봇 4건 검증 — 날짜유효성(HIGH, 전제 거짓이나 에러코드 정확화 반영), 타임존(제안 부적절→`UNSUPPORTED_TIMEZONE`로 개선), 타이밍안전 키비교(반영) | `npm run verify` 통과, 머지(main `585cbba`) |
 | 2026-06-21 | HO-B 소비측 통합 핸드오프 작성 — `docs/handoffs/HO-2026-0620-naming-consume-01.md`(baby-naming-ai 안드로이드용: Retrofit DTO·매핑·검증·골든 교차검증·Kotlin 스니펫) | 문서만, `git diff --check` 통과 |
+| 2026-06-26 | HO-2026-0626-saju-deploy-fix-01: 프로덕션 `/api/saju-pillars` 500 복구. 실측 원인=`@vercel/node`가 워크스페이스 소스는 번들에 컴파일해도 `node_modules/@saju-lab/saju-core` 심링크를 재생성 안 함 → bare specifier 런타임 모듈로드 실패(`FUNCTION_INVOCATION_FAILED`, GET 포함 전부 500). 수정(배포 전용): import를 상대경로(`../packages/saju-core/src/index.js`)로, union 내로잉을 `("data" in result)`로(@vercel/node는 non-strict 타입체크 → 불리언 판별자 내로잉 실패), `@types/node`+`api/tsconfig.json` 추가, `.vercel/` gitignore. 라이브 스모크 200+골든·GET 405 확인 — PR #60 | `npm run verify` 통과, `vercel build` 클린 번들, 라이브 프로덕션 200 |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과
