@@ -1,4 +1,11 @@
-import { buildSajuPillarsV1Response } from "@saju-lab/saju-core";
+// Import the core via a relative path rather than the "@saju-lab/saju-core"
+// workspace specifier. Vercel's serverless bundler traces and compiles the
+// referenced source into the function, but does NOT recreate the node_modules
+// symlink for the workspace package — so a bare specifier throws
+// "Cannot find module" at module load (FUNCTION_INVOCATION_FAILED). A relative
+// import is bundled and resolves at runtime with no node_modules. No engine
+// logic changes here; same public contract builder.
+import { buildSajuPillarsV1Response } from "../packages/saju-core/src/index.js";
 import crypto from "node:crypto";
 
 // Minimal request/response shape compatible with Vercel's Node serverless runtime.
@@ -73,8 +80,12 @@ export default function handler(req: ApiRequest, res: ApiResponse): void {
     }
   }
 
+  // Narrow via the "data" property rather than the `ok` boolean discriminant:
+  // Vercel's serverless TypeScript pass type-checks without strictNullChecks,
+  // where boolean-discriminant narrowing fails to resolve the union. Property
+  // narrowing works under both strict and non-strict, keeping the build clean.
   const result = buildSajuPillarsV1Response(body);
-  if (result.ok) {
+  if ("data" in result) {
     res.status(result.status).json(result.data);
   } else {
     res.status(result.status).json(result.error);
