@@ -52,3 +52,26 @@
 - 도메인 카피 작성은 `saju-domain` 스킬을, 게이트는 `/verify` 커맨드를 쓴다.
 - PR은 항상 전용 브랜치로 낸다 → CI·리뷰봇 대기 → 리뷰는 맹신 말고 근거로 검증·반영·해결 → 머지 후 브랜치를 정리한다.
 - 최종 검증은 사람 몫이다. 루프가 좋아도 사고를 기계에 넘기지 않는다.
+
+## 작업 보고 (Worklog) — 필수 (오케스트레이터 연동)
+작업 세션을 끝낼 때마다 이 repo **루트의 `WORKLOG.md`** **맨 위에** 아래 블록을 추가한다(최신이 위, append-only).
+오케스트레이터(Life Coordinator)의 `/project-scan`이 이걸 **1차 소스**로 읽어 cross-project 진척·시너지·수익화를 합성한다.
+규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. (상세 세션로그 `docs/PROGRESS.md`와 별개 — WORKLOG는
+오케스트레이터용 **요약+신호** 한 블록. PROGRESS.md를 길게 썼으면 그 핵심만 전사.)
+
+```yaml
+---
+date: <YYYY-MM-DD>
+project: saju-lab
+agent: <너>
+summary: <한 줄 — 이번 세션에 무엇이 바뀌었나>
+status: on_track | blocked | pivoted | shipped
+progress: "<%/마일스톤> (근거: <커밋/npm run verify/배포>)"
+changes: ["<SHA/PR> <제목>"]          # diff 재서술 금지, 링크만
+next: <다음 1가지 (구체)>
+# 해당될 때만, 각 한 줄: blockers / synergy / monetization / learning_need / spinoff_idea
+---
+## 의미
+<2~4문장: 목표에 왜 중요한가 / 무엇을 잠금해제. git이 못 주는 맥락만.>
+```
+git이 이미 주는 diff·커밋 메시지는 재서술하지 말고 링크만. `progress`는 근거 필수(자가채점 방지).

@@ -9,3 +9,5 @@ __pycache__/
 .secrets/
 .claude/settings.local.json
 .vercel/
+.vercel
+.env*
