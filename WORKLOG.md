@@ -7,6 +7,25 @@
 date: 2026-07-02
 project: saju-lab
 agent: claude-code (Sonnet 5)
+summary: 세션 종료 — baby-naming-ai의 HO-B 완료 기록이 로컬 커밋 상태로 남아 push 대기 중
+status: blocked
+progress: "HO-B 완료는 saju-lab 쪽 원격에 확정됨(PR #62 머지), baby-naming-ai 쪽 동일 기록은 로컬 커밋만 존재 (근거: baby-naming-ai 커밋 `ceff283`, `git log origin/main`에 미반영 확인)"
+changes: []
+next: 사용자가 baby-naming-ai에서 `git push`로 `ceff283`를 origin/main에 반영해야 오케스트레이터 cross-project 스캔에 HO-B 완료가 온전히 보인다
+blockers: baby-naming-ai `WORKLOG.md`의 HO-B 완료 엔트리가 원격에 없음 — 해당 레포 관례(AI Studio main 직커밋 + 사용자 수동 push)상 에이전트가 대신 push하지 않음
+synergy: 사주×작명 번들 가치사슬 완료 신호가 saju-lab 쪽에서는 완결됐으나 baby-naming-ai 쪽에서 아직 원격에 반영 안 됨
+---
+## 의미
+HO-B(baby-naming-ai 소비측 통합) 완료를 오늘 두 저장소 WORKLOG에 기록했다. saju-lab 쪽은 PR #62로
+머지돼 원격에 반영됐지만, baby-naming-ai는 "AI Studio가 main에 직접 커밋 후 사용자가 수동으로 push"하는
+레포 관례 때문에 해당 커밋(`ceff283`)이 아직 로컬에만 있다. 사용자가 push하기 전까지 오케스트레이터의
+`/project-scan`은 baby-naming-ai 쪽 완료 신호를 읽지 못하므로, 다음 브리핑에 "push 필요" 항목으로
+노출되도록 이 블로커를 명시적으로 남긴다.
+
+---
+date: 2026-07-02
+project: saju-lab
+agent: claude-code (Sonnet 5)
 summary: HO-B(baby-naming-ai 소비측 통합) 완료 확인 — 이미 구현돼 있던 걸 라이브 교차검증으로 확정, 양쪽 저장소 WORKLOG 갱신
 status: shipped
 progress: "사주×작명 가치사슬 전 구간(HO-A→HO-API→deploy-fix→HO-B) 완료 (근거: baby-naming-ai 커밋 `5efea26` 이전 `5ec49a0`/`22b3585`가 이미 통합 구현, 오늘 프로덕션 API를 baby-naming-ai 로컬 `SAJU_API_KEY`로 직접 호출해 골든 케이스 재현·확인)"
