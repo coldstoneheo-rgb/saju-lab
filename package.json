@@ -13,7 +13,8 @@
     "collect:solar-terms": "python scripts/collect_public_data_solar_terms.py",
     "verify": "npm run typecheck && npm test && npm run build && npm audit --audit-level=moderate && git diff --check",
     "typecheck": "tsc -p api/tsconfig.json && npm run typecheck --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present"
+    "test": "npm run test:api && npm run test --workspaces --if-present",
+    "test:api": "vitest run api"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
