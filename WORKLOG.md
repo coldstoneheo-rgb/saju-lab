@@ -4,6 +4,34 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-08-19
+project: saju-lab
+agent: claude-code (Opus 5, 앱 게이트웨이 세션)
+summary: baby-naming 앱이 들고 다니던 API 키 2개를 받아오기 위해 무비밀·레이트리밋 앱 경로 2개를 열었다
+status: on_track
+progress: "`/api/app/gemini-generate`·`/api/app/saju-pillars` 신설(PR #64). 근거: `npx tsc -p api/tsconfig.json` 클린, `npx vitest run api` **17/17**(레이트리밋 5 + 요청 검증 12), web 테스트 32건·build 통과, `git diff --check` 클린. ⚠ `npm run verify`는 `npm audit`에서 실패하나 esbuild·nanoid·postcss 전부 vite 개발 의존성이고 이 PR은 의존성을 0개 추가했다 — 선존재 결함."
+changes:
+  - "#64 feat(api): 앱용 무비밀 게이트웨이 — Gemini 키를 서버로 이관"
+next: "PR #64 머지 + Vercel env `GEMINI_API_KEY`(Preview+Production) 등록 → baby-naming vc12 라이브 회귀로 프리뷰 URL 실검증"
+blockers: "사용자 손 1건 — Vercel env `GEMINI_API_KEY` 미등록 상태에서는 `/api/app/gemini-generate`가 503."
+synergy: "**소비 방향이 뒤집혔다.** 지금까지 saju-lab은 baby-naming에 «계산»을 팔았는데, 이제 «키 보관»과 «상류 호출»까지 맡는다 — 앱 쪽 비밀 0개가 그 대가로 얻은 것이다. 이 패턴(모바일 클라이언트용 무비밀 게이트웨이)은 앞으로 다른 앱이 유료 API를 쓸 때 그대로 재사용된다."
+learning_need: "**클라이언트 비밀이 없으면 방어는 «모양»과 «속도»뿐이고, 그 둘은 남용을 0으로 못 만든다.** 그래서 이 층의 목표를 «막는다»가 아니라 «폭발 반경을 유한하게»로 적었다. 레이트리밋이 인메모리라 인스턴스별이라는 것, 호출자를 인증하지 않는다는 것을 `docs/APP_GATEWAY.md`에 숨기지 않고 적은 이유도 같다 — 방어의 한계를 적어두지 않으면 다음 사람이 이걸 «해결됨»으로 읽는다."
+---
+## 의미
+baby-naming vc11 번들에서 API 키 2개가 dex 평문으로 나왔고(08-14 감사), 그중 하나는 유료 GCP 키였다.
+앱 안에 키를 안전하게 넣는 방법은 없으므로 키가 갈 곳이 필요했고, 그 자리가 여기다.
+
+설계에서 가장 중요한 선택은 **프록시 인증 토큰을 만들지 않은 것**이다. 앱 번들에 넣은 토큰은 방금 없앤
+키와 똑같이 추출되므로, 그걸 «인증»으로 계산에 넣으면 08-14에 배운 착시(보안스러운 이름의 도구를
+방어로 세는 것)를 그대로 반복하게 된다. 대신 요청을 전달하지 않고 **허용목록으로 재구성**한다 —
+호출자는 모델·도구·파일·후보 개수·출력 토큰 상한을 고를 수 없다. 훔쳐도 «범용 LLM 프록시»가 아니라
+«상한 걸린 작명용 텍스트 엔드포인트»라서, 훔칠 가치 자체가 낮아진다.
+
+기존 `/api/saju-pillars`의 키 게이트는 건드리지 않았다. 발행된 v1 계약이고 다른 소비자가 있으므로
+앱 하나를 위해 그쪽 인증 조건을 바꾸는 것은 계약 변경이다. 공통 로직만 `_lib/`로 뽑아 두 경로가 같은
+계산기를 보게 했다.
+
+---
 date: 2026-07-02
 project: saju-lab
 agent: claude-code (Sonnet 5)
