@@ -271,6 +271,7 @@ describe("calculatePillars", () => {
   });
 
   it("rejects dates beyond the embedded solar month table range", () => {
+    // 1990 is an isolated pre-API row: the next boundary is decades away.
     expect(() => calculatePillars({
       birthDate: "1990-03-01",
       birthTime: "12:00",
@@ -278,12 +279,43 @@ describe("calculatePillars", () => {
       sex: "other"
     })).toThrow("No upper solar month boundary");
 
+    // Past 2028-12-06 대설 there is no next boundary; the API serves no 2029 rows.
     expect(() => calculatePillars({
-      birthDate: "2025-03-01",
+      birthDate: "2028-12-20",
       birthTime: "12:00",
       timezone: "Asia/Seoul",
       sex: "other"
     })).toThrow("No upper solar month boundary");
+
+    expect(() => calculatePillars({
+      birthDate: "2029-03-01",
+      birthTime: "12:00",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("No Ipchun boundary");
+  });
+
+  it("computes pillars for present-day births the app actually receives", () => {
+    // Regression: before the KASI 2000-2028 table these threw, and consumers
+    // silently fell back to an ungrounded path. See WORKLOG 2026-08-21.
+    const recent = calculatePillars({
+      birthDate: "2026-06-06",
+      birthTime: "12:00",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+
+    expect(recent.year.stem).not.toHaveLength(0);
+    expect(recent.month.stem).not.toHaveLength(0);
+    expect(recent.day.stem).not.toHaveLength(0);
+    expect(recent.time?.branch).toBe("o");
+
+    expect(() => calculatePillars({
+      birthDate: "2023-11-20",
+      birthTime: "03:30",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).not.toThrow();
   });
 
   it("rejects invalid dates, invalid times, and unsupported timezones", () => {
@@ -332,6 +364,28 @@ describe("solar-term source audit", () => {
       .map(({ term, startsAt, solarYear, monthOrdinal }) => ({ term, startsAt, solarYear, monthOrdinal }));
 
     expect(actual).toEqual(documented2024Boundaries);
+  });
+
+  it("carries all twelve month boundaries for every KASI-sourced solar year", () => {
+    for (let solarYear = 2000; solarYear <= 2028; solarYear += 1) {
+      const ordinals = SOLAR_MONTH_BOUNDARIES
+        .filter((boundary) => boundary.solarYear === solarYear)
+        .map((boundary) => boundary.monthOrdinal);
+
+      // 2028 stops at 대설 because the source API serves no 2029 소한 row.
+      const expected = solarYear === 2028
+        ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+      expect({ solarYear, ordinals }).toEqual({ solarYear, ordinals: expected });
+    }
+  });
+
+  it("keeps the boundary table sorted so the active-boundary scan can stop early", () => {
+    const startsAt = SOLAR_MONTH_BOUNDARIES.map((boundary) => boundary.startsAt);
+
+    expect(startsAt).toEqual([...startsAt].sort());
+    expect(new Set(startsAt).size).toBe(startsAt.length);
   });
 });
 

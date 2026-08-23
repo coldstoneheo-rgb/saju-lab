@@ -63,6 +63,42 @@ If the API result differs from the embedded table, update calculation data and b
 
 ## Current Status
 
-The collection path generated `docs/fixtures/kasi-special-days-solar-terms-2000-2016.json` on 2026-05-26. Embedded rows covered by the 2000-2016 API fixture may be marked `KASI revalidated` when the comparison reports `match`.
+The 2026-05-26 run generated `docs/fixtures/kasi-special-days-solar-terms-2000-2016.json`.
 
-The 1989-1999 rows remain open external-source gates because the approved API returns no records for those years.
+The 2026-08-23 run widened the range to the API's full coverage and generated
+`docs/fixtures/kasi-special-days-solar-terms-2000-2028.json` (696 records = 24 x 29 years,
+per-year completeness check passed). That fixture is now the source of the embedded table:
+`scripts/generate_solar_terms_module.py` renders `packages/saju-core/src/solar-terms.data.ts`
+from its 12 month-boundary terms.
+
+Evidence from the 2026-08-23 run:
+
+- `embeddedComparison`: all 22 embedded rows dated 2000 or later report `match`. The
+  hand-verified 2024/2025 boundaries were reproduced by the API independently.
+- The 2000-2016 records are identical to the 2026-05-26 fixture (408/408, no differences).
+- The February 2000 source defect recorded above (`dateName=입춘` repeated for 우수) is no
+  longer present; the API now returns 우수 directly and the new fixture has zero
+  `termSource=monthSlotFallback` rows.
+
+Range probes run on 2026-08-23 (`totalCount` from `get24DivisionsInfo`):
+
+| Year | Result |
+|---|---|
+| 1989-1999 | 0 records (unchanged from 2026-05-26) |
+| 2000-2028 | complete, 24 terms per year |
+| 2029 and later | 0 records (probed 2029, 2030, 2035, 2040, 2045) |
+
+Because the API serves no 2029 소한, the embedded table ends at 2028-12-06 대설 and dates after
+it raise `No upper solar month boundary`. Re-run the collector when data.go.kr publishes 2029+.
+
+## Regeneration
+
+```powershell
+python scripts/collect_public_data_solar_terms.py --start-year 2000 --end-year 2028 --output docs/fixtures/kasi-special-days-solar-terms-2000-2028.json
+python scripts/generate_solar_terms_module.py
+npm run verify
+```
+
+`generate_solar_terms_module.py --check` fails when the committed module is stale relative to
+the fixture. The pre-2000 rows the API does not serve stay hand-maintained in that script's
+`LEGACY_BOUNDARIES`.
