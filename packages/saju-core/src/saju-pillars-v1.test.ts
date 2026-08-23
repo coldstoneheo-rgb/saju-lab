@@ -158,4 +158,26 @@ describe("saju-pillars-v1 contract — validation", () => {
       expect(result.error.error.code).toBe("OUT_OF_SUPPORTED_RANGE");
     }
   });
+
+  // The consumers of this contract are naming apps for newborns, so the birth
+  // dates they send are always recent. Before the KASI 2000-2028 table these
+  // returned OUT_OF_SUPPORTED_RANGE and the app fell back to an ungrounded path.
+  it.each(["2023-11-20", "2025-07-14", "2026-06-06", "2028-12-06"])(
+    "serves present-day birth date %s",
+    (birthDate) => {
+      const result = ok({ ...base, birthDate, birthTime: "09:15" });
+
+      expect(result.status).toBe(200);
+      expect(result.data.timeKnown).toBe(true);
+      expect(result.data.pillars.month.branch).not.toHaveLength(0);
+    }
+  );
+
+  it("still refuses dates past the end of the sourced solar-term table", () => {
+    const result = buildSajuPillarsV1Response({ ...base, birthDate: "2029-01-02" });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.error.code).toBe("OUT_OF_SUPPORTED_RANGE");
+    }
+  });
 });
