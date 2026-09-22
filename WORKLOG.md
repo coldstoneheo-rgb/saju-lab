@@ -6,6 +6,21 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage3-01 PR 1)
+summary: 시주 옵션 도입 — 진태양시(경도 보정만, 균시차 미적용)·23시 정책·일주 경계 학파 옵션, 반대쪽 명식 alternates 상시 계산, 경계 명식 플래그 3종, 17 시·도 경도표
+status: on_track
+progress: "3단계 PR 1 완료(근거: docs/handoffs/HO-2026-0922-saju-L1-stage3-01-REPORT.md C1~C3·C6 · `npm run verify` exit 0 테스트 234 · 회의 사례 13:10 서울 未→午 고정). PR 2 웹 1줄 남음."
+changes:
+  - "feat(saju-core): 시주 옵션 — 진태양시(경도 보정)·23시 정책·alternates·nearBoundary (HO-2026-0922-saju-L1-stage3-01 PR 1)"
+next: "PR 2 웹: resolution 기반 「계산 규칙」 1줄 + 경계일 때 시·도 선택 → 로컬 재계산 + 23시대 접힘 참고 명식 + 스크린샷 3장"
+learning_need: "«기본값 ON/OFF» 논쟁은 두 명식을 항상 계산하고 반대쪽을 응답에 싣는 순간 사라진다 — 결정을 코어가 아니라 화면(경계일 때만 묻기)으로 미룰 수 있기 때문이다. 경계 창은 «보정 크기»가 아니라 «보정이 경계를 넘길 수 있는 벽시계 구간»으로 정의해야 한다(회의 표기 −32~+10은 방향이 뒤집혀 있었고 실측으로 [B−10, B+34]로 정정)."
+---
+## 의미
+회의 F1 «어느 규칙으로 계산했는지 항상 응답»과 F2 «두 명식 상시 계산»이 API에서 성립한다. 서울 13:10 출생처럼 −32분 보정으로 시지가 바뀌는 사례(전체 출생의 약 1/4이 창 안)가 «경계 명식»으로 드러나고, 웹(PR 2)은 그때만 출생지를 묻는다. 균시차는 회의 결정으로 뺐고 문서에 명문화했다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage12-01 PR 1)
 summary: 골든 명식 표를 md 정본으로 — 11건 전부 출처(KASI 24기 표 + data.go.kr 일진) 명기, 테스트가 md를 직접 파싱, 출처 없는 fixtures.ts 폐기
 status: on_track

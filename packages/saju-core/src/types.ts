@@ -4,11 +4,27 @@ export type Locale = "ko" | "en";
 
 export type Confidence = "high" | "medium" | "low";
 
+/** 23시대(자시) 처리: "late" = 달력일 유지(야자시, 기본), "early" = 다음 날 일주(조자시). */
+export type JaHourPolicy = "late" | "early";
+
+/** 일주 경계: "midnight" = KST 자정(기본), "trueSolar" = 진태양시 자정(학파 옵션). */
+export type DayBoundaryPolicy = "midnight" | "trueSolar";
+
+export interface CalculationOptions {
+  /** Shift the hour pillar by the birth place's longitude offset (경도 보정만, 균시차 미적용). Default false. */
+  trueSolarTime?: boolean;
+  jaHourPolicy?: JaHourPolicy;
+  dayBoundary?: DayBoundaryPolicy;
+}
+
 export interface BirthInput {
   birthDate: string;
   birthTime?: string;
   timezone: string;
   sex: Sex;
+  /** 시·도 code from birth-place.data.ts; defaults to "seoul". Only read when options.trueSolarTime is true. */
+  birthPlace?: string;
+  options?: CalculationOptions;
 }
 
 export interface Pillar {

@@ -1,8 +1,9 @@
 import { analyzeFiveElements } from "./five-elements.js";
-import { calculatePillarsWithResolution } from "./pillars.js";
-import type { BirthTimeResolution } from "./timezone-history.js";
+import { findBirthPlace } from "./birth-place.data.js";
+import { calculatePillarsWithResolution, type CalculationResolution, type PillarsAlternates } from "./pillars.js";
 import type {
   BirthInput,
+  CalculationOptions,
   FiveElement,
   FiveElementDistribution,
   PillarsResult,
@@ -29,6 +30,10 @@ export interface SajuPillarsV1Request {
   /** IANA timezone. Defaults to Asia/Seoul. */
   timezone?: string;
   sex: Sex;
+  /** 시·도 code (birth-place.data.ts). Defaults to "seoul"; only changes the result with options.trueSolarTime. */
+  birthPlace?: string;
+  /** Calculation options. Omitted = current behaviour (no true solar time, 야자시, KST midnight). */
+  options?: CalculationOptions;
 }
 
 export interface SajuPillarsV1Response {
@@ -41,7 +46,14 @@ export interface SajuPillarsV1Response {
    * `appliedOffsetMin` is 0 and `flags` empty for every birth on plain KST;
    * non-zero only for 1908-1961 standard-time periods and summer-time dates.
    */
-  resolution: BirthTimeResolution;
+  resolution: CalculationResolution;
+  /**
+   * The other reading for each option, only when it changes the pillars:
+   * `trueSolarTime` = the opposite of the applied true-solar-time setting,
+   * `jaHourPolicy` = the opposite 23시대 policy. Absent when nothing differs
+   * or when the birth time is unknown.
+   */
+  alternates?: PillarsAlternates;
   fiveElements: {
     /** Count of each element across the counted stems and branches. */
     distribution: FiveElementDistribution;
@@ -63,6 +75,8 @@ export type SajuPillarsV1ErrorCode =
   | "MISSING_BIRTH_TIME"
   | "INVALID_BIRTH_TIME"
   | "INVALID_SEX"
+  | "INVALID_BIRTH_PLACE"
+  | "INVALID_OPTIONS"
   | "OUT_OF_SUPPORTED_RANGE";
 
 export interface SajuPillarsV1Error {
@@ -109,6 +123,30 @@ function failure(
       error: field ? { code, message, field } : { code, message }
     }
   };
+}
+
+/** undefined = no options given; null = malformed; otherwise the validated options. */
+function parseOptions(value: unknown): CalculationOptions | undefined | null {
+  if (value === undefined) {
+    return undefined;
+  }
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    return null;
+  }
+  const raw = value as Record<string, unknown>;
+  const options: CalculationOptions = {};
+  for (const key of Object.keys(raw)) {
+    if (key === "trueSolarTime" && typeof raw[key] === "boolean") {
+      options.trueSolarTime = raw[key] as boolean;
+    } else if (key === "jaHourPolicy" && (raw[key] === "late" || raw[key] === "early")) {
+      options.jaHourPolicy = raw[key] as "late" | "early";
+    } else if (key === "dayBoundary" && (raw[key] === "midnight" || raw[key] === "trueSolar")) {
+      options.dayBoundary = raw[key] as "midnight" | "trueSolar";
+    } else {
+      return null;
+    }
+  }
+  return options;
 }
 
 /**
@@ -175,17 +213,33 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
     }
   }
 
+  if (body.birthPlace !== undefined && (typeof body.birthPlace !== "string" || findBirthPlace(body.birthPlace) === undefined)) {
+    return failure("INVALID_BIRTH_PLACE", "birthPlace must be one of the 17 시·도 codes (e.g. 'seoul').", "birthPlace");
+  }
+
+  const options = parseOptions(body.options);
+  if (options === null) {
+    return failure(
+      "INVALID_OPTIONS",
+      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early') and dayBoundary ('midnight' | 'trueSolar').",
+      "options"
+    );
+  }
+
   const birthInput: BirthInput = {
     birthDate: body.birthDate,
     timezone,
     sex: body.sex as Sex,
-    ...(timeUnknown ? {} : { birthTime: body.birthTime as string })
+    ...(timeUnknown ? {} : { birthTime: body.birthTime as string }),
+    ...(typeof body.birthPlace === "string" ? { birthPlace: body.birthPlace } : {}),
+    ...(options ? { options } : {})
   };
 
   let pillars: PillarsResult;
-  let resolution: BirthTimeResolution;
+  let resolution: CalculationResolution;
+  let alternates: PillarsAlternates | undefined;
   try {
-    ({ pillars, resolution } = calculatePillarsWithResolution(birthInput));
+    ({ pillars, resolution, alternates } = calculatePillarsWithResolution(birthInput));
   } catch {
     return failure(
       "OUT_OF_SUPPORTED_RANGE",
@@ -203,6 +257,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
       timeKnown: Boolean(pillars.time),
       pillars,
       resolution,
+      ...(alternates ? { alternates } : {}),
       fiveElements: {
         distribution: analysis.distribution,
         absent: analysis.absent,

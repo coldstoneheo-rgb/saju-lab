@@ -143,6 +143,17 @@
 - 전이 시각 28개는 이 머신 Node 22/ICU 77(tz 2025b)의 `Intl.DateTimeFormat("Asia/Seoul")`과 ±1분에서 일치한다
   (`timezone-history.test.ts`). 진태양시·분 단위 시주·23시 정책은 다음 단계다.
 
+## 시주 옵션 — 진태양시·23시 정책 (2026-09-22, 3단계)
+
+- 순서: KST 정규화(위) → `options.trueSolarTime`이면 `birthPlace`(시·도, `birth-place.data.ts`, 시·도청 경도 Wikidata P625)의
+  보정 (경도 − 135°) × 4분을 시각에 더함(서울 −32분, 전국 −23~−34분) → `options.dayBoundary`가 `trueSolar`면 보정 시각의
+  날짜로 일주, 기본 `midnight`은 KST 날짜 → `options.jaHourPolicy`가 `early`면 23시대는 다음 날 일주 → 분 단위 시지
+  (`hourBranchIndexAtMinute`, 경계는 홀수 정시). **절입 비교는 어떤 옵션의 영향도 받지 않는다.**
+- **균시차 미적용**(회의 2026-09-22 A1-3 ⑤). 근사식(Spencer/NOAA)은 v1.1 옵션 후보로 기록만 한다.
+- 두 명식 상시 계산: 기본 응답은 옵션대로, 반대쪽은 `alternates`(명식이 다를 때만). 시각 미상은 둘 다 없음.
+- 경계 플래그 `resolution.nearBoundary`(KST 벽시계 기준): 시지 경계 [B−10, B+34]분(+34 = 최대 서단 보정, −10 = 기록 오차 여유),
+  자정 ±32분, 절입 ±60분. 웹앱은 `hourBranch`가 있을 때만 출생지를 묻는다.
+
 ### 왜 런타임 호출이 아닌가
 계산 코어는 결정론이어야 하고 오프라인에서 같은 값을 내야 한다. 외부 API를 요청 시점에 부르면
 가용성·지연·키 관리가 계산 결과의 전제가 된다. 그래서 API는 **생성 시점 소스**로만 쓰고,
