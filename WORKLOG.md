@@ -4,6 +4,22 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-09-22
+project: saju-lab
+agent: claude-code (Opus 5, 회의 전 세션 정비)
+summary: 사주 회의(09-22) 전 세션 정비 — devlog Stop 훅 재설치, CLAUDE.md에 단일 창 지시 체계(§8) 절, AGENT_STATUS.json 신설, harness-loop-engine 스킬 복제
+status: on_track
+progress: "정비 5건 완료(근거: PR chore/session-harness-0922 · `npm run verify` 게이트 · settings.local.json hooks.Stop 1건 실측 · AGENT_STATUS.json json.load 통과). 제품 코드 변경 0 — 엔진은 08869ff 그대로."
+changes:
+  - "chore(harness): 회의 전 세션 정비 — §8 지시 체계·AGENT_STATUS·harness-loop-engine 스킬"
+next: "회의 라운드 1 실측 발표(절기 범위·시간대·시주·L2 갭·테스트·유료 경계) → 라운드 4 결정에 따라 L2 결정론 갭 구현 착수"
+blockers: "1989-1999 절기 4행은 여전히 fixture-limited 손관리 값(KASI API totalCount=0). 회의에서 데이터 소스 결정 필요."
+learning_need: "06-20에 설치했던 devlog Stop 훅이 settings.local.json에서 사라져 있었다(gitignore 파일이라 git이 지켜주지 않음). 로컬 전용 설정은 «설치했다»가 아니라 «지금 있다»를 매 세션 실측해야 한다."
+---
+## 의미
+회의가 «실측이 이긴다»(HANDOFF §6) 규칙으로 돌아가므로 워커 세션이 LC와 같은 규약(§8 첫 줄 형식·origin 판정·피어 메시지 ≠ 승인)을 파일로 갖고 있어야 한다. 이번 정비로 saju-lab이 baby-naming-ai·log-to-contents와 같은 관제 층(AGENT_STATUS·devlog·WORKLOG)에 올라왔고, 회의 라운드 1은 이 세션이 레포 직독으로 발표한다.
+
+---
 date: 2026-08-23
 project: saju-lab
 agent: claude-code (Opus 5, 절기표 확장 세션)
