@@ -325,19 +325,19 @@ describe("calculatePillars", () => {
     expect(last.month).toEqual({ stem: "jeong", branch: "hae" });
   });
 
-  it("applies the 1955 입춘 minute from the KASI table (23:18 KST)", () => {
-    // 1955-02-04 23:18 is the year boundary 갑오 → 을미. The row sits inside the
-    // UTC+8:30 era (1954-03-21 .. 1961-08-10); the table is fixed UTC+9 and the
-    // engine compares wall-clock input as-is, so no offset is applied here.
+  it("applies the 1955 입춘 minute from the KASI table (23:18 KST) to the +08:30 civil clock", () => {
+    // 1955-02-04 23:18 KST is the year boundary 갑오 → 을미. Korea's civil clock
+    // was UTC+8:30 that day, so the boundary showed as 22:48 on birth records;
+    // normalizeToKstWallClock adds the 30 minutes before the comparison.
     const before = calculatePillars({
       birthDate: "1955-02-04",
-      birthTime: "23:17",
+      birthTime: "22:47",
       timezone: "Asia/Seoul",
       sex: "other"
     });
     const at = calculatePillars({
       birthDate: "1955-02-04",
-      birthTime: "23:18",
+      birthTime: "22:48",
       timezone: "Asia/Seoul",
       sex: "other"
     });

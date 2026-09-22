@@ -45,6 +45,10 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
     "day":   { "stem": "byeong", "branch": "in" },
     "time":  { "stem": "gye",    "branch": "sa" }
   },
+  "resolution": {                     // (2026-09-22 additive) 입력 벽시계 → KST 환산 내역
+    "appliedOffsetMin": 0,            // KST에 맞추려고 뺀 분. 0 = 변환 없음(2000년 이후 항상 0)
+    "flags": []                       // "utc+8:30" | "dst" | "ambiguous" | "nonexistent"
+  },
   "fiveElements": {
     "distribution": { "wood": 1, "fire": 4, "earth": 1, "metal": 0, "water": 2 },
     "absent": ["metal"],                                  // 부재 오행
@@ -57,6 +61,10 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - 간지 라벨: 천간 `gap,eul,byeong,jeong,mu,gi,gyeong,sin,im,gye` / 지지 `ja,chuk,in,myo,jin,sa,o,mi,sin,yu,sul,hae`.
 - 오행 키: `wood,fire,earth,metal,water`(목화토금수).
 - `supplementPriority[0]`이 **가장 먼저 보완할 오행** = 작명이 채워야 할 1순위.
+- `resolution`: 1908~1961년의 UTC+8:30 표준시 구간과 서머타임 연도(1948-51·55-60·87-88) 출생은 당시 시계값을
+  KST로 환산한 뒤 계산한다(`docs/algorithms/SOLAR_TERM_SPEC.md` «한국 시간대 이력 정규화»). 예: 1955-02-04 22:50 →
+  `appliedOffsetMin: -30, flags: ["utc+8:30"]`. `ambiguous`는 서머타임 종료일에 두 번 있던 시각(첫 번째 채택),
+  `nonexistent`는 개시일에 건너뛴 시각(전이 전 오프셋 유지). 소비자는 무시해도 되지만 표시하면 «어느 규칙으로 계산했나»가 남는다.
 
 ## 에러 형식 (4xx)
 

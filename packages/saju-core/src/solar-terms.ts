@@ -14,20 +14,20 @@ export { IPCHUN_BY_YEAR, SOLAR_MONTH_BOUNDARIES };
 
 const MAX_SOLAR_MONTH_SPAN_MINUTES = 45 * 24 * 60;
 
-export function effectiveSolarYear(dateTime: ParsedBirthDateTime): number {
+export function effectiveSolarYear(dateTime: ParsedBirthDateTime, boundaryDateSlackDays = 0): number {
   const ipchun = IPCHUN_BY_YEAR[dateTime.year];
 
   if (ipchun === undefined) {
     throw new Error(`No Ipchun boundary is available for ${dateTime.year}.`);
   }
 
-  assertKnownTimeAwayFromBoundaryDate(dateTime);
+  assertKnownTimeAwayFromBoundaryDate(dateTime, boundaryDateSlackDays);
 
   return compareLocalMinute(dateTime, ipchun) >= 0 ? dateTime.year : dateTime.year - 1;
 }
 
-export function solarMonthBoundary(dateTime: ParsedBirthDateTime): SolarMonthBoundary {
-  assertKnownTimeAwayFromBoundaryDate(dateTime);
+export function solarMonthBoundary(dateTime: ParsedBirthDateTime, boundaryDateSlackDays = 0): SolarMonthBoundary {
+  assertKnownTimeAwayFromBoundaryDate(dateTime, boundaryDateSlackDays);
 
   const boundaryIndex = findActiveBoundaryIndex(dateTime);
 
@@ -73,18 +73,32 @@ function findActiveBoundaryIndex(dateTime: ParsedBirthDateTime): number {
   return activeBoundaryIndex;
 }
 
-function assertKnownTimeAwayFromBoundaryDate(dateTime: ParsedBirthDateTime): void {
+// A time-less birth cannot be placed on a boundary date. The table is in KST;
+// when the civil clock of the day was not UTC+9 the boundary may fall on the
+// neighbouring civil date, so `boundaryDateSlackDays` widens the check.
+function assertKnownTimeAwayFromBoundaryDate(dateTime: ParsedBirthDateTime, boundaryDateSlackDays: number): void {
   if (dateTime.hour !== undefined && dateTime.minute !== undefined) {
     return;
   }
 
-  const dateKey = localDateKey(dateTime);
-  const isBoundaryDate = Object.values(IPCHUN_BY_YEAR).some((startsAt) => startsAt.startsWith(`${dateKey}T`)) ||
-    SOLAR_MONTH_BOUNDARIES.some((boundary) => boundary.startsAt.startsWith(`${dateKey}T`));
+  const dateKeys = neighbouringDateKeys(dateTime, boundaryDateSlackDays);
+  const isBoundaryDate = dateKeys.some((dateKey) =>
+    Object.values(IPCHUN_BY_YEAR).some((startsAt) => startsAt.startsWith(`${dateKey}T`)) ||
+    SOLAR_MONTH_BOUNDARIES.some((boundary) => boundary.startsAt.startsWith(`${dateKey}T`))
+  );
 
   if (isBoundaryDate) {
     throw new Error("birthTime is required on solar-term boundary dates.");
   }
+}
+
+function neighbouringDateKeys(dateTime: ParsedBirthDateTime, slackDays: number): string[] {
+  const keys: string[] = [];
+  for (let offset = -slackDays; offset <= slackDays; offset += 1) {
+    const shifted = new Date(Date.UTC(dateTime.year, dateTime.month - 1, dateTime.day + offset));
+    keys.push(localDateKey({ year: shifted.getUTCFullYear(), month: shifted.getUTCMonth() + 1, day: shifted.getUTCDate() }));
+  }
+  return keys;
 }
 
 function minutesBetween(left: string, right: string): number {
