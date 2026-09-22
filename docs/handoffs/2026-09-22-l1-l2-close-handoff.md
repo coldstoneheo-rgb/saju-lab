@@ -30,7 +30,7 @@
 | --- | --- | --- |
 | KASI 24기 표 저작권 사전 협의 | 사용자 문의 발송(09-22), 회신 대기. 부정 시 롤백 = `python scripts/generate_solar_terms_module.py --source docs/fixtures/kasi-special-days-solar-terms-2000-2028.json` + 범위 핀 테스트·카피 되돌림(#68 REPORT 「롤백 경로」) | 사용자 → LC 통보 |
 | 골든 십신표 11건 검산 | `docs/golden/GOLDEN-TENGODS.md` 전부 `pending`. LC가 전통·현대 페르소나 검산 → `confirmed`/정정값 통보 → 워커가 상태 열 기입 PR | LC |
-| 잔재 브랜치 3개 | `feat/app-gateway-keyless-proxy`(로컬·원격), `origin/feat/solar-terms-2000-2028` — 머지 완료 잔재. **미삭제**(사용자 허락 대기) | 사용자 한 마디 → 워커 |
+| 잔재 브랜치 | **정리 완료(09-23 마감 직전, 사용자 지시)**: 로컬 `feat/app-gateway-keyless-proxy`·원격 `feat/solar-terms-2000-2028`·`docs/plan-updates`(PR #2 머지, main 대비 0 커밋) 삭제. 원격 `feat/app-gateway-keyless-proxy`는 이미 없었음(stale ref). 남은 브랜치 = `main`뿐 | 완료 |
 | 웹 UX 관찰 | 23:30 출생은 경계 안내와 23시대 접힘 표가 동시에 뜸(규칙대로) — 13단계 UI에서 우선순위 결정 재료 | 회의 |
 | 절기 데이터 압축 | 웹 번들 +19.9 KB. 정수 배열 인코딩으로 회수 가능(선택) | 후속 |
 
