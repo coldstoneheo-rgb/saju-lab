@@ -1,0 +1,502 @@
+[
+ {
+  "lunar": {
+   "year": 1900,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1900-01-31",
+  "source": "KoreanLunarCalendarUnitTest#anchor — 표 기준점(음 1900-01-01 = 양 1900-01-31, KARI 만세력·usingsky 라이브러리 일치)"
+ },
+ {
+  "lunar": {
+   "year": 1957,
+   "month": 3,
+   "day": 13,
+   "isLeapMonth": false
+  },
+  "solar": "1957-04-12",
+  "source": "KoreanLunarCalendarUnitTest#anchor / ExampleRobolectricTest#1957 — 사용자 실제 가족 생일(vc19 ② 확정 골든), 일주 甲寅"
+ },
+ {
+  "lunar": {
+   "year": 1990,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1990-01-27",
+  "source": "KoreanLunarCalendarUnitTest#anchor / ExampleRobolectricTest — 설 1990(공휴일 기록)"
+ },
+ {
+  "lunar": {
+   "year": 1990,
+   "month": 12,
+   "day": 30,
+   "isLeapMonth": false
+  },
+  "solar": "1991-02-14",
+  "source": "KoreanLunarCalendarUnitTest#anchor / ExampleRobolectricTest — 1990 섣달 그믐(설 1991 전날, 공휴일 기록)"
+ },
+ {
+  "lunar": {
+   "year": 1950,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1950-02-17",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 1950,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "1950-09-26",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 1960,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1960-01-28",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 1970,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "1970-09-15",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 1980,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1980-02-16",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 1997,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1997-02-08",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록 · 1997 설 한국 2/8(중국 2/7) 공지 사례"
+ },
+ {
+  "lunar": {
+   "year": 2000,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "2000-02-05",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 2012,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "2012-01-23",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 2017,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "2017-10-04",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 2024,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "2024-02-10",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 2026,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "2026-02-17",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 2026,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "2026-09-25",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 2028,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "2028-01-27",
+  "source": "KoreanLunarCalendarUnitTest#seollal-chuseok — 설(1/1)·추석(8/15) 공휴일 공개 기록"
+ },
+ {
+  "lunar": {
+   "year": 2012,
+   "month": 3,
+   "day": 1,
+   "isLeapMonth": true
+  },
+  "solar": "2012-04-21",
+  "source": "KoreanLunarCalendarUnitTest#leap-months — 한국 윤달표(KARI), 2012 윤3월 초하루(중국은 윤4월)"
+ },
+ {
+  "lunar": {
+   "year": 2012,
+   "month": 4,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "2012-05-21",
+  "source": "KoreanLunarCalendarUnitTest#leap-months — 한국 윤달표(KARI), 평4월은 윤3월 뒤"
+ },
+ {
+  "lunar": {
+   "year": 2017,
+   "month": 5,
+   "day": 1,
+   "isLeapMonth": true
+  },
+  "solar": "2017-06-24",
+  "source": "KoreanLunarCalendarUnitTest#leap-months — 한국 윤달표(KARI), 2017 윤5월 초하루(중국은 윤6월)"
+ },
+ {
+  "lunar": {
+   "year": 2017,
+   "month": 6,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "2017-07-23",
+  "source": "KoreanLunarCalendarUnitTest#leap-months — 한국 윤달표(KARI), 평6월은 윤5월 뒤"
+ },
+ {
+  "lunar": {
+   "year": 2020,
+   "month": 4,
+   "day": 1,
+   "isLeapMonth": true
+  },
+  "solar": "2020-05-23",
+  "source": "KoreanLunarCalendarUnitTest#leap-months — 한국 윤달표(KARI), 2020 윤4월 초하루"
+ },
+ {
+  "lunar": {
+   "year": 2023,
+   "month": 2,
+   "day": 1,
+   "isLeapMonth": true
+  },
+  "solar": "2023-03-22",
+  "source": "KoreanLunarCalendarUnitTest#leap-months — 한국 윤달표(KARI), 2023 윤2월 초하루"
+ },
+ {
+  "lunar": {
+   "year": 2026,
+   "month": 9,
+   "day": 1,
+   "isLeapMonth": true
+  },
+  "solar": null,
+  "source": "KoreanLunarCalendarUnitTest#leap-months — 윤달 없는 해의 윤달 요청 = 없는 날짜(null 계약)"
+ },
+ {
+  "lunar": {
+   "year": 1899,
+   "month": 12,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": null,
+  "source": "KoreanLunarCalendarUnitTest#null-contract — 범위 밖(1900 이전)"
+ },
+ {
+  "lunar": {
+   "year": 2051,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": null,
+  "source": "KoreanLunarCalendarUnitTest#null-contract — 범위 밖(2050 이후)"
+ },
+ {
+  "lunar": {
+   "year": 2026,
+   "month": 13,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": null,
+  "source": "KoreanLunarCalendarUnitTest#null-contract — 없는 달"
+ },
+ {
+  "lunar": {
+   "year": 2026,
+   "month": 1,
+   "day": 0,
+   "isLeapMonth": false
+  },
+  "solar": null,
+  "source": "KoreanLunarCalendarUnitTest#null-contract — 0일"
+ },
+ {
+  "lunar": {
+   "year": 1973,
+   "month": 12,
+   "day": 30,
+   "isLeapMonth": false
+  },
+  "solar": null,
+  "source": "KoreanLunarCalendarUnitTest#null-contract — 1973 섣달은 한국력 29일(중국력 30일과 갈리던 달)"
+ },
+ {
+  "lunar": {
+   "year": 1955,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1955-01-24",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 설 1955; KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 乙酉"
+ },
+ {
+  "lunar": {
+   "year": 1957,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "1957-09-08",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 추석 1957 — 평8월(윤8월은 10-08); KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 癸未"
+ },
+ {
+  "lunar": {
+   "year": 1960,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "1960-10-05",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 추석 1960; KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 丙寅"
+ },
+ {
+  "lunar": {
+   "year": 1963,
+   "month": 4,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1963-04-24",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 평4월 초하루(윤4월은 05-23); KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 丁酉"
+ },
+ {
+  "lunar": {
+   "year": 1965,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1965-02-02",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 설 1965; KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 丁亥"
+ },
+ {
+  "lunar": {
+   "year": 1968,
+   "month": 7,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "1968-08-08",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 평7월 보름(윤7월은 09-07); KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 庚戌"
+ },
+ {
+  "lunar": {
+   "year": 1970,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1970-02-06",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 설 1970; KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 丁巳"
+ },
+ {
+  "lunar": {
+   "year": 1975,
+   "month": 1,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "1975-02-11",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 설 1975; KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 戊子"
+ },
+ {
+  "lunar": {
+   "year": 1976,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "1976-09-08",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 추석 1976 — 평8월(윤8월은 10-08); KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 癸亥"
+ },
+ {
+  "lunar": {
+   "year": 1980,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "1980-09-23",
+  "source": "ExampleRobolectricTest#goldens-1950-80 — 추석 1980; KARI 라이브러리 × 공휴일 기록 독립 일치, 일주 己亥"
+ },
+ {
+  "lunar": {
+   "year": 1973,
+   "month": 12,
+   "day": 29,
+   "isLeapMonth": false
+  },
+  "solar": "1974-01-22",
+  "source": "ExampleRobolectricTest#korean-chinese-divergence — 하루 차 — 계축년 섣달 전체; 옛 ICU(중국력) 값 1974-01-21은 나오면 안 됨"
+ },
+ {
+  "lunar": {
+   "year": 2026,
+   "month": 9,
+   "day": 1,
+   "isLeapMonth": false
+  },
+  "solar": "2026-10-11",
+  "source": "ExampleRobolectricTest#korean-chinese-divergence — 하루 차 — 2026 음력 9월 전체; 옛 ICU(중국력) 값 2026-10-10은 나오면 안 됨"
+ },
+ {
+  "lunar": {
+   "year": 2025,
+   "month": 6,
+   "day": 15,
+   "isLeapMonth": true
+  },
+  "solar": "2025-08-08",
+  "source": "HO-2026-0922-saju-L1-stage4-lunar-01 §1-3 — 표 산출 + 공휴일 기록 교차(2025 추석 음8/15=10-06 · 2028 추석=10-03) + data.go.kr LrsrCldInfoService/getLunCalInfo 교차(2026-09-22 saju-lab-34 조회, lunLeapmonth 일치) · 2025 윤6월 15일 → 응답 2025·06·15·윤·己酉 · https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService/getLunCalInfo?solYear=2025&solMonth=08&solDay=08&_type=json"
+ },
+ {
+  "lunar": {
+   "year": 2025,
+   "month": 6,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "2025-07-09",
+  "source": "HO-2026-0922-saju-L1-stage4-lunar-01 §1-3 — 표 산출 + 공휴일 기록 교차(2025 추석 음8/15=10-06 · 2028 추석=10-03) + data.go.kr LrsrCldInfoService/getLunCalInfo 교차(2026-09-22 saju-lab-34 조회, lunLeapmonth 일치) · 2025 평6월 15일(윤달과 다른 값) → 응답 2025·06·15·평·己卯 · https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService/getLunCalInfo?solYear=2025&solMonth=07&solDay=09&_type=json"
+ },
+ {
+  "lunar": {
+   "year": 2025,
+   "month": 6,
+   "day": 1,
+   "isLeapMonth": true
+  },
+  "solar": "2025-07-25",
+  "source": "HO-2026-0922-saju-L1-stage4-lunar-01 §1-3 — 표 산출 + 공휴일 기록 교차(2025 추석 음8/15=10-06 · 2028 추석=10-03) + data.go.kr LrsrCldInfoService/getLunCalInfo 교차(2026-09-22 saju-lab-34 조회, lunLeapmonth 일치) · 2025 윤6월 초하루 → 응답 2025·06·01·윤·乙未 · https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService/getLunCalInfo?solYear=2025&solMonth=07&solDay=25&_type=json"
+ },
+ {
+  "lunar": {
+   "year": 2028,
+   "month": 5,
+   "day": 15,
+   "isLeapMonth": true
+  },
+  "solar": "2028-07-07",
+  "source": "HO-2026-0922-saju-L1-stage4-lunar-01 §1-3 — 표 산출 + 공휴일 기록 교차(2025 추석 음8/15=10-06 · 2028 추석=10-03) + data.go.kr LrsrCldInfoService/getLunCalInfo 교차(2026-09-22 saju-lab-34 조회, lunLeapmonth 일치) · 2028 윤5월 15일 → 응답 2028·05·15·윤·癸巳 · https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService/getLunCalInfo?solYear=2028&solMonth=07&solDay=07&_type=json"
+ },
+ {
+  "lunar": {
+   "year": 2028,
+   "month": 5,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "2028-06-07",
+  "source": "HO-2026-0922-saju-L1-stage4-lunar-01 §1-3 — 표 산출 + 공휴일 기록 교차(2025 추석 음8/15=10-06 · 2028 추석=10-03) + data.go.kr LrsrCldInfoService/getLunCalInfo 교차(2026-09-22 saju-lab-34 조회, lunLeapmonth 일치) · 2028 평5월 15일(윤달과 다른 값; saju-lab 내장표 산출 06-07 일치)"
+ },
+ {
+  "lunar": {
+   "year": 2028,
+   "month": 5,
+   "day": 1,
+   "isLeapMonth": true
+  },
+  "solar": "2028-06-23",
+  "source": "HO-2026-0922-saju-L1-stage4-lunar-01 §1-3 — 표 산출 + 공휴일 기록 교차(2025 추석 음8/15=10-06 · 2028 추석=10-03) + data.go.kr LrsrCldInfoService/getLunCalInfo 교차(2026-09-22 saju-lab-34 조회, lunLeapmonth 일치) · 2028 윤5월 초하루 → 응답 2028·05·01·윤·己卯 · https://apis.data.go.kr/B090041/openapi/service/LrsrCldInfoService/getLunCalInfo?solYear=2028&solMonth=06&solDay=23&_type=json"
+ },
+ {
+  "lunar": {
+   "year": 2025,
+   "month": 7,
+   "day": 1,
+   "isLeapMonth": true
+  },
+  "solar": null,
+  "source": "HO-2026-0922-saju-L1-stage4-lunar-01 §1-3(LC 보정) · 네거티브: 2025 윤7월은 없다(윤달은 6월) → null"
+ },
+ {
+  "lunar": {
+   "year": 2025,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "2025-10-06",
+  "source": "HO §1-3 · 2025 추석(공휴일 공개 기록 10-06) — 윤6월을 건너뛴 위치 검증"
+ },
+ {
+  "lunar": {
+   "year": 2028,
+   "month": 8,
+   "day": 15,
+   "isLeapMonth": false
+  },
+  "solar": "2028-10-03",
+  "source": "HO §1-3 · 2028 추석(공휴일 공개 기록 10-03, 개천절 중복) — 윤5월을 건너뛴 위치 검증"
+ }
+]

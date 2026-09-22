@@ -1,0 +1,9 @@
+3507414e2d89d13e85ec02979772fc7f0a333fb6d97a575ccb953bda0d205107  KoreanLunarCalendar.kt DATA (151 int)
+
+# 정의: app/src/main/java/com/example/util/KoreanLunarCalendar.kt 의 `DATA` intArrayOf 151개를
+#       배열 순서대로 `0x%07X`(0x 접두, 대문자 16진 7자리) 한 줄씩 LF 로 이어 붙이고 끝에 LF 1개,
+#       UTF-8 바이트의 SHA-256. 첫 줄 0x30084BD · 끝 줄 0x30138B6.
+# 산출(리포 루트, Git Bash):
+#   python -c "import re,hashlib;s=open('app/src/main/java/com/example/util/KoreanLunarCalendar.kt',encoding='utf-8').read().split('intArrayOf(')[1].split(')')[0];d=[int(x,16) for x in re.findall(r'0x([0-9A-F]+)',s)];print(hashlib.sha256(''.join('0x%07X\\n'%v for v in d).encode()).hexdigest(),len(d))"
+# 대조: saju-lab packages/saju-core/src/lunar-calendar.data.ts 의 표 SHA-256 상수와 같아야 한다
+#       (HO-2026-0922-saju-L1-stage4-lunar-01 파트 B). saju-lab 실측값(09-22) 3507414e…5107 과 일치.

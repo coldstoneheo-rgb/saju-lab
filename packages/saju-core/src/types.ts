@@ -17,11 +17,18 @@ export interface CalculationOptions {
   dayBoundary?: DayBoundaryPolicy;
 }
 
+export type CalendarSystem = "solar" | "lunar";
+
 export interface BirthInput {
+  /** YYYY-MM-DD in the calendar named by `calendar` (Gregorian by default). */
   birthDate: string;
   birthTime?: string;
   timezone: string;
   sex: Sex;
+  /** "lunar" = Korean lunar calendar (1900..2050), converted to Gregorian before calculating. Default "solar". */
+  calendar?: CalendarSystem;
+  /** Lunar only: the date is in that year's leap month (윤달). Default false. */
+  isLeapMonth?: boolean;
   /** 시·도 code from birth-place.data.ts; defaults to "seoul". Only read when options.trueSolarTime is true. */
   birthPlace?: string;
   options?: CalculationOptions;

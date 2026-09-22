@@ -33,6 +33,17 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 | `sex` | `"male" \| "female" \| "other"` | ✅ | 성별 |
 | `contract` | `"saju-pillars-v1"` | ❌ | 있으면 무시(에코용) |
 
+## 음력 입력 (2026-09-22 additive, 4단계)
+
+```jsonc
+{ "birthDate": "2025-06-15", "calendar": "lunar", "isLeapMonth": true, "birthTime": "10:00", "sex": "female" }
+```
+
+- `calendar: "lunar"`는 한국 음력(한국천문연구원 음양력 자료, usingsky/korean_lunar_calendar MIT에서 추출한 1900~2050 표)이다. 양력으로 환산한 뒤 기존 solar 경로로 계산하고, 응답 `resolution.calendar: { input: "lunar", isLeapMonth, solarDate }`에 환산 결과를 적는다(solar 입력은 `{ input: "solar", solarDate }`).
+- `isLeapMonth`(기본 false): 그 해 윤달의 날짜. 예: 음력 2025-06-15는 평달이면 양력 2025-07-09, 윤6월이면 2025-08-08.
+- 없는 날짜(윤달이 없는 달의 윤달, 29일 달의 30일, 13월 …) = **`INVALID_LUNAR_DATE`(400)**, 근처 날짜로 흘리지 않는다. 음력 연도가 1900~2050 밖이거나 환산한 양력이 절기표(1920-01-06~) 밖이면 `OUT_OF_SUPPORTED_RANGE`. `calendar:"solar"`에 `isLeapMonth:true`를 붙이면 `INVALID_LUNAR_DATE`.
+- 종전 `UNSUPPORTED_CALENDAR`(lunar 거부)는 더 이상 발생하지 않는다(코드 목록엔 남김). 양→음 역변환은 제공하지 않는다.
+
 ## 요청 옵션 (2026-09-22 additive, 3단계)
 
 ```jsonc
@@ -70,6 +81,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
     "birthPlace": "seoul",
     "jaHourPolicy": "late",
     "dayBoundary": "midnight",
+    "calendar": { "input": "solar", "solarDate": "1990-01-01" },  // 음력 입력이면 { "input": "lunar", "isLeapMonth": …, "solarDate": … }
     "nearBoundary": [                 // 경계 명식 플래그(KST 벽시계 기준, 시각 미상이면 [])
       { "kind": "hourBranch", "minutes": 10, "direction": "after" }   // 시지 경계 [B−10, B+34]분
       // { "kind": "dayMidnight", "minutes": -20, "direction": "before" }             // 자정 ±32분
@@ -159,5 +171,5 @@ PoC 출력은 `fixture-1990`(金 부재) 골든 값과 분포·부족오행까�
 
 - `OkHttp`/`Retrofit`로 `POST .../api/saju-pillars`, JSON 본문은 위 요청 스키마.
 - `x-api-key`는 빌드 시크릿/원격 구성으로 주입(앱에 하드코딩 금지).
-- 음력 입력은 소비자 측에서 양력 변환 후 `calendar:"solar"`로 호출(v1 범위).
+- 음력 입력은 `calendar:"lunar"`로 직접 보낼 수 있다(2026-09-22). baby-naming-ai는 계속 로컬 변환 후 `calendar:"solar"`를 보내도 된다 — 변경 요구 0.
 - 응답에서 `fiveElements.supplementPriority`를 작명 보완 타깃으로 사용.

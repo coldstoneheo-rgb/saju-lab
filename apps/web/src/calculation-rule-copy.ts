@@ -20,6 +20,10 @@ export function describeCalculationRule(
 ): CalculationRuleCopy {
   const parts: string[] = [];
 
+  if (resolution.calendar.input === "lunar") {
+    parts.push(`음력${resolution.calendar.isLeapMonth ? " 윤달" : ""} 입력 → 양력 ${resolution.calendar.solarDate}`);
+  }
+
   if (resolution.appliedOffsetMin !== 0) {
     const reasons = resolution.flags
       .filter((flag) => flag === "utc+8:30" || flag === "dst")

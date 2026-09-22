@@ -107,12 +107,11 @@ describe("saju-pillars-v1 contract — validation", () => {
     }
   });
 
-  it("rejects the lunar calendar as unsupported in v1", () => {
-    const result = buildSajuPillarsV1Response({ ...base, calendar: "lunar" });
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.error.error.code).toBe("UNSUPPORTED_CALENDAR");
-      expect(result.error.error.field).toBe("calendar");
+  it("accepts the lunar calendar since stage 4 (2025 윤6월 15일 → 2025-08-08)", () => {
+    const result = buildSajuPillarsV1Response({ ...base, birthDate: "2025-06-15", calendar: "lunar", isLeapMonth: true });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.data.resolution.calendar).toEqual({ input: "lunar", isLeapMonth: true, solarDate: "2025-08-08" });
     }
   });
 

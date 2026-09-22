@@ -2,6 +2,8 @@ interface InputDraft {
   birthDate: string;
   birthTime: string;
   timeUnknown: boolean;
+  /** "lunar" skips the Gregorian existence check; the core validates the lunar date itself. */
+  calendar?: "solar" | "lunar";
 }
 
 export function validateInputDraft(input: InputDraft): string | undefined {
@@ -9,7 +11,11 @@ export function validateInputDraft(input: InputDraft): string | undefined {
     return "생년월일을 입력해 주세요. 양력 기준 YYYY-MM-DD 형식이 필요합니다.";
   }
 
-  if (!isValidDateString(input.birthDate)) {
+  if (input.calendar === "lunar") {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(input.birthDate)) {
+      return "음력 생년월일은 YYYY-MM-DD 형식으로 입력해 주세요.";
+    }
+  } else if (!isValidDateString(input.birthDate)) {
     return "생년월일을 다시 확인해 주세요. 실제 존재하는 양력 날짜만 입력할 수 있습니다.";
   }
 

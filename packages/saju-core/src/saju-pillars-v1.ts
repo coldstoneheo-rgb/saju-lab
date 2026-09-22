@@ -1,9 +1,10 @@
 import { analyzeFiveElements } from "./five-elements.js";
 import { findBirthPlace } from "./birth-place.data.js";
-import { calculatePillarsWithResolution, type CalculationResolution, type PillarsAlternates } from "./pillars.js";
+import { calculatePillarsWithResolution, LunarDateError, type CalculationResolution, type PillarsAlternates } from "./pillars.js";
 import type {
   BirthInput,
   CalculationOptions,
+  CalendarSystem,
   FiveElement,
   FiveElementDistribution,
   PillarsResult,
@@ -14,7 +15,7 @@ import type {
 export const SAJU_PILLARS_CONTRACT = "saju-pillars-v1" as const;
 export type SajuPillarsContract = typeof SAJU_PILLARS_CONTRACT;
 
-export type CalendarSystem = "solar" | "lunar";
+export type { CalendarSystem } from "./types.js";
 
 export interface SajuPillarsV1Request {
   /** Optional echo of the contract id; ignored if present. */
@@ -25,8 +26,10 @@ export interface SajuPillarsV1Request {
   birthTime?: string;
   /** When true, birthTime is ignored and only 3 pillars are produced. */
   timeUnknown?: boolean;
-  /** Calendar of birthDate. v1 supports "solar" only. */
+  /** Calendar of birthDate: "solar" (Gregorian) or "lunar" (Korean lunar, 1900..2050; 2026-09-22 additive). */
   calendar: CalendarSystem;
+  /** Lunar only: birthDate is in that year's leap month (윤달). Default false. */
+  isLeapMonth?: boolean;
   /** IANA timezone. Defaults to Asia/Seoul. */
   timezone?: string;
   sex: Sex;
@@ -77,6 +80,7 @@ export type SajuPillarsV1ErrorCode =
   | "INVALID_SEX"
   | "INVALID_BIRTH_PLACE"
   | "INVALID_OPTIONS"
+  | "INVALID_LUNAR_DATE"
   | "OUT_OF_SUPPORTED_RANGE";
 
 export interface SajuPillarsV1Error {
@@ -165,12 +169,11 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   if (body.calendar !== "solar" && body.calendar !== "lunar") {
     return failure("INVALID_CALENDAR", "calendar must be 'solar' or 'lunar'.", "calendar");
   }
-  if (body.calendar === "lunar") {
-    return failure(
-      "UNSUPPORTED_CALENDAR",
-      "saju-pillars-v1 supports the solar calendar only; convert lunar dates before calling.",
-      "calendar"
-    );
+  if (body.isLeapMonth !== undefined && typeof body.isLeapMonth !== "boolean") {
+    return failure("INVALID_LUNAR_DATE", "isLeapMonth must be a boolean.", "isLeapMonth");
+  }
+  if (body.calendar === "solar" && body.isLeapMonth === true) {
+    return failure("INVALID_LUNAR_DATE", "isLeapMonth applies to calendar 'lunar' only.", "isLeapMonth");
   }
 
   if (typeof body.birthDate !== "string" || !DATE_PATTERN.test(body.birthDate)) {
@@ -179,7 +182,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   // Format alone admits impossible dates (e.g. 2023-02-29). The engine would reject
   // them too, but catch it here so the consumer gets INVALID_BIRTH_DATE rather than a
   // misleading OUT_OF_SUPPORTED_RANGE.
-  if (!isRealCalendarDate(body.birthDate)) {
+  if (body.calendar === "solar" && !isRealCalendarDate(body.birthDate)) {
     return failure("INVALID_BIRTH_DATE", "birthDate must be a real calendar date.", "birthDate");
   }
 
@@ -231,6 +234,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
     timezone,
     sex: body.sex as Sex,
     ...(timeUnknown ? {} : { birthTime: body.birthTime as string }),
+    ...(body.calendar === "lunar" ? { calendar: "lunar" as const, isLeapMonth: body.isLeapMonth === true } : {}),
     ...(typeof body.birthPlace === "string" ? { birthPlace: body.birthPlace } : {}),
     ...(options ? { options } : {})
   };
@@ -240,7 +244,10 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   let alternates: PillarsAlternates | undefined;
   try {
     ({ pillars, resolution, alternates } = calculatePillarsWithResolution(birthInput));
-  } catch {
+  } catch (caught) {
+    if (caught instanceof LunarDateError) {
+      return failure("INVALID_LUNAR_DATE", caught.message, "birthDate");
+    }
     return failure(
       "OUT_OF_SUPPORTED_RANGE",
       "This birth date is outside the verified calculation range supported by saju-pillars-v1."
