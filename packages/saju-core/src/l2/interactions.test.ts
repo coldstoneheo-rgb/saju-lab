@@ -251,6 +251,25 @@ describe("chart level — positions, duplicates, shared, subsumption", () => {
     expect(result.branches).toHaveLength(3);
   });
 
+  it("丑戌未 complete 삼형 subsumes its partial pairs while 丑未 충 stays as a separate kind", () => {
+    const result = interactionsOfChart(chart("gap chuk", "mu sul", "im mi"));
+    expect(result.branches).toEqual([
+      { kind: "hyeong", id: "chuk-sul-mi", pillars: ["year", "month", "day"], branches: ["chuk", "sul", "mi"], complete: true, subtype: "jise", shared: false },
+      { kind: "chung", id: "chuk-mi", pillars: ["year", "day"], branches: ["chuk", "mi"], adjacent: false, shared: false }
+    ]);
+  });
+
+  it("子卯 상형 and a two-pillar 자형 are single records without complete, not shared across different pillars", () => {
+    const result = interactionsOfChart(chart("gap ja", "eul myo", "byeong jin", "mu jin"));
+    const hyeong = result.branches.filter((entry) => entry.kind === "hyeong");
+    expect(hyeong).toEqual([
+      { kind: "hyeong", id: "ja-myo", pillars: ["year", "month"], branches: ["ja", "myo"], adjacent: true, subtype: "murye", shared: false },
+      { kind: "hyeong", id: "ja-hyeong", pillars: ["day", "time"], branches: ["jin", "jin"], adjacent: true, subtype: "ja", shared: false }
+    ]);
+    // 子辰 반합 twice through the same 子 (a different kind — does not make the 형 records shared).
+    expect(result.branches.filter((entry) => entry.kind === "samhap").map((entry) => `${entry.pillars.join("-")}:${entry.shared}`)).toEqual(["year-day:true", "year-time:true"]);
+  });
+
   it("returns empty arrays with keys kept when the chart has no relation, and drops the time pillar when unknown", () => {
     expect(interactionsOfChart(chart("gap ja", "byeong in", "mu sul"))).toEqual({ stems: [], branches: [] });
     const three = interactionsOfChart(chart("gap ja", "gi o", "mu hae"));

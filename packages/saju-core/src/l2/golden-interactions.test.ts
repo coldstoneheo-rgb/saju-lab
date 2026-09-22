@@ -62,13 +62,19 @@ function render(result: ChartInteractions): Record<string, string> {
   return cells;
 }
 
-describe("GOLDEN-INTERACTIONS.md — core output for the golden charts, awaiting 검산", () => {
+describe("GOLDEN-INTERACTIONS.md — core output for the golden charts, confirmed 2026-09-22", () => {
   const rows = parseRows(readFileSync(GOLDEN_MD, "utf8"));
 
   it("covers every golden chart with a valid status and source", () => {
     expect(rows.length).toBeGreaterThanOrEqual(11);
     expect(new Set(rows.map((row) => row.id)).size).toBe(rows.length);
     for (const row of rows) expect(["pending", "confirmed"]).toContain(row.status);
+  });
+
+  it("is fully confirmed (LC 검산 2026-09-22) and every confirmed row cites the verification document", () => {
+    const confirmed = rows.filter((row) => row.status === "confirmed");
+    expect(confirmed.length).toBe(11);
+    for (const row of confirmed) expect(row.source).toContain("VERIFY-2026-0922-golden-interactions.md");
   });
 
   it.each(rows.map((row) => [row.id, row] as const))("%s matches interactionsOfChart", (_id, row) => {
