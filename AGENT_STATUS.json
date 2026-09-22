@@ -1,13 +1,13 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-23T01:30:00+09:00",
-  "head": "a1b9882",
-  "working_on": "HO-2026-0922-saju-L2-stage5-tengods-01(지장간 표 + 십신) 머지 진행 → 세션 마감 인계",
-  "waiting_on": "① 골든 십신표 11건 역술가 페르소나 검산(LC) → confirmed 기입 ② KASI 24기 표 저작권 회신",
+  "as_of": "2026-09-23T02:00:00+09:00",
+  "head": "ecd0bda",
+  "working_on": null,
+  "waiting_on": "① 6단계(합충) HO 발주서 ② 골든 십신표 11건 검산 결과(LC) ③ KASI 24기 표 저작권 회신",
   "recent": [
     {
       "at": "2026-09-22",
-      "what": "5단계(L2 첫 단계): 지장간 표 정본 md↔ts 동일성, 십신 100조합, options.include 블록, 골든 십신표 pending, 웹 십신 라벨·지장간 접힘 (HO stage5)"
+      "what": "5단계 머지 #74(ecd0bda), 라이브 C4 실측 통과, 세션 마감 인계 docs/handoffs/2026-09-22-l1-l2-close-handoff.md"
     },
     {
       "at": "2026-09-22",
@@ -27,9 +27,9 @@
     }
   ],
   "next_actions": [
-    "6단계 HO(합충) 대기 — 착수는 발주서 도착 시",
-    "골든 십신표 confirmed 통보 오면 GOLDEN-TENGODS.md 상태 열 기입 PR",
-    "선택: solar-terms.data.ts 압축, 잔재 브랜치 정리"
+    "새 세션: pull → verify → LC 핑 → 6단계 HO 대기(인계서 §4)",
+    "골든 십신표 confirmed 통보 시 상태 열 기입 PR",
+    "선택: 잔재 브랜치 3개 정리(사용자 허락 뒤), 절기 데이터 압축"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",

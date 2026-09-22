@@ -6,6 +6,22 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, 세션 마감)
+summary: 사주 회의 세션 마감 — 하루에 PR #66~#74 9건 착지(L1 로드맵 스파이크·1·2·3·4 + L2 5단계), 마감 인계서 작성
+status: shipped
+progress: "main ecd0bda · CI 초록 · 프로덕션 ecd0bda · 테스트 22→285 (근거: docs/handoffs/2026-09-22-l1-l2-close-handoff.md §1 표, 각 HO REPORT 5본)"
+changes:
+  - "docs(handoffs): 2026-09-22 L1·L2 세션 마감 인계서"
+next: "새 세션 첫 동작 = 인계서 §4 (pull·verify·LC 핑·6단계 HO 대기)"
+blockers: "KASI 저작권 회신(D10)·골든 십신표 검산·잔재 브랜치 삭제 허락 — 전부 사용자/LC 손"
+learning_need: "하루 9 PR이 가능했던 조건은 «발주서 → 첫 회신에 §6 반박 → 수용 → 착수» 왕복이 매번 10분 안에 끝났고, 완료 조건이 전부 기계 판정(명령+숫자)이었다는 것. 반박이 없던 발주는 하나도 없었고(예시 오류·게이트 정의·경로), 그 반박이 재작업을 0으로 만들었다. 다만 컨텍스트 게이지가 창에 안 보이면 «60% 규칙»을 실측으로 지킬 수 없다 — 다음 세션은 상태줄을 켜고 시작할 것."
+---
+## 의미
+회의가 요구한 «L1 명식 정확성»이 하루 만에 검증된 데이터(KASI 절기·tzdb·KARI 음력·data.go.kr 일진)로 닫혔고, L2가 십신에서 시작됐다. 다음 세션은 코드보다 «검산(역술가)·저작권 회신·6단계 발주»라는 사람 손의 입력을 기다리는 상태다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, HO-2026-0922-saju-L2-stage5-tengods-01)
 summary: L2 첫 단계 — 지장간 표(연해자평/자평진전 두 학파, md 정본↔ts 동일성 강제) + 십신 결정론(100조합 표 테스트), API include 블록, 골든 11건 십신표(검산 대기), 웹 카드 십신 라벨·지장간 접힘
 status: on_track
