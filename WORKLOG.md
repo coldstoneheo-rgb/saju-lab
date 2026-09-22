@@ -6,6 +6,23 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, HO-2026-0922-saju-L2-stage7-daeun-01)
+summary: 골든 합충표 confirmed(PR #79) + L2 7단계 대운 v1(12절·정규화 KST·분 소수·순역 4조합·10주+십신·절단·current) PR 오픈 — 새 머지 게이트로 LC 판정 대기
+status: on_track
+progress: "L2 게이지 4/8(7단계 PR 열림, 미머지) · main 60bc06c · 테스트 325→358 (근거: npm run verify exit 0, verifier PASS, docs/handoffs/HO-2026-0922-saju-L2-stage7-daeun-01-REPORT.md)"
+changes:
+  - "60bc06c docs(golden): 골든 합충표 11행 confirmed 기입 + 합성 케이스 3건 (#79)"
+  - "feat(saju-core): L2 대운 v1 — DAEUN.md ↔ 상수, daeunOf, include daeun + referenceDate, 골든 대운표 16행 pending, 웹 대운 행 (PR 7단계, 머지 대기)"
+next: "LC 「머지 가」 회신 → #7단계 스쿼시 머지 · 병행: 소급 검수 보정 PR(A1~A15·C·P2) 별도 브랜치"
+blockers: "머지 게이트(09-22 18:3x 사용자): LC 코드 검수 판정 전 머지 금지 — 7단계 PR 대기 중"
+learning_need: "발주서 사실 주장(1920-01-06~02-04 역행 = null)이 실측과 달랐다(소한이 표 첫 행). 발주서의 경계 사례는 반드시 코어로 한 번 돌려 REPORT에 정정을 남긴다."
+---
+## 의미
+대운이 «분 단위 소수 그대로»로 나와 반올림 정책을 관점층에 넘겼다 — 「대운수 N」 하나를 정답으로 못 박지 않는다는 회의 원칙이 코드에 들어간 첫 사례. 이 시점부터 머지는 LC 코드 검수 판정을 거친다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, HO-2026-0922-saju-L2-stage6-interactions-01)
 summary: 골든 십신표 11건 confirmed 기입(PR #77) + L2 6단계 합충형 v1(간합·육합·삼합·방합·충·형) 결정론·API include·골든 합충표 pending·웹 칩
 status: shipped

@@ -4,7 +4,7 @@ export * from "./terminology.js";
 export * from "./five-elements.js";
 export * from "./saju-pillars-v1.js";
 export { aiInterpretationGuard } from "./ai-interpretation-guard.js";
-export { calculatePillars, calculatePillarsWithResolution, NEAR_BOUNDARY_WINDOWS, LunarDateError, type CalculationResolution, type CalendarResolution, type NearBoundary, type NearBoundaryKind, type PillarsAlternates, type PillarsWithResolution } from "./pillars.js";
+export { calculatePillars, calculatePillarsWithResolution, resolveBirthKst, NEAR_BOUNDARY_WINDOWS, LunarDateError, type CalculationResolution, type CalendarResolution, type NearBoundary, type NearBoundaryKind, type PillarsAlternates, type PillarsWithResolution } from "./pillars.js";
 export { daysInLunarMonth, leapMonth, lunarToSolar, lunarYearDays, type LunarDate, type SolarDate } from "./lunar-calendar.js";
 export { LUNAR_MAX_YEAR, LUNAR_MIN_YEAR, LUNAR_TABLE_SHA256 } from "./lunar-calendar.data.js";
 export { BIRTH_PLACES, DEFAULT_BIRTH_PLACE, findBirthPlace, trueSolarOffsetMinutes, type BirthPlace } from "./birth-place.data.js";
@@ -16,3 +16,4 @@ export { DEFAULT_HIDDEN_STEM_SCHOOL, HIDDEN_STEM_TABLES, hiddenStemList, hiddenS
 export { TEN_GOD_LABELS, TEN_GODS, tenGodOf, tenGodsOfChart, type ChartTenGods, type HiddenStemTenGod, type PillarTenGods, type TenGod } from "./l2/ten-gods.js";
 export { BANGHAP, CHUNG, GANHAP, HYEONG, INTERACTION_TABLES, SAMHAP, YUKHAP, type BanghapRule, type BranchPairRule, type GanhapRule, type HyeongRule, type HyeongSubtype, type SamhapRule } from "./l2/interactions.data.js";
 export { HYEONG_SUBTYPE_LABELS, INTERACTION_LABELS, branchInteractions, branchPairRules, branchTripleRule, interactionsOfChart, isAdjacent, stemInteractions, stemPairRule, type BranchInteraction, type BranchInteractionKind, type ChartInteractions, type InteractionKind, type PillarKey, type StemInteraction } from "./l2/interactions.js";
+export { DAEUN_DIRECTION_TABLE, DAEUN_PERIOD_COUNT, DAEUN_TERMS, DAYS_PER_YEAR, MINUTES_PER_DAEUN_YEAR, daeunDirection, daeunOf, isDaeunUnavailable, todayKst, type DaeunBlock, type DaeunDirection, type DaeunOptions, type DaeunPeriod, type DaeunPrecision, type DaeunReading, type DaeunTermRef, type DaeunUnavailable, type SolarTermCode } from "./l2/daeun.js";

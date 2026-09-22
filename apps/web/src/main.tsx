@@ -13,7 +13,10 @@ import { buildFreeReportFilename } from "./report-filenames.js";
 import {
   BIRTH_PLACES,
   calculatePillarsWithResolution,
+  daeunOf,
   hiddenStemList,
+  isDaeunUnavailable,
+  resolveBirthKst,
   HYEONG_SUBTYPE_LABELS,
   INTERACTION_LABELS,
   interactionsOfChart,
@@ -28,6 +31,8 @@ import {
   type BranchInteraction,
   type ChartInteractions,
   type ChartTenGods,
+  type DaeunBlock,
+  type DaeunReading,
   type PaidReportV1,
   type PillarKey,
   type PillarsAlternates,
@@ -52,6 +57,8 @@ interface ReportBundle {
   alternates?: PillarsAlternates;
   tenGods: ChartTenGods;
   interactions: ChartInteractions;
+  /** null when the reference 절 is outside the solar-term table (unreachable for dates the calculator accepts). */
+  daeun: DaeunBlock | null;
 }
 
 const ALT_PILLARS_VIEWS_KEY = "saju-lab-alt-pillars-views";
@@ -242,6 +249,7 @@ function App(): JSX.Element {
           resolution={reportBundle.resolution}
           tenGods={reportBundle.tenGods}
           interactions={reportBundle.interactions}
+          daeun={reportBundle.daeun}
         />
       </section>
     </main>
@@ -327,8 +335,9 @@ function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (v
   );
 }
 
-function ReportView({ alternates, interactions, onBirthPlace, paidReport, report, resolution, tenGods }: {
+function ReportView({ alternates, daeun, interactions, onBirthPlace, paidReport, report, resolution, tenGods }: {
   alternates: PillarsAlternates | undefined;
+  daeun: DaeunBlock | null;
   interactions: ChartInteractions;
   onBirthPlace: (birthPlace: string) => void;
   paidReport: PaidReportV1;
@@ -405,6 +414,7 @@ function ReportView({ alternates, interactions, onBirthPlace, paidReport, report
       </section>
       <HiddenStemsDetails pillars={report.pillars} tenGods={tenGods} />
       <InteractionsLine interactions={interactions} />
+      <DaeunRow daeun={daeun} />
       <CalculationRuleLine alternates={alternates} onBirthPlace={onBirthPlace} resolution={resolution} />
 
       <ArticleCard id="overview" icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
@@ -686,6 +696,55 @@ function InteractionsLine({ interactions }: { interactions: ChartInteractions })
   );
 }
 
+// 대운: 계산 층 표시(7단계 v1). 분 단위 소수를 그대로 보이고 반올림하지 않는다. 성별 「기타」는 순행·역행 두 줄, 기본 없음. 통변 없음.
+const TERM_KO: Record<string, string> = {
+  ipchun: "입춘", gyeongchip: "경칩", cheongmyeong: "청명", ipha: "입하", mangjong: "망종", soseo: "소서",
+  ipchu: "입추", baengno: "백로", hallo: "한로", ipdong: "입동", daeseol: "대설", sohan: "소한"
+};
+
+function DaeunRow({ daeun }: { daeun: DaeunBlock | null }): JSX.Element {
+  if (!daeun) {
+    return <p className="daeunNote">대운 — 절기표(1920~2100) 밖이라 계산하지 않습니다.</p>;
+  }
+  const readings = [daeun.forward, daeun.backward].filter((reading): reading is DaeunReading => Boolean(reading));
+  return (
+    <div className="daeun">
+      {readings.map((reading) => (
+        <div key={reading.direction} className="daeunReading">
+          <p className="daeunHead">
+            <strong>대운{daeun.direction === "both" ? `(${reading.direction === "forward" ? "순행" : "역행"})` : ""}</strong>
+            <span>
+              {daeun.direction === "both" ? "성별 「기타」는 순행·역행을 모두 보입니다 · " : `${reading.direction === "forward" ? "순행" : "역행"} · `}
+              시작 {reading.startAgeExact.toFixed(2)}세({reading.startsAt}){daeun.precision === "time-unknown" ? " · 시각 미상 ±0.17년" : ""}
+            </span>
+          </p>
+          <ol className="daeunPeriods" aria-label={`대운 ${reading.direction === "forward" ? "순행" : "역행"}`}>
+            {reading.periods.map((period) => (
+              <li key={period.index} className={reading.current?.index === period.index ? "current" : undefined} aria-current={reading.current?.index === period.index ? "true" : undefined}>
+                <span className="daeunAge">{period.startAge.toFixed(1)}세</span>
+                <strong>{termLabel(period.stem)}{termLabel(period.branch)}</strong>
+                <em>{TEN_GOD_LABELS[period.tenGods.stem].ko}·{TEN_GOD_LABELS[period.tenGods.branchPrimary].ko}</em>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+      <details className="daeunRule">
+        <summary>대운 계산 규칙 — 순역·기준 절·거리·소수 그대로(반올림 없음)</summary>
+        <ul>
+          {readings.map((reading) => (
+            <li key={reading.direction}>
+              {reading.direction === "forward" ? "순행" : "역행"}: 기준 절 {TERM_KO[reading.referenceTerm.term] ?? reading.referenceTerm.term} {reading.referenceTerm.at.replace("T", " ")} · 거리 {reading.distanceMinutes.toLocaleString("ko-KR")}분 ÷ 4,320분(3일 = 1년) = {reading.startAgeExact}년
+              {reading.truncated ? " · 절기표 끝(2100-12-07)을 넘는 주는 표시하지 않습니다" : ""}
+            </li>
+          ))}
+          <li>출생 시각은 정규화 KST 벽시계(진태양시 미적용). 시작 나이의 반올림·버림은 정하지 않고 소수 그대로 둡니다. 기준일 {daeun.referenceDate} 현재 대운만 강조합니다.</li>
+        </ul>
+      </details>
+    </div>
+  );
+}
+
 function elementLabel(element: string): string {
   const labels: Record<string, string> = { wood: "목", fire: "화", earth: "토", metal: "금", water: "수" };
   return labels[element] ?? element;
@@ -915,8 +974,14 @@ function createReportBundle(input: BirthInput): ReportBundle {
     resolution,
     ...(alternates ? { alternates } : {}),
     tenGods: tenGodsOfChart(pillars),
-    interactions: interactionsOfChart(pillars)
+    interactions: interactionsOfChart(pillars),
+    daeun: daeunBlock(pillars, input)
   };
+}
+
+function daeunBlock(pillars: ReportV1["pillars"], input: BirthInput): DaeunBlock | null {
+  const result = daeunOf(pillars, resolveBirthKst(input), input.sex);
+  return isDaeunUnavailable(result) ? null : result;
 }
 
 function readThemePreference(): ThemePreference {

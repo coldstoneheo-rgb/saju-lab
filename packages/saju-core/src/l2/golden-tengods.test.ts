@@ -132,7 +132,7 @@ describe("saju-pillars-v1 — options.include", () => {
   });
 
   it("rejects an unknown include block or school", () => {
-    const bad = buildSajuPillarsV1Response({ ...base, options: { include: ["daeun"] } as never });
+    const bad = buildSajuPillarsV1Response({ ...base, options: { include: ["sinsal"] } as never }); // 신살 is not a block (daeun became one in stage 6→7)
     expect(bad.ok).toBe(false);
     if (!bad.ok) expect(bad.error.error.code).toBe("INVALID_OPTIONS");
     const badSchool = buildSajuPillarsV1Response({ ...base, options: { hiddenStemSchool: "sammyeong" } as never });

@@ -1,10 +1,18 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-22T16:30:00+09:00",
-  "head": "4000671",
-  "working_on": "6단계 합충형 v1 PR(feat/l2-stage6-interactions) — CI·머지 대기",
-  "waiting_on": "① 골든 합충표 11건 검산 결과(LC 페르소나) ② 7단계(대운) HO 발주서 ③ KASI 24기 표 저작권 회신",
+  "as_of": "2026-09-22T20:30:00+09:00",
+  "head": "60bc06c",
+  "working_on": "7단계 대운 v1 PR(feat/l2-stage7-daeun) LC 판정 대기 · 소급 검수 보정 PR(A1~A15·C·P2) 착수",
+  "waiting_on": "① 7단계 PR LC 「머지 가」 ② 골든 대운표 16행 검산 ③ 만세력 대운수 교차 3건(사용자 표본) ④ KASI 저작권 회신",
   "recent": [
+    {
+      "at": "2026-09-22",
+      "what": "7단계 대운 v1: DAEUN.md ↔ 상수, daeunOf(분 소수·순역·10주+십신·절단·current), include daeun+referenceDate, 골든 대운표 16행 pending, 웹 대운 행, 스크린샷 3장. PR 오픈, 머지 게이트 대기 (HO stage7 REPORT draft)"
+    },
+    {
+      "at": "2026-09-22",
+      "what": "골든 합충표 confirmed PR #79(60bc06c) + 합성 케이스 3건"
+    },
     {
       "at": "2026-09-22",
       "what": "6단계 합충형 v1: INTERACTIONS.md 정본 ↔ data 동일성, interactionsOfChart(간합·육합·삼합·방합·충·형, 인접 비억제·포섭·shared), include interactions, 골든 합충표 pending 11건, 웹 칩+접힘, 스크린샷 3장 (HO stage6 REPORT)"
@@ -16,24 +24,16 @@
     {
       "at": "2026-09-22",
       "what": "5단계 머지 #74(ecd0bda), 라이브 C4 실측 통과, 세션 마감 인계 docs/handoffs/2026-09-22-l1-l2-close-handoff.md"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "4단계: 음력 입력 승격 — KARI 표 TS 이식(54,779일 전수 대조 0), calendar:lunar+isLeapMonth, INVALID_LUNAR_DATE, 웹 음력/윤달 입력, 공유 골든 50건 (HO stage4)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "3단계 PR 2: 웹 명식 아래 계산 규칙 1줄 + 경계 시 시·도 선택 로컬 재계산 + 23시대 접힘 참고 명식 + 스크린샷 4장 (HO stage3)"
     }
   ],
   "next_actions": [
-    "6단계 PR CI 초록 → 스쿼시 머지 → main 동기화 → LC REPORT",
-    "골든 합충표 검산 결과 통보 시 confirmed 기입 PR",
-    "7단계(대운) HO 대기. 8단계 입력(십신 집계·투간·득령득지득세)은 착수 금지(LC 지시)"
+    "LC 「머지 가」 → 7단계 PR 스쿼시 머지 → main 동기화 → 라이브 C4 → 머지 SHA REPORT",
+    "소급 검수 보정 PR: A1~A15 + C + P2(골든 파서 출생지·옵션 열) — 별도 브랜치, 머지 게이트 적용",
+    "09-23: 골든 보강 TASK(≥50)·교차 구현 차분 HO 대기. 8단계 입력 착수 금지"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
-    "value": 3,
+    "value": 4,
     "max": 8
   },
   "detail_page": null

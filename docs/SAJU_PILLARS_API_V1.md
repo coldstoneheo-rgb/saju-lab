@@ -51,7 +51,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
   "options": { "include": ["hiddenStems", "tenGods"], "hiddenStemSchool": "yeonhae" } }
 ```
 
-- `options.include`에 적은 블록만 응답에 붙는다(`hiddenStems` · `tenGods` · `interactions`). 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
+- `options.include`에 적은 블록만 응답에 붙는다(`hiddenStems` · `tenGods` · `interactions` · `daeun`). 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
 - `hiddenStems: { school, year, month, day, time? }` — 기둥별 `{ residual, middle, primary }`(각 `{ stem, days }` 또는 null). 표 정본 `docs/rules/HIDDEN-STEMS.md`. `days`는 『연해자평』 월률분야 일수를 **데이터로만** 싣는다(가중 계산 없음). `hiddenStemSchool: "japyeong"`(『자평진전』 인원용사)이면 `days`가 null이고 子·卯·酉는 정기만, 亥는 戊 없음.
 - `tenGods: { dayMaster, school, year, month, day, time? }` — 기둥별 `{ stem?, branchPrimary, branchAll[] }`. `stem` = 그 기둥 천간의 십신(일주엔 없음 — 일간 자신), `branchPrimary` = 지지 정기의 십신, `branchAll` = 여기→중기→정기 각 `{ role, stem, tenGod }`.
 
@@ -100,6 +100,30 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 **v1 제외**: 파(破)·해(害)(v1.1) · 천간충(십신 편관이 표현) · 방합 반합·삼합 공협(교재 갈림) · 化 성립 판정(해석층) · 길흉·강약 가중(8단계) · 대운·세운과의 합충(7단계 이후) · 신살 · 격국.
 
 예(g-1988-10-09-0230, 戊辰 壬戌 丁酉 辛丑): 간합 丁壬(월·일, 화기 wood) · 육합 辰酉(연·일) · 반합 酉丑(일·시, metal) · 충 辰戌(연·월) · 부분 형 戌丑(월·시, jise). 골든 11건 합충표는 `docs/golden/GOLDEN-INTERACTIONS.md`(LC 검산 2026-09-22 `confirmed`).
+
+## 대운 블록 — 대운(大運) v1 (2026-09-22 additive, 7단계)
+
+```jsonc
+{ "birthDate": "1988-10-09", "birthTime": "02:30", "calendar": "solar", "sex": "male",
+  "options": { "include": ["daeun"], "referenceDate": "2026-09-22" } }
+```
+
+- `daeun: { precision, school, direction, referenceDate, forward?, backward? }`. 산식 정본 `docs/rules/DAEUN.md`. 코어는 **분 단위 소수**를 그대로 내고 반올림·버림(「대운수 N」)은 하지 않는다 — 관점·UI 몫.
+- `direction`: `"forward"` | `"backward"` | `"both"`. 연간 양(甲丙戊庚壬)·남 = 순행, 양·여 = 역행, 음·남 = 역행, 음·여 = 순행. `sex: "other"`는 `"both"` — `forward`·`backward` 두 벌을 모두 싣고 기본 표시는 없다(관점층 결정). 남/여는 해당 키 하나만.
+- `precision`: `"exact"` | `"time-unknown"`(시각 미상은 정오 대체, ±12h = ±0.17년).
+- `referenceDate`: `current` 판정에 쓴 KST 날짜. `options.referenceDate`(YYYY-MM-DD) 없으면 요청 처리일 KST(→ 이 블록을 요청하면 응답이 날짜에 따라 달라진다).
+- 각 reading(`forward`/`backward`):
+  - `distanceMinutes` = 출생(정규화 KST 벽시계, 진태양시 미적용)과 기준 절 사이 정수 분. 순행 = 출생보다 엄격히 뒤인 첫 절, 역행 = 출생 이하인 마지막 절. 절입 동시각 출생은 순행 D ≈ 30일, 역행 D = 0.
+  - `startAgeExact` = D ÷ 4320(3일 = 1년), 소수 그대로 · `startsAt` = 출생 + startAgeExact × 365.2425일(KST 날짜) · `years`·`months` = 년·개월 분해(개월 버림, 데이터 필드).
+  - `terms: { from: {term, at}, to: {term, at} }` = 출생 이하 마지막 절 · 출생 뒤 첫 절 · `referenceTerm` = 그중 거리를 잰 절. 절 코드는 12절만(`ipchun gyeongchip cheongmyeong ipha mangjong soseo ipchu baengno hallo ipdong daeseol sohan`).
+  - `periods[]` 10주(`index` 0~9): `{ stem, branch, tenGods: { stem, branchPrimary }, startAge, startsAt, endsAt }`. 간지는 월주에서 순행 +1·역행 −1씩. `tenGods`는 일간 기준 천간 십신 + 지지 정기 십신(`hiddenStemSchool`, 기본 `yeonhae`) — 데이터 동봉. `endsAt` = 다음 주 `startsAt` − 1일.
+  - `truncated`: 주의 `startsAt`이 절기표 끝(2100-12-07)을 넘으면 그 주부터 빠지고 true(2010년대 출생은 9주, 2020년대는 7~8주).
+  - `current: { index, startsAt, endsAt } | null` = `referenceDate`가 속한 주. 첫 주 시작 전이면 null.
+- 기준 절이 절기표 밖이면 `daeun: null` + `daeunReason: "OUT_OF_SOLAR_TERM_TABLE"`(에러 아님, 다른 블록 정상). 계산 범위 안의 생년월일에서는 도달하지 않는다(표 첫 행 소한 1920-01-06이 최초 역행 기준이 됨).
+
+예(g-1988-10-09-0230, 戊辰 壬戌 丁酉 辛丑 男): 순행, 기준 절 입동 1988-11-07 13:49, D = 42,499분, startAgeExact = 9.8377…, 첫 대운 癸亥(편관·정관) → 甲子 … 壬申. 골든 11건(16행) 대운표는 `docs/golden/GOLDEN-DAEUN.md`(역술가 검산 대기 `pending`).
+
+**v1 제외**: 세운·월운 · 대운수 반올림/버림 확정 · 대운↔원국 합충(v1.1 `include: "daeunInteractions"` 후보) · 절입 거리 진태양시 · 강약·용신·격국.
 
 ## 요청 옵션 (2026-09-22 additive, 3단계)
 

@@ -159,6 +159,17 @@ export function calculatePillars(input: BirthInput): PillarsResult {
   return calculatePillarsWithResolution(input).pillars;
 }
 
+/**
+ * The normalized KST wall clock the pillars are calculated from (lunar → solar,
+ * UTC+8:30 / summer-time history applied, 진태양시 not applied). Time-less input
+ * keeps hour/minute undefined. Used by L2 blocks that measure from the birth
+ * instant (대운 절입 거리).
+ */
+export function resolveBirthKst(input: BirthInput): ParsedBirthDateTime {
+  const { solarInput } = resolveCalendar(input);
+  return normalizeToKstWallClock(parseBirthDateTime(solarInput)).kst;
+}
+
 function timeKnown(value: ParsedBirthDateTime): value is ParsedBirthDateTime & { hour: number; minute: number } {
   return value.hour !== undefined && value.minute !== undefined;
 }
