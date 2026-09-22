@@ -60,7 +60,7 @@ function render(pillar: PillarTenGods | undefined): { stem: string; branchPrimar
     : undefined;
 }
 
-describe("GOLDEN-TENGODS.md — core output for the golden charts, awaiting 검산", () => {
+describe("GOLDEN-TENGODS.md — core output for the golden charts, confirmed 2026-09-22", () => {
   const rows = parseRows(readFileSync(GOLDEN_MD, "utf8"));
 
   it("covers every golden chart with a valid status and source", () => {
@@ -74,10 +74,35 @@ describe("GOLDEN-TENGODS.md — core output for the golden charts, awaiting 검�
     }
   });
 
-  it.each(rows.map((row) => [row.id, row] as const))("%s matches tenGodsOfChart (status: %s)", (_id, row) => {
+  it("is fully confirmed (LC 검산 2026-09-22) and every confirmed row cites the verification document", () => {
+    const confirmed = rows.filter((row) => row.status === "confirmed");
+    expect(confirmed.length).toBe(11);
+    for (const row of confirmed) expect(row.source).toContain("VERIFY-2026-0922-golden-tengods.md");
+  });
+
+  it.each(rows.map((row) => [row.id, row] as const))("%s matches tenGodsOfChart under the default school (yeonhae)", (_id, row) => {
     const chart = tenGodsOfChart(calculatePillars(goldenCase(row.id).input));
     expect(chart.dayMaster).toBe(row.dayMaster);
     expect({ year: render(chart.year), month: render(chart.month), day: render(chart.day), time: render(chart.time) }).toEqual(row.pillars);
+  });
+
+  it("is school-specific: a japyeong run is NOT a core regression — it differs from the table in exactly the 20 measured 장간 cells", () => {
+    // Guard against the parser ever being pointed at a non-default school: the table is fixed under yeonhae.
+    let differing = 0;
+    for (const row of rows) {
+      const chart = tenGodsOfChart(calculatePillars(goldenCase(row.id).input), "japyeong");
+      const rendered = { year: render(chart.year), month: render(chart.month), day: render(chart.day), time: render(chart.time) };
+      for (const key of ["year", "month", "day", "time"] as const) {
+        const expected = row.pillars[key];
+        const actual = rendered[key];
+        if (!expected || !actual) continue;
+        // Only the 장간 list moves between schools; stem and 정기 ten gods are school-independent.
+        expect(actual.stem).toBe(expected.stem);
+        expect(actual.branchPrimary).toBe(expected.branchPrimary);
+        if (actual.branchAll !== expected.branchAll) differing += 1;
+      }
+    }
+    expect(differing).toBe(20);
   });
 });
 
