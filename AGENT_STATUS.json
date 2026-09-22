@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-23T00:30:00+09:00",
-  "head": "77cfa0a",
-  "working_on": "HO-2026-0922-saju-L1-stage4-lunar-01 파트 B(음력 입력 승격) 머지 진행",
-  "waiting_on": "KASI 24기 표 저작권 사전 협의 회신(사용자 발송)",
+  "as_of": "2026-09-23T01:30:00+09:00",
+  "head": "a1b9882",
+  "working_on": "HO-2026-0922-saju-L2-stage5-tengods-01(지장간 표 + 십신) 머지 진행 → 세션 마감 인계",
+  "waiting_on": "① 골든 십신표 11건 역술가 페르소나 검산(LC) → confirmed 기입 ② KASI 24기 표 저작권 회신",
   "recent": [
+    {
+      "at": "2026-09-22",
+      "what": "5단계(L2 첫 단계): 지장간 표 정본 md↔ts 동일성, 십신 100조합, options.include 블록, 골든 십신표 pending, 웹 십신 라벨·지장간 접힘 (HO stage5)"
+    },
     {
       "at": "2026-09-22",
       "what": "4단계: 음력 입력 승격 — KARI 표 TS 이식(54,779일 전수 대조 0), calendar:lunar+isLeapMonth, INVALID_LUNAR_DATE, 웹 음력/윤달 입력, 공유 골든 50건 (HO stage4)"
@@ -20,20 +24,17 @@
     {
       "at": "2026-09-22",
       "what": "골든 명식 표 정본화 — docs/golden/GOLDEN-PILLARS.md 11건(출처: KASI 24기 표 + data.go.kr lunIljin), md 직접 파싱 테스트, fixtures.ts 폐기 (HO stage12 PR 1)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "시간대 이력 정규화 — UTC+8:30 구간·서머타임 12연도 환산, resolution 응답 필드, 28전이 Intl 대조 (HO stage12 PR 2)"
     }
   ],
   "next_actions": [
-    "다음 HO 대기(L2 지장간·십신·대운 등)",
-    "선택: solar-terms.data.ts 압축(+19.9KB), HTML 내보내기에 resolution 포함, 잔재 브랜치 정리"
+    "6단계 HO(합충) 대기 — 착수는 발주서 도착 시",
+    "골든 십신표 confirmed 통보 오면 GOLDEN-TENGODS.md 상태 열 기입 PR",
+    "선택: solar-terms.data.ts 압축, 잔재 브랜치 정리"
   ],
   "gauge": {
-    "label": "L1 로드맵 단계(스파이크·1·2·3·4)",
-    "value": 5,
-    "max": 5
+    "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
+    "value": 2,
+    "max": 8
   },
   "detail_page": null
 }

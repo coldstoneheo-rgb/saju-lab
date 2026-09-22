@@ -13,12 +13,16 @@ import { buildFreeReportFilename } from "./report-filenames.js";
 import {
   BIRTH_PLACES,
   calculatePillarsWithResolution,
+  hiddenStemList,
   leapMonth,
+  TEN_GOD_LABELS,
+  tenGodsOfChart,
   generatePaidReportV1,
   generateReportV1,
   getSajuTerm,
   type BirthInput,
   type CalculationResolution,
+  type ChartTenGods,
   type PaidReportV1,
   type PillarsAlternates,
   type ReportV1,
@@ -40,6 +44,7 @@ interface ReportBundle {
   paidReport: PaidReportV1;
   resolution: CalculationResolution;
   alternates?: PillarsAlternates;
+  tenGods: ChartTenGods;
 }
 
 const ALT_PILLARS_VIEWS_KEY = "saju-lab-alt-pillars-views";
@@ -228,6 +233,7 @@ function App(): JSX.Element {
           paidReport={paidReport}
           report={report}
           resolution={reportBundle.resolution}
+          tenGods={reportBundle.tenGods}
         />
       </section>
     </main>
@@ -313,12 +319,13 @@ function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (v
   );
 }
 
-function ReportView({ alternates, onBirthPlace, paidReport, report, resolution }: {
+function ReportView({ alternates, onBirthPlace, paidReport, report, resolution, tenGods }: {
   alternates: PillarsAlternates | undefined;
   onBirthPlace: (birthPlace: string) => void;
   paidReport: PaidReportV1;
   report: ReportV1;
   resolution: CalculationResolution;
+  tenGods: ChartTenGods;
 }): JSX.Element {
   const freeSummary = buildFreeMonthlySummary(report);
   const [exportStatus, setExportStatus] = React.useState<string | undefined>();
@@ -382,11 +389,12 @@ function ReportView({ alternates, onBirthPlace, paidReport, report, resolution }
       </section>
 
       <section className="pillarGrid" aria-label="사주 구조">
-        <PillarCell termKey="yearPillar" value={report.pillars.year} />
-        <PillarCell termKey="monthPillar" value={report.pillars.month} />
-        <PillarCell termKey="dayPillar" value={report.pillars.day} />
-        <PillarCell termKey="timePillar" value={report.pillars.time} />
+        <PillarCell termKey="yearPillar" tenGods={tenGods.year} value={report.pillars.year} />
+        <PillarCell termKey="monthPillar" tenGods={tenGods.month} value={report.pillars.month} />
+        <PillarCell termKey="dayPillar" tenGods={tenGods.day} value={report.pillars.day} />
+        <PillarCell termKey="timePillar" tenGods={tenGods.time} value={report.pillars.time} />
       </section>
+      <HiddenStemsDetails pillars={report.pillars} tenGods={tenGods} />
       <CalculationRuleLine alternates={alternates} onBirthPlace={onBirthPlace} resolution={resolution} />
 
       <ArticleCard id="overview" icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
@@ -536,16 +544,67 @@ function countAlternateView(): void {
   }
 }
 
-function PillarCell({ termKey, value }: { termKey: SajuTermKey; value: { stem: string; branch: string } | undefined }): JSX.Element {
+function PillarCell({ termKey, tenGods, value }: {
+  termKey: SajuTermKey;
+  tenGods: ChartTenGods["year"] | undefined;
+  value: { stem: string; branch: string } | undefined;
+}): JSX.Element {
   const term = getSajuTerm(termKey);
+  // 계산 층의 라벨이지 해석이 아니다: 천간 십신(일간 자신은 「일간」) · 지지 정기 십신.
+  const tenGodLine = value && tenGods
+    ? `${tenGods.stem ? TEN_GOD_LABELS[tenGods.stem].ko : "일간"} · ${TEN_GOD_LABELS[tenGods.branchPrimary].ko}`
+    : undefined;
 
   return (
     <div className="pillarCell">
       <span>{term.label}</span>
       <strong>{value ? `${termLabel(value.stem)} ${termLabel(value.branch)}` : "미상"}</strong>
+      {tenGodLine ? <em className="tenGodLine" aria-label="십신">{tenGodLine}</em> : null}
       <p>{term.short}</p>
       <small>{term.description}</small>
     </div>
+  );
+}
+
+// 지장간: 계산 층 표시(회의 A2-6 「계산과 해석의 경계를 본다」). 접힘 표만, 통변 없음.
+function HiddenStemsDetails({ pillars, tenGods }: { pillars: ReportV1["pillars"]; tenGods: ChartTenGods }): JSX.Element {
+  const slots: Array<{ label: string; branch: string | undefined; gods: ChartTenGods["year"] | undefined }> = [
+    { label: "연지", branch: pillars.year.branch, gods: tenGods.year },
+    { label: "월지", branch: pillars.month.branch, gods: tenGods.month },
+    { label: "일지", branch: pillars.day.branch, gods: tenGods.day },
+    { label: "시지", branch: pillars.time?.branch, gods: tenGods.time }
+  ];
+  const roleLabel = { residual: "여기", middle: "중기", primary: "정기" } as const;
+
+  return (
+    <details className="hiddenStems">
+      <summary>지장간 보기 — 지지 속 천간과 각각의 십신(연해자평 월률분야, 일수는 참고값)</summary>
+      <table>
+        <thead>
+          <tr><th>지지</th><th>여기</th><th>중기</th><th>정기</th></tr>
+        </thead>
+        <tbody>
+          {slots.map((slot) => {
+            if (!slot.branch || !slot.gods) return null;
+            const list = hiddenStemList(slot.branch as Parameters<typeof hiddenStemList>[0]);
+            const cell = (role: "residual" | "middle" | "primary"): string => {
+              const entry = list.find((item) => item.role === role);
+              const god = slot.gods?.branchAll.find((item) => item.role === role);
+              return entry && god ? `${termLabel(entry.stem)} ${TEN_GOD_LABELS[god.tenGod].ko}${entry.days ? ` (${entry.days}일)` : ""}` : "-";
+            };
+            return (
+              <tr key={slot.label}>
+                <th>{slot.label} {termLabel(slot.branch)}</th>
+                <td>{cell("residual")}</td>
+                <td>{cell("middle")}</td>
+                <td>{cell("primary")}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <p>{Object.values(roleLabel).join("·")} 순서는 지지 안에서 기운이 드러나는 차례를 뜻합니다. 가중 계산은 하지 않습니다.</p>
+    </details>
   );
 }
 
@@ -771,7 +830,8 @@ function createReportBundle(input: BirthInput): ReportBundle {
     report: generateReportV1(reportInput),
     paidReport: generatePaidReportV1(reportInput),
     resolution,
-    ...(alternates ? { alternates } : {})
+    ...(alternates ? { alternates } : {}),
+    tenGods: tenGodsOfChart(pillars)
   };
 }
 

@@ -44,6 +44,32 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - 없는 날짜(윤달이 없는 달의 윤달, 29일 달의 30일, 13월 …) = **`INVALID_LUNAR_DATE`(400)**, 근처 날짜로 흘리지 않는다. 음력 연도가 1900~2050 밖이거나 환산한 양력이 절기표(1920-01-06~) 밖이면 `OUT_OF_SUPPORTED_RANGE`. `calendar:"solar"`에 `isLeapMonth:true`를 붙이면 `INVALID_LUNAR_DATE`.
 - 종전 `UNSUPPORTED_CALENDAR`(lunar 거부)는 더 이상 발생하지 않는다(코드 목록엔 남김). 양→음 역변환은 제공하지 않는다.
 
+## L2 블록 — 지장간·십신 (2026-09-22 additive, 5단계)
+
+```jsonc
+{ "birthDate": "1990-01-01", "birthTime": "10:30", "calendar": "solar", "sex": "other",
+  "options": { "include": ["hiddenStems", "tenGods"], "hiddenStemSchool": "yeonhae" } }
+```
+
+- `options.include`에 적은 블록만 응답에 붙는다. 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
+- `hiddenStems: { school, year, month, day, time? }` — 기둥별 `{ residual, middle, primary }`(각 `{ stem, days }` 또는 null). 표 정본 `docs/rules/HIDDEN-STEMS.md`. `days`는 『연해자평』 월률분야 일수를 **데이터로만** 싣는다(가중 계산 없음). `hiddenStemSchool: "japyeong"`(『자평진전』 인원용사)이면 `days`가 null이고 子·卯·酉는 정기만, 亥는 戊 없음.
+- `tenGods: { dayMaster, school, year, month, day, time? }` — 기둥별 `{ stem?, branchPrimary, branchAll[] }`. `stem` = 그 기둥 천간의 십신(일주엔 없음 — 일간 자신), `branchPrimary` = 지지 정기의 십신, `branchAll` = 여기→중기→정기 각 `{ role, stem, tenGod }`.
+
+| 코드 | 한글 | 한자 | 정의(일간 기준) |
+| --- | --- | --- | --- |
+| `bigyeon` | 비견 | 比肩 | 같은 오행, 같은 음양 |
+| `geopjae` | 겁재 | 劫財 | 같은 오행, 다른 음양 |
+| `siksin` | 식신 | 食神 | 내가 생하는 오행, 같은 음양 |
+| `sanggwan` | 상관 | 傷官 | 내가 생하는 오행, 다른 음양 |
+| `pyeonjae` | 편재 | 偏財 | 내가 극하는 오행, 같은 음양 |
+| `jeongjae` | 정재 | 正財 | 내가 극하는 오행, 다른 음양 |
+| `pyeongwan` | 편관 | 偏官 | 나를 극하는 오행, 같은 음양 |
+| `jeonggwan` | 정관 | 正官 | 나를 극하는 오행, 다른 음양 |
+| `pyeonin` | 편인 | 偏印 | 나를 생하는 오행, 같은 음양 |
+| `jeongin` | 정인 | 正印 | 나를 생하는 오행, 다른 음양 |
+
+예: 甲 일간 → 甲비견 乙겁재 丙식신 丁상관 戊편재 己정재 庚편관 辛정관 壬편인 癸정인. 이 값은 계산 층의 구조 코드이며 해석이 아니다. 골든 11건의 십신표는 `docs/golden/GOLDEN-TENGODS.md`(역술가 검산 대기 `pending`).
+
 ## 요청 옵션 (2026-09-22 additive, 3단계)
 
 ```jsonc

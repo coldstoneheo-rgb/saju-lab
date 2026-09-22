@@ -12,3 +12,5 @@ export { normalizeToKstWallClock, type BirthTimeFlag, type BirthTimeResolution, 
 export { KOREA_OFFSET_INTERVALS, type KoreaOffsetInterval, type KoreaOffsetKind } from "./timezone-history.data.js";
 export { generateReportV1 } from "./report.js";
 export { generatePaidReportV1 } from "./paid-report.js";
+export { DEFAULT_HIDDEN_STEM_SCHOOL, HIDDEN_STEM_TABLES, hiddenStemList, hiddenStemsOf, type HiddenStemEntry, type HiddenStemSchool, type HiddenStems } from "./l2/hidden-stems.data.js";
+export { TEN_GOD_LABELS, TEN_GODS, tenGodOf, tenGodsOfChart, type ChartTenGods, type HiddenStemTenGod, type PillarTenGods, type TenGod } from "./l2/ten-gods.js";

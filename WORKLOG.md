@@ -6,6 +6,21 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, HO-2026-0922-saju-L2-stage5-tengods-01)
+summary: L2 첫 단계 — 지장간 표(연해자평/자평진전 두 학파, md 정본↔ts 동일성 강제) + 십신 결정론(100조합 표 테스트), API include 블록, 골든 11건 십신표(검산 대기), 웹 카드 십신 라벨·지장간 접힘
+status: on_track
+progress: "5단계 C1·C2·C3·C5·C6 완료, C4는 머지·배포 후 keyless 실측(근거: docs/handoffs/HO-2026-0922-saju-L2-stage5-tengods-01-REPORT.md · verify exit 0 테스트 285 · 스크린샷 2장). L2 게이지 2/8."
+changes:
+  - "feat(saju-core): L2 지장간 표 + 십신 결정론 + options.include 블록 + 웹 라벨 (HO-2026-0922-saju-L2-stage5-tengods-01)"
+next: "골든 십신표 검산(LC 페르소나) → confirmed 기입 PR · 6단계(합충) HO 대기"
+learning_need: "십신처럼 «표 함수»인 것은 검산 라운드보다 «규칙 문장을 먼저 고정»하는 게 핵심이었다 — 동음양=비견/식신/편재/편관/편인 다섯 줄이 코드·문서·골든표를 한 번에 결정했고, 100조합 표는 그 문장의 전개일 뿐이다. 반면 지장간은 표 자체가 학파로 갈리므로 «칸별 불리언»이 아니라 «이름 있는 학파»로 노출해야 관점층이 고를 수 있다."
+---
+## 의미
+회의 A2-1·F3 «코어는 천간·순서만, 일수는 데이터, 가중 없음»이 코드가 됐고, 사용자 화면이 처음으로 명식 너머의 구조(십신)를 «계산 층 라벨»로 보여 준다 — 해석은 아직 없다(A2-6 경계). 골든 십신표 11건은 역술가 검산의 착지점이며, 이 검산이 L2의 첫 외부 검증이다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage4-lunar-01 파트 B)
 summary: 음력 입력을 saju-core로 승격 — baby의 KARI 음양력 표(1900~2050)를 TS로 이식(전수 대조 54,779일 불일치 0), calendar:"lunar"+isLeapMonth 계약, 없는 날짜는 INVALID_LUNAR_DATE, 웹 음력/윤달 입력
 status: shipped

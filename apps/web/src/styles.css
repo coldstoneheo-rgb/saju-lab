@@ -1033,3 +1033,37 @@ input {
   margin: 0;
   flex: none;
 }
+
+/* 십신 라벨·지장간 접힘 (5단계): 계산 층 표시 */
+.pillarCell .tenGodLine {
+  display: block;
+  font-style: normal;
+  font-size: 0.8rem;
+  opacity: 0.85;
+  margin: 0.15rem 0 0.35rem;
+}
+
+.hiddenStems {
+  font-size: 0.86rem;
+  color: var(--muted, #5b6472);
+}
+
+.hiddenStems summary {
+  cursor: pointer;
+}
+
+.hiddenStems table {
+  margin-top: 0.5rem;
+  border-collapse: collapse;
+}
+
+.hiddenStems th,
+.hiddenStems td {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border, #d9dee5);
+  text-align: center;
+}
+
+.hiddenStems p {
+  margin: 0.4rem 0 0;
+}
