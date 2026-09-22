@@ -111,7 +111,7 @@ describe("saju-pillars-v1 contract — validation", () => {
     const result = buildSajuPillarsV1Response({ ...base, birthDate: "2025-06-15", calendar: "lunar", isLeapMonth: true });
     expect(result.ok).toBe(true);
     if (result.ok) {
-      expect(result.data.resolution.calendar).toEqual({ input: "lunar", isLeapMonth: true, solarDate: "2025-08-08" });
+      expect(result.data.resolution.calendar).toEqual({ input: "lunar", isLeapMonth: true, solarDate: "2025-08-08", kstDate: "2025-08-08" });
     }
   });
 

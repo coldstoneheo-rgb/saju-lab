@@ -3,61 +3,13 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { BRANCHES, STEMS, type Branch, type Stem } from "../cycle.js";
-import { HIDDEN_STEM_TABLES, hiddenStemList, hiddenStemsOf, type HiddenStemSchool, type HiddenStems } from "./hidden-stems.data.js";
+import { HIDDEN_STEM_TABLES, hiddenStemList, hiddenStemsOf, type HiddenStemSchool } from "./hidden-stems.data.js";
+import { loadHiddenStemTables } from "./hidden-stems-rules.load.js";
 import { TEN_GODS, tenGodOf, tenGodsOfChart, type TenGod } from "./ten-gods.js";
 
-const RULES_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../docs/rules/HIDDEN-STEMS.md");
-
-/** Parse "## 표 N — `school` …" sections; columns matched by header name. */
-function parseHiddenStemTables(markdown: string): Record<string, Record<Branch, HiddenStems>> {
-  const tables: Record<string, Record<Branch, HiddenStems>> = {};
-  const lines = markdown.split(/\r?\n/);
-  let school: string | undefined;
-  let columns: string[] | undefined;
-
-  for (const line of lines) {
-    const heading = /^## 표 \d+ — `(\w+)`/.exec(line);
-    if (heading) {
-      school = heading[1];
-      columns = undefined;
-      tables[school as string] = {} as Record<Branch, HiddenStems>;
-      continue;
-    }
-    if (/^## /.test(line)) {
-      school = undefined;
-      continue;
-    }
-    if (!school || !line.trim().startsWith("|")) {
-      continue;
-    }
-    const cells = line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
-    if (!columns) {
-      columns = cells;
-      continue;
-    }
-    if (/^:?-{3,}/.test(cells[0] ?? "")) {
-      continue;
-    }
-    const cell = (name: string): string => cells[columns?.indexOf(name) ?? -1] ?? "";
-    const branch = cell("지지") as Branch;
-    if (!(BRANCHES as readonly string[]).includes(branch)) {
-      throw new Error(`Unknown branch ${branch} in HIDDEN-STEMS.md`);
-    }
-    const entry = (value: string): { stem: Stem; days: number | null } | null => {
-      if (value === "-" || value === "") return null;
-      const [stem, days] = value.split(":");
-      if (!(STEMS as readonly string[]).includes(stem ?? "")) throw new Error(`Unknown stem ${stem} in HIDDEN-STEMS.md`);
-      return { stem: stem as Stem, days: days === undefined ? null : Number(days) };
-    };
-    const primary = entry(cell("정기"));
-    if (!primary) throw new Error(`Branch ${branch} has no 정기`);
-    (tables[school] as Record<Branch, HiddenStems>)[branch] = { residual: entry(cell("여기")), middle: entry(cell("중기")), primary };
-  }
-  return tables;
-}
 
 describe("HIDDEN-STEMS.md ↔ hidden-stems.data.ts", () => {
-  const parsed = parseHiddenStemTables(readFileSync(RULES_MD, "utf8"));
+  const parsed = loadHiddenStemTables();
 
   it.each(Object.keys(HIDDEN_STEM_TABLES) as HiddenStemSchool[])("school %s matches the markdown table exactly", (school) => {
     expect(parsed[school]).toBeDefined();

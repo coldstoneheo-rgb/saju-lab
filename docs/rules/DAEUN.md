@@ -42,8 +42,9 @@
 - **`startsAt`** = 출생일시 + `startAgeExact` × 365.2425일 → KST 날짜(YYYY-MM-DD). **`years`·`months`** = `startAgeExact`를 년·개월로 분해(개월은 버림 — 데이터 필드일 뿐 반올림 규칙이 아니다).
 - **대운 간지** = 월주의 60갑자 인덱스에서 순행 +1씩, 역행 −1씩, **10주**(index 0~9). 주 i의 `startAge = startAgeExact + 10·i`, `startsAt` 같은 식, `endsAt` = 다음 주 `startsAt` − 1일.
 - **십신 동봉** = 각 주 천간의 십신 + 지지 정기(지장간 표, `hiddenStemSchool` 기본 `yeonhae`)의 십신 — 일간 기준, 5단계 `tenGodOf`. 지장간 전부는 동봉하지 않는다.
-- **범위** = 절기표 1920-01-06 23:41 ~ 2100-12-07 10:42. 주의 `startsAt`이 표 끝을 넘으면 그 주부터 잘라 반환 + `truncated: true`(검증된 범위 밖은 주장하지 않는다). 거리 D의 기준 절이 표 밖이면 대운 전체 `null` + `reason: "OUT_OF_SOLAR_TERM_TABLE"`(에러 아님).
-- **`current`** = `options.referenceDate`(YYYY-MM-DD, 기본 = 요청 처리일 KST)가 속한 주 `{ index, startsAt, endsAt }`. 첫 주 시작 전이면 `null`. 「지금 어느 대운인가」만 — 세운 아님.
+- **범위** = 절기표 1920-01-06 23:41 ~ 2100-12-07 10:42. 주의 `startsAt`이 표 끝을 넘으면 그 주부터 잘라 반환 + `truncated: true`(검증된 범위 밖은 주장하지 않는다). 절단되면 **남은 마지막 주의 `endsAt`은 표 끝 날짜(2100-12-07)로 클램프**한다 — 그 주만 「다음 주 시작 − 1일」 규칙의 예외(D1). 출생이 표 끝에 가까워 첫 주부터 넘으면 `periods: []` + `truncated: true`. 거리 D의 기준 절이 표 밖이면 대운 전체 `null` + `reason: "OUT_OF_SOLAR_TERM_TABLE"`(에러 아님).
+- **`current`** = `options.referenceDate`(YYYY-MM-DD, 기본 = 요청 처리일 KST)가 속한 주 `{ index, startsAt, endsAt }`. **`null` 조건**: 첫 주 `startsAt` 이전 · 남은 마지막 주 `endsAt` 이후(절단 포함) · `periods`가 비었을 때(D5). 「지금 어느 대운인가」만 — 세운 아님.
+- **옵션 무영향**: `hiddenStemSchool`은 각 주 `tenGods.branchPrimary`(지지 정기 십신)만 바꾸고 간지·나이·날짜는 바꾸지 않는다(D2). `trueSolarTime`·`dayBoundary`·`jaHourPolicy`는 시주·일주 전용이라 대운 거리·간지·날짜에 영향이 없다(D4) — 단 이 옵션으로 **일주(일간)가 바뀌면** 동봉 십신(`tenGods`)은 그 일간을 따라 바뀐다(십신은 일간 기준 데이터). 시각 미상은 두 층(명식·대운) 모두 「정오, 시간대 오프셋 미적용」으로 같은 시계를 본다(D3).
 
 ## v1 제외 (사유)
 

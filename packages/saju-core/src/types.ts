@@ -21,7 +21,7 @@ export interface CalculationOptions {
   trueSolarTime?: boolean;
   jaHourPolicy?: JaHourPolicy;
   dayBoundary?: DayBoundaryPolicy;
-  /** Extra L2 blocks to return. Omitted = none (the response stays byte-identical to stage 4). */
+  /** Extra L2 blocks to return. Omitted = none — the response is identical to the same request without `include` (blocks are purely additive). */
   include?: IncludeBlock[];
   hiddenStemSchool?: HiddenStemSchoolOption;
   /** 대운 block only: the KST date (YYYY-MM-DD) that `current` is resolved for. Default = today in KST. */

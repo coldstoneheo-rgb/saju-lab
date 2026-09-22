@@ -149,12 +149,16 @@ describe("nearBoundary flags (KST wall clock, before any true-solar shift)", () 
     expect(NEAR_BOUNDARY_WINDOWS.hourBranch).toEqual({ before: 10, after: 34 });
   });
 
-  it("marks midnight ±32 and the 23:00 시지 boundary together", () => {
-    const late = calculatePillarsWithResolution(seoul("1990-06-15", "23:40")).resolution.nearBoundary;
-    expect(late).toEqual([{ kind: "dayMidnight", minutes: -20, direction: "before" }]);
+  it("marks midnight [−10, +34] (same logic as the 시지 window, A3) and the 23:00 시지 boundary together", () => {
+    expect(NEAR_BOUNDARY_WINDOWS.dayMidnight).toEqual({ before: 10, after: 34 });
+    const late = calculatePillarsWithResolution(seoul("1990-06-15", "23:52")).resolution.nearBoundary;
+    expect(late).toEqual([{ kind: "dayMidnight", minutes: -8, direction: "before" }]);
+    expect(calculatePillarsWithResolution(seoul("1990-06-15", "23:40")).resolution.nearBoundary).toEqual([]);
 
     const afterMidnight = calculatePillarsWithResolution(seoul("1990-06-15", "00:20")).resolution.nearBoundary;
     expect(afterMidnight).toEqual([{ kind: "dayMidnight", minutes: 20, direction: "after" }]);
+    expect(calculatePillarsWithResolution(seoul("1990-06-15", "00:34")).resolution.nearBoundary).toEqual([{ kind: "dayMidnight", minutes: 34, direction: "after" }]);
+    expect(calculatePillarsWithResolution(seoul("1990-06-15", "00:35")).resolution.nearBoundary).toEqual([]);
 
     const jaStart = calculatePillarsWithResolution(seoul("1990-06-15", "23:05")).resolution.nearBoundary;
     expect(jaStart).toEqual([{ kind: "hourBranch", minutes: 5, direction: "after" }]);

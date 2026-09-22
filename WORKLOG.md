@@ -6,6 +6,22 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, TASK-2026-0922-retro-review-fixes)
+summary: 7단계 대운 PR #80 머지(786a214) + 소급 코드 검수 보정 PR(A1~A15·B1~B4·C·D1~D5·P2, 골든 대운표 16행 confirmed) 오픈 — LC 판정 대기
+status: on_track
+progress: "L2 게이지 4/8(대운 머지) · main 786a214 · 테스트 358→388 · 명식·십신·합충·대운 값 변경 0 (근거: npm run verify exit 0, docs/handoffs/TASK-2026-0922-retro-review-fixes-REPORT.md 항목표)"
+changes:
+  - "786a214 feat(saju-core): L2 대운 v1 (#80)"
+  - "fix(saju-core): 소급 검수 보정 — MISSING_BIRTH_TIME 매핑·kstDate·dayMidnight 34·본문 키 대소문자 400·골든 오라클·shared=id·에러표 파서·골든 파서 lunar/출생지/옵션·DST 결번 dst·대운 절단 클램프 (PR, 머지 대기)"
+next: "LC 「머지 가」 → 보정 PR 머지 → 라이브 A1·A3·A4 curl(LC) · 09-23 골든 보강 TASK(39건)·차분 테스트 HO 대기"
+learning_need: "리뷰 지적 15건 중 값 결함 0, 전부 에러 코드·메타데이터·테스트 고정력 층이었다. 골든 파서가 «같은 함수로 기대값 생성»(동어반복)이던 곳을 md 오라클로 바꾼 것이 가장 큰 고정력 개선 — 다음 단계부터 골든 파서는 처음부터 md 규칙표 오라클로 쓴다."
+---
+## 의미
+값은 맞았고 «틀렸을 때 잡아내는 장치»가 약했다는 것이 소급 검수의 결론이었다. 이번 PR은 그 장치(에러 코드 정확성·골든 오라클·pending 상한·미검증 분기 10건)를 채운 것이라, 내일 골든 39건 보강이 들어올 때 파서(윤달·출생지·옵션)와 게이트가 준비된 상태가 된다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, HO-2026-0922-saju-L2-stage7-daeun-01)
 summary: 골든 합충표 confirmed(PR #79) + L2 7단계 대운 v1(12절·정규화 KST·분 소수·순역 4조합·10주+십신·절단·current) PR 오픈 — 새 머지 게이트로 LC 판정 대기
 status: on_track

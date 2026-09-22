@@ -46,6 +46,9 @@ function isYang(stem: Stem): boolean {
 
 /** Ten god of `other` seen from the day master `dayStem`. */
 export function tenGodOf(dayStem: Stem, other: Stem): TenGod {
+  if (!(STEMS as readonly string[]).includes(dayStem) || !(STEMS as readonly string[]).includes(other)) {
+    throw new Error(`Unknown stem: ${dayStem} / ${other}`);
+  }
   const me = CYCLE.indexOf(STEM_FIVE_ELEMENT[dayStem]);
   const it = CYCLE.indexOf(STEM_FIVE_ELEMENT[other]);
   const samePolarity = isYang(dayStem) === isYang(other);

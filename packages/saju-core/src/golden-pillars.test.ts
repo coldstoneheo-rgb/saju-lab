@@ -80,6 +80,37 @@ describe("GOLDEN-PILLARS.md parser rules", () => {
     expect(() => parseGoldenPillarsMarkdown(table(VALID_ROW.replace("| gye-sa |", "| - |")))).toThrow("시주 must be given exactly when 시각 is given");
   });
 
+  it("A12: accepts lunar and lunar(윤달) in the 달력 column and passes them to the input", () => {
+    const rows = parseGoldenPillarsMarkdown(table(
+      "| g-lunar | 2025-06-15 | 10:00 | lunar | female | eul-sa | gye-mi | gap-ja | sin-mi | https://example.org/l | tester | 2026-09-22 | 기본 | |",
+      "| g-leap | 2025-06-15 | 10:00 | lunar(윤달) | female | eul-sa | gap-sin | gye-yu | jeong-sa | https://example.org/l | tester | 2026-09-22 | 윤달 | |"
+    ));
+    expect(rows[0]?.input).toEqual({ birthDate: "2025-06-15", birthTime: "10:00", timezone: "Asia/Seoul", sex: "female", calendar: "lunar", isLeapMonth: false });
+    expect(rows[1]?.input).toEqual({ birthDate: "2025-06-15", birthTime: "10:00", timezone: "Asia/Seoul", sex: "female", calendar: "lunar", isLeapMonth: true });
+    expect(() => parseGoldenPillarsMarkdown(table(VALID_ROW.replace("| solar |", "| solar(윤달) |")))).toThrow("윤달 applies to lunar only");
+    expect(() => parseGoldenPillarsMarkdown(table(VALID_ROW.replace("| solar |", "| julian |")))).toThrow("달력");
+  });
+
+  it("P2: optional 출생지·옵션 columns feed birthPlace and options; absent or empty = default (existing rows unchanged)", () => {
+    const header = "| id | 생년월일 | 시각 | 달력 | 성별 | 출생지 | 옵션 | 연주 | 월주 | 일주 | 시주 | 출처 | 검증자 | 일자 | 범주 | 비고 |";
+    const separator = "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |";
+    const md = ["# fixture", "", header, separator,
+      "| g-place | 1990-06-15 | 00:20 | solar | male | jeonnam | trueSolarTime dayBoundary=trueSolar | gyeong-o | im-o | gyeong-sul | byeong-ja | https://example.org/p | tester | 2026-09-22 | 진태양시경계 | |",
+      "| g-early | 1990-06-15 | 23:20 | solar | male |  | jaHourPolicy=early | gyeong-o | im-o | im-ja | gyeong-ja | https://example.org/p | tester | 2026-09-22 | 23시대 | |",
+      "| g-plain | 1990-06-15 | 10:20 | solar | male | - | - | gyeong-o | im-o | sin-hae | gye-sa | https://example.org/p | tester | 2026-09-22 | 기본 | |",
+      ""].join("\n");
+    const rows = parseGoldenPillarsMarkdown(md);
+    expect(rows[0]?.input.birthPlace).toBe("jeonnam");
+    expect(rows[0]?.input.options).toEqual({ trueSolarTime: true, dayBoundary: "trueSolar" });
+    expect(rows[1]?.input.birthPlace).toBeUndefined();
+    expect(rows[1]?.input.options).toEqual({ jaHourPolicy: "early" });
+    expect(rows[2]?.input).toEqual({ birthDate: "1990-06-15", birthTime: "10:20", timezone: "Asia/Seoul", sex: "male" });
+    // The expected pillars are what the core produces WITH the options applied (진태양시 경계 = 보정 명식이 기대값).
+    for (const row of rows) expect(calculatePillars(row.input)).toEqual(row.expected);
+    expect(() => parseGoldenPillarsMarkdown(md.replace("| jeonnam |", "| atlantis |"))).toThrow("출생지");
+    expect(() => parseGoldenPillarsMarkdown(md.replace("jaHourPolicy=early", "jaHourPolicy=noon"))).toThrow("옵션 token");
+  });
+
   it("fails when no table with the required columns exists", () => {
     expect(() => parseGoldenPillarsMarkdown("# nothing\n\n| a | b |\n| --- | --- |\n| 1 | 2 |\n")).toThrow("No table with the columns");
   });

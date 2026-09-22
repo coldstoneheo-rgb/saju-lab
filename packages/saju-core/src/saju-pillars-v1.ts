@@ -1,6 +1,7 @@
 import { analyzeFiveElements } from "./five-elements.js";
 import { findBirthPlace } from "./birth-place.data.js";
 import { calculatePillarsWithResolution, LunarDateError, resolveBirthKst, type CalculationResolution, type PillarsAlternates } from "./pillars.js";
+import { BirthTimeRequiredError } from "./solar-terms.js";
 import { DEFAULT_HIDDEN_STEM_SCHOOL, hiddenStemsOf, type HiddenStems } from "./l2/hidden-stems.data.js";
 import { tenGodsOfChart, type ChartTenGods } from "./l2/ten-gods.js";
 import { interactionsOfChart, type ChartInteractions } from "./l2/interactions.js";
@@ -91,19 +92,24 @@ export interface ChartHiddenStems {
   time?: HiddenStems;
 }
 
-export type SajuPillarsV1ErrorCode =
-  | "INVALID_BODY"
-  | "INVALID_CALENDAR"
-  | "UNSUPPORTED_CALENDAR"
-  | "UNSUPPORTED_TIMEZONE"
-  | "INVALID_BIRTH_DATE"
-  | "MISSING_BIRTH_TIME"
-  | "INVALID_BIRTH_TIME"
-  | "INVALID_SEX"
-  | "INVALID_BIRTH_PLACE"
-  | "INVALID_OPTIONS"
-  | "INVALID_LUNAR_DATE"
-  | "OUT_OF_SUPPORTED_RANGE";
+/** Every 400 code this builder can emit. docs/SAJU_PILLARS_API_V1.md's error table is tested against this list. */
+export const SAJU_PILLARS_V1_ERROR_CODES = [
+  "INVALID_BODY",
+  "INVALID_CALENDAR",
+  "UNSUPPORTED_TIMEZONE",
+  "INVALID_BIRTH_DATE",
+  "MISSING_BIRTH_TIME",
+  "INVALID_BIRTH_TIME",
+  "INVALID_SEX",
+  "INVALID_BIRTH_PLACE",
+  "INVALID_OPTIONS",
+  "INVALID_LUNAR_DATE",
+  "OUT_OF_SUPPORTED_RANGE"
+] as const;
+export type SajuPillarsV1ErrorCode = (typeof SAJU_PILLARS_V1_ERROR_CODES)[number];
+
+/** Top-level request keys. A key that matches one of these only case-insensitively is a typo, not an extension (A4). */
+const KNOWN_BODY_KEYS = ["contract", "birthDate", "birthTime", "timeUnknown", "calendar", "isLeapMonth", "timezone", "sex", "birthPlace", "options"] as const;
 
 export interface SajuPillarsV1Error {
   contract: SajuPillarsContract;
@@ -198,6 +204,18 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
 
   const body = request as Partial<SajuPillarsV1Request>;
 
+  // Unknown keys are ignored on purpose (consumers may send extra fields — baby-naming compatibility),
+  // but a key that differs from a known one only by case would silently fall back to a default.
+  for (const key of Object.keys(request as Record<string, unknown>)) {
+    const known = KNOWN_BODY_KEYS.find((candidate) => candidate.toLowerCase() === key.toLowerCase());
+    if (known !== undefined && known !== key) {
+      return failure("INVALID_BODY", `Unknown field "${key}" — did you mean "${known}"? Field names are case-sensitive.`, key);
+    }
+  }
+  if (body.timeUnknown !== undefined && typeof body.timeUnknown !== "boolean") {
+    return failure("INVALID_BODY", "timeUnknown must be a boolean.", "timeUnknown");
+  }
+
   if (body.calendar !== "solar" && body.calendar !== "lunar") {
     return failure("INVALID_CALENDAR", "calendar must be 'solar' or 'lunar'.", "calendar");
   }
@@ -279,6 +297,13 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   } catch (caught) {
     if (caught instanceof LunarDateError) {
       return failure("INVALID_LUNAR_DATE", caught.message, "birthDate");
+    }
+    if (caught instanceof BirthTimeRequiredError) {
+      return failure(
+        "MISSING_BIRTH_TIME",
+        "This birth date is a solar-term boundary date (절기 경계일); the month pillar depends on the time, so birthTime is required.",
+        "birthTime"
+      );
     }
     return failure(
       "OUT_OF_SUPPORTED_RANGE",

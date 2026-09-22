@@ -2,12 +2,16 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import type { Branch, Stem } from "../cycle.js";
 import { goldenCase } from "../golden-pillars.load.js";
 import { calculatePillars } from "../pillars.js";
-import { interactionsOfChart, type BranchInteractionKind, type ChartInteractions } from "./interactions.js";
+import { loadInteractionRules, type ParsedInteractionTables } from "./interactions-rules.load.js";
+import { interactionsOfChart, type BranchInteraction, type BranchInteractionKind, type PillarKey, type StemInteraction } from "./interactions.js";
 
 const GOLDEN_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../docs/golden/GOLDEN-INTERACTIONS.md");
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
+/** pending rows are allowed while a table awaits 검산, but never as the steady state (C). */
+const MAX_PENDING_RATIO = 0.2;
 
 const KIND_COLUMNS: Array<[BranchInteractionKind, string]> = [
   ["yukhap", "육합"],
@@ -16,6 +20,7 @@ const KIND_COLUMNS: Array<[BranchInteractionKind, string]> = [
   ["chung", "충"],
   ["hyeong", "형"]
 ];
+const PILLAR_ORDER: PillarKey[] = ["year", "month", "day", "time"];
 
 interface Row {
   id: string;
@@ -50,25 +55,103 @@ function parseRows(markdown: string): Row[] {
   return rows;
 }
 
-/** Render the core output in the table's cell format: `글자-글자:기둥-기둥` per relation, `-` when none. */
-function render(result: ChartInteractions): Record<string, string> {
-  const join = (items: string[]): string => (items.length ? items.join(" ") : "-");
-  const cells: Record<string, string> = {
-    간합: join(result.stems.map((entry) => `${entry.stems.join("-")}:${entry.pillars.join("-")}`))
-  };
-  for (const [kind, column] of KIND_COLUMNS) {
-    cells[column] = join(result.branches.filter((entry) => entry.kind === kind).map((entry) => `${entry.branches.join("-")}:${entry.pillars.join("-")}`));
-  }
-  return cells;
+// ---------------------------------------------------------------- oracle
+// Expected records are derived from the golden cells + the markdown rule tables
+// (docs/rules/INTERACTIONS.md), never from interactions.data.ts, so every field —
+// id·complete·element·subtype·adjacent·shared — is checked against an independent source (A5).
+
+const sameSet = (a: readonly string[], b: readonly string[]): boolean => a.length === b.length && [...a].sort().join() === [...b].sort().join();
+const isAdjacent = (a: PillarKey, b: PillarKey): boolean => Math.abs(PILLAR_ORDER.indexOf(a) - PILLAR_ORDER.indexOf(b)) === 1;
+
+function parseToken(token: string): { characters: string[]; pillars: PillarKey[] } {
+  const [characters, pillars] = token.split(":");
+  return { characters: (characters ?? "").split("-"), pillars: (pillars ?? "").split("-") as PillarKey[] };
 }
 
-describe("GOLDEN-INTERACTIONS.md — core output for the golden charts, confirmed 2026-09-22", () => {
-  const rows = parseRows(readFileSync(GOLDEN_MD, "utf8"));
+function expectedStems(cell: string, rules: ParsedInteractionTables): StemInteraction[] {
+  if (cell === "-") return [];
+  const records = cell.split(/\s+/).map((token) => {
+    const { characters, pillars } = parseToken(token);
+    const rule = rules.ganhap.find((entry) => sameSet(entry.stems, characters));
+    if (!rule) throw new Error(`No 간합 rule for ${token}`);
+    return {
+      kind: "ganhap" as const,
+      id: rule.id,
+      pillars: pillars as [PillarKey, PillarKey],
+      stems: characters as [Stem, Stem],
+      adjacent: isAdjacent(pillars[0] as PillarKey, pillars[1] as PillarKey),
+      potentialElement: rule.potentialElement,
+      shared: false
+    };
+  });
+  return markShared(records);
+}
 
-  it("covers every golden chart with a valid status and source", () => {
+function expectedBranches(kind: BranchInteractionKind, cell: string, rules: ParsedInteractionTables): BranchInteraction[] {
+  if (cell === "-") return [];
+  return cell.split(/\s+/).map((token) => {
+    const { characters, pillars } = parseToken(token);
+    const branches = characters as Branch[];
+    const base = { kind, pillars, branches, shared: false };
+    const pair = pillars.length === 2 ? { adjacent: isAdjacent(pillars[0] as PillarKey, pillars[1] as PillarKey) } : {};
+    switch (kind) {
+      case "yukhap":
+      case "chung": {
+        const rule = rules[kind].find((entry) => sameSet(entry.branches, branches));
+        if (!rule) throw new Error(`No ${kind} rule for ${token}`);
+        return { ...base, id: rule.id, ...pair };
+      }
+      case "samhap": {
+        const rule = rules.samhap.find((entry) => branches.every((branch) => entry.branches.includes(branch)));
+        if (!rule) throw new Error(`No 삼합 rule for ${token}`);
+        if (branches.length === 2 && !branches.includes(rule.pivot)) throw new Error(`반합 without 왕지: ${token}`);
+        return { ...base, id: rule.id, ...pair, complete: branches.length === 3, element: rule.element };
+      }
+      case "banghap": {
+        const rule = rules.banghap.find((entry) => sameSet(entry.branches, branches));
+        if (!rule) throw new Error(`No 방합 rule for ${token}`);
+        return { ...base, id: rule.id, complete: true, element: rule.element };
+      }
+      case "hyeong": {
+        const self = rules.hyeong.find((entry) => entry.subtype === "ja");
+        if (branches.length === 2 && branches[0] === branches[1]) {
+          if (!self?.branches.includes(branches[0] as Branch)) throw new Error(`Not a 자형 branch: ${token}`);
+          return { ...base, id: self.id, ...pair, subtype: "ja" as const };
+        }
+        const rule = rules.hyeong.find((entry) => entry.subtype !== "ja" && branches.every((branch) => entry.branches.includes(branch)));
+        if (!rule) throw new Error(`No 형 rule for ${token}`);
+        return rule.branches.length === 3
+          ? { ...base, id: rule.id, ...pair, complete: branches.length === 3, subtype: rule.subtype }
+          : { ...base, id: rule.id, ...pair, subtype: rule.subtype };
+      }
+      default:
+        throw new Error(`Unknown kind ${kind as string}`);
+    }
+  });
+}
+
+/** shared = another record of the same kind AND id shares a pillar (docs/rules/INTERACTIONS.md 위치 규칙, A9). */
+function markShared<T extends { kind: string; id: string; pillars: readonly PillarKey[]; shared: boolean }>(records: T[]): T[] {
+  return records.map((record) => ({
+    ...record,
+    shared: records.some((other) => other !== record && other.kind === record.kind && other.id === record.id && other.pillars.some((pillar) => record.pillars.includes(pillar)))
+  }));
+}
+
+/** Order-independent canonical form: every field, sorted keys, sorted records. */
+function canonical(records: ReadonlyArray<object>): string[] {
+  return records.map((record) => JSON.stringify(record, Object.keys(record).sort())).sort();
+}
+
+describe("GOLDEN-INTERACTIONS.md — confirmed 2026-09-22, compared against an md-derived oracle", () => {
+  const rows = parseRows(readFileSync(GOLDEN_MD, "utf8"));
+  const rules = loadInteractionRules();
+
+  it("covers every golden chart with a valid status and source, unique ids, and pending below the cap", () => {
     expect(rows.length).toBeGreaterThanOrEqual(11);
     expect(new Set(rows.map((row) => row.id)).size).toBe(rows.length);
     for (const row of rows) expect(["pending", "confirmed"]).toContain(row.status);
+    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
   });
 
   it("is fully confirmed (LC 검산 2026-09-22) and every confirmed row cites the verification document", () => {
@@ -77,14 +160,18 @@ describe("GOLDEN-INTERACTIONS.md — core output for the golden charts, confirme
     for (const row of confirmed) expect(row.source).toContain("VERIFY-2026-0922-golden-interactions.md");
   });
 
-  it.each(rows.map((row) => [row.id, row] as const))("%s matches interactionsOfChart", (_id, row) => {
+  it.each(rows.map((row) => [row.id, row] as const))("%s matches interactionsOfChart on every field (order-independent)", (_id, row) => {
     const pillars = calculatePillars(goldenCase(row.id).input);
     const chart = [pillars.year, pillars.month, pillars.day, pillars.time]
       .filter((pillar): pillar is NonNullable<typeof pillar> => Boolean(pillar))
       .map((pillar) => `${pillar.stem}-${pillar.branch}`)
       .join(" ");
     expect(chart).toBe(row.chart);
-    expect(render(interactionsOfChart(pillars))).toEqual(row.cells);
+
+    const actual = interactionsOfChart(pillars);
+    expect(canonical(actual.stems)).toEqual(canonical(expectedStems(row.cells["간합"] ?? "-", rules)));
+    const expectedAll = markShared(KIND_COLUMNS.flatMap(([kind, column]) => expectedBranches(kind, row.cells[column] ?? "-", rules)));
+    expect(canonical(actual.branches)).toEqual(canonical(expectedAll));
   });
 
   it("documents the C3 minimum cases: g-2011-11-08-0334 has 卯戌 육합 twice (연·월, 월·일) and no golden chart is relation-free", () => {
@@ -92,5 +179,15 @@ describe("GOLDEN-INTERACTIONS.md — core output for the golden charts, confirme
     expect(sample?.cells["육합"]).toBe("myo-sul:year-month sul-myo:month-day");
     const relationFree = rows.filter((row) => Object.values(row.cells).every((cell) => cell === "-"));
     expect(relationFree).toEqual([]);
+  });
+
+  it("the oracle rejects a swapped field (sanity: 무은↔지세 or water↔fire would not pass)", () => {
+    const row = rows.find((entry) => entry.id === "g-1988-10-09-0230") as Row; // 戌丑 부분 형 = 지세, 酉丑 반합 = metal
+    const actual = interactionsOfChart(calculatePillars(goldenCase(row.id).input));
+    const tampered = actual.branches.map((entry) =>
+      entry.kind === "hyeong" ? { ...entry, subtype: "mueun" as const } : entry.kind === "samhap" ? { ...entry, element: "fire" as const } : entry
+    );
+    const expectedAll = markShared(KIND_COLUMNS.flatMap(([kind, column]) => expectedBranches(kind, row.cells[column] ?? "-", rules)));
+    expect(canonical(tampered)).not.toEqual(canonical(expectedAll));
   });
 });

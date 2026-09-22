@@ -1,9 +1,9 @@
 import { DEFAULT_BIRTH_PLACE, findBirthPlace, trueSolarOffsetMinutes } from "./birth-place.data.js";
 import { dayPillarFromEpochDay, monthPillarForSolarMonth, timePillarForDay, yearPillarForSolarYear, type Stem } from "./cycle.js";
-import { epochDayKst, parseBirthDateTime, type ParsedBirthDateTime } from "./datetime.js";
+import { epochDayKst, localDateKey, parseBirthDateTime, type ParsedBirthDateTime } from "./datetime.js";
 import { LUNAR_MAX_YEAR, LUNAR_MIN_YEAR } from "./lunar-calendar.data.js";
 import { lunarToSolar } from "./lunar-calendar.js";
-import { effectiveSolarYear, minutesFromNearestBoundary, solarMonthBoundary } from "./solar-terms.js";
+import { BirthTimeRequiredError, effectiveSolarYear, minutesFromNearestBoundary, solarMonthBoundary } from "./solar-terms.js";
 import { normalizeToKstWallClock, type BirthTimeFlag } from "./timezone-history.js";
 import type { BirthInput, CalendarSystem, DayBoundaryPolicy, JaHourPolicy, Pillar, PillarsResult } from "./types.js";
 
@@ -14,8 +14,10 @@ export interface CalendarResolution {
   input: CalendarSystem;
   /** Lunar input only. */
   isLeapMonth?: boolean;
-  /** The Gregorian date the pillars were calculated from (YYYY-MM-DD). */
+  /** The Gregorian date of the input clock (lunar converted to solar; YYYY-MM-DD). Not shifted by the KST normalization. */
   solarDate: string;
+  /** The normalized KST civil date the day pillar was read from. Differs from solarDate only when the UTC+8:30 / summer-time shift crosses midnight. */
+  kstDate: string;
 }
 
 /** Wall-clock window (minutes from the boundary) that marks a reading as "near" it. */
@@ -24,7 +26,8 @@ export const NEAR_BOUNDARY_WINDOWS = {
   // reading up to 34 min after a boundary can be pulled back across it; 10 min
   // before covers the usual imprecision of birth records.
   hourBranch: { before: 10, after: 34 },
-  dayMidnight: { before: 32, after: 32 },
+  // 자정 경계도 같은 논리: 경도 보정(최대 −34분)이 자정 뒤 34분까지를 전날로 되감을 수 있다.
+  dayMidnight: { before: 10, after: 34 },
   solarTerm: { before: 60, after: 60 }
 } as const;
 
@@ -114,7 +117,7 @@ export function calculatePillarsWithResolution(input: BirthInput): PillarsWithRe
     jaHourPolicy: policy.jaHourPolicy,
     dayBoundary: policy.dayBoundary,
     nearBoundary: nearBoundaries(kst),
-    calendar
+    calendar: { ...calendar, kstDate: localDateKey(kst) }
   };
 
   const alternates = timeKnown(kst) ? collectAlternates(pillars, policy, assemble, trueSolarOffsetMin) : undefined;
@@ -126,7 +129,7 @@ export function calculatePillarsWithResolution(input: BirthInput): PillarsWithRe
  * sees it. A lunar year outside the table is a range error (→ OUT_OF_SUPPORTED_RANGE
  * in the API); a date the table says does not exist is a LunarDateError.
  */
-function resolveCalendar(input: BirthInput): { solarInput: BirthInput; calendar: CalendarResolution } {
+function resolveCalendar(input: BirthInput): { solarInput: BirthInput; calendar: Omit<CalendarResolution, "kstDate"> } {
   if ((input.calendar ?? "solar") === "solar") {
     return { solarInput: input, calendar: { input: "solar", solarDate: input.birthDate } };
   }
@@ -261,8 +264,10 @@ function nearBoundaries(kst: ParsedBirthDateTime): NearBoundary[] {
   const found: NearBoundary[] = [];
   const minuteOfDay = kst.hour * 60 + kst.minute;
 
-  // 시지 경계: odd whole hours, i.e. 60, 180, …, 1380 and 23:00 → 1380; 01:00 of the next day is 1500.
-  for (const boundary of [-60, 60, 180, 300, 420, 540, 660, 780, 900, 1020, 1140, 1260, 1380, 1500]) {
+  // 시지 경계: odd whole hours 01:00 … 23:00 = 60, 180, …, 1380. The window [−10, +34] never
+  // reaches the neighbouring day's boundary (23:00 of yesterday / 01:00 of tomorrow), so only
+  // the twelve same-day boundaries are candidates.
+  for (const boundary of [60, 180, 300, 420, 540, 660, 780, 900, 1020, 1140, 1260, 1380]) {
     const delta = minuteOfDay - boundary;
     if (delta >= -NEAR_BOUNDARY_WINDOWS.hourBranch.before && delta <= NEAR_BOUNDARY_WINDOWS.hourBranch.after) {
       found.push({ kind: "hourBranch", minutes: delta, direction: delta < 0 ? "before" : "after" });

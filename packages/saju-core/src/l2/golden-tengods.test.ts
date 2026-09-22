@@ -2,13 +2,17 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
+import type { Branch } from "../cycle.js";
 import { goldenCase } from "../golden-pillars.load.js";
 import { calculatePillars } from "../pillars.js";
 import { buildSajuPillarsV1Response } from "../saju-pillars-v1.js";
+import { loadHiddenStemTables } from "./hidden-stems-rules.load.js";
 import { TEN_GODS, tenGodsOfChart, type PillarTenGods } from "./ten-gods.js";
 
 const GOLDEN_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../docs/golden/GOLDEN-TENGODS.md");
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
+/** pending rows are allowed while a table awaits 검산, but never as the steady state (C). */
+const MAX_PENDING_RATIO = 0.2;
 
 interface Row {
   id: string;
@@ -63,8 +67,10 @@ function render(pillar: PillarTenGods | undefined): { stem: string; branchPrimar
 describe("GOLDEN-TENGODS.md — core output for the golden charts, confirmed 2026-09-22", () => {
   const rows = parseRows(readFileSync(GOLDEN_MD, "utf8"));
 
-  it("covers every golden chart with a valid status and source", () => {
+  it("covers every golden chart with a valid status and source, unique ids, and pending below the cap", () => {
     expect(rows.length).toBeGreaterThanOrEqual(11);
+    expect(new Set(rows.map((row) => row.id)).size).toBe(rows.length);
+    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
     for (const row of rows) {
       expect(["pending", "confirmed"]).toContain(row.status);
       for (const pillar of Object.values(row.pillars)) {
@@ -86,8 +92,23 @@ describe("GOLDEN-TENGODS.md — core output for the golden charts, confirmed 202
     expect({ year: render(chart.year), month: render(chart.month), day: render(chart.day), time: render(chart.time) }).toEqual(row.pillars);
   });
 
-  it("is school-specific: a japyeong run is NOT a core regression — it differs from the table in exactly the 20 measured 장간 cells", () => {
+  it("is school-specific: a japyeong run is NOT a core regression — it differs from the table in exactly the 장간 cells the two md tables predict", () => {
     // Guard against the parser ever being pointed at a non-default school: the table is fixed under yeonhae.
+    // The expected count is derived from HIDDEN-STEMS.md (표 1 vs 표 2 stem lists) × the golden charts'
+    // branch occurrences — not from running the implementation (C).
+    const tables = loadHiddenStemTables();
+    const stems = (school: string, branch: string): string => {
+      const entry = tables[school]?.[branch as Branch];
+      return [entry?.residual?.stem, entry?.middle?.stem, entry?.primary.stem].filter(Boolean).join(" ");
+    };
+    let predicted = 0;
+    for (const row of rows) {
+      const pillars = calculatePillars(goldenCase(row.id).input);
+      for (const branch of [pillars.year.branch, pillars.month.branch, pillars.day.branch, pillars.time?.branch]) {
+        if (branch && stems("yeonhae", branch) !== stems("japyeong", branch)) predicted += 1;
+      }
+    }
+    expect(predicted).toBe(20); // 子壬6·卯甲7·午丙3·酉庚2·亥戊2 (실측 2026-09-22, 머리말)
     let differing = 0;
     for (const row of rows) {
       const chart = tenGodsOfChart(calculatePillars(goldenCase(row.id).input), "japyeong");
@@ -102,7 +123,7 @@ describe("GOLDEN-TENGODS.md — core output for the golden charts, confirmed 202
         if (actual.branchAll !== expected.branchAll) differing += 1;
       }
     }
-    expect(differing).toBe(20);
+    expect(differing).toBe(predicted);
   });
 });
 

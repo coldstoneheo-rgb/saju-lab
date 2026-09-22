@@ -1,80 +1,15 @@
 import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { BRANCHES, STEMS, type Branch, type Stem } from "../cycle.js";
+import { BRANCHES, STEMS, type Branch } from "../cycle.js";
 import type { PillarsResult } from "../types.js";
 import { calculatePillars } from "../pillars.js";
 import { buildSajuPillarsV1Response } from "../saju-pillars-v1.js";
 import { INTERACTION_TABLES } from "./interactions.data.js";
+import { INTERACTIONS_RULES_MD, parseInteractionTables } from "./interactions-rules.load.js";
 import { branchPairRules, branchTripleRule, interactionsOfChart, isAdjacent, stemPairRule } from "./interactions.js";
 
-const RULES_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../docs/rules/INTERACTIONS.md");
-
-/** Parse "## 표 N — `kind` …" sections into the same shape as interactions.data.ts; columns matched by header name. */
-function parseInteractionTables(markdown: string): Record<string, unknown[]> {
-  const tables: Record<string, unknown[]> = {};
-  const lines = markdown.split(/\r?\n/);
-  let kind: string | undefined;
-  let columns: string[] | undefined;
-
-  const words = (value: string): string[] => value.split(/\s+/).filter(Boolean);
-  const checkStems = (list: string[]): Stem[] => list.map((stem) => {
-    if (!(STEMS as readonly string[]).includes(stem)) throw new Error(`Unknown stem ${stem} in INTERACTIONS.md`);
-    return stem as Stem;
-  });
-  const checkBranches = (list: string[]): Branch[] => list.map((branch) => {
-    if (!(BRANCHES as readonly string[]).includes(branch)) throw new Error(`Unknown branch ${branch} in INTERACTIONS.md`);
-    return branch as Branch;
-  });
-
-  for (const line of lines) {
-    const heading = /^## 표 \d+ — `(\w+)`/.exec(line);
-    if (heading) {
-      kind = heading[1];
-      columns = undefined;
-      tables[kind as string] = [];
-      continue;
-    }
-    if (/^## /.test(line)) {
-      kind = undefined;
-      continue;
-    }
-    if (!kind || !line.trim().startsWith("|")) continue;
-    const cells = line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
-    if (!columns) {
-      columns = cells;
-      continue;
-    }
-    if (/^:?-{3,}/.test(cells[0] ?? "")) continue;
-    const cell = (name: string): string => cells[columns?.indexOf(name) ?? -1] ?? "";
-    const rows = tables[kind] as unknown[];
-    switch (kind) {
-      case "ganhap":
-        rows.push({ id: cell("조"), stems: checkStems(words(cell("천간"))), potentialElement: cell("화기") });
-        break;
-      case "yukhap":
-      case "chung":
-        rows.push({ id: cell("조"), branches: checkBranches(words(cell("지지"))) });
-        break;
-      case "samhap":
-        rows.push({ id: cell("국"), branches: checkBranches(words(cell("지지"))), pivot: checkBranches([cell("왕지")])[0], element: cell("오행") });
-        break;
-      case "banghap":
-        rows.push({ id: cell("국"), branches: checkBranches(words(cell("지지"))), direction: cell("방위"), element: cell("오행") });
-        break;
-      case "hyeong":
-        rows.push({ id: cell("종"), subtype: cell("유형"), branches: checkBranches(words(cell("지지"))) });
-        break;
-      default:
-        throw new Error(`INTERACTIONS.md has a table kind the code does not know: ${kind}`);
-    }
-  }
-  return tables;
-}
-
 describe("INTERACTIONS.md ↔ interactions.data.ts (C1)", () => {
-  const parsed = parseInteractionTables(readFileSync(RULES_MD, "utf8"));
+  const parsed = parseInteractionTables(readFileSync(INTERACTIONS_RULES_MD, "utf8"));
 
   it.each(Object.keys(INTERACTION_TABLES) as Array<keyof typeof INTERACTION_TABLES>)("table %s matches the markdown exactly", (kind) => {
     expect(parsed[kind]).toEqual(INTERACTION_TABLES[kind]);
@@ -282,14 +217,33 @@ describe("chart level — positions, duplicates, shared, subsumption", () => {
     expect(JSON.stringify(three)).not.toContain("time");
   });
 
-  it("is a pure function of the characters: same pillars from the calculator give the same relations", () => {
+  it("is a pure function of the characters: the calculator's 己巳 丙子 丙寅 癸巳 gives the literal golden relations", () => {
+    // Literal expectation (not re-derived from the function): 巳寅 · 寅巳 = 寅巳申 삼형의 2자 부분, 같은 id라 shared.
     const pillars = calculatePillars({ birthDate: "1990-01-01", birthTime: "10:30", timezone: "Asia/Seoul", sex: "other" });
-    expect(interactionsOfChart(pillars)).toEqual(interactionsOfChart(chart(
-      `${pillars.year.stem} ${pillars.year.branch}`,
-      `${pillars.month.stem} ${pillars.month.branch}`,
-      `${pillars.day.stem} ${pillars.day.branch}`,
-      pillars.time ? `${pillars.time.stem} ${pillars.time.branch}` : undefined
-    )));
+    expect(interactionsOfChart(pillars)).toEqual({
+      stems: [],
+      branches: [
+        { kind: "hyeong", id: "in-sa-sin", pillars: ["year", "day"], branches: ["sa", "in"], adjacent: false, complete: false, subtype: "mueun", shared: true },
+        { kind: "hyeong", id: "in-sa-sin", pillars: ["day", "time"], branches: ["in", "sa"], adjacent: true, complete: false, subtype: "mueun", shared: true }
+      ]
+    });
+  });
+
+  it("shared is scoped to the same rule id (A9); in v1 every branch sits in at most one rule per kind, so kind- and id-scoping agree", () => {
+    // The invariant that makes kind-level and id-level `shared` coincide today — if a table ever breaks it, this fails first.
+    for (const branch of BRANCHES) {
+      expect(INTERACTION_TABLES.yukhap.filter((rule) => rule.branches.includes(branch)).length).toBeLessThanOrEqual(1);
+      expect(INTERACTION_TABLES.chung.filter((rule) => rule.branches.includes(branch)).length).toBeLessThanOrEqual(1);
+      expect(INTERACTION_TABLES.hyeong.filter((rule) => rule.branches.includes(branch)).length).toBeLessThanOrEqual(1);
+      expect(INTERACTION_TABLES.samhap.filter((rule) => rule.branches.includes(branch)).length).toBe(1);
+      expect(INTERACTION_TABLES.banghap.filter((rule) => rule.branches.includes(branch)).length).toBe(1);
+    }
+    for (const stem of STEMS) expect(INTERACTION_TABLES.ganhap.filter((rule) => rule.stems.includes(stem)).length).toBe(1);
+    // Two 甲己 over one 己 are shared; a 甲己 and an unrelated 丁壬 are not, even though both are ganhap.
+    const result = interactionsOfChart(chart("gap in", "gi sa", "gap sin", "jeong sul"));
+    expect(result.stems.map((entry) => `${entry.id}:${entry.shared}`)).toEqual(["gap-gi:true", "gap-gi:true"]);
+    const distinct = interactionsOfChart(chart("gap ja", "gi o", "jeong mi", "im sul"));
+    expect(distinct.stems.map((entry) => `${entry.id}:${entry.shared}`)).toEqual(["gap-gi:false", "jeong-im:false"]);
   });
 });
 
