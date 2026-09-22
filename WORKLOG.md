@@ -6,6 +6,22 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, 세션 마감 2차)
+summary: 세션 마감 — 하루 2차분 PR #77~#81 5건 착지(십신 confirmed·합충 v1·합충 confirmed·대운 v1·소급 보정), 골든 4표 전부 confirmed, 마감 인계서 작성
+status: shipped
+progress: "main 392d794 · CI 초록 · 테스트 285→388 · L2 게이지 4/8 (근거: docs/handoffs/2026-09-22-l2-stage567-close-handoff.md §1 표, origin 실측 대조)"
+changes:
+  - "docs(handoffs): 2026-09-22 L2 5·6·7단계 + 소급 보정 세션 마감 인계서(2차)"
+next: "새 세션 첫 동작 = 인계서 §4 (pull·verify·LC 핑·골든 보강 TASK 대기)"
+blockers: "골든 보강 TASK·차분 테스트 HO 발주(LC) · 만세력 교차 3건·KASI 회신(사용자) — 전부 사람/LC 손"
+learning_need: "머지 게이트(LC 판정 전 머지 금지)가 #80·#81에 처음 적용됐고 판정 SLO 1시간 안에 두 번 다 회신이 왔다. 판정이 조건부일 때 조건을 같은 PR에 커밋·CI·머지까지 한 번에 끝내는 흐름이 잡혔다. 검수의 결론은 «값 결함 0, 잡아내는 장치 부족»이었고 그 장치(md 오라클·pending 상한·에러표 파서·미검증 분기 10)를 오늘 채웠다."
+---
+## 의미
+L2 결정론 3블록(십신·합충·대운)이 전부 골든 confirmed로 고정됐고 소급 검수까지 닫혔다. 다음 세션은 코어 신설이 아니라 «골든 50건 보강 + 교차 구현 차분»으로 고정력을 먼저 올린 뒤 8단계에 들어간다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, TASK-2026-0922-retro-review-fixes)
 summary: 7단계 대운 PR #80 머지(786a214) + 소급 코드 검수 보정 PR(A1~A15·B1~B4·C·D1~D5·P2, 골든 대운표 16행 confirmed) 오픈 — LC 판정 대기
 status: on_track
