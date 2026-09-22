@@ -14,3 +14,5 @@ export { generateReportV1 } from "./report.js";
 export { generatePaidReportV1 } from "./paid-report.js";
 export { DEFAULT_HIDDEN_STEM_SCHOOL, HIDDEN_STEM_TABLES, hiddenStemList, hiddenStemsOf, type HiddenStemEntry, type HiddenStemSchool, type HiddenStems } from "./l2/hidden-stems.data.js";
 export { TEN_GOD_LABELS, TEN_GODS, tenGodOf, tenGodsOfChart, type ChartTenGods, type HiddenStemTenGod, type PillarTenGods, type TenGod } from "./l2/ten-gods.js";
+export { BANGHAP, CHUNG, GANHAP, HYEONG, INTERACTION_TABLES, SAMHAP, YUKHAP, type BanghapRule, type BranchPairRule, type GanhapRule, type HyeongRule, type HyeongSubtype, type SamhapRule } from "./l2/interactions.data.js";
+export { HYEONG_SUBTYPE_LABELS, INTERACTION_LABELS, branchInteractions, branchPairRules, branchTripleRule, interactionsOfChart, isAdjacent, stemInteractions, stemPairRule, type BranchInteraction, type BranchInteractionKind, type ChartInteractions, type InteractionKind, type PillarKey, type StemInteraction } from "./l2/interactions.js";

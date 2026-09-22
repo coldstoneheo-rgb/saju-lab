@@ -6,6 +6,22 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, HO-2026-0922-saju-L2-stage6-interactions-01)
+summary: 골든 십신표 11건 confirmed 기입(PR #77) + L2 6단계 합충형 v1(간합·육합·삼합·방합·충·형) 결정론·API include·골든 합충표 pending·웹 칩
+status: shipped
+progress: "L2 게이지 3/8 · main 4000671(#77) + PR 6단계 · 테스트 285→322 (근거: npm run verify exit 0, docs/handoffs/HO-2026-0922-saju-L2-stage6-interactions-01-REPORT.md C1~C6)"
+changes:
+  - "4000671 docs(golden): 골든 십신표 11행 confirmed 기입 + 학파 고정 머리말 + 야자시 비고 (#77)"
+  - "feat(saju-core): L2 합충형 v1 — INTERACTIONS.md 정본 ↔ interactions.data.ts, interactionsOfChart, options.include interactions, 골든 합충표 pending, 웹 칩+접힘 (PR 6단계)"
+next: "골든 합충표 11건 LC 페르소나 검산 → confirmed 기입 PR · 7단계(대운) HO 대기"
+learning_need: "LC 지시의 «학파 토글 15셀»은 구현 학파와 md 기록용 대안을 섞어 센 값이었고, 실측(20셀)으로 §6-3 반박 → 즉시 수용. 발주서 숫자는 코어로 한 번 돌려보고 기입한다."
+---
+## 의미
+십신표가 confirmed로 고정돼 L2 첫 블록이 «검산 완료» 상태가 됐고, 합충이 규칙 ID 단위 데이터로 나오기 시작했다(관점층이 규칙 ID로 발화할 원천). 파·해·化·가중은 전부 범위 밖으로 못 박아 결정론 코어가 해석으로 새는 것을 막았다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, 세션 마감)
 summary: 사주 회의 세션 마감 — 하루에 PR #66~#74 9건 착지(L1 로드맵 스파이크·1·2·3·4 + L2 5단계), 마감 인계서 작성
 status: shipped

@@ -3,6 +3,7 @@ import { findBirthPlace } from "./birth-place.data.js";
 import { calculatePillarsWithResolution, LunarDateError, type CalculationResolution, type PillarsAlternates } from "./pillars.js";
 import { DEFAULT_HIDDEN_STEM_SCHOOL, hiddenStemsOf, type HiddenStems } from "./l2/hidden-stems.data.js";
 import { tenGodsOfChart, type ChartTenGods } from "./l2/ten-gods.js";
+import { interactionsOfChart, type ChartInteractions } from "./l2/interactions.js";
 import type { Branch } from "./cycle.js";
 import type {
   BirthInput,
@@ -64,6 +65,8 @@ export interface SajuPillarsV1Response {
   hiddenStems?: ChartHiddenStems;
   /** 십신 per pillar — only with options.include "tenGods". */
   tenGods?: ChartTenGods;
+  /** 합충형 — only with options.include "interactions". Existence and position only; no 化 judgement, no weighting. */
+  interactions?: ChartInteractions;
   fiveElements: {
     /** Count of each element across the counted stems and branches. */
     distribution: FiveElementDistribution;
@@ -166,9 +169,9 @@ function parseOptions(value: unknown): CalculationOptions | undefined | null {
     } else if (
       key === "include" &&
       Array.isArray(raw[key]) &&
-      (raw[key] as unknown[]).every((block) => block === "hiddenStems" || block === "tenGods")
+      (raw[key] as unknown[]).every((block) => block === "hiddenStems" || block === "tenGods" || block === "interactions")
     ) {
-      options.include = [...new Set(raw[key] as Array<"hiddenStems" | "tenGods">)];
+      options.include = [...new Set(raw[key] as Array<"hiddenStems" | "tenGods" | "interactions">)];
     } else {
       return null;
     }
@@ -247,7 +250,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   if (options === null) {
     return failure(
       "INVALID_OPTIONS",
-      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include (['hiddenStems' | 'tenGods']) and hiddenStemSchool ('yeonhae' | 'japyeong').",
+      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include (['hiddenStems' | 'tenGods' | 'interactions']) and hiddenStemSchool ('yeonhae' | 'japyeong').",
       "options"
     );
   }
@@ -291,6 +294,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
       }
     : undefined;
   const tenGods = include.has("tenGods") ? tenGodsOfChart(pillars, school) : undefined;
+  const interactions = include.has("interactions") ? interactionsOfChart(pillars) : undefined;
 
   return {
     ok: true,
@@ -303,6 +307,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
       ...(alternates ? { alternates } : {}),
       ...(hiddenStems ? { hiddenStems } : {}),
       ...(tenGods ? { tenGods } : {}),
+      ...(interactions ? { interactions } : {}),
       fiveElements: {
         distribution: analysis.distribution,
         absent: analysis.absent,
