@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { GOLDEN_FIXTURES } from "./fixtures.js";
+import { goldenCase } from "./golden-pillars.load.js";
 import {
   SAJU_PILLARS_CONTRACT,
   buildSajuPillarsV1Response,
@@ -28,9 +28,9 @@ describe("saju-pillars-v1 contract — golden PoC", () => {
     expect(result.data.contract).toBe(SAJU_PILLARS_CONTRACT);
     expect(result.data.timeKnown).toBe(true);
 
-    // Pillars match the fixture-1990 golden output of calculatePillars.
-    const fixture = GOLDEN_FIXTURES.find((f) => f.id === "fixture-1990-before-ipchun");
-    expect(result.data.pillars).toEqual(fixture?.expected);
+    // Pillars match the g-1990-01-01-1030 golden row (docs/golden/GOLDEN-PILLARS.md).
+    const fixture = goldenCase("g-1990-01-01-1030");
+    expect(result.data.pillars).toEqual(fixture.expected);
 
     // Five-element values match HO-A golden case to the value.
     expect(result.data.fiveElements.distribution).toEqual({

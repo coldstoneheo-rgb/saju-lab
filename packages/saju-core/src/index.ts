@@ -1,6 +1,5 @@
 export * from "./types.js";
 export * from "./cycle.js";
-export * from "./fixtures.js";
 export * from "./terminology.js";
 export * from "./five-elements.js";
 export * from "./saju-pillars-v1.js";

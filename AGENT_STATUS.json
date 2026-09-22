@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-22T18:30:00+09:00",
-  "head": "395a4bb",
-  "working_on": "HO-2026-0922-saju-L1-stage12-01 — PR 2 시간대 이력 정규화(머지 진행) → PR 1 골든 표 정본화(일주 출처 API 활성화 대기)",
-  "waiting_on": "① data.go.kr 「한국천문연구원_음양력 정보」 API 활용신청(사용자) → 골든 일주 출처 ② KASI 24기 표 저작권 사전 협의 회신",
+  "as_of": "2026-09-22T19:30:00+09:00",
+  "head": "83d9681",
+  "working_on": "HO-2026-0922-saju-L1-stage12-01 PR 1(골든 표 정본화) 머지 진행 → 3단계 HO 대기",
+  "waiting_on": "KASI 24기 표 저작권 사전 협의 회신(사용자 발송)",
   "recent": [
+    {
+      "at": "2026-09-22",
+      "what": "골든 명식 표 정본화 — docs/golden/GOLDEN-PILLARS.md 11건(출처: KASI 24기 표 + data.go.kr lunIljin), md 직접 파싱 테스트, fixtures.ts 폐기 (HO stage12 PR 1)"
+    },
     {
       "at": "2026-09-22",
       "what": "시간대 이력 정규화 — UTC+8:30 구간·서머타임 12연도 환산, resolution 응답 필드, 28전이 Intl 대조 (HO stage12 PR 2)"
@@ -20,15 +24,10 @@
     {
       "at": "2026-09-22",
       "what": "회의 전 세션 정비 — CLAUDE.md §8 절·AGENT_STATUS.json·harness-loop-engine 스킬·devlog 훅 (#66)"
-    },
-    {
-      "at": "2026-08-23",
-      "what": "월 경계 절기표를 KASI 2000-2028 수집물에서 생성 (#65)"
     }
   ],
   "next_actions": [
-    "PR 1: docs/golden/GOLDEN-PILLARS.md 파서·네거티브 테스트·표 골격(케이스 0) → API 활성화 뒤 출처 채움, fixtures.ts 폐기",
-    "3단계(다음 HO): 진태양시 옵션·분 단위 시주·23시 정책 플래그",
+    "3단계 HO(분 단위 시주+진태양시(균시차 미적용)·23시 alternates·경계 플래그·UI 1줄) 수신 후 착수",
     "선택: solar-terms.data.ts 압축(+19.9KB), 잔재 브랜치 정리"
   ],
   "gauge": {

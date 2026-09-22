@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { calculatePillars, cyclePillar, generatePaidReportV1, generateReportV1, getPillarTerms, getSajuTerm, hourBranchIndex } from "./index.js";
-import { GOLDEN_FIXTURES } from "./fixtures.js";
+import { goldenCase, loadGoldenPillarCases } from "./golden-pillars.load.js";
 import { IPCHUN_BY_YEAR, SOLAR_MONTH_BOUNDARIES } from "./solar-terms.js";
 import type { BirthInput, Pillar } from "./types.js";
+
+const GOLDEN_CASES = loadGoldenPillarCases();
 
 describe("sexagenary cycle utilities", () => {
   it("wraps cycle indexes in both directions", () => {
@@ -50,7 +52,7 @@ describe("calculatePillars", () => {
     expect(result.time).toBeUndefined();
   });
 
-  it.each(GOLDEN_FIXTURES)("$id", (fixture) => {
+  it.each(GOLDEN_CASES)("$id", (fixture) => {
     expect(calculatePillars(fixture.input)).toEqual(fixture.expected);
   });
 
@@ -476,7 +478,7 @@ describe("solar-term source audit", () => {
 });
 
 describe("generateReportV1", () => {
-  it.each(GOLDEN_FIXTURES)("generates a complete rules-only report for $id", (fixture) => {
+  it.each(GOLDEN_CASES)("generates a complete rules-only report for $id", (fixture) => {
     const report = generateReportV1({
       input: fixture.input,
       pillars: calculatePillars(fixture.input),
@@ -528,11 +530,7 @@ describe("generateReportV1", () => {
   });
 
   it("keeps report shape and key copy stable for a representative fixture", () => {
-    const fixture = GOLDEN_FIXTURES[4];
-
-    if (fixture === undefined) {
-      throw new Error("Expected representative golden fixture.");
-    }
+    const fixture = goldenCase("g-2024-02-04-1727");
 
     const report = generateReportV1({
       input: fixture.input,
@@ -566,7 +564,7 @@ describe("generateReportV1", () => {
     `);
   });
 
-  it.each(GOLDEN_FIXTURES)("keeps free report copy away from deterministic finance claims for $id", (fixture) => {
+  it.each(GOLDEN_CASES)("keeps free report copy away from deterministic finance claims for $id", (fixture) => {
     const report = generateReportV1({
       input: fixture.input,
       pillars: calculatePillars(fixture.input),
@@ -599,11 +597,7 @@ function collectStrings(value: unknown): string[] {
 
 describe("generatePaidReportV1", () => {
   it("generates a paid detailed report with PDF-ready requirements", () => {
-    const fixture = GOLDEN_FIXTURES[4];
-
-    if (fixture === undefined) {
-      throw new Error("Expected representative golden fixture.");
-    }
+    const fixture = goldenCase("g-2024-02-04-1727");
 
     const paidReport = generatePaidReportV1({
       input: fixture.input,
@@ -630,11 +624,7 @@ describe("generatePaidReportV1", () => {
   });
 
   it("meets minimum paid content quality thresholds", () => {
-    const fixture = GOLDEN_FIXTURES[4];
-
-    if (fixture === undefined) {
-      throw new Error("Expected representative golden fixture.");
-    }
+    const fixture = goldenCase("g-2024-02-04-1727");
 
     const paidReport = generatePaidReportV1({
       input: fixture.input,
