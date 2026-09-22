@@ -4,18 +4,22 @@ import { Analytics } from "@vercel/analytics/react";
 import { AlertTriangle, CalendarDays, CheckCircle2, Clock3, Coins, Compass, Download, LockKeyhole, Monitor, Moon, ShieldCheck, Sparkles, Sun, UserRound } from "lucide-react";
 import { buildFreeReportHtml, buildInputSummaryItems, buildPaidReportHtml } from "./export-html.js";
 import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
+import { describeCalculationRule } from "./calculation-rule-copy.js";
 import { toFriendlyError } from "./friendly-error.js";
 import { validateInputDraft } from "./input-validation.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
 import { findPolicyPage, policyPages, type PolicyPage } from "./policy-pages.js";
 import { buildFreeReportFilename } from "./report-filenames.js";
 import {
-  calculatePillars,
+  BIRTH_PLACES,
+  calculatePillarsWithResolution,
   generatePaidReportV1,
   generateReportV1,
   getSajuTerm,
   type BirthInput,
+  type CalculationResolution,
   type PaidReportV1,
+  type PillarsAlternates,
   type ReportV1,
   type SajuTermKey
 } from "@saju-lab/saju-core";
@@ -33,7 +37,11 @@ type ThemePreference = "system" | "light" | "dark";
 interface ReportBundle {
   report: ReportV1;
   paidReport: PaidReportV1;
+  resolution: CalculationResolution;
+  alternates?: PillarsAlternates;
 }
+
+const ALT_PILLARS_VIEWS_KEY = "saju-lab-alt-pillars-views";
 
 const THEME_STORAGE_KEY = "saju-lab-theme";
 
@@ -43,6 +51,7 @@ function App(): JSX.Element {
   const [timeUnknown, setTimeUnknown] = React.useState(false);
   const [sex, setSex] = React.useState<BirthInput["sex"]>(DEFAULT_INPUT.sex);
   const [reportBundle, setReportBundle] = React.useState<ReportBundle>(() => createReportBundle(DEFAULT_INPUT));
+  const [lastInput, setLastInput] = React.useState<BirthInput>(DEFAULT_INPUT);
   const [error, setError] = React.useState<string | undefined>();
   const [theme, setTheme] = React.useState<ThemePreference>(() => readThemePreference());
   const policyPage = findPolicyPage(readPathname());
@@ -72,6 +81,20 @@ function App(): JSX.Element {
 
     try {
       setReportBundle(createReportBundle(input));
+      setLastInput(input);
+      setError(undefined);
+    } catch (caught) {
+      setError(toFriendlyError(caught));
+    }
+  }
+
+  // Boundary reading: the user picked a 시·도, so recalculate locally with the
+  // longitude correction. Same input otherwise — nothing leaves the device.
+  function handleBirthPlace(birthPlace: string): void {
+    const input: BirthInput = { ...lastInput, birthPlace, options: { ...lastInput.options, trueSolarTime: true } };
+    try {
+      setReportBundle(createReportBundle(input));
+      setLastInput(input);
       setError(undefined);
     } catch (caught) {
       setError(toFriendlyError(caught));
@@ -160,7 +183,13 @@ function App(): JSX.Element {
 
         <PrivacyNote />
         <CalculationCoverageNote />
-        <ReportView paidReport={paidReport} report={report} />
+        <ReportView
+          alternates={reportBundle.alternates}
+          onBirthPlace={handleBirthPlace}
+          paidReport={paidReport}
+          report={report}
+          resolution={reportBundle.resolution}
+        />
       </section>
     </main>
   );
@@ -245,7 +274,13 @@ function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (v
   );
 }
 
-function ReportView({ paidReport, report }: { paidReport: PaidReportV1; report: ReportV1 }): JSX.Element {
+function ReportView({ alternates, onBirthPlace, paidReport, report, resolution }: {
+  alternates: PillarsAlternates | undefined;
+  onBirthPlace: (birthPlace: string) => void;
+  paidReport: PaidReportV1;
+  report: ReportV1;
+  resolution: CalculationResolution;
+}): JSX.Element {
   const freeSummary = buildFreeMonthlySummary(report);
   const [exportStatus, setExportStatus] = React.useState<string | undefined>();
 
@@ -313,6 +348,7 @@ function ReportView({ paidReport, report }: { paidReport: PaidReportV1; report: 
         <PillarCell termKey="dayPillar" value={report.pillars.day} />
         <PillarCell termKey="timePillar" value={report.pillars.time} />
       </section>
+      <CalculationRuleLine alternates={alternates} onBirthPlace={onBirthPlace} resolution={resolution} />
 
       <ArticleCard id="overview" icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
       <SafetyNote />
@@ -399,6 +435,66 @@ function SafetyNote(): JSX.Element {
       <p>커리어와 재무 문장은 경향과 점검 방향을 정리한 참고 정보입니다. 실제 결정은 계약, 예산, 건강 상태, 전문가 조언 같은 현실 자료와 함께 확인하세요.</p>
     </section>
   );
+}
+
+function CalculationRuleLine({ alternates, onBirthPlace, resolution }: {
+  alternates: PillarsAlternates | undefined;
+  onBirthPlace: (birthPlace: string) => void;
+  resolution: CalculationResolution;
+}): JSX.Element {
+  const copy = describeCalculationRule(resolution, alternates, termLabel);
+  const jaHourAlternate = alternates?.jaHourPolicy;
+
+  return (
+    <section className="calculationRule" aria-label="계산 규칙">
+      <p className="calculationRuleLine">{copy.parts.join(" · ")}</p>
+      {copy.boundaryPrompt ? (
+        <label className="boundaryPrompt">
+          <span><AlertTriangle size={16} /> {copy.boundaryPrompt}</span>
+          <select aria-label="출생지 시·도" defaultValue="" onChange={(event) => { if (event.target.value) onBirthPlace(event.target.value); }}>
+            <option value="" disabled>출생지 선택</option>
+            {BIRTH_PLACES.map((place) => (
+              <option key={place.code} value={place.code}>{place.nameKo}</option>
+            ))}
+          </select>
+        </label>
+      ) : null}
+      {copy.uncorrectedNote ? <p className="uncorrectedNote">{copy.uncorrectedNote}</p> : null}
+      {jaHourAlternate ? (
+        <details className="alternatePillars" onToggle={(event) => { if ((event.target as HTMLDetailsElement).open) countAlternateView(); }}>
+          <summary>참고 명식 보기 — 23시대를 다음 날로 보는 학파({jaHourAlternate.policy === "early" ? "조자시" : "야자시"})</summary>
+          <table>
+            <thead>
+              <tr><th>연주</th><th>월주</th><th>일주</th><th>시주</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{pillarText(jaHourAlternate.pillars.year)}</td>
+                <td>{pillarText(jaHourAlternate.pillars.month)}</td>
+                <td>{pillarText(jaHourAlternate.pillars.day)}</td>
+                <td>{pillarText(jaHourAlternate.pillars.time)}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>표만 제공합니다. 해석은 위 기본 명식 기준입니다.</p>
+        </details>
+      ) : null}
+    </section>
+  );
+}
+
+function pillarText(value: { stem: string; branch: string } | undefined): string {
+  return value ? `${termLabel(value.stem)} ${termLabel(value.branch)}` : "-";
+}
+
+// 열람 카운터: 서버 없이 이 기기에만 남긴다(v1.1에서 접힘 표 유지 여부를 판단할 재료).
+function countAlternateView(): void {
+  try {
+    const current = Number(window.localStorage.getItem(ALT_PILLARS_VIEWS_KEY) ?? "0");
+    window.localStorage.setItem(ALT_PILLARS_VIEWS_KEY, String(current + 1));
+  } catch {
+    // storage unavailable — the counter is a convenience, not a feature
+  }
 }
 
 function PillarCell({ termKey, value }: { termKey: SajuTermKey; value: { stem: string; branch: string } | undefined }): JSX.Element {
@@ -619,15 +715,18 @@ function PaidRoadmap(): JSX.Element {
 }
 
 function createReportBundle(input: BirthInput): ReportBundle {
+  const { pillars, resolution, alternates } = calculatePillarsWithResolution(input);
   const reportInput = {
     input,
-    pillars: calculatePillars(input),
+    pillars,
     generatedAt: new Date().toISOString()
   };
 
   return {
     report: generateReportV1(reportInput),
-    paidReport: generatePaidReportV1(reportInput)
+    paidReport: generatePaidReportV1(reportInput),
+    resolution,
+    ...(alternates ? { alternates } : {})
   };
 }
 

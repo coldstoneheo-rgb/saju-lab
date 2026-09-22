@@ -6,6 +6,21 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage3-01 PR 2)
+summary: 웹 명식 아래 「계산 규칙」 1줄 — 표준시 이력·진태양시·일주 경계를 resolution에서 조립, 경계 명식일 때만 시·도 선택 → 로컬 재계산, 23시대 접힘 참고 명식 표 + 로컬 열람 카운터
+status: shipped
+progress: "3단계(PR 1·2) 완료(근거: docs/handoffs/HO-2026-0922-saju-L1-stage3-01-REPORT.md · `npm run verify` exit 0 테스트 239 · 스크린샷 4장 docs/evidence/2026-09-22-stage3-web). 회의 로드맵 스파이크·1·2·3단계 전부 착지."
+changes:
+  - "feat(web): 명식 아래 계산 규칙 1줄 + 경계 시 시·도 선택 + 23시대 참고 명식 (HO-2026-0922-saju-L1-stage3-01 PR 2)"
+next: "다음 HO 대기(4단계 음력·L2 등). 선택: HTML 내보내기에 resolution 포함"
+learning_need: "카피를 계산 결과(resolution)에서만 생성하면 «화면이 거짓말할 수 없다»는 성질이 공짜로 따라온다 — 문구 상수를 두고 조건문으로 고르는 대신 값에서 문장을 만들었더니 테스트 5건이 곧 문구 명세가 됐다. 경계 창 규칙대로면 23:30은 23:00 시지 경계 안이라 «23시대 접힘 표»와 «경계 안내»가 함께 뜬다 — 사용자에겐 두 질문이 동시에 오는 셈이라 UI 단계에서 우선순위를 정할 재료."
+---
+## 의미
+회의 F1이 화면에서 성립한다: 사용자는 «어느 규칙으로 계산했는지»를 항상 보고, 경계 명식일 때만 출생지를 묻는다. 비경계 사용자는 아무것도 보지 않는다. 다음 단계(질문 3개·카드 UI)는 이 1줄과 접힘 표를 카드 안으로 옮기는 일이다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage3-01 PR 1)
 summary: 시주 옵션 도입 — 진태양시(경도 보정만, 균시차 미적용)·23시 정책·일주 경계 학파 옵션, 반대쪽 명식 alternates 상시 계산, 경계 명식 플래그 3종, 17 시·도 경도표
 status: on_track

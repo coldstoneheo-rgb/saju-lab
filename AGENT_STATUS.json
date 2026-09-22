@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-22T21:00:00+09:00",
-  "head": "24be32a",
-  "working_on": "HO-2026-0922-saju-L1-stage3-01 — PR 1(진태양시·23시 정책 옵션·경계 플래그·alternates) 머지 진행 → PR 2 웹 1줄",
+  "as_of": "2026-09-22T22:30:00+09:00",
+  "head": "1f053e2",
+  "working_on": "HO-2026-0922-saju-L1-stage3-01 PR 2(웹 계산 규칙 1줄) 머지 진행 — 이후 3단계 완료",
   "waiting_on": "KASI 24기 표 저작권 사전 협의 회신(사용자 발송)",
   "recent": [
+    {
+      "at": "2026-09-22",
+      "what": "3단계 PR 2: 웹 명식 아래 계산 규칙 1줄 + 경계 시 시·도 선택 로컬 재계산 + 23시대 접힘 참고 명식 + 스크린샷 4장 (HO stage3)"
+    },
     {
       "at": "2026-09-22",
       "what": "3단계 PR 1: 시주 옵션(trueSolarTime 경도 보정·jaHourPolicy·dayBoundary) + 17 시·도 경도표 + alternates + nearBoundary 3종 (HO stage3)"
@@ -20,20 +24,16 @@
     {
       "at": "2026-09-22",
       "what": "L1 스파이크: 절기 범위 2000-2028 → 1920-01-06~2100-12-07, 손관리 5행 폐기, 2011-11-08 입동 09:26→03:35 수정, astronomia 3자 검증 ≤2030 100%, --check CI 배선, dist 중복 제거 (HO-2026-0922-saju-L1-spike-kasi-01)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "회의 라운드 1 실측·라운드 3 개발자안 검증(수용 5·반박 4) — 내장 절기표↔KASI txt 불일치 22행 발견, CI 빨강 원인 lockfile 정체 규명"
     }
   ],
   "next_actions": [
-    "PR 2: 웹 「계산 규칙」 1줄 + 경계 시 시·도 선택 재계산 + 23시대 접힘 참고 명식 + 로컬 열람 카운터 + 스크린샷 3장",
-    "선택: solar-terms.data.ts 압축(+19.9KB), 잔재 브랜치 정리"
+    "다음 HO 대기(4단계 음력 등)",
+    "선택: solar-terms.data.ts 압축(+19.9KB), HTML 내보내기에 resolution 포함, 잔재 브랜치 정리"
   ],
   "gauge": {
-    "label": "L1 절기표 연도 범위",
-    "value": 181,
-    "max": 181
+    "label": "L1 로드맵 단계(스파이크·1·2·3)",
+    "value": 4,
+    "max": 4
   },
   "detail_page": null
 }
