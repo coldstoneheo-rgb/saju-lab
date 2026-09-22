@@ -118,7 +118,8 @@ describe("normalizeToKstWallClock", () => {
     // 1987-05-10 02:00 -> 03:00: 02:30 never showed on a correctly set clock.
     const dstStart = normalizeToKstWallClock(local("1987-05-10", "02:30"));
     expect(wall(dstStart.kst)).toBe("1987-05-10T02:30");
-    expect(dstStart.resolution).toEqual({ appliedOffsetMin: 0, flags: ["nonexistent"] });
+    // A15: the skipped reading is flagged `dst` too — the clocks were jumping into summer time.
+    expect(dstStart.resolution).toEqual({ appliedOffsetMin: 0, flags: ["dst", "nonexistent"] });
 
     // 1961-08-10 00:00 +08:30 -> 00:30 +09:00: 00:00-00:29 skipped.
     const backToKst = normalizeToKstWallClock(local("1961-08-10", "00:15"));

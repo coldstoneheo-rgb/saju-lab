@@ -80,7 +80,7 @@ export interface DaeunReading {
   terms: { from: DaeunTermRef; to: DaeunTermRef };
   referenceTerm: DaeunTermRef;
   periods: DaeunPeriod[];
-  /** True when periods past the solar-term table's end (2100-12-07) were dropped. */
+  /** True when periods past the solar-term table's end (2100-12-07) were dropped. The last kept period's endsAt is then clamped to that date (D1). */
   truncated: boolean;
   /** The period that contains `referenceDate`, or null when it is before the first period (or after the last kept one). */
   current: { index: number; startsAt: string; endsAt: string } | null;
@@ -206,6 +206,13 @@ function readingFor(
       startsAt: dateOfMinute(startMinute),
       endsAt: dateOfMinute(minuteAtAge(startAge + 10) - 1440)
     });
+  }
+
+  if (truncated && periods.length > 0) {
+    // The kept tail would otherwise claim an end date past the verified table — clamp it (D1).
+    const last = periods[periods.length - 1] as DaeunPeriod;
+    const tableEnd = dateOfMinute(TABLE_END_MINUTE);
+    if (last.endsAt > tableEnd) periods[periods.length - 1] = { ...last, endsAt: tableEnd };
   }
 
   const referenceMinuteOfDay = dateValue(referenceDate);

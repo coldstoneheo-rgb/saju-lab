@@ -8,6 +8,8 @@
 - 간지는 로마자 라벨로 적는다: 천간 `gap eul byeong jeong mu gi gyeong sin im gye`, 지지 `ja chuk in myo jin sa o mi sin yu sul hae`. 기둥 = `천간-지지`(예 `gi-sa`). 시각 미상은 시각 열 `-`, 시주 열 `-`.
 - 시각은 **그날의 한국 시계값**이다(코어가 KST로 환산한다). 범주 열에 `UTC+8:30`·`DST`가 붙은 행은 환산이 결과를 바꾸는 사례다.
 - 행 추가는 PR로만, 검증자·일자 열 필수. 케이스 수집은 역술가 트랙·사용자 몫이고 이 파일은 그 착지점이다.
+- **달력 열**: `solar` · `lunar` · `lunar(윤달)`(2026-09-22 A12). 음력 행의 생년월일은 음력 날짜이고, 기대 명식은 코어가 양력으로 환산한 뒤의 값이다.
+- **선택 열**(2026-09-22 P2, 없거나 빈칸·`-` = 기본): `출생지` = 시·도 코드(`birth-place.data.ts`, 기본 seoul) · `옵션` = `trueSolarTime` · `jaHourPolicy=early|late` · `dayBoundary=midnight|trueSolar`(공백·`·` 구분). 기대 명식은 **옵션을 적용한 뒤**의 명식이다(진태양시 경계 행은 보정 명식이 기대값, 비보정 명식은 `alternates`로 대조). 기존 11행은 두 열이 없으므로 그대로다.
 
 ## 표
 

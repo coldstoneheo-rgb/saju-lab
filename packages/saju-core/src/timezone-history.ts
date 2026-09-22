@@ -39,14 +39,16 @@ export function normalizeToKstWallClock(local: ParsedBirthDateTime): NormalizedB
   const timeKnown = local.hour !== undefined && local.minute !== undefined;
   const wallMinutes = wallClockMinutes(local.year, local.month, local.day, local.hour ?? 12, local.minute ?? 0);
 
-  const { interval, ambiguous, nonexistent } = resolveInterval(wallMinutes);
+  const { interval, ambiguous, nonexistent, gapInto } = resolveInterval(wallMinutes);
   const appliedOffsetMin = interval.offsetMinutes - KST_OFFSET_MINUTES;
 
+  // `utc+8:30` = the standard offset of the interval is +08:30 (1908-1911, 1954-1961), regardless of
+  // summer time; `dst` = summer time was in force (or, for a skipped reading, was about to start — A15).
   const flags: BirthTimeFlag[] = [];
   if (interval.offsetMinutes % 60 === 30) {
     flags.push("utc+8:30");
   }
-  if (interval.kind === "dst") {
+  if (interval.kind === "dst" || (timeKnown && nonexistent && gapInto?.kind === "dst")) {
     flags.push("dst");
   }
   if (timeKnown && ambiguous) {
@@ -64,7 +66,7 @@ export function normalizeToKstWallClock(local: ParsedBirthDateTime): NormalizedB
   return { kst, resolution: { appliedOffsetMin, flags } };
 }
 
-function resolveInterval(wallMinutes: number): { interval: KoreaOffsetInterval; ambiguous: boolean; nonexistent: boolean } {
+function resolveInterval(wallMinutes: number): { interval: KoreaOffsetInterval; ambiguous: boolean; nonexistent: boolean; gapInto?: KoreaOffsetInterval } {
   const matches = KOREA_OFFSET_INTERVALS.filter((row) => {
     const utc = wallMinutes - row.offsetMinutes;
     return utc >= isoMinutes(row.fromUtc) && (row.toUtc === null || utc < isoMinutes(row.toUtc));
@@ -95,7 +97,10 @@ function resolveInterval(wallMinutes: number): { interval: KoreaOffsetInterval; 
   if (before === undefined) {
     throw new Error("Korean civil time history has no matching interval.");
   }
-  return { interval: before, ambiguous: false, nonexistent: true };
+  // The interval the clocks jumped into (the one starting where `before` ends) — reported so the
+  // caller can flag a DST-start gap as `dst` as well as `nonexistent`.
+  const gapInto = KOREA_OFFSET_INTERVALS.find((row) => before !== undefined && row.fromUtc === before.toUtc);
+  return { interval: before, ambiguous: false, nonexistent: true, ...(gapInto ? { gapInto } : {}) };
 }
 
 /** Wall-clock fields read as if they were UTC, in minutes since the epoch. No timezone math. */

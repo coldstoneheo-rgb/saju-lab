@@ -26,7 +26,7 @@ export interface StemInteraction {
   adjacent: boolean;
   /** 화기 — data only, 化 is not judged. */
   potentialElement: FiveElement;
-  /** Another ganhap shares one of these pillars (쟁합·투합). */
+  /** Another relation of the same rule id shares one of these pillars (쟁합·투합 — e.g. two 甲己 over one 己). */
   shared: boolean;
 }
 
@@ -43,7 +43,7 @@ export interface BranchInteraction {
   element?: FiveElement;
   /** 형 only. */
   subtype?: HyeongSubtype;
-  /** Another relation of the same kind shares one of these pillars. */
+  /** Another relation of the same rule id (조·국·종) shares one of these pillars. Different ids of the same kind are not shared (A9). */
   shared: boolean;
 }
 
@@ -155,11 +155,11 @@ function triples<T>(items: readonly T[]): Array<[T, T, T]> {
   return out;
 }
 
-/** Mark `shared` on every record that shares a pillar with another record of the same kind. */
-function markShared<T extends { kind: string; pillars: readonly PillarKey[]; shared: boolean }>(records: T[]): T[] {
+/** Mark `shared` on every record that shares a pillar with another record of the same rule id (조·국·종). */
+function markShared<T extends { kind: string; id: string; pillars: readonly PillarKey[]; shared: boolean }>(records: T[]): T[] {
   return records.map((record) => ({
     ...record,
-    shared: records.some((other) => other !== record && other.kind === record.kind && other.pillars.some((pillar) => record.pillars.includes(pillar)))
+    shared: records.some((other) => other !== record && other.kind === record.kind && other.id === record.id && other.pillars.some((pillar) => record.pillars.includes(pillar)))
   }));
 }
 
@@ -206,7 +206,7 @@ export function branchInteractions(pillars: PillarsResult): BranchInteraction[] 
       // A partial (반합 · 부분 형) already inside a complete triple of the same 국 is subsumed, not repeated.
       const subsumed =
         rule.complete === false &&
-        completeTriples.some((triple) => triple.id === rule.id && triple.pillars.includes(a.key) && triple.pillars.includes(b.key));
+        completeTriples.some((triple) => triple.kind === rule.kind && triple.id === rule.id && triple.pillars.includes(a.key) && triple.pillars.includes(b.key));
       if (subsumed) continue;
       records.push({
         kind: rule.kind,

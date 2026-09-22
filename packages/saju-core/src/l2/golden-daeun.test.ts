@@ -8,6 +8,8 @@ import { daeunOf, isDaeunUnavailable, type DaeunDirection, type DaeunReading } f
 
 const GOLDEN_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../docs/golden/GOLDEN-DAEUN.md");
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
+/** pending rows are allowed while a table awaits 검산, but never as the steady state (C). */
+const MAX_PENDING_RATIO = 0.2;
 
 interface Row {
   id: string;
@@ -58,11 +60,19 @@ function render(reading: DaeunReading): Record<string, string> {
   };
 }
 
-describe("GOLDEN-DAEUN.md — core output for the golden charts, awaiting 검산", () => {
+describe("GOLDEN-DAEUN.md — core output for the golden charts, confirmed 2026-09-22", () => {
   const rows = parseRows(readFileSync(GOLDEN_MD, "utf8"));
+
+  it("is fully confirmed (LC 독립 재계산 16/16 + 손계산) and cites the review document; pending below the cap", () => {
+    const confirmed = rows.filter((row) => row.status === "confirmed");
+    expect(confirmed.length).toBe(16);
+    for (const row of confirmed) expect(row.source).toContain("CODE-REVIEW-2026-0922-saju-pr80-daeun.md");
+    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
+  });
 
   it("covers every golden chart: other → two rows, male/female → one, 16 rows in all", () => {
     expect(rows).toHaveLength(16);
+    expect(new Set(rows.map((row) => `${row.id}/${row.direction}`)).size).toBe(rows.length);
     const ids = new Set(rows.map((row) => row.id));
     expect(ids.size).toBe(11);
     for (const id of ids) {

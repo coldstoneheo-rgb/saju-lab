@@ -5,7 +5,7 @@
 
 - 엔진: `@saju-lab/saju-core`의 `calculatePillars` + `analyzeFiveElements`(HO-A) 위의 얇은 어댑터.
 - 호스팅: `apps/web`과 동거하는 Vercel 서버리스 함수(`/api/saju-pillars`). 별도 인프라 없음.
-- 하위호환: 추가 필드는 v1 유지, **깨짐 변경 시에만** 식별자를 올린다.
+- 하위호환: 추가 필드는 v1 유지, **깨짐 변경 시에만** 식별자를 올린다. **additive의 정의**: 기존 키의 이름·타입·순서·의미는 바꾸지 않고 키를 더하기만 한다. 따라서 응답 객체에 `additionalProperties: false` 스키마를 대는 소비자는 v1 안에서도 깨질 수 있다 — 소비자는 모르는 키를 무시해야 한다(baby-naming-ai는 그렇게 한다).
 
 ## 엔드포인트
 
@@ -39,7 +39,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 { "birthDate": "2025-06-15", "calendar": "lunar", "isLeapMonth": true, "birthTime": "10:00", "sex": "female" }
 ```
 
-- `calendar: "lunar"`는 한국 음력(한국천문연구원 음양력 자료, usingsky/korean_lunar_calendar MIT에서 추출한 1900~2050 표)이다. 양력으로 환산한 뒤 기존 solar 경로로 계산하고, 응답 `resolution.calendar: { input: "lunar", isLeapMonth, solarDate }`에 환산 결과를 적는다(solar 입력은 `{ input: "solar", solarDate }`).
+- `calendar: "lunar"`는 한국 음력(한국천문연구원 음양력 자료, usingsky/korean_lunar_calendar MIT에서 추출한 1900~2050 표)이다. 양력으로 환산한 뒤 기존 solar 경로로 계산하고, 응답 `resolution.calendar: { input: "lunar", isLeapMonth, solarDate, kstDate }`에 환산 결과를 적는다(solar 입력은 `{ input: "solar", solarDate, kstDate }`). **`solarDate` = 입력 시계의 양력 날짜(음력이면 환산 결과), `kstDate` = 시간대 이력 정규화 뒤 일주를 읽은 KST 날짜.** 둘은 UTC+8:30·서머타임 환산이 자정을 넘길 때만 다르다(예 1958-06-11 00:15 → `solarDate 1958-06-11`, `kstDate 1958-06-10`; 2026-09-22 additive).
 - `isLeapMonth`(기본 false): 그 해 윤달의 날짜. 예: 음력 2025-06-15는 평달이면 양력 2025-07-09, 윤6월이면 2025-08-08.
 - 없는 날짜(윤달이 없는 달의 윤달, 29일 달의 30일, 13월 …) = **`INVALID_LUNAR_DATE`(400)**, 근처 날짜로 흘리지 않는다. 음력 연도가 1900~2050 밖이거나 환산한 양력이 절기표(1920-01-06~) 밖이면 `OUT_OF_SUPPORTED_RANGE`. `calendar:"solar"`에 `isLeapMonth:true`를 붙이면 `INVALID_LUNAR_DATE`.
 - 종전 `UNSUPPORTED_CALENDAR`(lunar 거부)는 더 이상 발생하지 않는다(코드 목록엔 남김). 양→음 역변환은 제공하지 않는다.
@@ -85,7 +85,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
   - `adjacent`(2자만): 연-월·월-일·일-시만 true. **억제에 쓰지 않는다** — 모든 기둥 쌍(4C2 = 6)을 나열한다.
   - `complete`: 삼합·삼형에만. true = 3자 전부, false = 반합(왕지 포함 2자) / 부분 형(2자). 완전 3자가 있으면 그 안의 같은 국 2자 부분은 따로 내지 않는다(포섭). 육합·방합·충·상형·자형엔 없음.
   - `element`: 삼합 국 오행 · 방합 방위 오행. `subtype`: 형에만(`mueun` 무은지형 寅巳申 · `jise` 지세지형 丑戌未 · `murye` 무례지형 子卯 · `ja` 자형 辰午酉亥).
-  - `shared`: **같은 `kind`**의 다른 관계와 기둥을 공유(쟁합·투합, 예 甲 둘에 己 하나 → 간합 2건 모두 `shared: true`). 寅申처럼 같은 쌍이 충+형에 걸리는 것은 중복 나열이지 `shared`가 아니다.
+  - `shared`: **같은 `id`(조·국·종)**의 다른 관계와 기둥을 공유(쟁합·투합, 예 甲 둘에 己 하나 → 간합 2건 모두 `shared: true`). 다른 id는 같은 kind라도 shared가 아니고, 寅申처럼 같은 쌍이 충+형에 걸리는 것은 중복 나열이지 `shared`가 아니다.
   - 자형은 같은 지지의 기둥 쌍마다 1건(辰 셋이면 3건, 전부 `shared`).
 
 | kind | 한글 | 한자 | id 예 | 정의(v1) |
@@ -120,8 +120,9 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
   - `truncated`: 주의 `startsAt`이 절기표 끝(2100-12-07)을 넘으면 그 주부터 빠지고 true(2010년대 출생은 9주, 2020년대는 7~8주).
   - `current: { index, startsAt, endsAt } | null` = `referenceDate`가 속한 주. 첫 주 시작 전이면 null.
 - 기준 절이 절기표 밖이면 `daeun: null` + `daeunReason: "OUT_OF_SOLAR_TERM_TABLE"`(에러 아님, 다른 블록 정상). 계산 범위 안의 생년월일에서는 도달하지 않는다(표 첫 행 소한 1920-01-06이 최초 역행 기준이 됨).
+- 옵션 무영향: `hiddenStemSchool`은 각 주 `tenGods.branchPrimary`만 바꾼다(간지·나이·날짜 불변). `trueSolarTime`·`dayBoundary`·`jaHourPolicy`는 거리·간지·날짜에 영향 없음 — 단 일주가 바뀌면 동봉 십신은 그 일간을 따른다. 절단 시 남은 마지막 주의 `endsAt`은 2100-12-07로 클램프. `current`는 첫 주 전·마지막 주 뒤·`periods: []`에서 null.
 
-예(g-1988-10-09-0230, 戊辰 壬戌 丁酉 辛丑 男): 순행, 기준 절 입동 1988-11-07 13:49, D = 42,499분, startAgeExact = 9.8377…, 첫 대운 癸亥(편관·정관) → 甲子 … 壬申. 골든 11건(16행) 대운표는 `docs/golden/GOLDEN-DAEUN.md`(역술가 검산 대기 `pending`).
+예(g-1988-10-09-0230, 戊辰 壬戌 丁酉 辛丑 男): 순행, 기준 절 입동 1988-11-07 13:49, D = 42,499분, startAgeExact = 9.8377…, 첫 대운 癸亥(편관·정관) → 甲子 … 壬申. 골든 11건(16행) 대운표는 `docs/golden/GOLDEN-DAEUN.md`(LC 독립 재계산 16/16 + 손계산으로 2026-09-22 `confirmed`).
 
 **v1 제외**: 세운·월운 · 대운수 반올림/버림 확정 · 대운↔원국 합충(v1.1 `include: "daeunInteractions"` 후보) · 절입 거리 진태양시 · 강약·용신·격국.
 
@@ -162,7 +163,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
     "birthPlace": "seoul",
     "jaHourPolicy": "late",
     "dayBoundary": "midnight",
-    "calendar": { "input": "solar", "solarDate": "1990-01-01" },  // 음력 입력이면 { "input": "lunar", "isLeapMonth": …, "solarDate": … }
+    "calendar": { "input": "solar", "solarDate": "1990-01-01", "kstDate": "1990-01-01" },  // 음력 입력이면 { "input": "lunar", "isLeapMonth": …, "solarDate": …, "kstDate": … }
     "nearBoundary": [                 // 경계 명식 플래그(KST 벽시계 기준, 시각 미상이면 [])
       { "kind": "hourBranch", "minutes": 10, "direction": "after" }   // 시지 경계 [B−10, B+34]분
       // { "kind": "dayMidnight", "minutes": -20, "direction": "before" }             // 자정 ±32분
@@ -186,34 +187,38 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - 오행 키: `wood,fire,earth,metal,water`(목화토금수).
 - `supplementPriority[0]`이 **가장 먼저 보완할 오행** = 작명이 채워야 할 1순위.
 - `alternates`는 요청 옵션의 **반대쪽**만 담는다(옵션 없이 부르면 `trueSolarTime.applied: true`, `jaHourPolicy.policy: "early"`). 명식이 같으면 키가 생략된다. `dayBoundary`는 alternates에 포함하지 않는다.
-- `nearBoundary`는 옵션과 무관하게 항상 계산된다. 소비자는 `hourBranch`가 있을 때만 출생지를 물어 `trueSolarTime: true`로 다시 부르는 흐름을 권장한다(웹앱이 그렇게 한다).
+- `nearBoundary`는 옵션과 무관하게 항상 계산된다. 소비자는 `hourBranch`가 있을 때만 출생지를 물어 `trueSolarTime: true`로 다시 부르는 흐름을 권장한다(웹앱이 그렇게 한다). 기준 시계는 **정규화 뒤 KST 벽시계**다(입력 시계가 아님) — 1961-08-10 00:10(+8:30) 입력은 KST 00:40이라 자정 경고가 붙지 않는다. 창: `hourBranch`·`dayMidnight` 모두 [−10, +34]분(경도 보정 최대 −34분을 덮는다), `solarTerm` ±60분.
 - `resolution`: 1908~1961년의 UTC+8:30 표준시 구간과 서머타임 연도(1948-51·55-60·87-88) 출생은 당시 시계값을
   KST로 환산한 뒤 계산한다(`docs/algorithms/SOLAR_TERM_SPEC.md` «한국 시간대 이력 정규화»). 예: 1955-02-04 22:50 →
-  `appliedOffsetMin: -30, flags: ["utc+8:30"]`. `ambiguous`는 서머타임 종료일에 두 번 있던 시각(첫 번째 채택),
-  `nonexistent`는 개시일에 건너뛴 시각(전이 전 오프셋 유지). 소비자는 무시해도 되지만 표시하면 «어느 규칙으로 계산했나»가 남는다.
+  `appliedOffsetMin: -30, flags: ["utc+8:30"]`. **플래그 정의**: `utc+8:30` = 그 구간의 **표준시**가 +08:30(1908~1911·1954~1961)이라는 뜻이며 서머타임 중이면 실제 시계는 +09:30이다(그래서 1958-06-11 00:15는 `["utc+8:30","dst"]`, `appliedOffsetMin: 30`). `dst` = 서머타임 시행 중(또는 개시 순간에 건너뛴 시각). `ambiguous` = 서머타임 종료일에 두 번 있던 시각(첫 번째 채택). `nonexistent` = 개시일에 건너뛴 시각(전이 전 오프셋 유지, `dst`와 함께 붙는다 — 1987-05-10 02:30 → `["dst","nonexistent"]`). 소비자는 무시해도 되지만 표시하면 «어느 규칙으로 계산했나»가 남는다.
 
 ## 에러 형식 (4xx)
 
 ```jsonc
 {
   "contract": "saju-pillars-v1",
-  "error": { "code": "UNSUPPORTED_CALENDAR", "message": "...", "field": "calendar" }
+  "error": { "code": "INVALID_CALENDAR", "message": "...", "field": "calendar" }
 }
 ```
 
+이 표의 400 코드 집합은 `saju-pillars-v1.ts`의 `SAJU_PILLARS_V1_ERROR_CODES`와 1:1이며 테스트(`retro-review-2026-0922.test.ts` A6)가 대조한다.
+
 | status | code | 의미 |
 |---|---|---|
-| 400 | `INVALID_BODY` | 본문이 JSON 객체가 아님 |
+| 400 | `INVALID_BODY` | 본문이 JSON 객체가 아님 · 알려진 키의 대소문자 변형(`birthplace` 등, `field`에 원 키) · `timeUnknown`이 boolean이 아님. **모르는 키는 무시**한다(소비자 확장 허용) |
 | 400 | `INVALID_CALENDAR` | `calendar`가 solar/lunar가 아님 |
-| 400 | `UNSUPPORTED_CALENDAR` | v1 미지원(lunar) — 호출 전 양력 변환 필요 |
 | 400 | `INVALID_BIRTH_DATE` | `YYYY-MM-DD` 형식 아님 또는 달력상 없는 날짜(예: `2023-02-29`) |
+| 400 | `INVALID_LUNAR_DATE` | `isLeapMonth` 타입 오류 · solar에 `isLeapMonth: true` · 음력에 없는 날짜(그 해에 없는 윤달, 29일 달의 30일) |
 | 400 | `UNSUPPORTED_TIMEZONE` | `Asia/Seoul` 외 — v1 미지원 |
-| 400 | `MISSING_BIRTH_TIME` | `timeUnknown`이 아닌데 `birthTime` 없음 |
+| 400 | `MISSING_BIRTH_TIME` | `timeUnknown`이 아닌데 `birthTime` 없음 · **절기 경계일(절입 당일)에 `timeUnknown: true`** — 월주가 시각에 달려 시각 필수(`field: birthTime`) |
 | 400 | `INVALID_BIRTH_TIME` | `HH:mm` 형식 아님 |
 | 400 | `INVALID_SEX` | 허용 값 아님 |
-| 400 | `OUT_OF_SUPPORTED_RANGE` | 검증된 절기 계산 범위 밖의 날짜 — 현재 범위는 1920-01-06 소한 ~ 2100-12-07 대설 직전(KASI 24기 표, `docs/algorithms/SOLAR_TERM_SPEC.md` «지원 범위») |
-| 401 | `UNAUTHORIZED` | `x-api-key` 누락/불일치 |
+| 400 | `INVALID_BIRTH_PLACE` | 17 시·도 코드 아님 |
+| 400 | `INVALID_OPTIONS` | `options`에 모르는 키·값(`include` 블록, 학파, `referenceDate` 형식 포함) |
+| 400 | `OUT_OF_SUPPORTED_RANGE` | 검증된 절기 계산 범위 밖의 날짜 — 현재 범위는 1920-01-06 소한 ~ 2100-12-07 대설 직전(KASI 24기 표, `docs/algorithms/SOLAR_TERM_SPEC.md` «지원 범위»). 음력은 1900~2050년 |
+| 401 | `UNAUTHORIZED` | `x-api-key` 누락/불일치(`/api/saju-pillars`) |
 | 405 | `METHOD_NOT_ALLOWED` | POST 외 메서드 |
+| 429 | `RATE_LIMITED` | keyless `/api/app/saju-pillars` 레이트리밋(5분 30회) |
 
 ## 예시 (curl)
 

@@ -1,6 +1,9 @@
 import { compareLocalMinute, localDateKey, type ParsedBirthDateTime } from "./datetime.js";
 import { IPCHUN_BY_YEAR, SOLAR_MONTH_BOUNDARIES } from "./solar-terms.data.js";
 
+/** A time-less birth on a 절입 date cannot be placed in a month: the caller must supply birthTime. */
+export class BirthTimeRequiredError extends Error {}
+
 export interface SolarMonthBoundary {
   term: "ipchun" | "gyeongchip" | "cheongmyeong" | "ipha" | "mangjong" | "soseo" | "ipchu" | "baengno" | "hallo" | "ipdong" | "daeseol" | "sohan";
   startsAt: string;
@@ -110,7 +113,7 @@ function assertKnownTimeAwayFromBoundaryDate(dateTime: ParsedBirthDateTime, boun
   );
 
   if (isBoundaryDate) {
-    throw new Error("birthTime is required on solar-term boundary dates.");
+    throw new BirthTimeRequiredError("birthTime is required on solar-term boundary dates.");
   }
 }
 

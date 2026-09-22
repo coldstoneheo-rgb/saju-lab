@@ -112,11 +112,11 @@ describe("lunar input through the pillars pipeline and the v1 contract", () => {
     const lunar = calculatePillarsWithResolution({ birthDate: "2025-06-15", calendar: "lunar", isLeapMonth: true, birthTime: "10:00", timezone: "Asia/Seoul", sex: "female" });
     const solar = calculatePillarsWithResolution({ birthDate: "2025-08-08", birthTime: "10:00", timezone: "Asia/Seoul", sex: "female" });
     expect(lunar.pillars).toEqual(solar.pillars);
-    expect(lunar.resolution.calendar).toEqual({ input: "lunar", isLeapMonth: true, solarDate: "2025-08-08" });
-    expect(solar.resolution.calendar).toEqual({ input: "solar", solarDate: "2025-08-08" });
+    expect(lunar.resolution.calendar).toEqual({ input: "lunar", isLeapMonth: true, solarDate: "2025-08-08", kstDate: "2025-08-08" });
+    expect(solar.resolution.calendar).toEqual({ input: "solar", solarDate: "2025-08-08", kstDate: "2025-08-08" });
 
     const regular = calculatePillarsWithResolution({ birthDate: "2025-06-15", calendar: "lunar", birthTime: "10:00", timezone: "Asia/Seoul", sex: "female" });
-    expect(regular.resolution.calendar).toEqual({ input: "lunar", isLeapMonth: false, solarDate: "2025-07-09" });
+    expect(regular.resolution.calendar).toEqual({ input: "lunar", isLeapMonth: false, solarDate: "2025-07-09", kstDate: "2025-07-09" });
     expect(regular.pillars.month).not.toEqual(lunar.pillars.month);
   });
 

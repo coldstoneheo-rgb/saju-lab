@@ -7,7 +7,7 @@ import { calculatePillars, resolveBirthKst } from "../pillars.js";
 import { buildSajuPillarsV1Response } from "../saju-pillars-v1.js";
 import { SOLAR_MONTH_BOUNDARIES } from "../solar-terms.js";
 import type { BirthInput } from "../types.js";
-import { DAEUN_DIRECTION_TABLE, DAEUN_TERMS, MINUTES_PER_DAEUN_YEAR, daeunDirection, daeunOf, isDaeunUnavailable, todayKst, type DaeunBlock } from "./daeun.js";
+import { DAEUN_DIRECTION_TABLE, DAEUN_TERMS, MINUTES_PER_DAEUN_YEAR, daeunDirection, daeunOf, isDaeunUnavailable, todayKst, type DaeunBlock, type DaeunReading } from "./daeun.js";
 
 const RULES_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../docs/rules/DAEUN.md");
 
@@ -188,6 +188,71 @@ describe("산식 (C2)", () => {
   });
 });
 
+describe("보정 D1~D5 + 미검증 분기", () => {
+  it("D1: when truncated, the last kept period's endsAt is clamped to the table end (2100-12-07); untruncated tails are untouched", () => {
+    const truncated = block(goldenCase("g-2010-06-21-2359").input).forward;
+    expect(truncated?.truncated).toBe(true);
+    expect(truncated?.periods.at(-1)?.endsAt).toBe("2100-12-07");
+    const full = block(goldenCase("g-1988-10-09-0230").input).forward;
+    expect(full?.truncated).toBe(false);
+    expect(full?.periods.at(-1)?.endsAt.slice(0, 4)).toBe("2098");
+  });
+
+  it("D1/미검증: a birth near the table end has no period at all — periods [] + truncated, current null", () => {
+    const late = block(input("2100-11-30", "10:00", "male"), "2100-12-01");
+    const reading = late.forward ?? late.backward;
+    expect(reading?.periods).toEqual([]);
+    expect(reading?.truncated).toBe(true);
+    expect(reading?.current).toBeNull();
+  });
+
+  it("D2: hiddenStemSchool changes only the branch 정기 십신 of the periods, never 간지·ages·dates", () => {
+    const birth = goldenCase("g-1990-01-01-1030").input;
+    const yeonhae = daeunOf(calculatePillars(birth), resolveBirthKst(birth), birth.sex, { referenceDate: "2026-09-22", school: "yeonhae" });
+    const japyeong = daeunOf(calculatePillars(birth), resolveBirthKst(birth), birth.sex, { referenceDate: "2026-09-22", school: "japyeong" });
+    if (isDaeunUnavailable(yeonhae) || isDaeunUnavailable(japyeong)) throw new Error("unexpected null");
+    const strip = (reading: DaeunReading | undefined): string => JSON.stringify({ ...reading, periods: reading?.periods.map(({ tenGods: _t, ...rest }) => rest) });
+    expect(strip(japyeong.forward)).toBe(strip(yeonhae.forward));
+    expect(strip(japyeong.backward)).toBe(strip(yeonhae.backward));
+    expect(japyeong.school).toBe("japyeong");
+  });
+
+  it("D3: time-unknown reads noon on the civil date without any offset, in both layers (kst date = input date)", () => {
+    // 1988-06-15 is inside summer time: a known clock is shifted −60 min to KST, an unknown time is left at noon.
+    const unknown = input("1988-06-15", undefined, "male");
+    expect(resolveBirthKst(unknown)).toEqual({ year: 1988, month: 6, day: 15, timezone: "Asia/Seoul" });
+    const reading = block(unknown);
+    expect(reading.precision).toBe("time-unknown");
+    const known = block(input("1988-06-15", "13:00", "male")); // 13:00 summer time = 12:00 KST — the instant noon stands for
+    expect((reading.forward ?? reading.backward)?.distanceMinutes).toBe((known.forward ?? known.backward)?.distanceMinutes);
+  });
+
+  it("D4: trueSolarTime / dayBoundary / jaHourPolicy do not move the 대운 distance or 간지 — only the enclosed 십신 follow the day master", () => {
+    const plain = input("1990-06-15", "23:40", "male");
+    const shifted: BirthInput = { ...plain, birthPlace: "jeonnam", options: { trueSolarTime: true, dayBoundary: "trueSolar", jaHourPolicy: "early" } };
+    const strip = (reading: DaeunReading | undefined): string => JSON.stringify({ ...reading, periods: reading?.periods.map(({ tenGods: _t, ...rest }) => rest) });
+    const a = block(plain);
+    const b = block(shifted);
+    expect(strip(b.forward)).toBe(strip(a.forward));
+    // 23:40 → 조자시(early) moves the day pillar to the next day, so the day master and therefore the 십신 differ.
+    expect(calculatePillars(shifted).day).not.toEqual(calculatePillars(plain).day);
+    expect(b.forward?.periods[0]?.tenGods).not.toEqual(a.forward?.periods[0]?.tenGods);
+  });
+
+  it("D5: current is null before the first period, after the last kept period, and when periods are empty", () => {
+    const birth = goldenCase("g-2010-06-21-2359").input; // truncated at 9 periods, last ends 2100-12-07
+    expect(block(birth, "2012-01-01").forward?.current).toBeNull();
+    expect(block(birth, "2100-12-07").forward?.current?.index).toBe(8);
+    expect(block(birth, "2100-12-08").forward?.current).toBeNull();
+  });
+
+  it("미검증: lunar input yields the same 대운 as its solar equivalent", () => {
+    const lunar = block({ birthDate: "1989-12-05", calendar: "lunar", birthTime: "10:30", timezone: "Asia/Seoul", sex: "male" }); // 음력 1989-12-05 = 양력 1990-01-01
+    const solar = block(input("1990-01-01", "10:30", "male"));
+    expect(JSON.stringify(lunar)).toBe(JSON.stringify(solar));
+  });
+});
+
 describe("saju-pillars-v1 — options.include daeun (C4 shape)", () => {
   const base = { birthDate: "1990-01-01", birthTime: "10:30", calendar: "solar" as const, sex: "male" as const };
 
@@ -212,6 +277,13 @@ describe("saju-pillars-v1 — options.include daeun (C4 shape)", () => {
     if (!bad.ok) expect(bad.error.error.code).toBe("INVALID_OPTIONS");
     const badFormat = buildSajuPillarsV1Response({ ...base, options: { include: ["daeun"], referenceDate: "20260922" } });
     expect(badFormat.ok).toBe(false);
+  });
+
+  it("미검증: sex other through the API returns both readings with direction both", () => {
+    const result = buildSajuPillarsV1Response({ ...base, sex: "other", options: { include: ["daeun"], referenceDate: "2026-09-22" } });
+    expect(result.ok && result.data.daeun?.direction).toBe("both");
+    expect(result.ok && result.data.daeun?.forward?.direction).toBe("forward");
+    expect(result.ok && result.data.daeun?.backward?.direction).toBe("backward");
   });
 
   it("time-unknown request still yields daeun with precision time-unknown", () => {

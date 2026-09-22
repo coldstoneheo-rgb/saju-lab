@@ -4,6 +4,7 @@ export * from "./terminology.js";
 export * from "./five-elements.js";
 export * from "./saju-pillars-v1.js";
 export { aiInterpretationGuard } from "./ai-interpretation-guard.js";
+export { BirthTimeRequiredError } from "./solar-terms.js";
 export { calculatePillars, calculatePillarsWithResolution, resolveBirthKst, NEAR_BOUNDARY_WINDOWS, LunarDateError, type CalculationResolution, type CalendarResolution, type NearBoundary, type NearBoundaryKind, type PillarsAlternates, type PillarsWithResolution } from "./pillars.js";
 export { daysInLunarMonth, leapMonth, lunarToSolar, lunarYearDays, type LunarDate, type SolarDate } from "./lunar-calendar.js";
 export { LUNAR_MAX_YEAR, LUNAR_MIN_YEAR, LUNAR_TABLE_SHA256 } from "./lunar-calendar.data.js";

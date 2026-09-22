@@ -61,8 +61,14 @@ export const HIDDEN_STEM_TABLES: Record<HiddenStemSchool, Record<Branch, HiddenS
   japyeong: JAPYEONG
 };
 
+/** A fresh copy every call — the tables are module state and a library consumer must not be able to mutate them (A7). */
 export function hiddenStemsOf(branch: Branch, school: HiddenStemSchool = DEFAULT_HIDDEN_STEM_SCHOOL): HiddenStems {
-  return HIDDEN_STEM_TABLES[school][branch];
+  const table = HIDDEN_STEM_TABLES[school][branch];
+  return {
+    residual: table.residual ? { ...table.residual } : null,
+    middle: table.middle ? { ...table.middle } : null,
+    primary: { ...table.primary }
+  };
 }
 
 /** The hidden stems in 여기 → 중기 → 정기 order, skipping empty slots. */

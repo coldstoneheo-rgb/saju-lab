@@ -1,5 +1,6 @@
 import { BRANCHES, STEMS } from "./cycle.js";
-import type { BirthInput, Pillar, PillarsResult, Sex } from "./types.js";
+import { findBirthPlace } from "./birth-place.data.js";
+import type { BirthInput, CalculationOptions, Pillar, PillarsResult, Sex } from "./types.js";
 
 /**
  * Parser for docs/golden/GOLDEN-PILLARS.md — the human-maintained table that
@@ -40,6 +41,16 @@ export const GOLDEN_TABLE_COLUMNS = {
 } as const;
 
 const REQUIRED_COLUMNS = Object.values(GOLDEN_TABLE_COLUMNS);
+
+/**
+ * Optional columns (P2, 2026-09-22). Absent column or empty cell = default, so the
+ * original rows are unchanged. 출생지 = a 시·도 code from birth-place.data.ts;
+ * 옵션 = space/·-separated `trueSolarTime` · `jaHourPolicy=early` · `dayBoundary=trueSolar`.
+ */
+export const GOLDEN_OPTIONAL_COLUMNS = {
+  birthPlace: "출생지",
+  options: "옵션"
+} as const;
 
 /** Source wordings that name no document. Kept in sync with the rule in the markdown header. */
 const HAND_WAVED_SOURCE = /commonly listed|widely listed|알려짐|알려져|잘 알려진|일반적으로|통상/i;
@@ -112,8 +123,13 @@ function parseRow(columns: string[], cells: string[], rowNumber: number): Golden
   const birthDate = cell(GOLDEN_TABLE_COLUMNS.birthDate);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(birthDate)) fail("생년월일 must be YYYY-MM-DD.");
 
-  const calendar = cell(GOLDEN_TABLE_COLUMNS.calendar);
-  if (calendar !== "solar") fail(`달력 "${calendar}" is not supported by the calculation core yet (solar only).`);
+  // 달력: `solar` · `lunar` · `lunar(윤달)` (A12 — the core converts lunar input itself).
+  const calendarCell = cell(GOLDEN_TABLE_COLUMNS.calendar);
+  const calendarMatch = /^(solar|lunar)(?:\((윤달)\))?$/.exec(calendarCell);
+  if (!calendarMatch) fail(`달력 "${calendarCell}" must be solar, lunar or lunar(윤달).`);
+  const calendar = calendarMatch?.[1] === "lunar" ? "lunar" : "solar";
+  const isLeapMonth = calendarMatch?.[2] === "윤달";
+  if (isLeapMonth && calendar !== "lunar") fail("윤달 applies to lunar only.");
 
   const sex = cell(GOLDEN_TABLE_COLUMNS.sex) as Sex;
   if (!SEXES.includes(sex)) fail(`성별 must be one of ${SEXES.join(", ")}.`);
@@ -134,13 +150,20 @@ function parseRow(columns: string[], cells: string[], rowNumber: number): Golden
     ...(timeKnown ? { time: parsePillar(timeCell, "시주", fail) } : {})
   };
 
+  const birthPlace = cell(GOLDEN_OPTIONAL_COLUMNS.birthPlace);
+  if (birthPlace && birthPlace !== "-" && findBirthPlace(birthPlace) === undefined) fail(`출생지 "${birthPlace}" is not a 시·도 code.`);
+  const options = parseOptionsCell(cell(GOLDEN_OPTIONAL_COLUMNS.options), fail);
+
   return {
     id,
     input: {
       birthDate,
       ...(timeKnown ? { birthTime: birthTimeCell } : {}),
       timezone: "Asia/Seoul",
-      sex
+      sex,
+      ...(calendar === "lunar" ? { calendar: "lunar" as const, isLeapMonth } : {}),
+      ...(birthPlace && birthPlace !== "-" ? { birthPlace } : {}),
+      ...(options ? { options } : {})
     },
     expected,
     source,
@@ -149,6 +172,21 @@ function parseRow(columns: string[], cells: string[], rowNumber: number): Golden
     categories: cell(GOLDEN_TABLE_COLUMNS.categories).split(/[·,]/).map((value) => value.trim()).filter(Boolean),
     notes: cell(GOLDEN_TABLE_COLUMNS.notes)
   };
+}
+
+/** `trueSolarTime` · `jaHourPolicy=early|late` · `dayBoundary=midnight|trueSolar`, separated by spaces or `·`. Empty/`-` = no options. */
+function parseOptionsCell(value: string, fail: (message: string) => never): CalculationOptions | undefined {
+  if (!value || value === "-") return undefined;
+  const options: CalculationOptions = {};
+  for (const token of value.split(/[\s·,]+/).filter(Boolean)) {
+    if (token === "trueSolarTime") options.trueSolarTime = true;
+    else if (token === "jaHourPolicy=early") options.jaHourPolicy = "early";
+    else if (token === "jaHourPolicy=late") options.jaHourPolicy = "late";
+    else if (token === "dayBoundary=midnight") options.dayBoundary = "midnight";
+    else if (token === "dayBoundary=trueSolar") options.dayBoundary = "trueSolar";
+    else fail(`옵션 token "${token}" is not one of trueSolarTime · jaHourPolicy=early|late · dayBoundary=midnight|trueSolar.`);
+  }
+  return options;
 }
 
 function parsePillar(value: string, column: string, fail: (message: string) => never): Pillar {
