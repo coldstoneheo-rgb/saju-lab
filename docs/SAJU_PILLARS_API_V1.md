@@ -33,6 +33,23 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 | `sex` | `"male" \| "female" \| "other"` | ✅ | 성별 |
 | `contract` | `"saju-pillars-v1"` | ❌ | 있으면 무시(에코용) |
 
+## 요청 옵션 (2026-09-22 additive, 3단계)
+
+```jsonc
+{
+  "birthPlace": "seoul",              // 선택. 17개 시·도 코드: seoul busan daegu incheon gwangju daejeon ulsan sejong
+                                      //   gyeonggi gangwon chungbuk chungnam jeonbuk jeonnam gyeongbuk gyeongnam jeju. 기본 seoul
+  "options": {                        // 선택. 전부 생략 = 현재 동작
+    "trueSolarTime": false,           // true면 시주에 경도 보정(시·도청 경도 − 135°) × 4분 적용. 서울 −32분. **균시차 미적용**
+    "jaHourPolicy": "late",           // "late" = 23시대 일주 달력일 유지(야자시, 기본) | "early" = 다음 날 일주(조자시)
+    "dayBoundary": "midnight"         // "midnight" = KST 자정(기본) | "trueSolar" = 보정 시각 자정(학파 옵션)
+  }
+}
+```
+
+- 진태양시 = **경도 보정만**. 균시차(equation of time)는 v1에서 적용하지 않는다(회의 2026-09-22 A1-3 ⑤ 명문화). 절입(연·월주) 비교에는 어떤 옵션도 영향을 주지 않는다.
+- 잘못된 값: `INVALID_BIRTH_PLACE`(400), `INVALID_OPTIONS`(400, 알 수 없는 키 포함).
+
 ## 응답 스키마 (200)
 
 ```jsonc
@@ -45,9 +62,23 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
     "day":   { "stem": "byeong", "branch": "in" },
     "time":  { "stem": "gye",    "branch": "sa" }
   },
-  "resolution": {                     // (2026-09-22 additive) 입력 벽시계 → KST 환산 내역
-    "appliedOffsetMin": 0,            // KST에 맞추려고 뺀 분. 0 = 변환 없음(2000년 이후 항상 0)
-    "flags": []                       // "utc+8:30" | "dst" | "ambiguous" | "nonexistent"
+  "resolution": {                     // (2026-09-22 additive) 어느 규칙으로 계산했는지
+    "appliedOffsetMin": 0,            // 표준시 이력: KST에 맞추려고 뺀 분. 0 = 변환 없음(2000년 이후 항상 0)
+    "flags": [],                      // "utc+8:30" | "dst" | "ambiguous" | "nonexistent"
+    "trueSolarTimeApplied": false,    // options.trueSolarTime 적용 여부
+    "trueSolarOffsetMin": -32,        // birthPlace의 경도 보정 분(적용 안 해도 보고)
+    "birthPlace": "seoul",
+    "jaHourPolicy": "late",
+    "dayBoundary": "midnight",
+    "nearBoundary": [                 // 경계 명식 플래그(KST 벽시계 기준, 시각 미상이면 [])
+      { "kind": "hourBranch", "minutes": 10, "direction": "after" }   // 시지 경계 [B−10, B+34]분
+      // { "kind": "dayMidnight", "minutes": -20, "direction": "before" }             // 자정 ±32분
+      // { "kind": "solarTerm", "minutes": -27, "direction": "before", "term": "ipchun", "at": "2024-02-04T17:27" } // 절입 ±60분
+    ]
+  },
+  "alternates": {                     // (3단계 additive) 반대쪽 명식 — 명식이 다를 때만, 시각 미상이면 없음
+    "trueSolarTime": { "applied": true, "appliedMinutes": -32, "pillars": { /* 4기둥 */ } },
+    "jaHourPolicy":  { "policy": "early", "pillars": { /* 4기둥 */ } }
   },
   "fiveElements": {
     "distribution": { "wood": 1, "fire": 4, "earth": 1, "metal": 0, "water": 2 },
@@ -61,6 +92,8 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - 간지 라벨: 천간 `gap,eul,byeong,jeong,mu,gi,gyeong,sin,im,gye` / 지지 `ja,chuk,in,myo,jin,sa,o,mi,sin,yu,sul,hae`.
 - 오행 키: `wood,fire,earth,metal,water`(목화토금수).
 - `supplementPriority[0]`이 **가장 먼저 보완할 오행** = 작명이 채워야 할 1순위.
+- `alternates`는 요청 옵션의 **반대쪽**만 담는다(옵션 없이 부르면 `trueSolarTime.applied: true`, `jaHourPolicy.policy: "early"`). 명식이 같으면 키가 생략된다. `dayBoundary`는 alternates에 포함하지 않는다.
+- `nearBoundary`는 옵션과 무관하게 항상 계산된다. 소비자는 `hourBranch`가 있을 때만 출생지를 물어 `trueSolarTime: true`로 다시 부르는 흐름을 권장한다(웹앱이 그렇게 한다).
 - `resolution`: 1908~1961년의 UTC+8:30 표준시 구간과 서머타임 연도(1948-51·55-60·87-88) 출생은 당시 시계값을
   KST로 환산한 뒤 계산한다(`docs/algorithms/SOLAR_TERM_SPEC.md` «한국 시간대 이력 정규화»). 예: 1955-02-04 22:50 →
   `appliedOffsetMin: -30, flags: ["utc+8:30"]`. `ambiguous`는 서머타임 종료일에 두 번 있던 시각(첫 번째 채택),

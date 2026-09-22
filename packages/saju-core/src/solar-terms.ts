@@ -53,6 +53,28 @@ export function solarMonthBoundary(dateTime: ParsedBirthDateTime, boundaryDateSl
   return boundary;
 }
 
+/**
+ * Signed minutes from the nearest month-boundary 절입 to a known-time KST
+ * reading (negative = before the boundary). Used for the nearBoundary flag.
+ */
+export function minutesFromNearestBoundary(dateTime: ParsedBirthDateTime): { term: SolarMonthBoundary["term"]; startsAt: string; minutes: number } | undefined {
+  if (dateTime.hour === undefined || dateTime.minute === undefined) {
+    return undefined;
+  }
+  const value = Date.UTC(dateTime.year, dateTime.month - 1, dateTime.day, dateTime.hour, dateTime.minute) / 60_000;
+  let best: { term: SolarMonthBoundary["term"]; startsAt: string; minutes: number } | undefined;
+  for (const boundary of SOLAR_MONTH_BOUNDARIES) {
+    const delta = value - localMinuteValue(boundary.startsAt);
+    if (best === undefined || Math.abs(delta) < Math.abs(best.minutes)) {
+      best = { term: boundary.term, startsAt: boundary.startsAt, minutes: delta };
+    }
+    if (delta < -60) {
+      break; // the table is sorted; nothing later can be closer
+    }
+  }
+  return best;
+}
+
 function findActiveBoundaryIndex(dateTime: ParsedBirthDateTime): number {
   let activeBoundaryIndex = -1;
 

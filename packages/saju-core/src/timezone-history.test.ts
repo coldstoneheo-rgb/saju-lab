@@ -156,7 +156,7 @@ describe("calculatePillars with normalized KST", () => {
     expect(pillars.year).toEqual({ stem: "eul", branch: "mi" });
     expect(pillars.month).toEqual({ stem: "mu", branch: "in" });
     expect(pillars.time).toEqual({ stem: "mu", branch: "ja" }); // 23:20 KST is 자시 of the 병 day
-    expect(resolution).toEqual({ appliedOffsetMin: -30, flags: ["utc+8:30"] });
+    expect(resolution).toMatchObject({ appliedOffsetMin: -30, flags: ["utc+8:30"] });
 
     // A reading 30 minutes earlier still lands before 23:18 KST: 갑오년 정축월.
     const before = calculatePillars({ birthDate: "1955-02-04", birthTime: "22:47", timezone: "Asia/Seoul", sex: "male" });

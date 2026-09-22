@@ -64,8 +64,8 @@ export function dayPillarFromEpochDay(epochDay: number): Pillar {
   return cyclePillar(epochDay + 17);
 }
 
-export function timePillarForDay(dayStem: Stem, hour: number): Pillar {
-  const branchIndex = hourBranchIndex(hour);
+export function timePillarForDay(dayStem: Stem, hour: number, minute = 0): Pillar {
+  const branchIndex = hourBranchIndexAtMinute(hour, minute);
   const ziStemIndex = ZI_HOUR_START_STEM_BY_DAY_STEM[dayStem];
 
   return {
@@ -80,6 +80,21 @@ export function hourBranchIndex(hour: number): number {
   }
 
   return Math.floor(((hour + 1) % 24) / 2);
+}
+
+/**
+ * Minute-level hour branch. The twelve 시지 open at the odd whole hours
+ * (자 23:00, 축 01:00, 인 03:00 …), so the minute only matters once a
+ * true-solar-time correction has moved the reading across one of them.
+ */
+export function hourBranchIndexAtMinute(hour: number, minute: number): number {
+  if (!Number.isInteger(minute) || minute < 0 || minute > 59) {
+    throw new Error("minute must be an integer from 0 to 59.");
+  }
+  hourBranchIndex(hour);
+
+  const minuteOfDay = hour * 60 + minute;
+  return Math.floor(((minuteOfDay + 60) % 1440) / 120);
 }
 
 function mod(value: number, divisor: number): number {
