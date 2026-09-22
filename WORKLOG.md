@@ -6,6 +6,22 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, 회의 D9 1단계)
+summary: package-lock.json만 갱신해 #64(08-21) 이후 처음으로 npm audit 게이트·CI verify를 초록으로 복구 — 코드·의존성 범위 변경 0
+status: on_track
+progress: "CI 게이트 복구 완료(근거: `npm audit fix --package-lock-only` → `npm ci` exit 0 · `npm audit --audit-level=moderate` exit 0(esbuild low 1건 잔류) · `npm run verify` exit 0 · PR chore/lockfile-audit-refresh). 회의 라운드 1·3 실측 REPORT 2건 LC 송신."
+changes:
+  - "chore(deps): package-lock을 npm audit fix로 갱신해 moderate 이상 취약점 0 (lockfile only)"
+next: "HO-2026-0922-saju-L1-spike-kasi(KASI txt 1920-2100 적재, 2~3일) — 발주서 도착 시 착수"
+blockers: "내장 절기표 ↔ KASI txt(2026-09-01 계산) 불일치 22행. 특히 2011-11-08 입동 내장 09:26 vs txt 03:35(약 6시간) — 그 구간 출생의 월주가 틀릴 수 있어 정본 판정이 스파이크에 선행해야 한다."
+learning_need: "CI 빨강의 원인은 의존성 충돌이 아니라 **lockfile 정체**였다(06-27 이후 node_modules만 앞서감). 「vite 범위 충돌 대기」라는 08-23 메모는 low 1건에만 해당했고 moderate 게이트를 막던 건 lock이 고정한 옛 버전이었다. 빨간 CI를 선례 삼아 머지하기 전에 `npm audit fix --dry-run --package-lock-only` 한 번이면 알 수 있었다."
+---
+## 의미
+게이트가 빨간 채로 3개 PR(#64·#65·#66)이 머지되면서 «verify 통과 = 완료»라는 CLAUDE.md의 완료 정의가 로컬 4종으로 축소돼 있었다. 이 PR로 정의가 원래대로 돌아오고, 다음 스파이크(절기표 1920-2100 확장)의 완료 조건을 CI 초록으로 기계 판정할 수 있게 된다. 라운드 3 검증에서 나온 22행 불일치는 스파이크 발주서의 게이트 정의를 바꾼 근거다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, 회의 전 세션 정비)
 summary: 사주 회의(09-22) 전 세션 정비 — devlog Stop 훅 재설치, CLAUDE.md에 단일 창 지시 체계(§8) 절, AGENT_STATUS.json 신설, harness-loop-engine 스킬 복제
 status: on_track
