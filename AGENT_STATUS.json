@@ -1,27 +1,31 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-22T11:00:00+09:00",
-  "head": "08869ff",
-  "working_on": "사주 회의(2026-09-22) 전 세션 정비 — devlog Stop 훅·CLAUDE.md §8 절·AGENT_STATUS.json·harness-loop-engine 스킬 도입 후 라운드 1 실측 발표",
-  "waiting_on": "회의 라운드 4 결정 — L2 갭(십신·대운·용신·합충·지장간·신살) 우선순위와 1950~1999 절기 데이터 소스(사용자·LC)",
+  "as_of": "2026-09-22T13:30:00+09:00",
+  "head": "c21ff59",
+  "working_on": "lockfile 갱신 PR로 CI verify 초록 복구(#64 이후 첫 초록) → 다음 HO-2026-0922-saju-L1-spike-kasi(KASI txt 1920-2100 적재, 2~3일) 발주 대기",
+  "waiting_on": "LC의 L1 스파이크 HO 발주서 도착 · 2011-11-08 입동 정본 판정(내장 09:26 vs KASI txt 03:35, 사용자 월주 영향 가능)",
   "recent": [
     {
+      "at": "2026-09-22",
+      "what": "회의 라운드 1 실측·라운드 3 개발자안 검증(수용 5·반박 4) — 내장 절기표↔KASI txt 불일치 22행 발견, CI 빨강 원인 lockfile 정체 규명"
+    },
+    {
+      "at": "2026-09-22",
+      "what": "회의 전 세션 정비 — CLAUDE.md §8 절·AGENT_STATUS.json·harness-loop-engine 스킬·devlog 훅 (#66)"
+    },
+    {
       "at": "2026-08-23",
-      "what": "월 경계 절기표를 KASI 2000-2028 수집물에서 생성 (#65, 352행, 테스트 255 통과)"
+      "what": "월 경계 절기표를 KASI 2000-2028 수집물에서 생성 (#65)"
     },
     {
       "at": "2026-08-19",
       "what": "앱용 무비밀 게이트웨이 — Gemini 키를 서버로 이관 (#64)"
-    },
-    {
-      "at": "2026-07-02",
-      "what": "HO-B(baby-naming-ai 소비측 통합) 라이브 API 교차검증으로 완료 확정 (#62·#63)"
     }
   ],
   "next_actions": [
-    "회의 결정에 따라 L2 결정론 갭(지장간 가중→십신→대운 순 후보) 구현 착수",
-    "1989-1999 절기 4행의 손관리 값을 승인된 소스로 재검증하거나 범위 밖으로 명시",
-    "vitest가 packages/saju-core/dist 테스트를 중복 집계하는 것(257 = src 108+dist 100+api 17+web 32) 정리"
+    "HO-2026-0922-saju-L1-spike-kasi 착수: KASI txt 파서·cross-check(|Δ|≤1분 집계·>1분 조사)·astronomia 3자 검증·--check CI 배선·coverage-copy/SPEC/AUDIT 갱신·index.test 핀 이동·dist 중복 제거",
+    "2011-11-08 입동 6시간 차 정본 판정 후 해당 구간 출생 월주 회귀 테스트 추가",
+    "머지 잔재 브랜치 3개 정리(feat/app-gateway-keyless-proxy 로컬·원격, origin/feat/solar-terms-2000-2028)"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(십신·대운·용신·격국·합충·지장간·신살) 구현",
