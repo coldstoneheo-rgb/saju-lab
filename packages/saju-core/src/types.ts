@@ -11,7 +11,7 @@ export type JaHourPolicy = "late" | "early";
 export type DayBoundaryPolicy = "midnight" | "trueSolar";
 
 /** L2 blocks a caller can ask for on top of the pillars (2026-09-22, 5단계). */
-export type IncludeBlock = "hiddenStems" | "tenGods" | "interactions";
+export type IncludeBlock = "hiddenStems" | "tenGods" | "interactions" | "daeun";
 
 /** 지장간 table variant: 연해자평 월률분야 (default) or 자평진전 인원용사. */
 export type HiddenStemSchoolOption = "yeonhae" | "japyeong";
@@ -24,6 +24,8 @@ export interface CalculationOptions {
   /** Extra L2 blocks to return. Omitted = none (the response stays byte-identical to stage 4). */
   include?: IncludeBlock[];
   hiddenStemSchool?: HiddenStemSchoolOption;
+  /** 대운 block only: the KST date (YYYY-MM-DD) that `current` is resolved for. Default = today in KST. */
+  referenceDate?: string;
 }
 
 export type CalendarSystem = "solar" | "lunar";

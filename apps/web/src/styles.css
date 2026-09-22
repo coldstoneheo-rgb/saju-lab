@@ -1122,3 +1122,86 @@ input {
 .interactionDetails p {
   margin: 0.4rem 0 0;
 }
+
+/* 대운 행·규칙 접힘 (7단계): 계산 층 표시, 소수 그대로 */
+.daeun {
+  margin: 0.6rem 0 0.2rem;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+.daeunHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0 0 0.35rem;
+}
+
+.daeunHead strong {
+  color: var(--text);
+}
+
+.daeunPeriods {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 0.3rem;
+  list-style: none;
+  margin: 0 0 0.6rem;
+  padding: 0;
+}
+
+.daeunPeriods li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.4rem 0.2rem;
+  border: 1px solid var(--border, #d9dee5);
+  border-radius: 0.6rem;
+  background: var(--surface-soft);
+  text-align: center;
+}
+
+.daeunPeriods li.current {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+  background: var(--selected);
+  color: var(--selected-text);
+}
+
+.daeunPeriods .daeunAge {
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+.daeunPeriods strong {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.daeunPeriods em {
+  font-style: normal;
+  font-size: 0.72rem;
+}
+
+.daeunRule summary {
+  cursor: pointer;
+}
+
+.daeunRule ul {
+  margin: 0.4rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.daeunNote {
+  margin: 0.6rem 0 0.2rem;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .daeunPeriods {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

@@ -3,8 +3,8 @@
 > 루프 하네스의 ⑥ 상태 파일. 매 세션 끝에 갱신한다. 거버넌스 규칙은 `AGENTS.md`, 작업 지침은 `CLAUDE.md`.
 
 ## 현재 위치
-- 단계: **회의(2026-09-22) 로드맵 — L1 전부(스파이크·1~4단계) + L2 5단계(지장간·십신, 골든 confirmed) + 6단계(합충형 v1) 완료**. 다음 = 골든 합충표 검산 결과 기입 · 7단계(대운) HO 대기. 마감 인계 `docs/handoffs/2026-09-22-l1-l2-close-handoff.md`. 병행: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A, PR #57) → 소비 계약 API(HO-API, PR #58) → 라이브 배포 복구(deploy-fix, PR #60) → 소비측 통합(HO-B) **완료 확인**. 전 구간 엔드투엔드 연결.
-- 브랜치: `main`(4000671 + 6단계 PR).
+- 단계: **회의(2026-09-22) 로드맵 — L1 전부 + L2 5단계(십신, confirmed) + 6단계(합충형 v1, 골든 confirmed) 완료, 7단계(대운 v1) PR 오픈(LC 판정 대기)**. 다음 = 7단계 머지 · 소급 검수 보정 PR · 09-23 골든 보강(≥50)·교차 구현 차분 HO. 마감 인계 `docs/handoffs/2026-09-22-l1-l2-close-handoff.md`. 병행: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A, PR #57) → 소비 계약 API(HO-API, PR #58) → 라이브 배포 복구(deploy-fix, PR #60) → 소비측 통합(HO-B) **완료 확인**. 전 구간 엔드투엔드 연결.
+- 브랜치: `main`(60bc06c) + `feat/l2-stage7-daeun`(PR 대기).
 - 직전 작업: HO-B(baby-naming-ai 소비측 통합)가 별도 세션(AI Studio)에서 이미 구현·머지돼 있었으나 미기록 상태였던 것을 발견 → 라이브 API 교차검증으로 완료 확정, 양쪽 저장소 WORKLOG에 기록.
 - 라이브: `https://saju-lab-phi.vercel.app/api/saju-pillars` `SAJU_API_KEY` 주입 완료(2026-07-02 확인, API 키 미포함 호출→401). baby-naming-ai 로컬 `.env`의 키로 골든 케이스(1990-01-01·10:30·male → `supplementPriority[0]=="metal"`, `absent==["metal"]`) 재현 확인.
 - 기반 상태: rules-only 리포트 + 픽스처 절기 계산 + 오행 분포/부족/보완(HO-A) + `POST /api/saju-pillars` 계약(HO-API) + baby-naming-ai 소비측 통합(HO-B, `baby-naming-ai` 커밋 `5ec49a0`/`22b3585`).
@@ -46,6 +46,8 @@
 | 2026-09-22 | HO-2026-0922-saju-L2-stage5-tengods-01: `docs/rules/HIDDEN-STEMS.md` 정본(연해자평 일수 / 자평진전 인원용사) ↔ `l2/hidden-stems.data.ts` 동일성 테스트, `l2/ten-gods.ts`(100조합 표), v1 `options.include`/`hiddenStemSchool` + `hiddenStems`/`tenGods` 블록, `docs/golden/GOLDEN-TENGODS.md` 11건 pending + 파서, 웹 십신 라벨·지장간 접힘, 스크린샷 2장 | `npm run verify` exit 0(테스트 285) |
 | 2026-09-22 | 골든 십신표 confirmed 기입 PR #77(4000671): 11행 confirmed·출처 인용, 학파 고정 머리말(japyeong 토글 실측 20셀·대안 15셀 병기), 야자시 비고, 테스트 «japyeong 산출은 표와 대조 안 함·정확히 20셀 다름» | `npm run verify` exit 0(테스트 287) · CI 초록 |
 | 2026-09-22 | HO-2026-0922-saju-L2-stage6-interactions-01: `docs/rules/INTERACTIONS.md` 정본(간합 5·육합 6·삼합 4·방합 4·충 6·형 4) ↔ `l2/interactions.data.ts` 동일성 테스트, `l2/interactions.ts`(규칙 층 + 명식 층, 인접 비억제·포섭·shared·자형 쌍별), 전수 테스트(10×10·12×12·220), v1 `options.include: interactions`, `docs/golden/GOLDEN-INTERACTIONS.md` 11건 pending + 파서, 웹 합충 칩+접힘 상세, API 문서 「합충 블록」, 스크린샷 3장 | `npm run verify` exit 0(테스트 322) |
+| 2026-09-22 | 골든 합충표 confirmed PR #79(60bc06c): 11행 confirmed·shared 비고 삭제·글자 순서 머리말, 합성 케이스 3건 추가 | `npm run verify` exit 0(테스트 325) · CI 초록 |
+| 2026-09-22 | HO-2026-0922-saju-L2-stage7-daeun-01: `docs/rules/DAEUN.md` 정본(순역 4조합·12절) ↔ `l2/daeun.ts` 파서 테스트, `daeunOf`(정규화 KST·정오 대체·엄격히 뒤/이하·D÷4320 소수·10주+십신·2100 절단·current), `resolveBirthKst`, v1 `include: daeun` + `referenceDate`, `docs/golden/GOLDEN-DAEUN.md` 16행 pending + 파서, 웹 대운 행+규칙 접힘, API 문서, 스크린샷 3장. PR 오픈 — 머지 게이트(LC 판정) 대기 | `npm run verify` exit 0(테스트 358) · verifier PASS |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과

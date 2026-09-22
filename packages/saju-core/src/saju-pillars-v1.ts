@@ -1,9 +1,10 @@
 import { analyzeFiveElements } from "./five-elements.js";
 import { findBirthPlace } from "./birth-place.data.js";
-import { calculatePillarsWithResolution, LunarDateError, type CalculationResolution, type PillarsAlternates } from "./pillars.js";
+import { calculatePillarsWithResolution, LunarDateError, resolveBirthKst, type CalculationResolution, type PillarsAlternates } from "./pillars.js";
 import { DEFAULT_HIDDEN_STEM_SCHOOL, hiddenStemsOf, type HiddenStems } from "./l2/hidden-stems.data.js";
 import { tenGodsOfChart, type ChartTenGods } from "./l2/ten-gods.js";
 import { interactionsOfChart, type ChartInteractions } from "./l2/interactions.js";
+import { daeunOf, isDaeunUnavailable, type DaeunBlock } from "./l2/daeun.js";
 import type { Branch } from "./cycle.js";
 import type {
   BirthInput,
@@ -67,6 +68,9 @@ export interface SajuPillarsV1Response {
   tenGods?: ChartTenGods;
   /** 합충형 — only with options.include "interactions". Existence and position only; no 化 judgement, no weighting. */
   interactions?: ChartInteractions;
+  /** 대운 — only with options.include "daeun". Minute-precision decimals, no rounding; null (with daeunReason) when the reference 절 is outside the solar-term table. */
+  daeun?: DaeunBlock | null;
+  daeunReason?: "OUT_OF_SOLAR_TERM_TABLE";
   fiveElements: {
     /** Count of each element across the counted stems and branches. */
     distribution: FiveElementDistribution;
@@ -169,9 +173,11 @@ function parseOptions(value: unknown): CalculationOptions | undefined | null {
     } else if (
       key === "include" &&
       Array.isArray(raw[key]) &&
-      (raw[key] as unknown[]).every((block) => block === "hiddenStems" || block === "tenGods" || block === "interactions")
+      (raw[key] as unknown[]).every((block) => block === "hiddenStems" || block === "tenGods" || block === "interactions" || block === "daeun")
     ) {
-      options.include = [...new Set(raw[key] as Array<"hiddenStems" | "tenGods" | "interactions">)];
+      options.include = [...new Set(raw[key] as Array<"hiddenStems" | "tenGods" | "interactions" | "daeun">)];
+    } else if (key === "referenceDate" && typeof raw[key] === "string" && DATE_PATTERN.test(raw[key] as string) && isRealCalendarDate(raw[key] as string)) {
+      options.referenceDate = raw[key] as string;
     } else {
       return null;
     }
@@ -250,7 +256,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   if (options === null) {
     return failure(
       "INVALID_OPTIONS",
-      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include (['hiddenStems' | 'tenGods' | 'interactions']) and hiddenStemSchool ('yeonhae' | 'japyeong').",
+      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include (['hiddenStems' | 'tenGods' | 'interactions' | 'daeun']), referenceDate (YYYY-MM-DD) and hiddenStemSchool ('yeonhae' | 'japyeong').",
       "options"
     );
   }
@@ -295,6 +301,9 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
     : undefined;
   const tenGods = include.has("tenGods") ? tenGodsOfChart(pillars, school) : undefined;
   const interactions = include.has("interactions") ? interactionsOfChart(pillars) : undefined;
+  const daeun = include.has("daeun")
+    ? daeunOf(pillars, resolveBirthKst(birthInput), body.sex as Sex, { school, ...(options?.referenceDate ? { referenceDate: options.referenceDate } : {}) })
+    : undefined;
 
   return {
     ok: true,
@@ -308,6 +317,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
       ...(hiddenStems ? { hiddenStems } : {}),
       ...(tenGods ? { tenGods } : {}),
       ...(interactions ? { interactions } : {}),
+      ...(daeun ? (isDaeunUnavailable(daeun) ? { daeun: null, daeunReason: daeun.reason } : { daeun }) : {}),
       fiveElements: {
         distribution: analysis.distribution,
         absent: analysis.absent,
