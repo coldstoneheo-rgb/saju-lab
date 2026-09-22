@@ -1,6 +1,9 @@
 import { analyzeFiveElements } from "./five-elements.js";
 import { findBirthPlace } from "./birth-place.data.js";
 import { calculatePillarsWithResolution, LunarDateError, type CalculationResolution, type PillarsAlternates } from "./pillars.js";
+import { DEFAULT_HIDDEN_STEM_SCHOOL, hiddenStemsOf, type HiddenStems } from "./l2/hidden-stems.data.js";
+import { tenGodsOfChart, type ChartTenGods } from "./l2/ten-gods.js";
+import type { Branch } from "./cycle.js";
 import type {
   BirthInput,
   CalculationOptions,
@@ -57,6 +60,10 @@ export interface SajuPillarsV1Response {
    * or when the birth time is unknown.
    */
   alternates?: PillarsAlternates;
+  /** 지장간 per pillar — only with options.include "hiddenStems". Day counts are data, never weighted. */
+  hiddenStems?: ChartHiddenStems;
+  /** 십신 per pillar — only with options.include "tenGods". */
+  tenGods?: ChartTenGods;
   fiveElements: {
     /** Count of each element across the counted stems and branches. */
     distribution: FiveElementDistribution;
@@ -67,6 +74,14 @@ export interface SajuPillarsV1Response {
     /** All five elements ranked most-needed first — the naming target order. */
     supplementPriority: FiveElement[];
   };
+}
+
+export interface ChartHiddenStems {
+  school: "yeonhae" | "japyeong";
+  year: HiddenStems;
+  month: HiddenStems;
+  day: HiddenStems;
+  time?: HiddenStems;
 }
 
 export type SajuPillarsV1ErrorCode =
@@ -146,6 +161,14 @@ function parseOptions(value: unknown): CalculationOptions | undefined | null {
       options.jaHourPolicy = raw[key] as "late" | "early";
     } else if (key === "dayBoundary" && (raw[key] === "midnight" || raw[key] === "trueSolar")) {
       options.dayBoundary = raw[key] as "midnight" | "trueSolar";
+    } else if (key === "hiddenStemSchool" && (raw[key] === "yeonhae" || raw[key] === "japyeong")) {
+      options.hiddenStemSchool = raw[key] as "yeonhae" | "japyeong";
+    } else if (
+      key === "include" &&
+      Array.isArray(raw[key]) &&
+      (raw[key] as unknown[]).every((block) => block === "hiddenStems" || block === "tenGods")
+    ) {
+      options.include = [...new Set(raw[key] as Array<"hiddenStems" | "tenGods">)];
     } else {
       return null;
     }
@@ -224,7 +247,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   if (options === null) {
     return failure(
       "INVALID_OPTIONS",
-      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early') and dayBoundary ('midnight' | 'trueSolar').",
+      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include (['hiddenStems' | 'tenGods']) and hiddenStemSchool ('yeonhae' | 'japyeong').",
       "options"
     );
   }
@@ -256,6 +279,19 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
 
   const analysis = analyzeFiveElements(pillars);
 
+  const include = new Set(options?.include ?? []);
+  const school = options?.hiddenStemSchool ?? DEFAULT_HIDDEN_STEM_SCHOOL;
+  const hiddenStems: ChartHiddenStems | undefined = include.has("hiddenStems")
+    ? {
+        school,
+        year: hiddenStemsOf(pillars.year.branch as Branch, school),
+        month: hiddenStemsOf(pillars.month.branch as Branch, school),
+        day: hiddenStemsOf(pillars.day.branch as Branch, school),
+        ...(pillars.time ? { time: hiddenStemsOf(pillars.time.branch as Branch, school) } : {})
+      }
+    : undefined;
+  const tenGods = include.has("tenGods") ? tenGodsOfChart(pillars, school) : undefined;
+
   return {
     ok: true,
     status: 200,
@@ -265,6 +301,8 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
       pillars,
       resolution,
       ...(alternates ? { alternates } : {}),
+      ...(hiddenStems ? { hiddenStems } : {}),
+      ...(tenGods ? { tenGods } : {}),
       fiveElements: {
         distribution: analysis.distribution,
         absent: analysis.absent,
