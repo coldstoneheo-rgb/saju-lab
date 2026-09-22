@@ -41,5 +41,26 @@
 ### 하지 않은 것
 균시차(v1.1 후보로 기록만) · 해외 경도 · 음력 · 폴더 재배치 · 웹 UI(PR 2).
 
-## PR 2 — 웹 「계산 규칙」 1줄
-_(PR 1 머지 뒤 작성)_
+## PR 2 — 웹 「계산 규칙」 1줄 · 브랜치 `feat/web-calculation-rule-line`
+
+### 구현
+| 파일 | 내용 |
+| --- | --- |
+| `apps/web/src/calculation-rule-copy.ts` (신규) | `describeCalculationRule(resolution, alternates, label)` — 코어 `resolution`에서 1줄 조립(표준시 이력 · 진태양시 · 일주 경계 · [23시대 정책]) + 경계 프롬프트 + 보정 후 「보정 전 시주 … 어느 쪽으로 봤는지: 경도 보정 명식」. 카피가 계산과 어긋날 수 없게 값에서만 생성 |
+| `main.tsx` | `createReportBundle`이 `calculatePillarsWithResolution`을 써 `resolution`·`alternates`를 번들에. 명식 컨테이너(`pillarGrid`) 바로 아래 `CalculationRuleLine`. 경계(`nearBoundary.hourBranch`, 미보정)일 때만 시·도 `<select>`(17개) → 선택 시 **로컬 재계산**(`trueSolarTime:true`+`birthPlace`, 기기 밖으로 나가는 것 0). `alternates.jaHourPolicy`가 있을 때만 `<details>` 「참고 명식 보기」 표(통변 없음). 열람 카운터 = `localStorage["saju-lab-alt-pillars-views"]` 증가(try/catch, 서버 0) |
+| `styles.css` | `.calculationRule`·`.boundaryPrompt`·`.alternatePillars` |
+| `calculation-rule-copy.test.ts` (신규) | 비경계 3파트 · 경계 프롬프트 · 보정 후 문구(부산 −24) · 1955 +08:30 문구 · early 정책 문구 = 5건 |
+
+### C5 — 스크린샷 (`docs/evidence/2026-09-22-stage3-web/`, 로컬 dev 서버 + Chrome)
+| 파일 | 상태 | 확인 |
+| --- | --- | --- |
+| `1-non-boundary.jpg` | 1990-01-01 10:30 | 1줄 「표준시 이력 해당 없음 · 진태양시 미적용 · 자정 기준 일주」, **안내 0·선택 0·접힘 0** |
+| `2-boundary-prompt.jpg` | 1990-06-15 13:10 | 1줄 「진태양시 미적용(서울특별시 기준 -32분 보정 시 시주 변동 가능)」 + ⚠ 경계 안내 + 시·도 선택, 시주 을미 |
+| `2b-corrected.jpg` | 위에서 서울 선택 | 시주 **갑오**, 1줄 「진태양시 적용(서울특별시 -32분, 균시차 미적용)」, 「보정 전 … 시주 을 미 — 어느 쪽으로 봤는지: 경도 보정 명식」, 안내 사라짐 |
+| `3-ja-hour-alternate.jpg` | 2010-06-21 23:30 | 접힘 「참고 명식 보기 — 23시대를 다음 날로 보는 학파(조자시)」 표(경인·임오·**계묘**·임자), 카운터 증가 실측(localStorage). 23:30은 23:00 시지 창 안이라 경계 안내도 함께 뜸(규칙대로) |
+
+### 게이트
+`npm run verify` exit 0 — test **239**(api 17 + saju-core 185 + web 37).
+
+### 하지 않은 것
+질문 3개·카드 UI(13단계) · 리포트 본문에 옵션 반영(명식 컨테이너·1줄만) · HTML 내보내기에 `resolution` 포함(후속 후보).

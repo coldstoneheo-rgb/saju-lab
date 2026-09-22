@@ -955,3 +955,64 @@ input {
     grid-template-columns: 1fr;
   }
 }
+
+/* 계산 규칙 1줄 (3단계): 명식 컨테이너 바로 아래 */
+.calculationRule {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: -0.25rem;
+  font-size: 0.86rem;
+  color: var(--muted, #5b6472);
+}
+
+.calculationRuleLine {
+  margin: 0;
+}
+
+.boundaryPrompt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--warning-border, #e9c46a);
+  border-radius: 0.6rem;
+  background: var(--warning-bg, rgba(233, 196, 106, 0.14));
+  color: inherit;
+}
+
+.boundaryPrompt span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.boundaryPrompt select {
+  font: inherit;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.4rem;
+}
+
+.uncorrectedNote {
+  margin: 0;
+}
+
+.alternatePillars summary {
+  cursor: pointer;
+}
+
+.alternatePillars table {
+  margin-top: 0.5rem;
+  border-collapse: collapse;
+}
+
+.alternatePillars th,
+.alternatePillars td {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border, #d9dee5);
+  text-align: center;
+}
+
+.alternatePillars p {
+  margin: 0.4rem 0 0;
+}
