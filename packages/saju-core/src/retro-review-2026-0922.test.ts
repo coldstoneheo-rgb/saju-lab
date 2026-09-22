@@ -91,9 +91,13 @@ describe("A4 — top-level body keys", () => {
 });
 
 describe("A6 — API document error table equals the code's error union", () => {
-  it("lists exactly SAJU_PILLARS_V1_ERROR_CODES among the 400 rows (plus the 401/405/429 handled by the route)", () => {
+  it("lists exactly SAJU_PILLARS_V1_ERROR_CODES among the 400 rows (plus the 401/405/429 handled by the route), and no retired code anywhere in the document", () => {
     const doc = readFileSync(API_DOC, "utf8");
     const section = doc.slice(doc.indexOf("## 에러 형식 (4xx)"), doc.indexOf("## 예시 (curl)"));
+    // Every backticked SCREAMING_CASE token that looks like an error code, anywhere in the document, must be a live code or a route-level code.
+    const mentioned = new Set([...doc.matchAll(/`((?:INVALID|UNSUPPORTED|MISSING|OUT_OF|RATE|UNAUTHORIZED|METHOD)[A-Z_]*)`/g)].map((match) => match[1] as string));
+    const allowed = new Set<string>([...SAJU_PILLARS_V1_ERROR_CODES, "METHOD_NOT_ALLOWED", "RATE_LIMITED", "UNAUTHORIZED"]);
+    expect([...mentioned].filter((code) => !allowed.has(code))).toEqual([]);
     const rows = section.split(/\r?\n/).filter((line) => /^\|\s*\d{3}\s*\|/.test(line));
     const documented400 = rows.filter((line) => line.startsWith("| 400")).map((line) => /`([A-Z_]+)`/.exec(line)?.[1]).filter(Boolean);
     expect([...documented400].sort()).toEqual([...SAJU_PILLARS_V1_ERROR_CODES].sort());

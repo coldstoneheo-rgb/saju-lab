@@ -1,4 +1,4 @@
-# TASK-2026-0922-retro-review-fixes — REPORT (draft — LC 판정 전, 머지 대기)
+# TASK-2026-0922-retro-review-fixes — REPORT
 
 - 발주: LC 메시지 09-22 19:3x(보정 TASK) + 20:0x(TASK-ADD A12 확장 P2) + 21:1x(VERDICT #80 지시 2·3: 골든 대운표 confirmed + D1~D5·미검증 4). 판정 정본 `life-coordinator/docs/CODE-REVIEW-2026-0922-saju-l1-l2.md` · `docs/GOLDEN-CANDIDATES-2026-0923.md` §1 · `docs/CODE-REVIEW-2026-0922-saju-pr80-daeun.md`. **origin**: 세 메시지 모두 사용자 원문 인용 없음 → §8-2에 따라 `lc`로 취급(실행 동일, 반박은 §6). 머지 게이트(09-22 18:3x 사용자 지시)는 origin:user.
 - 브랜치 `fix/retro-review-2026-0922`, main `786a214`(#80 머지 뒤) 기반. 7단계 PR과 분리. 명식·십신·합충·대운 **값 변경 0**(골든 4표 전부 그대로 통과).
@@ -63,3 +63,5 @@
 - 골든 값 불변(십신·합충 diff 0, 명식 머리말만, 대운 상태·출처 열만) · A1 다른 generic Error는 여전히 `OUT_OF_SUPPORTED_RANGE` · A4 `contract` 키 허용·미지 키 무시 · A5 오라클은 `interactions.data.ts`를 타입만 import(런타임 미참조), canonical이 전 키 비교, adjacent/shared 독립 재구현 · A9 코드↔md 일치, 12지 파티션 수기 확인 · A15 1988-05-08(dst+nonexistent)·1961-08-10(utc+8:30+nonexistent, std→std라 dst 없음) 수기 재계산 일치 · D1 마지막 유지 주만·startsAt 불변 · 도메인 불변 PASS.
 - 권고 반영: ① API 문서 대운 블록의 「pending」 문구 → confirmed로 정정 ② 불변식 테스트에 samhap·banghap(12지 각 정확히 1국) 추가.
 - 리뷰봇 코멘트: PR 열린 뒤 확인(0이면 0으로 기재).
+- 리뷰봇 코멘트: **0**(PR #81).
+- **LC 판정(09-22 22:5x) 조건부 머지 가 → 조건 반영**: ① 루트 빈 파일 `8` `git rm` ② API 문서 31행(calendar 열 「solar만」 → lunar 지원 안내)·45행(제거된 코드명 문구)·169행(dayMidnight 예시 [−10,+34])·244행(lunar curl 예시 400 → 200) 정정 ③ A6 파서 테스트를 문서 전체 스캔으로 확장(에러 코드형 토큰 전부 유니언+라우트 코드 안에 있어야 함 — 확장 직후 45행 잔존 코드명을 실제로 잡아 정정) ④ `types.ts:24` 주석 「stage 4와 바이트 동일」 → 「include 유무 간 동일」. verify exit 0(388).

@@ -28,7 +28,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 | `birthDate` | `string` | ✅ | 생년월일 `YYYY-MM-DD`(입력 역법 기준) |
 | `birthTime` | `string` | 조건부 | 생시 `HH:mm`(24h). `timeUnknown`이 아니면 필수 |
 | `timeUnknown` | `boolean` | ❌ | `true`면 시주 제외(3기둥) |
-| `calendar` | `"solar" \| "lunar"` | ✅ | 역법. **v1은 `solar`만 지원**, `lunar`는 `UNSUPPORTED_CALENDAR` |
+| `calendar` | `"solar" \| "lunar"` | ✅ | 역법. `lunar`는 한국 음력(1900~2050, 「음력 입력」 절) — 코어가 양력으로 환산한다. 그 외 값은 `INVALID_CALENDAR` |
 | `timezone` | `string` | ❌ | 기본 `Asia/Seoul`. **v1은 `Asia/Seoul`만 지원**(엔진 제약), 그 외는 `UNSUPPORTED_TIMEZONE` |
 | `sex` | `"male" \| "female" \| "other"` | ✅ | 성별 |
 | `contract` | `"saju-pillars-v1"` | ❌ | 있으면 무시(에코용) |
@@ -42,7 +42,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - `calendar: "lunar"`는 한국 음력(한국천문연구원 음양력 자료, usingsky/korean_lunar_calendar MIT에서 추출한 1900~2050 표)이다. 양력으로 환산한 뒤 기존 solar 경로로 계산하고, 응답 `resolution.calendar: { input: "lunar", isLeapMonth, solarDate, kstDate }`에 환산 결과를 적는다(solar 입력은 `{ input: "solar", solarDate, kstDate }`). **`solarDate` = 입력 시계의 양력 날짜(음력이면 환산 결과), `kstDate` = 시간대 이력 정규화 뒤 일주를 읽은 KST 날짜.** 둘은 UTC+8:30·서머타임 환산이 자정을 넘길 때만 다르다(예 1958-06-11 00:15 → `solarDate 1958-06-11`, `kstDate 1958-06-10`; 2026-09-22 additive).
 - `isLeapMonth`(기본 false): 그 해 윤달의 날짜. 예: 음력 2025-06-15는 평달이면 양력 2025-07-09, 윤6월이면 2025-08-08.
 - 없는 날짜(윤달이 없는 달의 윤달, 29일 달의 30일, 13월 …) = **`INVALID_LUNAR_DATE`(400)**, 근처 날짜로 흘리지 않는다. 음력 연도가 1900~2050 밖이거나 환산한 양력이 절기표(1920-01-06~) 밖이면 `OUT_OF_SUPPORTED_RANGE`. `calendar:"solar"`에 `isLeapMonth:true`를 붙이면 `INVALID_LUNAR_DATE`.
-- 종전 `UNSUPPORTED_CALENDAR`(lunar 거부)는 더 이상 발생하지 않는다(코드 목록엔 남김). 양→음 역변환은 제공하지 않는다.
+- 4단계 이전의 「lunar 거부」 에러 코드는 더 이상 존재하지 않는다(2026-09-22 유니언에서 제거). 양→음 역변환은 제공하지 않는다.
 
 ## L2 블록 — 지장간·십신 (2026-09-22 additive, 5단계)
 
@@ -166,7 +166,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
     "calendar": { "input": "solar", "solarDate": "1990-01-01", "kstDate": "1990-01-01" },  // 음력 입력이면 { "input": "lunar", "isLeapMonth": …, "solarDate": …, "kstDate": … }
     "nearBoundary": [                 // 경계 명식 플래그(KST 벽시계 기준, 시각 미상이면 [])
       { "kind": "hourBranch", "minutes": 10, "direction": "after" }   // 시지 경계 [B−10, B+34]분
-      // { "kind": "dayMidnight", "minutes": -20, "direction": "before" }             // 자정 ±32분
+      // { "kind": "dayMidnight", "minutes": 20, "direction": "after" }               // 자정 [−10, +34]분
       // { "kind": "solarTerm", "minutes": -27, "direction": "before", "term": "ipchun", "at": "2024-02-04T17:27" } // 절입 ±60분
     ]
   },
@@ -240,8 +240,9 @@ curl -sS -X POST https://<deployment>/api/saju-pillars \
 ```bash
 curl -sS -X POST https://<deployment>/api/saju-pillars \
   -H "Content-Type: application/json" \
-  -d '{"birthDate":"1990-01-01","birthTime":"10:30","calendar":"lunar","sex":"male"}'
-# → 400 { "error": { "code": "UNSUPPORTED_CALENDAR", "field": "calendar", ... } }
+  -d '{"birthDate":"1989-12-05","birthTime":"10:30","calendar":"lunar","sex":"male"}'
+# → 200 — 음력 1989-12-05 = 양력 1990-01-01: pillars는 위 예시와 같고
+#   "calendar": { "input": "lunar", "isLeapMonth": false, "solarDate": "1990-01-01", "kstDate": "1990-01-01" }
 ```
 
 ## PoC 재현
