@@ -3,8 +3,8 @@
 > 루프 하네스의 ⑥ 상태 파일. 매 세션 끝에 갱신한다. 거버넌스 규칙은 `AGENTS.md`, 작업 지침은 `CLAUDE.md`.
 
 ## 현재 위치
-- 단계: **회의(2026-09-22) 이후 L1 정밀화** — HO-2026-0922-saju-L1-spike-kasi-01 완료(절기 1920~2100). 병행: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A, PR #57) → 소비 계약 API(HO-API, PR #58) → 라이브 배포 복구(deploy-fix, PR #60) → 소비측 통합(HO-B) **완료 확인**. 전 구간 엔드투엔드 연결.
-- 브랜치: `main`.
+- 단계: **회의(2026-09-22) 로드맵 — L1 전부(스파이크·1~4단계) + L2 5단계(지장간·십신) 완료**. 다음 = 6단계(합충) HO 대기. 마감 인계 `docs/handoffs/2026-09-22-l1-l2-close-handoff.md`. 병행: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A, PR #57) → 소비 계약 API(HO-API, PR #58) → 라이브 배포 복구(deploy-fix, PR #60) → 소비측 통합(HO-B) **완료 확인**. 전 구간 엔드투엔드 연결.
+- 브랜치: `main`(ecd0bda).
 - 직전 작업: HO-B(baby-naming-ai 소비측 통합)가 별도 세션(AI Studio)에서 이미 구현·머지돼 있었으나 미기록 상태였던 것을 발견 → 라이브 API 교차검증으로 완료 확정, 양쪽 저장소 WORKLOG에 기록.
 - 라이브: `https://saju-lab-phi.vercel.app/api/saju-pillars` `SAJU_API_KEY` 주입 완료(2026-07-02 확인, API 키 미포함 호출→401). baby-naming-ai 로컬 `.env`의 키로 골든 케이스(1990-01-01·10:30·male → `supplementPriority[0]=="metal"`, `absent==["metal"]`) 재현 확인.
 - 기반 상태: rules-only 리포트 + 픽스처 절기 계산 + 오행 분포/부족/보완(HO-A) + `POST /api/saju-pillars` 계약(HO-API) + baby-naming-ai 소비측 통합(HO-B, `baby-naming-ai` 커밋 `5ec49a0`/`22b3585`).
