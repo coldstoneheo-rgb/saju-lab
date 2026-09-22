@@ -174,10 +174,49 @@ describe("saju-pillars-v1 contract — validation", () => {
   );
 
   it("still refuses dates past the end of the sourced solar-term table", () => {
-    const result = buildSajuPillarsV1Response({ ...base, birthDate: "2029-01-02" });
+    const result = buildSajuPillarsV1Response({ ...base, birthDate: "2101-01-02" });
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.error.error.code).toBe("OUT_OF_SUPPORTED_RANGE");
     }
+  });
+
+  it("refuses dates before the first KASI row (1919)", () => {
+    const result = buildSajuPillarsV1Response({ ...base, birthDate: "1919-06-15" });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.error.code).toBe("OUT_OF_SUPPORTED_RANGE");
+    }
+  });
+
+  // Before the KASI 1920-2100 table every 1950-1999 birth was OUT_OF_SUPPORTED_RANGE.
+  // 200 deterministic dates spread over years, months, days and hours must all resolve.
+  it("serves 200 spread-out 1950-1999 birth dates without OUT_OF_SUPPORTED_RANGE", () => {
+    let seed = 20260922;
+    const next = (): number => {
+      // Park-Miller minimal standard LCG — deterministic across runs and platforms.
+      seed = (seed * 48271) % 2147483647;
+      return seed;
+    };
+    const pad = (value: number): string => String(value).padStart(2, "0");
+
+    const failures: string[] = [];
+    for (let index = 0; index < 200; index += 1) {
+      const year = 1950 + (index % 50);
+      const month = 1 + (next() % 12);
+      const day = 1 + (next() % 28);
+      const hour = next() % 24;
+      const minute = next() % 60;
+      const birthDate = `${year}-${pad(month)}-${pad(day)}`;
+      const result = buildSajuPillarsV1Response({ ...base, birthDate, birthTime: `${pad(hour)}:${pad(minute)}` });
+
+      if (!result.ok) {
+        failures.push(`${birthDate} ${result.error.error.code}`);
+      } else if (result.data.pillars.month.branch.length === 0) {
+        failures.push(`${birthDate} empty month`);
+      }
+    }
+
+    expect(failures).toEqual([]);
   });
 });

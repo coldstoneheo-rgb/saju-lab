@@ -70,7 +70,8 @@
 - 공개 절기표와 결과 대조
 - 골든 픽스처로 일관성 검증
 - 입춘과 월주 변경 절기는 경계 전 1분, 경계 동시각, 경계 후 1분을 테스트한다.
-- 내장 절기표는 2026-08-23부터 `fixture-limited`가 아니라 **KASI API 생성물**이다. 아래 «지원 범위» 참조.
+- 내장 절기표는 2026-09-22부터 **한국천문연구원 24기 입기 시각 표(1920-2100)의 생성물**이다. 아래 «지원 범위» 참조.
+- 독립 천문 계산(astronomia VSOP87)으로 표를 3자 검증한다: `node scripts/verify_solar_terms_astronomia.mjs`.
 
 ## 산출물
 - `calculatePillars(input)`에서 절기 계산 모듈 분리
@@ -102,18 +103,28 @@
 - Phase 4S는 `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md`에 내장 경계값, 현재 출처 상태, KASI 재검증 체크리스트를 기록한다. 이 문서는 재검증 준비 자료이며, 재검증 완료 증거가 아니다.
 - Phase 4T는 `docs/KASI_SOLAR_TERM_REVALIDATION_2026-05-25.md`에 KASI 2024/2025 역서 대조 증거를 기록했다. Phase 4U는 1분 차이 행을 KASI 기준으로 맞췄으며, 이 검증 범위는 내장 2024 matrix와 2025 상한 경계에 한정된다.
 
-## 지원 범위 (2026-08-23 갱신)
+## 지원 범위 (2026-09-22 갱신)
 
-- 내장 월 경계 절기표는 data.go.kr 한국천문연구원 특일 정보 API(`get24DivisionsInfo`)에서 수집한
-  `docs/fixtures/kasi-special-days-solar-terms-2000-2028.json`에서 **생성**한다.
-  손으로 편집하지 않는다: `scripts/generate_solar_terms_module.py` →
-  `packages/saju-core/src/solar-terms.data.ts`.
-- 계산 가능 구간: **2000-02-04 입춘 ~ 2028-12-06 대설**. 그 위는 API가 2029년 소한을 주지 않아
-  `No upper solar month boundary`로 거부한다.
-- 1989-1999는 같은 API가 레코드를 주지 않으므로 1989-12-07·1990-01-05·1990-02-04·1999-12-07
-  네 행만 손으로 유지한다(생성 스크립트의 `LEGACY_BOUNDARIES`). 이 행들은 고립된 점이라
-  주변 45일을 넘어서면 계산하지 않는다.
-- 2029년 이후를 지원하려면 데이터가 공개된 뒤 수집기를 다시 돌리는 것 외에 코드 변경이 필요 없다.
+- 내장 월 경계 절기표는 한국천문연구원이 공개한 **24기 입기 시각 표(1920~2100년, KST=UTC+9 고정)**
+  `docs/fixtures/kasi-24-solar-terms-1920-2100_20260902.txt`에서 **생성**한다.
+  출처: `https://astro.kasi.re.kr/kor/almanac/solarTerms/download`, 다운로드 2026-09-22,
+  sha256 `508761248c7d18eb…`. 손으로 편집하지 않는다: `scripts/generate_solar_terms_module.py` →
+  `packages/saju-core/src/solar-terms.data.ts`. CI가 `--check`로 생성물이 최신인지 확인한다.
+- 표는 24기 4,344행이지만 월주에는 12절만 쓰므로 **2,172행(12 × 181년) + 입춘 181행**을 내장한다.
+- 계산 가능 구간: **1920-01-06 23:41 소한 ~ 2100-12-07 10:42 대설 직전**.
+  1919년 이전은 입춘 행이 없어 `No Ipchun boundary`, 2100-12-07 대설 이후는 다음 경계가 없어
+  `No upper solar month boundary`로 거부한다(API 계약에서는 둘 다 `OUT_OF_SUPPORTED_RANGE`).
+- KASI 표는 반올림이 날짜를 넘기는 경우 «24시 0분»으로 적는다(1950 대한·2030 우수·2053 대한 3건).
+  생성기는 이를 익일 00:00으로 접지만 세 건 모두 중기라 내장 행에는 나타나지 않는다.
+- 표는 UTC+9 고정이며 과거 표준자오선(UTC+8:30, 1954-03-21~1961-08-10)과 서머타임(1948-51·55-60·87-88)을
+  반영하지 않는다. 계산 코어도 입력 벽시계를 그대로 비교한다 — 시간대 이력 보정은 후속 단계다.
+- 미래(2030년대 이후) 값은 KASI 스스로 «수 초~수 분 달라질 수 있음»이라 밝힌다. 3자 검증에서도
+  2052년부터 ΔT 예측 모델 차이로 60초를 넘는 행이 나타나며(최대 172초, 2090년대), 이는 데이터 결함이
+  아니라 예측 불확실성이다. 새 표가 공개되면 txt를 교체하고 생성기를 다시 돌린다.
+- 이전 소스였던 data.go.kr 특일 정보 API 픽스처(`kasi-special-days-solar-terms-2000-2028.json`)는
+  대조 증거로 보관한다. 두 KASI 산출물의 차이(1분 19행, 2011-11-08 입동 5시간 51분 1행)와 판정은
+  `docs/SOLAR_TERM_SOURCE_AUDIT_2026-05-25.md` «2026-09-22 판정»에 있다. txt 배포에 문제가 생기면
+  `--source docs/fixtures/kasi-special-days-solar-terms-2000-2028.json`으로 2000-2028 표를 되살릴 수 있다.
 
 ### 왜 런타임 호출이 아닌가
 계산 코어는 결정론이어야 하고 오프라인에서 같은 값을 내야 한다. 외부 API를 요청 시점에 부르면

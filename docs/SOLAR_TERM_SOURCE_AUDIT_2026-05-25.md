@@ -4,6 +4,37 @@ Date: 2026-05-25
 
 This audit records the current source status of Saju Lab's embedded solar-term boundary table. It records KASI revalidation for the embedded 2024 matrix and 2025 upper-boundary guard rows without claiming broad date-range coverage.
 
+## 2026-09-22 판정 — KASI 24기 표(1920~2100) 채택, 손관리 행 폐기
+
+이 절이 아래 2026-05-25 인벤토리보다 우선한다. 아래 표의 `fixture-limited` / `needs KASI revalidation` 행은 전부 대체됐다.
+
+**출처 표시(3요소).** 한국천문연구원 «24기 입기 시각» 공개 자료 · 원본 파일명 `24기입기시각(1920-2100)_20260902.txt`(저장명 `docs/fixtures/kasi-24-solar-terms-1920-2100_20260902.txt`) · URL `https://astro.kasi.re.kr/kor/almanac/solarTerms/download` · 다운로드일 2026-09-22 · sha256 `508761248c7d18eb`… 표는 KST(UTC+9 고정)이며 과거 표준자오선·서머타임을 반영하지 않는다(파일 헤더 원문).
+**저작권.** 파일과 다운로드 페이지에 공공누리 표시가 없다. KASI 저작권정책(`https://www.kasi.re.kr/kor/pageView/134`)은 «공공누리가 표시되지 않은 자료는 사전에 협의한 이후에 이용»을 요구한다 → 사전 협의 문의를 2026-09-22 발송(사용자), 회신 대기. 부정 회신 시 롤백 경로는 아래.
+
+**판정 규칙.** 같은 기관의 두 산출물(특일 정보 API 픽스처 2000-2028 vs 24기 표)이 갈릴 때 |Δ| ≤ 1분은 집계만 하고 24기 표를 채택, 1분 초과는 독립 천문 계산(astronomia 4.2.0, VSOP87B + ΔT)을 제3 증거로 붙여 판정한다.
+
+**cross-check 결과** (`python scripts/generate_solar_terms_module.py --cross-check docs/fixtures/kasi-special-days-solar-terms-2000-2028.json`): 348행 중 동일 328 · |Δ| ≤ 1분 19 · > 1분 1.
+
+| 행 | 이전 값(API 픽스처) | 24기 표 | Δ | astronomia (KST, 초) | 판정 |
+| --- | --- | --- | --- | --- | --- |
+| 2011-11-08 입동 | 09:26 | **03:35** | −5h 51m | 03:34:55 | **24기 표 채택.** API 값은 어느 계산과도 맞지 않음. 03:35~09:25 출생의 월주가 무술(戊戌)→기해(己亥)로 바뀜 — 회귀 테스트 `index.test.ts` «uses the KASI 03:35 입동 minute for 2011-11-08» |
+| 1분 차 19행 (2007-10-09 한로 … 2020-12-07 대설) | txt−1분 | — | −1분 | 전부 :30 전후(예 2007-10-09 01:11:28, 2015-01-06 01:20:32, 2020-12-07 01:09:29) | 반올림 경계. 24기 표 채택, 정확도 판정 대상 아님 |
+
+**손관리 4행 처분** (2026-05-14 `c8b850b`에서 출처 없이 들어온 값):
+
+| 행 | 손관리 값 | 24기 표 | astronomia | 처분 |
+| --- | --- | --- | --- | --- |
+| 1989-12-07 대설 | 17:22 | **12:21** | 12:20:58 | 손관리 값 오류(5h 01m). 폐기 |
+| 1990-01-05 소한 | 23:33 | 23:33 | — | 일치. 표 값으로 대체 |
+| 1990-02-04 입춘 | 11:14 | 11:14 | — | 일치. 표 값으로 대체 |
+| 1999-12-07 대설 | 22:48 | **22:47** | 22:47:28 | 반올림 경계이나 표가 맞음(28초). 폐기 |
+
+`LEGACY_BOUNDARIES`/`LEGACY_IPCHUN`은 생성기에서 삭제됐다. 1990-01-01 골든 픽스처는 두 대설 값 모두 12-07이라 영향이 없다.
+
+**3자 검증** (`node scripts/verify_solar_terms_astronomia.mjs`, 12절 2,172행): ≤2030년 1,332행 **100% ≤ 60초**(최대 33.8초, 평균 15.2초) · 1950~1999년 600행 100%(최대 31.5초) · 24기 전체로는 1950~1999년 1,200행 100%(최대 32.7초, 분 단위 불일치 1.9%) · 2031~2100년 840행은 ΔT 예측 모델 차이로 2052년부터 60초 초과(최대 172초, 2090년대) — 게이트 아님.
+
+**롤백 경로.** 저작권 협의가 부정이면 `python scripts/generate_solar_terms_module.py --source docs/fixtures/kasi-special-days-solar-terms-2000-2028.json`으로 2000-01-06~2028-12-06 표(348행)를 다시 생성한다. 생성기 코드 변경은 없다. 되돌아가는 것은 데이터와, 범위를 1920/2100에 고정한 테스트 4건·계산 범위 카피 1건·이 문서의 범위 문구뿐이다. 손관리 1989~1999 행은 출처가 없으므로 되살리지 않는다.
+
 ## Scope
 
 Included:

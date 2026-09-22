@@ -6,6 +6,23 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, HO-2026-0922-saju-L1-spike-kasi-01)
+summary: 절기 소스를 KASI 24기 표(1920~2100)로 교체 — 계산 범위 2000-2028 → 1920-01-06~2100-12-07, 출처 없는 손관리 5행 폐기, 2011-11-08 입동 5시간 51분 오류 수정, 독립 천문 계산으로 3자 검증
+status: on_track
+progress: "HO C1~C9 전부 충족(근거: docs/handoffs/HO-2026-0922-saju-L1-spike-kasi-01-REPORT.md · `npm run verify` exit 0 · astronomia ≤2030 1,332행 100% ≤60 s · cross-check 348행 판정 완료 · 테스트 162 유니크). PR feat/l1-solar-terms-kasi-1920-2100."
+changes:
+  - "feat(saju-core): 절기표를 KASI 24기 입기 시각 표 1920-2100에서 생성 (HO-2026-0922-saju-L1-spike-kasi-01)"
+next: "KASI 저작권 사전 협의 회신 대기(사용자 발송) → 다음 HO(시간대 이력 정규화·분 단위 시지·23시 정책)"
+blockers: "KASI 24기 표는 공공누리 미표시 자료 — 저작권정책상 «사전 협의» 대상. 사용자 결정으로 출처 표시 후 머지, 문의 병행. 부정 회신 시 롤백 1명령(REPORT 참조)."
+synergy: "baby-naming-ai 소비 계약(saju-pillars-v1)은 필드·산식 불변, 범위만 넓어짐. 2011-11-08 03:35~09:25 출생은 라이브 API 월주가 바뀌므로 소비 앱 캐시가 있다면 무효화 대상."
+learning_need: "**같은 기관의 두 산출물도 갈린다** — data.go.kr API와 KASI 24기 표는 348행 중 20행이 달랐고 1행은 6시간 차였다. «공식 출처»라는 라벨은 검증을 대체하지 못한다. 제3의 독립 계산(천문 엔진)이 있어야 둘 중 어느 쪽이 맞는지 판정할 수 있었다. 반대로 2031년 이후는 엔진끼리도 ΔT 예측으로 갈리므로 «불일치 0»을 게이트로 걸면 미래 데이터는 영원히 통과 못 한다 — 게이트는 측정 가능한 구간에만."
+---
+## 의미
+회의 A1-1의 «L1 명식 정확성»이 처음으로 «검증된 범위 = 쓰이는 범위»가 됐다. 1950~1999년생(현재 성인 대부분)이 그동안 400을 받던 것이 사라졌고, 2011년 11월 8일 오전 출생의 월주 오류처럼 «공식 API를 믿었기 때문에 틀린» 결과를 독립 계산으로 잡아냈다. 다음 HO(시간대 이력)는 이 표가 UTC+9 고정이라는 전제 위에서 1954~1961년·서머타임 출생을 바로잡는 단계다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, 회의 D9 1단계)
 summary: package-lock.json만 갱신해 #64(08-21) 이후 처음으로 npm audit 게이트·CI verify를 초록으로 복구 — 코드·의존성 범위 변경 0
 status: on_track

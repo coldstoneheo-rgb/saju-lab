@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { calculatePillars, cyclePillar, generatePaidReportV1, generateReportV1, getPillarTerms, getSajuTerm, hourBranchIndex } from "./index.js";
 import { GOLDEN_FIXTURES } from "./fixtures.js";
-import { SOLAR_MONTH_BOUNDARIES } from "./solar-terms.js";
+import { IPCHUN_BY_YEAR, SOLAR_MONTH_BOUNDARIES } from "./solar-terms.js";
 import type { BirthInput, Pillar } from "./types.js";
 
 describe("sexagenary cycle utilities", () => {
@@ -271,28 +271,108 @@ describe("calculatePillars", () => {
   });
 
   it("rejects dates beyond the embedded solar month table range", () => {
-    // 1990 is an isolated pre-API row: the next boundary is decades away.
+    // The KASI table opens with 1920-01-06 소한; 1919 has no 입춘 row at all.
     expect(() => calculatePillars({
-      birthDate: "1990-03-01",
-      birthTime: "12:00",
-      timezone: "Asia/Seoul",
-      sex: "other"
-    })).toThrow("No upper solar month boundary");
-
-    // Past 2028-12-06 대설 there is no next boundary; the API serves no 2029 rows.
-    expect(() => calculatePillars({
-      birthDate: "2028-12-20",
-      birthTime: "12:00",
-      timezone: "Asia/Seoul",
-      sex: "other"
-    })).toThrow("No upper solar month boundary");
-
-    expect(() => calculatePillars({
-      birthDate: "2029-03-01",
+      birthDate: "1919-12-31",
       birthTime: "12:00",
       timezone: "Asia/Seoul",
       sex: "other"
     })).toThrow("No Ipchun boundary");
+
+    // Past 2100-12-07 대설 there is no next boundary; the table ends with 2100.
+    expect(() => calculatePillars({
+      birthDate: "2100-12-20",
+      birthTime: "12:00",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("No upper solar month boundary");
+
+    expect(() => calculatePillars({
+      birthDate: "2101-03-01",
+      birthTime: "12:00",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("No Ipchun boundary");
+  });
+
+  it("computes the first and last supported minutes of the KASI table", () => {
+    // 1920-01-06 23:41 소한 opens the table: solar year 1919 (기미), 소한 month 정축.
+    const first = calculatePillars({
+      birthDate: "1920-01-06",
+      birthTime: "23:41",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+    expect(first.year).toEqual({ stem: "gi", branch: "mi" });
+    expect(first.month).toEqual({ stem: "jeong", branch: "chuk" });
+
+    // One minute earlier falls before the first row, so no month boundary applies.
+    expect(() => calculatePillars({
+      birthDate: "1920-01-06",
+      birthTime: "23:40",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    })).toThrow("No solar month boundary");
+
+    // 2100-12-07 10:41 is the last minute before the final 대설 row.
+    const last = calculatePillars({
+      birthDate: "2100-12-07",
+      birthTime: "10:41",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+    expect(last.year).toEqual({ stem: "gyeong", branch: "sin" });
+    expect(last.month).toEqual({ stem: "jeong", branch: "hae" });
+  });
+
+  it("applies the 1955 입춘 minute from the KASI table (23:18 KST)", () => {
+    // 1955-02-04 23:18 is the year boundary 갑오 → 을미. The row sits inside the
+    // UTC+8:30 era (1954-03-21 .. 1961-08-10); the table is fixed UTC+9 and the
+    // engine compares wall-clock input as-is, so no offset is applied here.
+    const before = calculatePillars({
+      birthDate: "1955-02-04",
+      birthTime: "23:17",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+    const at = calculatePillars({
+      birthDate: "1955-02-04",
+      birthTime: "23:18",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+
+    expect(before.year).toEqual({ stem: "gap", branch: "o" });
+    expect(before.month).toEqual({ stem: "jeong", branch: "chuk" });
+    expect(at.year).toEqual({ stem: "eul", branch: "mi" });
+    expect(at.month).toEqual({ stem: "mu", branch: "in" });
+  });
+
+  it("uses the KASI 03:35 입동 minute for 2011-11-08, not the earlier 09:26 API row", () => {
+    // The data.go.kr fixture carried 2011-11-08T09:26 for 입동; the KASI 24기
+    // table says 03:35. Births between 03:35 and 09:25 belong to 기해월, not 무술월.
+    const before = calculatePillars({
+      birthDate: "2011-11-08",
+      birthTime: "03:34",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+    const at = calculatePillars({
+      birthDate: "2011-11-08",
+      birthTime: "03:35",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+    const insideFormerGap = calculatePillars({
+      birthDate: "2011-11-08",
+      birthTime: "09:25",
+      timezone: "Asia/Seoul",
+      sex: "other"
+    });
+
+    expect(before.month).toEqual({ stem: "mu", branch: "sul" });
+    expect(at.month).toEqual({ stem: "gi", branch: "hae" });
+    expect(insideFormerGap.month).toEqual({ stem: "gi", branch: "hae" });
   });
 
   it("computes pillars for present-day births the app actually receives", () => {
@@ -367,18 +447,24 @@ describe("solar-term source audit", () => {
   });
 
   it("carries all twelve month boundaries for every KASI-sourced solar year", () => {
-    for (let solarYear = 2000; solarYear <= 2028; solarYear += 1) {
+    for (let solarYear = 1919; solarYear <= 2100; solarYear += 1) {
       const ordinals = SOLAR_MONTH_BOUNDARIES
         .filter((boundary) => boundary.solarYear === solarYear)
         .map((boundary) => boundary.monthOrdinal);
 
-      // 2028 stops at 대설 because the source API serves no 2029 소한 row.
-      const expected = solarYear === 2028
-        ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+      // The table opens with the 1920-01 소한 (solar year 1919, ordinal 11) and
+      // stops at the 2100-12 대설 because the source ends with calendar year 2100.
+      const expected = solarYear === 1919
+        ? [11]
+        : solarYear === 2100
+          ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+          : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
       expect({ solarYear, ordinals }).toEqual({ solarYear, ordinals: expected });
     }
+
+    expect(SOLAR_MONTH_BOUNDARIES).toHaveLength(12 * 181);
+    expect(Object.keys(IPCHUN_BY_YEAR)).toHaveLength(181);
   });
 
   it("keeps the boundary table sorted so the active-boundary scan can stop early", () => {

@@ -74,10 +74,11 @@ describe("beta launch guard", () => {
     ].join(" ");
 
     expect(copy).toContain("현재 MVP 계산 범위");
-    // The embedded table is generated from the KASI 2000-2028 fixture; the copy
-    // must name the range users can actually calculate, and both gaps around it.
-    expect(copy).toContain("2000-2028년 24절기");
-    expect(copy).toContain("1989-1999년과 2029년 이후");
+    // The embedded table is generated from the KASI 1920-2100 24절기 table; the
+    // copy must name the range users can actually calculate and both edges.
+    expect(copy).toContain("1920-2100년");
+    expect(copy).toContain("1920년 1월 6일 소한부터 2100년 12월 7일 대설 직전까지");
+    expect(copy).toContain("1919년 이전과 2100년 12월 7일 이후");
     expect(copy).toContain("결과를 억지로 만들지 않고");
   });
 });
