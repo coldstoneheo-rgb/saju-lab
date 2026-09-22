@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { BRANCHES, STEMS } from "./cycle.js";
-import { GOLDEN_FIXTURES } from "./fixtures.js";
+import { goldenCase, loadGoldenPillarCases } from "./golden-pillars.load.js";
 import {
   BRANCH_FIVE_ELEMENT,
   FIVE_ELEMENTS,
@@ -11,13 +11,7 @@ import {
 } from "./five-elements.js";
 import type { FiveElementDistribution } from "./types.js";
 
-function fixture(id: string) {
-  const found = GOLDEN_FIXTURES.find((f) => f.id === id);
-  if (!found) {
-    throw new Error(`Missing fixture: ${id}`);
-  }
-  return found;
-}
+const fixture = goldenCase;
 
 describe("stem/branch → five-element mapping", () => {
   it("maps every stem and branch with no gaps", () => {
@@ -55,7 +49,7 @@ describe("stem/branch → five-element mapping", () => {
 
 describe("analyzeFiveElements — golden cases", () => {
   it("fixture-1990 (4 pillars) lacks metal and ranks metal first to supplement", () => {
-    const { expected } = fixture("fixture-1990-before-ipchun");
+    const { expected } = fixture("g-1990-01-01-1030");
     const analysis = analyzeFiveElements(expected);
 
     const distribution: FiveElementDistribution = {
@@ -76,7 +70,7 @@ describe("analyzeFiveElements — golden cases", () => {
   });
 
   it("fixture-2024 (4 pillars) lacks water and ranks water first to supplement", () => {
-    const { expected } = fixture("fixture-2024-at-ipchun");
+    const { expected } = fixture("g-2024-02-04-1727");
     const analysis = analyzeFiveElements(expected);
 
     const distribution: FiveElementDistribution = {
@@ -94,7 +88,7 @@ describe("analyzeFiveElements — golden cases", () => {
   });
 
   it("counts only 3 pillars when the time pillar is unknown", () => {
-    const { expected } = fixture("fixture-1990-before-ipchun");
+    const { expected } = fixture("g-1990-01-01-1030");
     const { time, ...noTime } = expected;
     void time;
     const analysis = analyzeFiveElements(noTime);
@@ -116,7 +110,7 @@ describe("analyzeFiveElements — golden cases", () => {
 
 describe("analyzeFiveElements — invariants over all fixtures", () => {
   it("distribution always sums to total and supplementPriority covers all five elements", () => {
-    for (const { expected } of GOLDEN_FIXTURES) {
+    for (const { expected } of loadGoldenPillarCases()) {
       const analysis = analyzeFiveElements(expected);
       const sum = FIVE_ELEMENTS.reduce((acc, element) => acc + analysis.distribution[element], 0);
       expect(sum).toBe(analysis.total);

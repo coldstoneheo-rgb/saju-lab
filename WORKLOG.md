@@ -6,6 +6,21 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage12-01 PR 1)
+summary: 골든 명식 표를 md 정본으로 — 11건 전부 출처(KASI 24기 표 + data.go.kr 일진) 명기, 테스트가 md를 직접 파싱, 출처 없는 fixtures.ts 폐기
+status: on_track
+progress: "HO stage12 PR 1·2 완료(근거: docs/handoffs/HO-2026-0922-saju-L1-stage12-01-REPORT.md · `npm run verify` exit 0 테스트 217 · 일진 API 8/8 코어 일치). 다음 = 3단계 HO."
+changes:
+  - "feat(golden): 골든 명식 표 정본 + md 직접 파싱 테스트, fixtures.ts 폐기 (HO-2026-0922-saju-L1-stage12-01 PR 1)"
+next: "3단계 HO(분 단위 시주+진태양시·23시 두 명식·경계 플래그·UI 1줄) 수신 시 착수"
+learning_need: "골든의 «출처»는 값이 어디서 왔는지가 아니라 **값을 다시 만들 수 있는 경로**여야 한다. 연·월주는 KASI 표 행, 일주는 data.go.kr 일진 URL, 시주는 결정론 규칙 — 세 기둥의 출처가 각각 다르고, 같은 API의 lunSecha/lunWolgeon은 음력 기준이라 사주 연·월주 출처로 쓰면 틀린다(LC FYI). 이 구분을 표 머리말에 박아 두지 않으면 다음 사람이 잘못 채운다."
+---
+## 의미
+회의 A5-3 «표가 정본, 테스트가 파싱»의 첫 구현이며, 역술가·사용자가 케이스를 보태는 착지점이 생겼다. 1990-01-01 병인일 앵커가 KASI 일진과 8/8 일치한 것은 일주 계산의 첫 외부 검증이다. 다음 3단계(진태양시·23시 정책)는 이 표에 «진태양시경계»·«23시대» 행을 추가하는 것으로 검증한다.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage12-01 PR 2)
 summary: 한국 시간대 이력 정규화 — 1908~1961 UTC+8:30 구간과 서머타임 12연도 출생의 시계값을 KST로 환산해 절입·일주·시주 계산, 응답에 resolution(적용 오프셋·플래그) 추가
 status: on_track

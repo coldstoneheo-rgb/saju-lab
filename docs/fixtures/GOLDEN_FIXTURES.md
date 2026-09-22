@@ -1,4 +1,6 @@
-# Golden Fixtures (Draft)
+# Golden Fixtures (Draft) — 2026-09-22부터 정본은 `docs/golden/GOLDEN-PILLARS.md`
+
+> 이 문서는 이력용이다. 기대 사주의 정본 표와 출처 규칙은 `docs/golden/GOLDEN-PILLARS.md`에 있고, `packages/saju-core/src/fixtures.ts`는 폐기됐다(테스트가 md를 직접 파싱).
 
 ## 목적
 - 절기 기준 사주 계산의 정확성을 검증하기 위한 기준 데이터셋

@@ -1,12 +1,7 @@
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { GoldenTableError, parseGoldenPillarsMarkdown } from "./golden-pillars.js";
+import { loadGoldenPillarCases } from "./golden-pillars.load.js";
 import { calculatePillars } from "./pillars.js";
-
-const HERE = dirname(fileURLToPath(import.meta.url));
-const GOLDEN_MD = resolve(HERE, "../../../docs/golden/GOLDEN-PILLARS.md");
 
 const HEADER = "| id | 생년월일 | 시각 | 달력 | 성별 | 연주 | 월주 | 일주 | 시주 | 출처 | 검증자 | 일자 | 범주 | 비고 |";
 const SEPARATOR = "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |";
@@ -19,11 +14,10 @@ const VALID_ROW =
   "| g-1990-01-01 | 1990-01-01 | 10:30 | solar | other | gi-sa | byeong-ja | byeong-in | gye-sa | https://example.org/manseryeok?d=1990-01-01 | tester | 2026-09-22 | 기본 | |";
 
 describe("GOLDEN-PILLARS.md — the table is the source of truth", () => {
-  const markdown = readFileSync(GOLDEN_MD, "utf8");
-  const cases = parseGoldenPillarsMarkdown(markdown);
+  const cases = loadGoldenPillarCases();
 
   it("parses the committed table (every row carries a real source)", () => {
-    expect(Array.isArray(cases)).toBe(true);
+    expect(cases.length).toBeGreaterThanOrEqual(5);
     for (const goldenCase of cases) {
       expect(goldenCase.source).not.toBe("");
       expect(goldenCase.verifiedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/);
