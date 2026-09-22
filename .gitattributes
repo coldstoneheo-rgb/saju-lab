@@ -1,0 +1,2 @@
+# KASI 원문 텍스트는 바이트 그대로 보관한다(sha256 대조). 헤더 3행의 후행 공백은 원문의 것.
+docs/fixtures/kasi-24-solar-terms-*.txt -whitespace -text
