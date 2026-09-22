@@ -24,6 +24,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Solar-term table is generated from the committed KASI fixture
+        run: |
+          python3 -m unittest discover -s scripts -p "test_*.py"
+          python3 scripts/generate_solar_terms_module.py --check
+
       - name: Typecheck
         run: npm run typecheck
 

@@ -3,7 +3,7 @@
 > 루프 하네스의 ⑥ 상태 파일. 매 세션 끝에 갱신한다. 거버넌스 규칙은 `AGENTS.md`, 작업 지침은 `CLAUDE.md`.
 
 ## 현재 위치
-- 단계: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A, PR #57) → 소비 계약 API(HO-API, PR #58) → 라이브 배포 복구(deploy-fix, PR #60) → 소비측 통합(HO-B) **완료 확인**. 전 구간 엔드투엔드 연결.
+- 단계: **회의(2026-09-22) 이후 L1 정밀화** — HO-2026-0922-saju-L1-spike-kasi-01 완료(절기 1920~2100). 병행: **Phase 6 — AI 해석** 도입. 병행: **사주 × 작명 번들** 가치사슬 — 오행 프리미티브(HO-A, PR #57) → 소비 계약 API(HO-API, PR #58) → 라이브 배포 복구(deploy-fix, PR #60) → 소비측 통합(HO-B) **완료 확인**. 전 구간 엔드투엔드 연결.
 - 브랜치: `main`.
 - 직전 작업: HO-B(baby-naming-ai 소비측 통합)가 별도 세션(AI Studio)에서 이미 구현·머지돼 있었으나 미기록 상태였던 것을 발견 → 라이브 API 교차검증으로 완료 확정, 양쪽 저장소 WORKLOG에 기록.
 - 라이브: `https://saju-lab-phi.vercel.app/api/saju-pillars` `SAJU_API_KEY` 주입 완료(2026-07-02 확인, API 키 미포함 호출→401). baby-naming-ai 로컬 `.env`의 키로 골든 케이스(1990-01-01·10:30·male → `supplementPriority[0]=="metal"`, `absent==["metal"]`) 재현 확인.
@@ -37,6 +37,7 @@
 | 2026-08-23 | 월 경계 절기표를 KASI 공공데이터 생성물로 교체 — data.go.kr `get24DivisionsInfo`에서 2000-2028 **696건(24×29)** 수집(`docs/fixtures/kasi-special-days-solar-terms-2000-2028.json`), `scripts/generate_solar_terms_module.py`가 12개 월 경계 절기만 뽑아 `packages/saju-core/src/solar-terms.data.ts`(352행) 생성. `solar-terms.ts`는 로직만 보유. API 미제공 구간(1989-1999)의 4행은 생성기 `LEGACY_BOUNDARIES`로 보존. 계산 범위 2024년 1년 → **2000-02-04 ~ 2028-12-06**. 교차검증: 내장 22행 전부 `match`, 2000-2016이 2026-05-26 픽스처와 408/408 일치. 회귀 테스트에 소비 앱 실입력값(2026-06-06) 추가 | `typecheck`/`test`(255건)/`build`/`git diff --check` 전부 통과. `npm audit`은 main `9e0f476`에서도 동일 실패(선존재, 의존성 0개 추가) |
 | 2026-09-22 | 사주 회의 전 세션 정비(LC TASK, 사용자 승인) — devlog Stop 훅 재설치(settings.local.json, 06-20 설치분이 유실돼 있었음), CLAUDE.md 「단일 창 지시 체계(§8)」 절 + 하네스 파이프라인 줄, `AGENT_STATUS.json` 신설(LC 스펙 v1.2), `.claude/skills/harness-loop-engine/SKILL.md` 복제(baby-naming-ai 동형). 제품 코드 변경 없음 | `npm run verify` 게이트, `python -c json.load` 통과, hooks.Stop 1건 실측 |
 | 2026-09-22 | 회의 D9 1단계: `npm audit fix --package-lock-only`로 package-lock.json만 갱신(vitest 4.1.8→4.1.11 계열 8, postcss 8.5.14→8.5.28, nanoid 3.3.12→3.3.19, tinyrainbow·sourcemap-codec 패치) — 전부 선언 범위 내, package.json·코드 변경 0. #64(08-21)부터 빨갛던 CI verify 복구 | `npm ci` 0 · `npm audit --audit-level=moderate` 0(esbuild low 1건) · `npm run verify` 0 |
+| 2026-09-22 | HO-2026-0922-saju-L1-spike-kasi-01: 절기 소스를 KASI 24기 입기 시각 표(1920~2100, `docs/fixtures/kasi-24-solar-terms-1920-2100_20260902.txt`)로 교체. 생성기에 txt 파서·`--cross-check`·24:00 정규화·JSON 롤백 입력, LEGACY 손관리 행 삭제. cross-check 348행(≤1분 19·>1분 1) 판정 + astronomia 3자 검증(≤2030 1,332행 100% ≤60 s, 1950-99 1,200건 100%). **2011-11-08 입동 09:26→03:35 수정**(03:35~09:25 출생 월주 무술→기해). 범위 핀 테스트 3건 재작성 + 신규 5건, saju-core `vitest run src`(dist 중복 제거), CI에 `--check`+파서 unittest 스텝, 계산 범위 카피·SPEC·AUDIT·API 문서 갱신. 번들 gzip +19.9KB. REPORT `docs/handoffs/HO-2026-0922-saju-L1-spike-kasi-01-REPORT.md` | `npm run verify` exit 0(테스트 162), CI 초록 |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과

@@ -77,7 +77,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 | 400 | `MISSING_BIRTH_TIME` | `timeUnknown`이 아닌데 `birthTime` 없음 |
 | 400 | `INVALID_BIRTH_TIME` | `HH:mm` 형식 아님 |
 | 400 | `INVALID_SEX` | 허용 값 아님 |
-| 400 | `OUT_OF_SUPPORTED_RANGE` | 검증된 절기 계산 범위 밖의 날짜 |
+| 400 | `OUT_OF_SUPPORTED_RANGE` | 검증된 절기 계산 범위 밖의 날짜 — 현재 범위는 1920-01-06 소한 ~ 2100-12-07 대설 직전(KASI 24기 표, `docs/algorithms/SOLAR_TERM_SPEC.md` «지원 범위») |
 | 401 | `UNAUTHORIZED` | `x-api-key` 누락/불일치 |
 | 405 | `METHOD_NOT_ALLOWED` | POST 외 메서드 |
 
