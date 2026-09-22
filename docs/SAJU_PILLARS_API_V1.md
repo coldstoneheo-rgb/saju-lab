@@ -51,7 +51,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
   "options": { "include": ["hiddenStems", "tenGods"], "hiddenStemSchool": "yeonhae" } }
 ```
 
-- `options.include`에 적은 블록만 응답에 붙는다. 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
+- `options.include`에 적은 블록만 응답에 붙는다(`hiddenStems` · `tenGods` · `interactions`). 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
 - `hiddenStems: { school, year, month, day, time? }` — 기둥별 `{ residual, middle, primary }`(각 `{ stem, days }` 또는 null). 표 정본 `docs/rules/HIDDEN-STEMS.md`. `days`는 『연해자평』 월률분야 일수를 **데이터로만** 싣는다(가중 계산 없음). `hiddenStemSchool: "japyeong"`(『자평진전』 인원용사)이면 `days`가 null이고 子·卯·酉는 정기만, 亥는 戊 없음.
 - `tenGods: { dayMaster, school, year, month, day, time? }` — 기둥별 `{ stem?, branchPrimary, branchAll[] }`. `stem` = 그 기둥 천간의 십신(일주엔 없음 — 일간 자신), `branchPrimary` = 지지 정기의 십신, `branchAll` = 여기→중기→정기 각 `{ role, stem, tenGod }`.
 
@@ -68,7 +68,38 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 | `pyeonin` | 편인 | 偏印 | 나를 생하는 오행, 같은 음양 |
 | `jeongin` | 정인 | 正印 | 나를 생하는 오행, 다른 음양 |
 
-예: 甲 일간 → 甲비견 乙겁재 丙식신 丁상관 戊편재 己정재 庚편관 辛정관 壬편인 癸정인. 이 값은 계산 층의 구조 코드이며 해석이 아니다. 골든 11건의 십신표는 `docs/golden/GOLDEN-TENGODS.md`(역술가 검산 대기 `pending`).
+예: 甲 일간 → 甲비견 乙겁재 丙식신 丁상관 戊편재 己정재 庚편관 辛정관 壬편인 癸정인. 이 값은 계산 층의 구조 코드이며 해석이 아니다. 골든 11건의 십신표는 `docs/golden/GOLDEN-TENGODS.md`(LC 검산 2026-09-22 `confirmed`).
+
+## 합충 블록 — 합충형(合沖刑) v1 (2026-09-22 additive, 6단계)
+
+```jsonc
+{ "birthDate": "1988-10-09", "birthTime": "02:30", "calendar": "solar", "sex": "other",
+  "options": { "include": ["interactions"] } }
+```
+
+- `interactions: { stems: StemInteraction[], branches: BranchInteraction[] }` — 관계가 없으면 빈 배열(키 유지). 시주 미상이면 `time` 기둥은 조합에서 빠진다. 표 정본 `docs/rules/INTERACTIONS.md`.
+- 코어는 **관계의 존재와 위치만** 결정론으로 낸다. 化 성립 판정·길흉·강약 가중은 없다(해석층·8단계). 절기 정밀도와 무관한 순수 함수(명식 글자만 입력).
+- `StemInteraction`: `{ kind: "ganhap", id, pillars: [k1, k2], stems: [s1, s2], adjacent, potentialElement, shared }`. `potentialElement` = 화기 오행 **데이터**(甲己→earth 등), 판정 아님.
+- `BranchInteraction`: `{ kind, id, pillars[], branches[], adjacent?, complete?, element?, subtype?, shared }`.
+  - `pillars`·`branches`는 명식 순서(연→월→일→시), 길이 2 또는 3.
+  - `adjacent`(2자만): 연-월·월-일·일-시만 true. **억제에 쓰지 않는다** — 모든 기둥 쌍(4C2 = 6)을 나열한다.
+  - `complete`: 삼합·삼형에만. true = 3자 전부, false = 반합(왕지 포함 2자) / 부분 형(2자). 완전 3자가 있으면 그 안의 같은 국 2자 부분은 따로 내지 않는다(포섭). 육합·방합·충·상형·자형엔 없음.
+  - `element`: 삼합 국 오행 · 방합 방위 오행. `subtype`: 형에만(`mueun` 무은지형 寅巳申 · `jise` 지세지형 丑戌未 · `murye` 무례지형 子卯 · `ja` 자형 辰午酉亥).
+  - `shared`: **같은 `kind`**의 다른 관계와 기둥을 공유(쟁합·투합, 예 甲 둘에 己 하나 → 간합 2건 모두 `shared: true`). 寅申처럼 같은 쌍이 충+형에 걸리는 것은 중복 나열이지 `shared`가 아니다.
+  - 자형은 같은 지지의 기둥 쌍마다 1건(辰 셋이면 3건, 전부 `shared`).
+
+| kind | 한글 | 한자 | id 예 | 정의(v1) |
+| --- | --- | --- | --- | --- |
+| `ganhap` | 천간합 | 干合 | `gap-gi` | 甲己·乙庚·丙辛·丁壬·戊癸 5조. 화기 데이터만 |
+| `yukhap` | 육합 | 六合 | `ja-chuk` | 子丑·寅亥·卯戌·辰酉·巳申·午未 6조. 화기 필드 없음 |
+| `samhap` | 삼합 | 三合 | `sin-ja-jin` | 申子辰 水·亥卯未 木·寅午戌 火·巳酉丑 金. 완전 3자 + 왕지 포함 반합. 왕지 없는 2자(공협)는 산출 안 함 |
+| `banghap` | 방합 | 方合 | `in-myo-jin` | 寅卯辰 東木·巳午未 南火·申酉戌 西金·亥子丑 北水. 완전 3자만 |
+| `chung` | 충 | 沖 | `ja-o` | 子午·丑未·寅申·卯酉·辰戌·巳亥 6조(지지충만) |
+| `hyeong` | 형 | 刑 | `in-sa-sin` | 삼형 寅巳申·丑戌未(완전/부분) · 상형 子卯 · 자형 辰午酉亥 |
+
+**v1 제외**: 파(破)·해(害)(v1.1) · 천간충(십신 편관이 표현) · 방합 반합·삼합 공협(교재 갈림) · 化 성립 판정(해석층) · 길흉·강약 가중(8단계) · 대운·세운과의 합충(7단계 이후) · 신살 · 격국.
+
+예(g-1988-10-09-0230, 戊辰 壬戌 丁酉 辛丑): 간합 丁壬(월·일, 화기 wood) · 육합 辰酉(연·일) · 반합 酉丑(일·시, metal) · 충 辰戌(연·월) · 부분 형 戌丑(월·시, jise). 골든 11건 합충표는 `docs/golden/GOLDEN-INTERACTIONS.md`(역술가 검산 대기 `pending`).
 
 ## 요청 옵션 (2026-09-22 additive, 3단계)
 

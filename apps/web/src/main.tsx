@@ -14,6 +14,9 @@ import {
   BIRTH_PLACES,
   calculatePillarsWithResolution,
   hiddenStemList,
+  HYEONG_SUBTYPE_LABELS,
+  INTERACTION_LABELS,
+  interactionsOfChart,
   leapMonth,
   TEN_GOD_LABELS,
   tenGodsOfChart,
@@ -22,8 +25,11 @@ import {
   getSajuTerm,
   type BirthInput,
   type CalculationResolution,
+  type BranchInteraction,
+  type ChartInteractions,
   type ChartTenGods,
   type PaidReportV1,
+  type PillarKey,
   type PillarsAlternates,
   type ReportV1,
   type SajuTermKey
@@ -45,6 +51,7 @@ interface ReportBundle {
   resolution: CalculationResolution;
   alternates?: PillarsAlternates;
   tenGods: ChartTenGods;
+  interactions: ChartInteractions;
 }
 
 const ALT_PILLARS_VIEWS_KEY = "saju-lab-alt-pillars-views";
@@ -234,6 +241,7 @@ function App(): JSX.Element {
           report={report}
           resolution={reportBundle.resolution}
           tenGods={reportBundle.tenGods}
+          interactions={reportBundle.interactions}
         />
       </section>
     </main>
@@ -319,8 +327,9 @@ function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (v
   );
 }
 
-function ReportView({ alternates, onBirthPlace, paidReport, report, resolution, tenGods }: {
+function ReportView({ alternates, interactions, onBirthPlace, paidReport, report, resolution, tenGods }: {
   alternates: PillarsAlternates | undefined;
+  interactions: ChartInteractions;
   onBirthPlace: (birthPlace: string) => void;
   paidReport: PaidReportV1;
   report: ReportV1;
@@ -395,6 +404,7 @@ function ReportView({ alternates, onBirthPlace, paidReport, report, resolution, 
         <PillarCell termKey="timePillar" tenGods={tenGods.time} value={report.pillars.time} />
       </section>
       <HiddenStemsDetails pillars={report.pillars} tenGods={tenGods} />
+      <InteractionsLine interactions={interactions} />
       <CalculationRuleLine alternates={alternates} onBirthPlace={onBirthPlace} resolution={resolution} />
 
       <ArticleCard id="overview" icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
@@ -606,6 +616,79 @@ function HiddenStemsDetails({ pillars, tenGods }: { pillars: ReportV1["pillars"]
       <p>{Object.values(roleLabel).join("·")} 순서는 지지 안에서 기운이 드러나는 차례를 뜻합니다. 가중 계산은 하지 않습니다.</p>
     </details>
   );
+}
+
+// 합충형: 계산 층 표시(6단계 v1). 관계의 존재·위치만 — 化 판정·길흉·가중 없음. 칩 1줄 + 접힘 상세 표, 통변 없음.
+const PILLAR_SHORT: Record<PillarKey, string> = { year: "연", month: "월", day: "일", time: "시" };
+
+function interactionChip(kind: keyof typeof INTERACTION_LABELS, characters: string[], pillars: PillarKey[], complete: boolean | undefined, subtype: BranchInteraction["subtype"]): string {
+  const letters = characters.map(termLabel).join("");
+  const label = kind === "ganhap" ? "합"
+    : kind === "samhap" && complete === false ? "반합"
+    : kind === "hyeong" && subtype === "ja" ? "자형"
+    : INTERACTION_LABELS[kind].ko;
+  return `${letters}${label}(${pillars.map((pillar) => PILLAR_SHORT[pillar]).join("·")})`;
+}
+
+function InteractionsLine({ interactions }: { interactions: ChartInteractions }): JSX.Element {
+  const chips = [
+    ...interactions.stems.map((entry) => interactionChip("ganhap", entry.stems, entry.pillars, undefined, undefined)),
+    ...interactions.branches.map((entry) => interactionChip(entry.kind, entry.branches, entry.pillars, entry.complete, entry.subtype))
+  ];
+  const rows: Array<{ kind: string; pillars: string; letters: string; complete: string; adjacent: string }> = [
+    ...interactions.stems.map((entry) => ({
+      kind: `${INTERACTION_LABELS.ganhap.ko}(${INTERACTION_LABELS.ganhap.hanja})`,
+      pillars: entry.pillars.map((pillar) => PILLAR_SHORT[pillar]).join("·"),
+      letters: entry.stems.map(termLabel).join(" "),
+      complete: `화기 ${elementLabel(entry.potentialElement)} (참고값)`,
+      adjacent: entry.adjacent ? "인접" : "비인접"
+    })),
+    ...interactions.branches.map((entry) => ({
+      kind: entry.kind === "hyeong" && entry.subtype
+        ? `${HYEONG_SUBTYPE_LABELS[entry.subtype].ko}(${HYEONG_SUBTYPE_LABELS[entry.subtype].hanja})`
+        : `${INTERACTION_LABELS[entry.kind].ko}(${INTERACTION_LABELS[entry.kind].hanja})`,
+      pillars: entry.pillars.map((pillar) => PILLAR_SHORT[pillar]).join("·"),
+      letters: entry.branches.map(termLabel).join(" "),
+      complete: entry.complete === true ? "완전" : entry.complete === false ? (entry.kind === "samhap" ? "반합" : "부분") : "-",
+      adjacent: entry.adjacent === undefined ? "-" : entry.adjacent ? "인접" : "비인접"
+    }))
+  ];
+
+  return (
+    <div className="interactions">
+      <p className="interactionChips" aria-label="합충">
+        <strong>합충</strong>
+        {chips.length ? chips.map((chip) => <span key={chip} className="chip">{chip}</span>) : <span>없음 — 간합·육합·삼합·방합·충·형 규칙에 해당하는 글자 쌍이 없습니다.</span>}
+      </p>
+      {rows.length ? (
+        <details className="interactionDetails">
+          <summary>합충 상세 — 종류·기둥·글자·완전/부분·인접 (규칙 표 기준, 해석은 하지 않습니다)</summary>
+          <table>
+            <thead>
+              <tr><th>종류</th><th>기둥</th><th>글자</th><th>완전/부분</th><th>인접</th></tr>
+            </thead>
+            <tbody>
+              {rows.map((row, index) => (
+                <tr key={`${row.kind}-${row.pillars}-${index}`}>
+                  <th>{row.kind}</th>
+                  <td>{row.pillars}</td>
+                  <td>{row.letters}</td>
+                  <td>{row.complete}</td>
+                  <td>{row.adjacent}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p>모든 기둥 쌍을 그대로 나열합니다. 인접 여부로 걸러내지 않고, 합이 실제로 변하는지(化)나 좋고 나쁨은 판단하지 않습니다.</p>
+        </details>
+      ) : null}
+    </div>
+  );
+}
+
+function elementLabel(element: string): string {
+  const labels: Record<string, string> = { wood: "목", fire: "화", earth: "토", metal: "금", water: "수" };
+  return labels[element] ?? element;
 }
 
 function ArticleCard({ icon, id, title, items }: { icon?: React.ReactNode; id?: string; title: string; items: string[] }): JSX.Element {
@@ -831,7 +914,8 @@ function createReportBundle(input: BirthInput): ReportBundle {
     paidReport: generatePaidReportV1(reportInput),
     resolution,
     ...(alternates ? { alternates } : {}),
-    tenGods: tenGodsOfChart(pillars)
+    tenGods: tenGodsOfChart(pillars),
+    interactions: interactionsOfChart(pillars)
   };
 }
 

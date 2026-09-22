@@ -1,10 +1,18 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-23T02:00:00+09:00",
-  "head": "ecd0bda",
-  "working_on": null,
-  "waiting_on": "① 6단계(합충) HO 발주서 ② 골든 십신표 11건 검산 결과(LC) ③ KASI 24기 표 저작권 회신",
+  "as_of": "2026-09-22T16:30:00+09:00",
+  "head": "4000671",
+  "working_on": "6단계 합충형 v1 PR(feat/l2-stage6-interactions) — CI·머지 대기",
+  "waiting_on": "① 골든 합충표 11건 검산 결과(LC 페르소나) ② 7단계(대운) HO 발주서 ③ KASI 24기 표 저작권 회신",
   "recent": [
+    {
+      "at": "2026-09-22",
+      "what": "6단계 합충형 v1: INTERACTIONS.md 정본 ↔ data 동일성, interactionsOfChart(간합·육합·삼합·방합·충·형, 인접 비억제·포섭·shared), include interactions, 골든 합충표 pending 11건, 웹 칩+접힘, 스크린샷 3장 (HO stage6 REPORT)"
+    },
+    {
+      "at": "2026-09-22",
+      "what": "골든 십신표 11행 confirmed 기입 PR #77(4000671) — LC 검산 194셀 일치, 학파 토글 셀 수 실측 20으로 정정 반영"
+    },
     {
       "at": "2026-09-22",
       "what": "5단계 머지 #74(ecd0bda), 라이브 C4 실측 통과, 세션 마감 인계 docs/handoffs/2026-09-22-l1-l2-close-handoff.md"
@@ -16,24 +24,16 @@
     {
       "at": "2026-09-22",
       "what": "3단계 PR 2: 웹 명식 아래 계산 규칙 1줄 + 경계 시 시·도 선택 로컬 재계산 + 23시대 접힘 참고 명식 + 스크린샷 4장 (HO stage3)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "3단계 PR 1: 시주 옵션(trueSolarTime 경도 보정·jaHourPolicy·dayBoundary) + 17 시·도 경도표 + alternates + nearBoundary 3종 (HO stage3)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "골든 명식 표 정본화 — docs/golden/GOLDEN-PILLARS.md 11건(출처: KASI 24기 표 + data.go.kr lunIljin), md 직접 파싱 테스트, fixtures.ts 폐기 (HO stage12 PR 1)"
     }
   ],
   "next_actions": [
-    "새 세션: pull → verify → LC 핑 → 6단계 HO 대기(인계서 §4)",
-    "골든 십신표 confirmed 통보 시 상태 열 기입 PR",
-    "선택: 잔재 브랜치 3개 정리(사용자 허락 뒤), 절기 데이터 압축"
+    "6단계 PR CI 초록 → 스쿼시 머지 → main 동기화 → LC REPORT",
+    "골든 합충표 검산 결과 통보 시 confirmed 기입 PR",
+    "7단계(대운) HO 대기. 8단계 입력(십신 집계·투간·득령득지득세)은 착수 금지(LC 지시)"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
-    "value": 2,
+    "value": 3,
     "max": 8
   },
   "detail_page": null
