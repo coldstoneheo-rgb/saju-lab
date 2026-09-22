@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`calculatePillars with normalized KST > serves 100 spread-out births from 1920-1961 and the summer-time years 1`] = `
+{
+  "flagged": {
+    "dst": 8,
+    "utc+8:30": 14,
+  },
+  "shifted": 19,
+}
+`;

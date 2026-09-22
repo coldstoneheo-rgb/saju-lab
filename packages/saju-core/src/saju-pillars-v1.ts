@@ -1,5 +1,6 @@
 import { analyzeFiveElements } from "./five-elements.js";
-import { calculatePillars } from "./pillars.js";
+import { calculatePillarsWithResolution } from "./pillars.js";
+import type { BirthTimeResolution } from "./timezone-history.js";
 import type {
   BirthInput,
   FiveElement,
@@ -35,6 +36,12 @@ export interface SajuPillarsV1Response {
   /** Whether the time pillar is present (false when timeUnknown). */
   timeKnown: boolean;
   pillars: PillarsResult;
+  /**
+   * How the birth wall clock was mapped onto KST (UTC+9) before calculating.
+   * `appliedOffsetMin` is 0 and `flags` empty for every birth on plain KST;
+   * non-zero only for 1908-1961 standard-time periods and summer-time dates.
+   */
+  resolution: BirthTimeResolution;
   fiveElements: {
     /** Count of each element across the counted stems and branches. */
     distribution: FiveElementDistribution;
@@ -176,8 +183,9 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   };
 
   let pillars: PillarsResult;
+  let resolution: BirthTimeResolution;
   try {
-    pillars = calculatePillars(birthInput);
+    ({ pillars, resolution } = calculatePillarsWithResolution(birthInput));
   } catch {
     return failure(
       "OUT_OF_SUPPORTED_RANGE",
@@ -194,6 +202,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
       contract: SAJU_PILLARS_CONTRACT,
       timeKnown: Boolean(pillars.time),
       pillars,
+      resolution,
       fiveElements: {
         distribution: analysis.distribution,
         absent: analysis.absent,
