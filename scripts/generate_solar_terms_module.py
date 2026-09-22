@@ -272,8 +272,13 @@ def dataset_label(source_path: Path) -> str:
     return f"한국천문연구원 24기 입기 시각 ({SOURCE_URL}), KST(UTC+9 고정), downloaded 2026-09-22"
 
 
+def normalized_bytes(path: Path) -> bytes:
+    """File bytes with CRLF folded to LF, so a Windows autocrlf checkout hashes like the LF blob CI sees."""
+    return path.read_bytes().replace(b"\r\n", b"\n")
+
+
 def render_module(source_path: Path, boundaries: list[Boundary], ipchun: list[tuple[str, str]]) -> str:
-    digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
+    digest = hashlib.sha256(normalized_bytes(source_path)).hexdigest()
     lines = [
         "// GENERATED FILE — do not edit by hand.",
         "// Source: scripts/generate_solar_terms_module.py",
