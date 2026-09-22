@@ -1,9 +1,22 @@
 import { DEFAULT_BIRTH_PLACE, findBirthPlace, trueSolarOffsetMinutes } from "./birth-place.data.js";
 import { dayPillarFromEpochDay, monthPillarForSolarMonth, timePillarForDay, yearPillarForSolarYear, type Stem } from "./cycle.js";
 import { epochDayKst, parseBirthDateTime, type ParsedBirthDateTime } from "./datetime.js";
+import { LUNAR_MAX_YEAR, LUNAR_MIN_YEAR } from "./lunar-calendar.data.js";
+import { lunarToSolar } from "./lunar-calendar.js";
 import { effectiveSolarYear, minutesFromNearestBoundary, solarMonthBoundary } from "./solar-terms.js";
 import { normalizeToKstWallClock, type BirthTimeFlag } from "./timezone-history.js";
-import type { BirthInput, DayBoundaryPolicy, JaHourPolicy, Pillar, PillarsResult } from "./types.js";
+import type { BirthInput, CalendarSystem, DayBoundaryPolicy, JaHourPolicy, Pillar, PillarsResult } from "./types.js";
+
+/** Thrown for a lunar date that does not exist (leap month the year lacks, day 30 of a 29-day month, bad month). */
+export class LunarDateError extends Error {}
+
+export interface CalendarResolution {
+  input: CalendarSystem;
+  /** Lunar input only. */
+  isLeapMonth?: boolean;
+  /** The Gregorian date the pillars were calculated from (YYYY-MM-DD). */
+  solarDate: string;
+}
 
 /** Wall-clock window (minutes from the boundary) that marks a reading as "near" it. */
 export const NEAR_BOUNDARY_WINDOWS = {
@@ -38,6 +51,7 @@ export interface CalculationResolution {
   jaHourPolicy: JaHourPolicy;
   dayBoundary: DayBoundaryPolicy;
   nearBoundary: NearBoundary[];
+  calendar: CalendarResolution;
 }
 
 export interface PillarsAlternates {
@@ -60,7 +74,8 @@ interface Policy {
 }
 
 export function calculatePillarsWithResolution(input: BirthInput): PillarsWithResolution {
-  const local = parseBirthDateTime(input);
+  const { solarInput, calendar } = resolveCalendar(input);
+  const local = parseBirthDateTime(solarInput);
   const { kst, resolution: timeResolution } = normalizeToKstWallClock(local);
 
   const placeCode = input.birthPlace ?? DEFAULT_BIRTH_PLACE;
@@ -98,11 +113,46 @@ export function calculatePillarsWithResolution(input: BirthInput): PillarsWithRe
     birthPlace: place.code,
     jaHourPolicy: policy.jaHourPolicy,
     dayBoundary: policy.dayBoundary,
-    nearBoundary: nearBoundaries(kst)
+    nearBoundary: nearBoundaries(kst),
+    calendar
   };
 
   const alternates = timeKnown(kst) ? collectAlternates(pillars, policy, assemble, trueSolarOffsetMin) : undefined;
   return alternates ? { pillars, resolution, alternates } : { pillars, resolution };
+}
+
+/**
+ * Lunar input is converted to Gregorian here and the rest of the pipeline never
+ * sees it. A lunar year outside the table is a range error (→ OUT_OF_SUPPORTED_RANGE
+ * in the API); a date the table says does not exist is a LunarDateError.
+ */
+function resolveCalendar(input: BirthInput): { solarInput: BirthInput; calendar: CalendarResolution } {
+  if ((input.calendar ?? "solar") === "solar") {
+    return { solarInput: input, calendar: { input: "solar", solarDate: input.birthDate } };
+  }
+
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(input.birthDate);
+  if (!match) {
+    throw new LunarDateError("birthDate must use YYYY-MM-DD format.");
+  }
+  const [year, month, day] = [Number(match[1]), Number(match[2]), Number(match[3])];
+  if (year < LUNAR_MIN_YEAR || year > LUNAR_MAX_YEAR) {
+    throw new Error(`Lunar years are supported from ${LUNAR_MIN_YEAR} to ${LUNAR_MAX_YEAR}.`);
+  }
+  const isLeapMonth = input.isLeapMonth ?? false;
+  const solar = lunarToSolar(year, month, day, isLeapMonth);
+  if (solar === null) {
+    throw new LunarDateError(
+      `Lunar ${input.birthDate}${isLeapMonth ? " (leap month)" : ""} does not exist in the Korean lunar calendar.`
+    );
+  }
+  const pad = (value: number): string => String(value).padStart(2, "0");
+  const solarDate = `${solar.year}-${pad(solar.month)}-${pad(solar.day)}`;
+  const { calendar: _calendar, isLeapMonth: _leap, ...rest } = input;
+  return {
+    solarInput: { ...rest, birthDate: solarDate },
+    calendar: { input: "lunar", isLeapMonth, solarDate }
+  };
 }
 
 export function calculatePillars(input: BirthInput): PillarsResult {

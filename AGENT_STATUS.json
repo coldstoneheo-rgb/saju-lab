@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-22T22:30:00+09:00",
-  "head": "1f053e2",
-  "working_on": "HO-2026-0922-saju-L1-stage3-01 PR 2(웹 계산 규칙 1줄) 머지 진행 — 이후 3단계 완료",
+  "as_of": "2026-09-23T00:30:00+09:00",
+  "head": "77cfa0a",
+  "working_on": "HO-2026-0922-saju-L1-stage4-lunar-01 파트 B(음력 입력 승격) 머지 진행",
   "waiting_on": "KASI 24기 표 저작권 사전 협의 회신(사용자 발송)",
   "recent": [
+    {
+      "at": "2026-09-22",
+      "what": "4단계: 음력 입력 승격 — KARI 표 TS 이식(54,779일 전수 대조 0), calendar:lunar+isLeapMonth, INVALID_LUNAR_DATE, 웹 음력/윤달 입력, 공유 골든 50건 (HO stage4)"
+    },
     {
       "at": "2026-09-22",
       "what": "3단계 PR 2: 웹 명식 아래 계산 규칙 1줄 + 경계 시 시·도 선택 로컬 재계산 + 23시대 접힘 참고 명식 + 스크린샷 4장 (HO stage3)"
@@ -20,20 +24,16 @@
     {
       "at": "2026-09-22",
       "what": "시간대 이력 정규화 — UTC+8:30 구간·서머타임 12연도 환산, resolution 응답 필드, 28전이 Intl 대조 (HO stage12 PR 2)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "L1 스파이크: 절기 범위 2000-2028 → 1920-01-06~2100-12-07, 손관리 5행 폐기, 2011-11-08 입동 09:26→03:35 수정, astronomia 3자 검증 ≤2030 100%, --check CI 배선, dist 중복 제거 (HO-2026-0922-saju-L1-spike-kasi-01)"
     }
   ],
   "next_actions": [
-    "다음 HO 대기(4단계 음력 등)",
+    "다음 HO 대기(L2 지장간·십신·대운 등)",
     "선택: solar-terms.data.ts 압축(+19.9KB), HTML 내보내기에 resolution 포함, 잔재 브랜치 정리"
   ],
   "gauge": {
-    "label": "L1 로드맵 단계(스파이크·1·2·3)",
-    "value": 4,
-    "max": 4
+    "label": "L1 로드맵 단계(스파이크·1·2·3·4)",
+    "value": 5,
+    "max": 5
   },
   "detail_page": null
 }

@@ -154,6 +154,16 @@
 - 경계 플래그 `resolution.nearBoundary`(KST 벽시계 기준): 시지 경계 [B−10, B+34]분(+34 = 최대 서단 보정, −10 = 기록 오차 여유),
   자정 ±32분, 절입 ±60분. 웹앱은 `hourBranch`가 있을 때만 출생지를 묻는다.
 
+## 음력 입력 (2026-09-22, 4단계)
+
+- `packages/saju-core/src/lunar-calendar.data.ts`: 한국천문연구원 음양력 자료(usingsky/korean_lunar_calendar 0.4.0 MIT) 1900~2050년 151개 26비트 표 —
+  baby-naming-ai `KoreanLunarCalendar.kt`에서 스크립트로 옮김. 표 지문 `LUNAR_TABLE_SHA256`(`0x%07X` 한 줄씩 LF, 끝 LF)
+  = `3507414e…205107`, baby `docs/golden/lunar-table.sha256`과 동일.
+- `lunar-calendar.ts`: `lunarToSolar(y, m, d, isLeapMonth)` → 양력 또는 **null**(없는 날짜·범위 밖). 앵커 음력 1900-01-01 = 양력 1900-01-31.
+  검증 = 골든(설·추석 13, 윤달 10 등) + 150년 일관성 + `scripts/verify_lunar_table.py`로 1900~2049 **54,779일 전수 대조 불일치 0**(pip 원본 라이브러리, CI 밖).
+- 파이프라인: 음력 입력은 `calculatePillarsWithResolution` 진입 시 양력으로 바꾸고 이후 단계는 음력을 모른다. `resolution.calendar`에 환산 결과.
+  음력 1900-01(양력 1900-01-31)은 절기표 밖이라 계산 불가 — «음력 입력 1900~2050, 양력 환산 후 1920-01-06 이후 계산».
+
 ### 왜 런타임 호출이 아닌가
 계산 코어는 결정론이어야 하고 오프라인에서 같은 값을 내야 한다. 외부 API를 요청 시점에 부르면
 가용성·지연·키 관리가 계산 결과의 전제가 된다. 그래서 API는 **생성 시점 소스**로만 쓰고,

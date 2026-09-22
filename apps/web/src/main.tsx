@@ -13,6 +13,7 @@ import { buildFreeReportFilename } from "./report-filenames.js";
 import {
   BIRTH_PLACES,
   calculatePillarsWithResolution,
+  leapMonth,
   generatePaidReportV1,
   generateReportV1,
   getSajuTerm,
@@ -49,6 +50,8 @@ function App(): JSX.Element {
   const [birthDate, setBirthDate] = React.useState(DEFAULT_INPUT.birthDate);
   const [birthTime, setBirthTime] = React.useState(DEFAULT_INPUT.birthTime ?? "");
   const [timeUnknown, setTimeUnknown] = React.useState(false);
+  const [calendar, setCalendar] = React.useState<"solar" | "lunar">("solar");
+  const [isLeapMonth, setIsLeapMonth] = React.useState(false);
   const [sex, setSex] = React.useState<BirthInput["sex"]>(DEFAULT_INPUT.sex);
   const [reportBundle, setReportBundle] = React.useState<ReportBundle>(() => createReportBundle(DEFAULT_INPUT));
   const [lastInput, setLastInput] = React.useState<BirthInput>(DEFAULT_INPUT);
@@ -65,7 +68,7 @@ function App(): JSX.Element {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
 
-    const validationError = validateInputDraft({ birthDate, birthTime, timeUnknown });
+    const validationError = validateInputDraft({ birthDate, birthTime, timeUnknown, calendar });
 
     if (validationError) {
       setError(validationError);
@@ -76,7 +79,8 @@ function App(): JSX.Element {
       birthDate,
       ...(timeUnknown || birthTime === "" ? {} : { birthTime }),
       timezone: "Asia/Seoul",
-      sex
+      sex,
+      ...(calendar === "lunar" ? { calendar: "lunar" as const, isLeapMonth } : {})
     };
 
     try {
@@ -131,8 +135,43 @@ function App(): JSX.Element {
               type="date"
               required
             />
-            <small id="birth-date-help">양력 생년월일을 기준으로 계산합니다.</small>
+            <small id="birth-date-help">
+              {calendar === "lunar" ? "음력 생년월일(1900~2050)을 양력으로 바꾼 뒤 계산합니다." : "양력 생년월일을 기준으로 계산합니다."}
+            </small>
           </label>
+
+          <fieldset>
+            <legend><CalendarDays size={18} /> 달력</legend>
+            <div className="segmented">
+              {(["solar", "lunar"] as const).map((value) => (
+                <label key={value}>
+                  <input
+                    checked={calendar === value}
+                    name="calendar"
+                    onChange={() => { setCalendar(value); if (value === "solar") setIsLeapMonth(false); }}
+                    type="radio"
+                  />
+                  <span>{value === "solar" ? "양력" : "음력"}</span>
+                </label>
+              ))}
+            </div>
+            {calendar === "lunar" ? (
+              <label className="leapMonthRow">
+                <input
+                  aria-label="윤달 생일"
+                  checked={isLeapMonth}
+                  disabled={leapMonthOfDraft(birthDate) === 0}
+                  onChange={(event) => setIsLeapMonth(event.target.checked)}
+                  type="checkbox"
+                />
+                <span>
+                  {leapMonthOfDraft(birthDate) === 0
+                    ? "이 해에는 윤달이 없습니다."
+                    : `윤달 생일 (이 해의 윤달은 ${leapMonthOfDraft(birthDate)}월)`}
+                </span>
+              </label>
+            ) : null}
+          </fieldset>
 
           <label>
             <span><Clock3 size={18} /> 출생시간</span>
@@ -712,6 +751,12 @@ function PaidRoadmap(): JSX.Element {
       </div>
     </section>
   );
+}
+
+/** Leap month number of the lunar year typed into the form, or 0 (no leap month / unparseable). */
+function leapMonthOfDraft(birthDate: string): number {
+  const year = Number(birthDate.slice(0, 4));
+  return Number.isInteger(year) ? leapMonth(year) : 0;
 }
 
 function createReportBundle(input: BirthInput): ReportBundle {

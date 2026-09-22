@@ -6,6 +6,22 @@
 ---
 date: 2026-09-22
 project: saju-lab
+agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage4-lunar-01 파트 B)
+summary: 음력 입력을 saju-core로 승격 — baby의 KARI 음양력 표(1900~2050)를 TS로 이식(전수 대조 54,779일 불일치 0), calendar:"lunar"+isLeapMonth 계약, 없는 날짜는 INVALID_LUNAR_DATE, 웹 음력/윤달 입력
+status: shipped
+progress: "4단계 파트 B 완료(근거: docs/handoffs/HO-2026-0922-saju-L1-stage4-lunar-01-REPORT.md B1~B5 · verify exit 0 테스트 262 · 공유 골든 50건 통과 · 표 sha 두 레포 동일). L1 로드맵 스파이크·1·2·3·4 전부 착지."
+changes:
+  - "feat(saju-core): 음력 입력 승격 — KARI 표 TS 이식 + calendar:lunar/isLeapMonth 계약 + 웹 입력 (HO-2026-0922-saju-L1-stage4-lunar-01)"
+next: "다음 HO 대기(L2). baby는 변경 요구 0(계속 로컬 변환)"
+synergy: "baby-naming-ai의 Kotlin 표를 스크립트로 옮기고 같은 정의의 SHA-256(3507414e…5107)을 두 레포가 상수로 들고 있어, 어느 쪽이 표를 바꾸면 테스트가 어긋남을 잡는다. baby의 getLunCalInfo 교차 요청 6건을 이 세션이 대신 조회해 1건(2028 평5/15) 정정."
+learning_need: "«이식»의 신뢰는 코드 리뷰가 아니라 원본 라이브러리와의 전수 대조(54,779일)와 지문(sha) 공유에서 온다. 표는 손으로 옮기지 않고 스크립트로 뽑았고, 골든은 baby가 만든 파일을 그대로 로드한다 — 두 레포가 같은 데이터를 다른 언어로 들고 있을 때 어긋남을 잡는 장치는 «같은 정의의 해시 상수»뿐이다."
+---
+## 의미
+1970~80년대생이 흔히 음력으로 기억하는 생일을 사주 코어가 직접 받는다. 회의 A1-5 «baby 변환기 TS 이식»이 끝나 두 앱이 같은 음력 표를 쓰고, 윤달(2025 윤6월 같은)도 웹에서 입력할 수 있다. 라이브 검증 포인트: 2025-08-08 일주 기유·2025-07-09 기묘가 data.go.kr 일진과 일치.
+
+---
+date: 2026-09-22
+project: saju-lab
 agent: claude-code (Opus 5, HO-2026-0922-saju-L1-stage3-01 PR 2)
 summary: 웹 명식 아래 「계산 규칙」 1줄 — 표준시 이력·진태양시·일주 경계를 resolution에서 조립, 경계 명식일 때만 시·도 선택 → 로컬 재계산, 23시대 접힘 참고 명식 표 + 로컬 열람 카운터
 status: shipped
