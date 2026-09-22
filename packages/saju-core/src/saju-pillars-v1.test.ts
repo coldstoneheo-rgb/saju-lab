@@ -220,3 +220,66 @@ describe("saju-pillars-v1 contract — validation", () => {
     expect(failures).toEqual([]);
   });
 });
+
+// Gate for the timezone-history change (HO-2026-0922-saju-L1-stage12-01 §2-5):
+// full responses pinned from main 395a4bb, before normalizeToKstWallClock existed.
+// Every date here is in a plain UTC+9 period, so normalization must be a no-op.
+describe("saju-pillars-v1 contract — values pinned before timezone normalization", () => {
+  const pinned = [
+    {
+      request: { birthDate: "1975-03-21", birthTime: "10:30", sex: "male" },
+      pillars: {
+        year: { stem: "eul", branch: "myo" },
+        month: { stem: "gi", branch: "myo" },
+        day: { stem: "byeong", branch: "in" },
+        time: { stem: "gye", branch: "sa" }
+      },
+      fiveElements: {
+        distribution: { wood: 4, fire: 2, earth: 1, metal: 0, water: 1 },
+        absent: ["metal"],
+        deficient: ["metal", "earth", "water"],
+        supplementPriority: ["metal", "earth", "water", "fire", "wood"]
+      }
+    },
+    {
+      request: { birthDate: "2011-11-08", birthTime: "05:00", sex: "female" },
+      pillars: {
+        year: { stem: "sin", branch: "myo" },
+        month: { stem: "gi", branch: "hae" },
+        day: { stem: "jeong", branch: "myo" },
+        time: { stem: "gye", branch: "myo" }
+      },
+      fiveElements: {
+        distribution: { wood: 3, fire: 1, earth: 1, metal: 1, water: 2 },
+        absent: [],
+        deficient: ["fire", "earth", "metal"],
+        supplementPriority: ["fire", "earth", "metal", "water", "wood"]
+      }
+    },
+    {
+      // 23:00 Ja hour: the day pillar stays on the civil date (MVP policy).
+      request: { birthDate: "2010-06-21", birthTime: "23:00", sex: "other" },
+      pillars: {
+        year: { stem: "gyeong", branch: "in" },
+        month: { stem: "im", branch: "o" },
+        day: { stem: "im", branch: "in" },
+        time: { stem: "gyeong", branch: "ja" }
+      },
+      fiveElements: {
+        distribution: { wood: 2, fire: 1, earth: 0, metal: 2, water: 3 },
+        absent: ["earth"],
+        deficient: ["earth", "fire"],
+        supplementPriority: ["earth", "fire", "wood", "metal", "water"]
+      }
+    }
+  ] as const;
+
+  it.each(pinned)("keeps the full response for $request.birthDate $request.birthTime", (expected) => {
+    const result = ok({ ...expected.request, calendar: "solar" });
+
+    expect(result.data.contract).toBe(SAJU_PILLARS_CONTRACT);
+    expect(result.data.timeKnown).toBe(true);
+    expect(result.data.pillars).toEqual(expected.pillars);
+    expect(result.data.fiveElements).toEqual(expected.fiveElements);
+  });
+});
