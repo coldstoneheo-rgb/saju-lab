@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-23T17:00:00+09:00",
-  "head": "4877b17",
-  "working_on": "L2 골든 39행 confirmed PR(golden/l2-39-confirmed) LC 판정 대기",
-  "waiting_on": "① L2 confirmed PR LC 판정 ② #83·#84 브랜치·worktree 정리(분류기 allow) ③ 사용자 G2-3 결정(8단계 HO 조건) ④ 만세력 대운수 교차 3건(사용자) ⑤ KASI 저작권 회신(D10)",
+  "as_of": "2026-09-23T18:00:00+09:00",
+  "head": "6a0b1e2",
+  "working_on": null,
+  "waiting_on": "① 사용자 G2-3(8b 조건) ② 8a 선착수 거부권(사용자) ③ 만세력 교차 3건·KASI 회신(사용자)",
   "recent": [
+    {
+      "at": "2026-09-23",
+      "what": "세션 마감: #83~#87 착지, 인계서 docs/handoffs/2026-09-23-golden50-diff-stage8-design-close-handoff.md"
+    },
     {
       "at": "2026-09-23",
       "what": "L2 골든 3표 39·39·43행 confirmed + OPEN_REVIEW_ROUND 삭제. PR 오픈"
@@ -28,28 +32,12 @@
     {
       "at": "2026-09-22",
       "what": "세션 마감(2차): 보정 PR #81 머지 392d794, 인계서 docs/handoffs/2026-09-22-l2-stage567-close-handoff.md, 브랜치·프로세스 정리"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "소급 코드 검수 보정: A1~A15·B1~B4·C·D1~D5·P2 + 골든 대운표 confirmed 16행. 값 변경 0, 테스트 388. PR 오픈 (TASK REPORT draft)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "7단계 대운 v1 PR #80 머지 786a214 (LC 판정 뒤)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "7단계 대운 v1: DAEUN.md ↔ 상수, daeunOf(분 소수·순역·10주+십신·절단·current), include daeun+referenceDate, 골든 대운표 16행 pending, 웹 대운 행, 스크린샷 3장. PR 오픈, 머지 게이트 대기 (HO stage7 REPORT draft)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "골든 합충표 confirmed PR #79(60bc06c) + 합성 케이스 3건"
     }
   ],
   "next_actions": [
-    "L2 confirmed PR: LC 판정 → 머지 → main 동기화",
-    "#83·#84 브랜치·worktree 정리(분류기 allow 뒤)",
-    "8단계 HO는 사용자 G2-3 결정 뒤 — 착수 금지"
+    "새 세션: pull → verify(675) → diff:cross-impl → LC 핑",
+    "8a 강약 팩터 구현(설계 §2·§4·§5·§8, REPORT 8조합·사령 경계 절)",
+    "8b는 G2-3 뒤 — 착수 금지"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",

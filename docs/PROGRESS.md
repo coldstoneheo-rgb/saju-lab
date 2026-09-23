@@ -55,6 +55,7 @@
 | 2026-09-23 | PR #83 머지(79299e9, LC 판정 「머지 가」). 머지 직후 auto-mode 분류기가 「Merge Without Review」로 후속 명령 차단 → LC 프로토콜 §9-4(머지 요건 = verifier PASS + LC 판정) 갱신, 차단은 사용자 allow 규칙으로 해소 예정 | CI 초록 |
 | 2026-09-23 | HO-2026-0923-saju-cross-impl-diff-01: `scripts/diff_cross_impl.mjs`(saju-core ↔ lunar-typescript 1.8.6, esbuild 번들) 5,550건+음력 1,000건 unexplained 0 · 분류 solar-term-minute/ja-hour-policy/lunar-table(KARI 66/66) · 변이 시험 577 · CI 별도 스텝 · `docs/CROSS-IMPL-DIFF.md` · verifier PASS(V-F 수치 정정) | `npm run verify` exit 0 · `npm run diff:cross-impl` exit 0 |
 | 2026-09-23 | PR #84 머지(4877b17, LC 판정 「머지 가」). L2 골든 3표 39·39·43행 confirmed(LC VERIFY-2026-0923-golden-l2-39 1,042셀 불일치 0) · `OPEN_REVIEW_ROUND` 삭제(pending 상한 전면) · 십신 japyeong 차분 셀 50행 92 고정 · 머리말 정정 2(시간미상 시주 `-` · 천간충 목록) | `npm run verify` exit 0(675) |
+| 2026-09-23 | PR #85 머지(e9b88ea) · #86 워커 settings 템플릿(2261763, 사용자 지시) · #87 8단계 설계 채택(6a0b1e2, LC 반박 4 판정·개선 4 반영) · 세션 마감 인계서 `docs/handoffs/2026-09-23-golden50-diff-stage8-design-close-handoff.md` | CI 초록 · verify 675 |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과
