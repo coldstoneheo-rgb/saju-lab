@@ -11,7 +11,7 @@ summary: 골든 십신·합충·대운 39·39·43행 pending → confirmed(LC �
 status: on_track
 progress: "골든 4표 전 행 confirmed(명식 50 · 십신 50 · 합충 50 · 대운 59) — G1-3 충족 (근거: npm run verify exit 0, life-coordinator/docs/VERIFY-2026-0923-golden-l2-39.md)"
 changes:
-  - "golden/l2-39-confirmed PR — docs(golden): L2 3표 39행 confirmed"
+  - "#85 docs(golden): L2 골든 3표 39·39·43행 confirmed"
 next: "LC 판정 → 머지. 8단계 HO는 사용자 G2-3 결정 뒤"
 blockers: "#83·#84 브랜치·worktree 정리 = 분류기 allow 대기"
 ---
