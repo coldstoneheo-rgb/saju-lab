@@ -1,15 +1,34 @@
 {
+  "$comment": "워커 레포 .claude/settings.json 템플릿 (2026-09-23, HANDOFF §8-6). 사용자가 각 워커 창에서 직접 적용한다. deny > ask > allow. allow는 분류기 대신 하네스가 즉시 허용, deny는 프로덕션·비가역 명령을 분류기와 무관하게 차단.",
   "permissions": {
     "allow": [
-      "Bash(npm run verify)",
-      "Bash(npm run typecheck)",
-      "Bash(npm test)",
-      "Bash(npm run build)",
-      "Bash(npm run dev *)",
-      "Bash(git status)",
-      "Bash(git diff *)",
-      "Bash(git log *)",
-      "Bash(git worktree *)"
+      "Bash(git status *)", "Bash(git status)", "Bash(git log *)", "Bash(git diff *)", "Bash(git show *)", "Bash(git fetch *)",
+      "Bash(git pull --ff-only *)", "Bash(git pull --ff-only)", "Bash(git checkout *)", "Bash(git switch *)", "Bash(git add *)", "Bash(git commit *)",
+      "Bash(git rebase *)", "Bash(git merge *)", "Bash(git push *)", "Bash(git push origin --delete *)",
+      "Bash(git branch *)", "Bash(git worktree *)", "Bash(git stash *)", "Bash(git rev-parse *)", "Bash(git ls-files *)",
+      "Bash(gh pr *)", "Bash(gh api *)", "Bash(gh run *)", "Bash(gh issue *)",
+      "Bash(npm ci*)", "Bash(npm install*)", "Bash(npm run *)", "Bash(npm test*)", "Bash(npx *)", "Bash(pnpm *)", "Bash(node *)",
+      "Bash(python *)", "Bash(pytest *)", "Bash(pwsh -File scripts/*)", "Bash(pwsh scripts/*)",
+      "Bash(ls *)", "Bash(ls)", "Bash(cat *)", "Bash(head *)", "Bash(tail *)", "Bash(wc *)", "Bash(find *)", "Bash(grep *)", "Bash(rg *)", "Bash(diff *)", "Bash(mkdir *)", "Bash(cp *)", "Bash(mv *)"
+    ],
+    "deny": [
+      "Bash(git push --force *)", "Bash(git push -f *)", "Bash(git push --force-with-lease * main*)", "Bash(git reset --hard *)",
+      "Bash(rm -rf /*)", "Bash(rm -rf ~*)", "Bash(rm -rf C:*)", "Bash(rm -rf ..*)",
+      "Bash(gh repo delete *)", "Bash(gh secret *)", "Bash(gh release *)",
+      "Bash(vercel env *)", "Bash(vercel --prod*)", "Bash(vercel deploy *)", "Bash(vercel rm *)", "Bash(vercel remove *)",
+      "Bash(flyctl deploy *)", "Bash(fly deploy *)", "Bash(flyctl secrets set *)", "Bash(fly secrets set *)", "Bash(flyctl secrets unset *)", "Bash(fly secrets unset *)", "Bash(flyctl apps destroy *)",
+      "Bash(supabase db *)", "Bash(psql *)"
+    ]
+  },
+  "hooks": {
+    "PermissionDenied": [
+      { "matcher": "", "hooks": [ { "type": "command", "command": "node C:/Users/colds/AI/claude/life-coordinator/scripts/hooks/lc-signal.mjs denied" } ] }
+    ],
+    "Notification": [
+      { "matcher": "permission_prompt|idle_prompt", "hooks": [ { "type": "command", "command": "node C:/Users/colds/AI/claude/life-coordinator/scripts/hooks/lc-signal.mjs notify" } ] }
+    ],
+    "Stop": [
+      { "matcher": "", "hooks": [ { "type": "command", "command": "node C:/Users/colds/AI/claude/life-coordinator/scripts/hooks/lc-signal.mjs stop" } ] }
     ]
   }
 }
