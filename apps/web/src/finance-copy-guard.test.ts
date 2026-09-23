@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { calculatePillars, financeSolicitationFindings, generatePaidReportV1, generateReportV1 } from "@saju-lab/saju-core";
@@ -7,11 +7,12 @@ import { buildFreeReportHtml, buildPaidReportHtml } from "./export-html.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 
-// 웹이 직접 들고 있는 한국어 카피 소스 — 재무 섹션(#finance)·저장 HTML·정책 페이지·유료 안내.
-const COPY_SOURCES = ["main.tsx", "export-html.ts", "policy-pages.ts", "paid-readiness-copy.ts", "calculation-coverage-copy.ts", "calculation-rule-copy.ts", "beta-share-guard.ts"];
+// 웹이 직접 들고 있는 한국어 카피 소스 전부 — 한글이 들어 있는 비테스트 .ts/.tsx를 자동 열거한다(새 카피 파일이 조용히 빠지지 않게).
+const COPY_SOURCES = readdirSync(HERE).filter((name) => /\.tsx?$/.test(name) && !name.endsWith(".test.ts") && /[가-힣]/.test(readFileSync(resolve(HERE, name), "utf8")));
 
 describe("한국어 투자권유 어휘 가드 — 웹 재무 카피 0건 (MEETING-2026-0923-saju-away A1)", () => {
   it("web copy sources carry no buy/sell, pick, guarantee, timing, leverage or windfall wording", () => {
+    expect(COPY_SOURCES).toEqual(expect.arrayContaining(["main.tsx", "export-html.ts", "policy-pages.ts"]));
     const sources = Object.fromEntries(COPY_SOURCES.map((name) => [name, readFileSync(resolve(HERE, name), "utf8")]));
     expect(financeSolicitationFindings(sources)).toEqual([]);
   });

@@ -65,9 +65,16 @@ export interface FinanceSolicitationHit {
 
 /**
  * 같은 문장 안에서 매치 뒤에 부정·면책 술어가 오면 권유가 아니라 «하지 않는다»는 고지다
- * (예: 「투자 추천, 의학적 판단 … 을 제공하지 않습니다」). 문장 경계(. ! ? 줄바꿈)를 넘지 않는다.
+ * (예: 「투자 추천, 의학적 판단 … 을 제공하지 않습니다」). 문장 경계는 구두점(. ! ? 줄바꿈)뿐 아니라
+ * 종결어미 + 공백(「…하세요 손해 …」)도 친다 — 구두점 없는 산문에서 뒤 문장의 부정어가 앞 권유를 지우지 않게.
  */
-const NEGATION_IN_SENTENCE = /^[^.!?\n]*?(않|아니|대신하지|제공하지|드리지|금지)/;
+const SENTENCE_END = /[.!?\n]|(?:요|다|죠|까)\s/;
+const NEGATION = /(않|아니|대신하지|제공하지|드리지|금지)/;
+
+function negatedInSameSentence(rest: string): boolean {
+  const end = SENTENCE_END.exec(rest);
+  return NEGATION.test(end ? rest.slice(0, end.index) : rest);
+}
 
 /** 텍스트 안의 투자권유 어휘를 전부 찾는다(위치 순). 빈 배열 = 통과. */
 export function findFinanceSolicitation(text: string): FinanceSolicitationHit[] {
@@ -76,7 +83,7 @@ export function findFinanceSolicitation(text: string): FinanceSolicitationHit[] 
     const pattern = new RegExp(rule.pattern.source, "g");
     for (const found of text.matchAll(pattern)) {
       const index = found.index ?? 0;
-      if (NEGATION_IN_SENTENCE.test(text.slice(index + found[0].length))) continue;
+      if (negatedInSameSentence(text.slice(index + found[0].length))) continue;
       hits.push({ ruleId: rule.id, match: found[0], index });
     }
   }

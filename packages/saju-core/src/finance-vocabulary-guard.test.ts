@@ -28,7 +28,8 @@ describe("한국어 투자권유 어휘 가드 — 규칙 자체", () => {
       "원금 보장되는 펀드에 넣어 두세요.",
       "대출 받아 투자하면 대박입니다.",
       "저점 매수 타이밍입니다.",
-      "지금 매수하세요. 손해 보지 않습니다."
+      "지금 매수하세요. 손해 보지 않습니다.",
+      "지금 매수하세요 손해 보지 않습니다"
     ];
     for (const sentence of bad) expect(findFinanceSolicitation(sentence).length, sentence).toBeGreaterThan(0);
   });
