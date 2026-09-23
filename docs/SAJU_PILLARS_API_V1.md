@@ -186,6 +186,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - 간지 라벨: 천간 `gap,eul,byeong,jeong,mu,gi,gyeong,sin,im,gye` / 지지 `ja,chuk,in,myo,jin,sa,o,mi,sin,yu,sul,hae`.
 - 오행 키: `wood,fire,earth,metal,water`(목화토금수).
 - `supplementPriority[0]`이 **가장 먼저 보완할 오행** = 작명이 채워야 할 1순위.
+- **계약 고정(2026-09-23, baby 회의 C4):** `fiveElements.supplementPriority`(및 `pillars`·`absent`·`deficient`)는 관점(perspective)·해석 계층과 무관한 결정론 계산값이며, 기본 응답(`include` 없는 호출)은 관점 도입 뒤에도 바뀌지 않는다. 소비자(baby-naming-ai)는 기본 응답의 `supplementPriority[0]`만으로 작명하므로, 이 값이 바뀌면 소비자 결과가 알림 없이 달라진다.
 - `alternates`는 요청 옵션의 **반대쪽**만 담는다(옵션 없이 부르면 `trueSolarTime.applied: true`, `jaHourPolicy.policy: "early"`). 명식이 같으면 키가 생략된다. `dayBoundary`는 alternates에 포함하지 않는다.
 - `nearBoundary`는 옵션과 무관하게 항상 계산된다. 소비자는 `hourBranch`가 있을 때만 출생지를 물어 `trueSolarTime: true`로 다시 부르는 흐름을 권장한다(웹앱이 그렇게 한다). 기준 시계는 **정규화 뒤 KST 벽시계**다(입력 시계가 아님) — 1961-08-10 00:10(+8:30) 입력은 KST 00:40이라 자정 경고가 붙지 않는다. 창: `hourBranch`·`dayMidnight` 모두 [−10, +34]분(경도 보정 최대 −34분을 덮는다), `solarTerm` ±60분.
 - `resolution`: 1908~1961년의 UTC+8:30 표준시 구간과 서머타임 연도(1948-51·55-60·87-88) 출생은 당시 시계값을
