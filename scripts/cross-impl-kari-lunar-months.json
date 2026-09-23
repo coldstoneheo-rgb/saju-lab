@@ -1,0 +1,600 @@
+{
+  "about": "Korean lunar months (saju-core table 1900-2050) whose first day lunar-typescript@1.8.6 (Chinese calendar) places elsewhere or cannot build. Each koreanMonthStart was checked against KARI (data.go.kr 한국천문연구원_음양력 정보 getSolCalInfo, lunDay=01, matching 평/윤 row) on 2026-09-23. Regenerate the list with `node scripts/diff_cross_impl.mjs --lunar-month-diffs`.",
+  "checkedOn": "2026-09-23",
+  "months": [
+    {
+      "lunarYear": 1914,
+      "lunarMonth": 5,
+      "isLeapMonth": true,
+      "koreanMonthStart": "1914-06-24",
+      "lunarTypescript": "1914-06-23",
+      "kari": "1914-06-24",
+      "query": "getSolCalInfo?lunYear=1914&lunMonth=05&lunDay=01"
+    },
+    {
+      "lunarYear": 1914,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1914-11-18",
+      "lunarTypescript": "1914-11-17",
+      "kari": "1914-11-18",
+      "query": "getSolCalInfo?lunYear=1914&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1916,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1916-02-04",
+      "lunarTypescript": "1916-02-03",
+      "kari": "1916-02-04",
+      "query": "getSolCalInfo?lunYear=1916&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 1918,
+      "lunarMonth": 11,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1918-12-04",
+      "lunarTypescript": "1918-12-03",
+      "kari": "1918-12-04",
+      "query": "getSolCalInfo?lunYear=1918&lunMonth=11&lunDay=01"
+    },
+    {
+      "lunarYear": 1919,
+      "lunarMonth": 7,
+      "isLeapMonth": true,
+      "koreanMonthStart": "1919-08-26",
+      "lunarTypescript": "1919-08-25",
+      "kari": "1919-08-26",
+      "query": "getSolCalInfo?lunYear=1919&lunMonth=07&lunDay=01"
+    },
+    {
+      "lunarYear": 1919,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1919-11-23",
+      "lunarTypescript": "1919-11-22",
+      "kari": "1919-11-23",
+      "query": "getSolCalInfo?lunYear=1919&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1920,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1920-11-11",
+      "lunarTypescript": "1920-11-10",
+      "kari": "1920-11-11",
+      "query": "getSolCalInfo?lunYear=1920&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1923,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1923-11-09",
+      "lunarTypescript": "1923-11-08",
+      "kari": "1923-11-09",
+      "query": "getSolCalInfo?lunYear=1923&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1924,
+      "lunarMonth": 2,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1924-03-06",
+      "lunarTypescript": "1924-03-05",
+      "kari": "1924-03-06",
+      "query": "getSolCalInfo?lunYear=1924&lunMonth=02&lunDay=01"
+    },
+    {
+      "lunarYear": 1925,
+      "lunarMonth": 4,
+      "isLeapMonth": true,
+      "koreanMonthStart": "1925-05-23",
+      "lunarTypescript": "1925-05-22",
+      "kari": "1925-05-23",
+      "query": "getSolCalInfo?lunYear=1925&lunMonth=04&lunDay=01"
+    },
+    {
+      "lunarYear": 1927,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1927-10-26",
+      "lunarTypescript": "1927-10-25",
+      "kari": "1927-10-26",
+      "query": "getSolCalInfo?lunYear=1927&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1928,
+      "lunarMonth": 9,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1928-10-14",
+      "lunarTypescript": "1928-10-13",
+      "kari": "1928-10-14",
+      "query": "getSolCalInfo?lunYear=1928&lunMonth=09&lunDay=01"
+    },
+    {
+      "lunarYear": 1931,
+      "lunarMonth": 4,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1931-05-18",
+      "lunarTypescript": "1931-05-17",
+      "kari": "1931-05-18",
+      "query": "getSolCalInfo?lunYear=1931&lunMonth=04&lunDay=01"
+    },
+    {
+      "lunarYear": 1934,
+      "lunarMonth": 9,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1934-10-09",
+      "lunarTypescript": "1934-10-08",
+      "kari": "1934-10-09",
+      "query": "getSolCalInfo?lunYear=1934&lunMonth=09&lunDay=01"
+    },
+    {
+      "lunarYear": 1936,
+      "lunarMonth": 6,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1936-07-19",
+      "lunarTypescript": "1936-07-18",
+      "kari": "1936-07-19",
+      "query": "getSolCalInfo?lunYear=1936&lunMonth=06&lunDay=01"
+    },
+    {
+      "lunarYear": 1942,
+      "lunarMonth": 8,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1942-09-11",
+      "lunarTypescript": "1942-09-10",
+      "kari": "1942-09-11",
+      "query": "getSolCalInfo?lunYear=1942&lunMonth=08&lunDay=01"
+    },
+    {
+      "lunarYear": 1942,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1942-11-09",
+      "lunarTypescript": "1942-11-08",
+      "kari": "1942-11-09",
+      "query": "getSolCalInfo?lunYear=1942&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1943,
+      "lunarMonth": 11,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1943-11-28",
+      "lunarTypescript": "1943-11-27",
+      "kari": "1943-11-28",
+      "query": "getSolCalInfo?lunYear=1943&lunMonth=11&lunDay=01"
+    },
+    {
+      "lunarYear": 1944,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1944-01-26",
+      "lunarTypescript": "1944-01-25",
+      "kari": "1944-01-26",
+      "query": "getSolCalInfo?lunYear=1944&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 1949,
+      "lunarMonth": 3,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1949-03-30",
+      "lunarTypescript": "1949-03-29",
+      "kari": "1949-03-30",
+      "query": "getSolCalInfo?lunYear=1949&lunMonth=03&lunDay=01"
+    },
+    {
+      "lunarYear": 1950,
+      "lunarMonth": 2,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1950-03-19",
+      "lunarTypescript": "1950-03-18",
+      "kari": "1950-03-19",
+      "query": "getSolCalInfo?lunYear=1950&lunMonth=02&lunDay=01"
+    },
+    {
+      "lunarYear": 1950,
+      "lunarMonth": 5,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1950-06-16",
+      "lunarTypescript": "1950-06-15",
+      "kari": "1950-06-16",
+      "query": "getSolCalInfo?lunYear=1950&lunMonth=05&lunDay=01"
+    },
+    {
+      "lunarYear": 1952,
+      "lunarMonth": 7,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1952-08-21",
+      "lunarTypescript": "1952-08-20",
+      "kari": "1952-08-21",
+      "query": "getSolCalInfo?lunYear=1952&lunMonth=07&lunDay=01"
+    },
+    {
+      "lunarYear": 1954,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1954-02-04",
+      "lunarTypescript": "1954-02-03",
+      "kari": "1954-02-04",
+      "query": "getSolCalInfo?lunYear=1954&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 1955,
+      "lunarMonth": 2,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1955-02-23",
+      "lunarTypescript": "1955-02-22",
+      "kari": "1955-02-23",
+      "query": "getSolCalInfo?lunYear=1955&lunMonth=02&lunDay=01"
+    },
+    {
+      "lunarYear": 1958,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1958-02-19",
+      "lunarTypescript": "1958-02-18",
+      "kari": "1958-02-19",
+      "query": "getSolCalInfo?lunYear=1958&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 1966,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1966-01-22",
+      "lunarTypescript": "1966-01-21",
+      "kari": "1966-01-22",
+      "query": "getSolCalInfo?lunYear=1966&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 1968,
+      "lunarMonth": 4,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1968-04-28",
+      "lunarTypescript": "1968-04-27",
+      "kari": "1968-04-28",
+      "query": "getSolCalInfo?lunYear=1968&lunMonth=04&lunDay=01"
+    },
+    {
+      "lunarYear": 1970,
+      "lunarMonth": 6,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1970-07-04",
+      "lunarTypescript": "1970-07-03",
+      "kari": "1970-07-04",
+      "query": "getSolCalInfo?lunYear=1970&lunMonth=06&lunDay=01"
+    },
+    {
+      "lunarYear": 1972,
+      "lunarMonth": 12,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1973-01-05",
+      "lunarTypescript": "1973-01-04",
+      "kari": "1973-01-05",
+      "query": "getSolCalInfo?lunYear=1972&lunMonth=12&lunDay=01"
+    },
+    {
+      "lunarYear": 1973,
+      "lunarMonth": 12,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1973-12-25",
+      "lunarTypescript": "1973-12-24",
+      "kari": "1973-12-25",
+      "query": "getSolCalInfo?lunYear=1973&lunMonth=12&lunDay=01"
+    },
+    {
+      "lunarYear": 1976,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1976-11-22",
+      "lunarTypescript": "1976-11-21",
+      "kari": "1976-11-22",
+      "query": "getSolCalInfo?lunYear=1976&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1978,
+      "lunarMonth": 3,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1978-04-08",
+      "lunarTypescript": "1978-04-07",
+      "kari": "1978-04-08",
+      "query": "getSolCalInfo?lunYear=1978&lunMonth=03&lunDay=01"
+    },
+    {
+      "lunarYear": 1982,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1982-11-16",
+      "lunarTypescript": "1982-11-15",
+      "kari": "1982-11-16",
+      "query": "getSolCalInfo?lunYear=1982&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1987,
+      "lunarMonth": 5,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1987-05-28",
+      "lunarTypescript": "1987-05-27",
+      "kari": "1987-05-28",
+      "query": "getSolCalInfo?lunYear=1987&lunMonth=05&lunDay=01"
+    },
+    {
+      "lunarYear": 1988,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1988-02-18",
+      "lunarTypescript": "1988-02-17",
+      "kari": "1988-02-18",
+      "query": "getSolCalInfo?lunYear=1988&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 1989,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1989-10-30",
+      "lunarTypescript": "1989-10-29",
+      "kari": "1989-10-30",
+      "query": "getSolCalInfo?lunYear=1989&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1990,
+      "lunarMonth": 9,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1990-10-19",
+      "lunarTypescript": "1990-10-18",
+      "kari": "1990-10-19",
+      "query": "getSolCalInfo?lunYear=1990&lunMonth=09&lunDay=01"
+    },
+    {
+      "lunarYear": 1995,
+      "lunarMonth": 7,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1995-07-28",
+      "lunarTypescript": "1995-07-27",
+      "kari": "1995-07-28",
+      "query": "getSolCalInfo?lunYear=1995&lunMonth=07&lunDay=01"
+    },
+    {
+      "lunarYear": 1995,
+      "lunarMonth": 10,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1995-11-23",
+      "lunarTypescript": "1995-11-22",
+      "kari": "1995-11-23",
+      "query": "getSolCalInfo?lunYear=1995&lunMonth=10&lunDay=01"
+    },
+    {
+      "lunarYear": 1997,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1997-02-08",
+      "lunarTypescript": "1997-02-07",
+      "kari": "1997-02-08",
+      "query": "getSolCalInfo?lunYear=1997&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 1998,
+      "lunarMonth": 12,
+      "isLeapMonth": false,
+      "koreanMonthStart": "1999-01-18",
+      "lunarTypescript": "1999-01-17",
+      "kari": "1999-01-18",
+      "query": "getSolCalInfo?lunYear=1998&lunMonth=12&lunDay=01"
+    },
+    {
+      "lunarYear": 2001,
+      "lunarMonth": 4,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2001-04-24",
+      "lunarTypescript": "2001-04-23",
+      "kari": "2001-04-24",
+      "query": "getSolCalInfo?lunYear=2001&lunMonth=04&lunDay=01"
+    },
+    {
+      "lunarYear": 2005,
+      "lunarMonth": 11,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2005-12-02",
+      "lunarTypescript": "2005-12-01",
+      "kari": "2005-12-02",
+      "query": "getSolCalInfo?lunYear=2005&lunMonth=11&lunDay=01"
+    },
+    {
+      "lunarYear": 2012,
+      "lunarMonth": 3,
+      "isLeapMonth": true,
+      "koreanMonthStart": "2012-04-21",
+      "lunarTypescript": "throws: wrong lunar year 2012 month -3",
+      "kari": "2012-04-21",
+      "query": "getSolCalInfo?lunYear=2012&lunMonth=03&lunDay=01"
+    },
+    {
+      "lunarYear": 2012,
+      "lunarMonth": 4,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2012-05-21",
+      "lunarTypescript": "2012-04-21",
+      "kari": "2012-05-21",
+      "query": "getSolCalInfo?lunYear=2012&lunMonth=04&lunDay=01"
+    },
+    {
+      "lunarYear": 2012,
+      "lunarMonth": 5,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2012-06-20",
+      "lunarTypescript": "2012-06-19",
+      "kari": "2012-06-20",
+      "query": "getSolCalInfo?lunYear=2012&lunMonth=05&lunDay=01"
+    },
+    {
+      "lunarYear": 2012,
+      "lunarMonth": 7,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2012-08-18",
+      "lunarTypescript": "2012-08-17",
+      "kari": "2012-08-18",
+      "query": "getSolCalInfo?lunYear=2012&lunMonth=07&lunDay=01"
+    },
+    {
+      "lunarYear": 2013,
+      "lunarMonth": 5,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2013-06-09",
+      "lunarTypescript": "2013-06-08",
+      "kari": "2013-06-09",
+      "query": "getSolCalInfo?lunYear=2013&lunMonth=05&lunDay=01"
+    },
+    {
+      "lunarYear": 2017,
+      "lunarMonth": 5,
+      "isLeapMonth": true,
+      "koreanMonthStart": "2017-06-24",
+      "lunarTypescript": "throws: wrong lunar year 2017 month -5",
+      "kari": "2017-06-24",
+      "query": "getSolCalInfo?lunYear=2017&lunMonth=05&lunDay=01"
+    },
+    {
+      "lunarYear": 2017,
+      "lunarMonth": 6,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2017-07-23",
+      "lunarTypescript": "2017-06-24",
+      "kari": "2017-07-23",
+      "query": "getSolCalInfo?lunYear=2017&lunMonth=06&lunDay=01"
+    },
+    {
+      "lunarYear": 2019,
+      "lunarMonth": 11,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2019-11-27",
+      "lunarTypescript": "2019-11-26",
+      "kari": "2019-11-27",
+      "query": "getSolCalInfo?lunYear=2019&lunMonth=11&lunDay=01"
+    },
+    {
+      "lunarYear": 2020,
+      "lunarMonth": 2,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2020-02-24",
+      "lunarTypescript": "2020-02-23",
+      "kari": "2020-02-24",
+      "query": "getSolCalInfo?lunYear=2020&lunMonth=02&lunDay=01"
+    },
+    {
+      "lunarYear": 2023,
+      "lunarMonth": 4,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2023-05-20",
+      "lunarTypescript": "2023-05-19",
+      "kari": "2023-05-20",
+      "query": "getSolCalInfo?lunYear=2023&lunMonth=04&lunDay=01"
+    },
+    {
+      "lunarYear": 2026,
+      "lunarMonth": 9,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2026-10-11",
+      "lunarTypescript": "2026-10-10",
+      "kari": "2026-10-11",
+      "query": "getSolCalInfo?lunYear=2026&lunMonth=09&lunDay=01"
+    },
+    {
+      "lunarYear": 2027,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2027-02-07",
+      "lunarTypescript": "2027-02-06",
+      "kari": "2027-02-07",
+      "query": "getSolCalInfo?lunYear=2027&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 2028,
+      "lunarMonth": 1,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2028-01-27",
+      "lunarTypescript": "2028-01-26",
+      "kari": "2028-01-27",
+      "query": "getSolCalInfo?lunYear=2028&lunMonth=01&lunDay=01"
+    },
+    {
+      "lunarYear": 2029,
+      "lunarMonth": 6,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2029-07-12",
+      "lunarTypescript": "2029-07-11",
+      "kari": "2029-07-12",
+      "query": "getSolCalInfo?lunYear=2029&lunMonth=06&lunDay=01"
+    },
+    {
+      "lunarYear": 2031,
+      "lunarMonth": 2,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2031-02-22",
+      "lunarTypescript": "2031-02-21",
+      "kari": "2031-02-22",
+      "query": "getSolCalInfo?lunYear=2031&lunMonth=02&lunDay=01"
+    },
+    {
+      "lunarYear": 2034,
+      "lunarMonth": 12,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2035-01-10",
+      "lunarTypescript": "2035-01-09",
+      "kari": "2035-01-10",
+      "query": "getSolCalInfo?lunYear=2034&lunMonth=12&lunDay=01"
+    },
+    {
+      "lunarYear": 2036,
+      "lunarMonth": 11,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2036-12-18",
+      "lunarTypescript": "2036-12-17",
+      "kari": "2036-12-18",
+      "query": "getSolCalInfo?lunYear=2036&lunMonth=11&lunDay=01"
+    },
+    {
+      "lunarYear": 2040,
+      "lunarMonth": 8,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2040-09-07",
+      "lunarTypescript": "2040-09-06",
+      "kari": "2040-09-07",
+      "query": "getSolCalInfo?lunYear=2040&lunMonth=08&lunDay=01"
+    },
+    {
+      "lunarYear": 2041,
+      "lunarMonth": 2,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2041-03-03",
+      "lunarTypescript": "2041-03-02",
+      "kari": "2041-03-03",
+      "query": "getSolCalInfo?lunYear=2041&lunMonth=02&lunDay=01"
+    },
+    {
+      "lunarYear": 2046,
+      "lunarMonth": 5,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2046-06-05",
+      "lunarTypescript": "2046-06-04",
+      "kari": "2046-06-05",
+      "query": "getSolCalInfo?lunYear=2046&lunMonth=05&lunDay=01"
+    },
+    {
+      "lunarYear": 2048,
+      "lunarMonth": 11,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2048-12-06",
+      "lunarTypescript": "2048-12-05",
+      "kari": "2048-12-06",
+      "query": "getSolCalInfo?lunYear=2048&lunMonth=11&lunDay=01"
+    },
+    {
+      "lunarYear": 2050,
+      "lunarMonth": 2,
+      "isLeapMonth": false,
+      "koreanMonthStart": "2050-02-22",
+      "lunarTypescript": "2050-02-21",
+      "kari": "2050-02-22",
+      "query": "getSolCalInfo?lunYear=2050&lunMonth=02&lunDay=01"
+    }
+  ]
+}
