@@ -11,7 +11,7 @@ summary: 교차 구현 차분 테스트 — saju-core ↔ lunar-typescript 5,550
 status: on_track
 progress: "unexplained 0(시드 3종) · 변이 시험(입춘 +10분)에서 unexplained 577로 게이트 실패 확인 · 코어 변경 0 (근거: npm run diff:cross-impl exit 0, npm run verify exit 0, verifier PASS, docs/CROSS-IMPL-DIFF.md)"
 changes:
-  - "test/cross-impl-diff PR — test(cross-impl): saju-core ↔ lunar-typescript 차분 게이트"
+  - "#84 test(cross-impl): saju-core ↔ lunar-typescript 차분 게이트"
 next: "LC 판정 → 머지 · #83 뒷정리(분류기 allow 뒤) · LC 검산 라운드 뒤 L2 39행 confirmed TASK"
 blockers: "#83 브랜치·worktree 삭제 = auto-mode 분류기 차단, 사용자 allow 규칙 대기"
 learning_need: "rebase 전 실행 수치(시드 1·42)를 REPORT에 그대로 적었다가 verifier가 잡았다 — 기준 커밋이 바뀌면 문서 수치는 전부 다시 돌린다."
