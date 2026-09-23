@@ -51,6 +51,7 @@
 | 2026-09-22 | 7단계 대운 v1 PR #80 머지(786a214, LC 판정 「머지 가」 뒤) | CI 초록 · verify 358 |
 | 2026-09-22 | TASK-2026-0922-retro-review-fixes: A1 `BirthTimeRequiredError`→`MISSING_BIRTH_TIME` · A2 `kstDate` · A3 dayMidnight [−10,+34] · A4 본문 키 대소문자 변형 400+timeUnknown 타입 · A5 골든 합충 md 오라클(전 필드·정렬 집합) · A6 에러표=유니언 파서 테스트 · A7 복사 반환 · A8 kind 비교 · A9 shared=id(불변식) · A10 throw · A11 정규식 · A12 골든 lunar(윤달) · P2 출생지·옵션 열 · A13 중복 id · A14/B2/B4 문서 · A15 결번 dst · B1 죽은 항목 제거 · B3 삼명통회 출처 · C 동어반복 4+pending 20%+미검증 6 · D1~D5+미검증 4 · 골든 대운표 16행 confirmed. PR 오픈, LC 판정 대기 | `npm run verify` exit 0(테스트 388) · 골든 4표 값 불변 |
 | 2026-09-22 | 보정 PR #81 머지(392d794, LC 조건부 판정 → 조건 4건 반영) · 세션 마감(2차) 인계서 `docs/handoffs/2026-09-22-l2-stage567-close-handoff.md`(SHA·PR·경로 origin 실측 대조, 정정 0) · 브랜치 main만·프로세스 0 | `npm run verify` exit 0(테스트 388) |
+| 2026-09-23 | TASK-2026-0923-golden-39: GOLDEN-PILLARS 11→50행(T1~T6·N1~N3·L1~L4·S1~S6·Z1~Z3·D1~D3·U2·B1~B7·X1~X5·R1, U1은 단위 테스트), 일진 `getLunCalInfo` 34/34·윤달 `getSolCalInfo` 4/4, KASI 인용 68/68 자동 대조 · 십신·합충·대운 골든 39행분 pending(`OPEN_REVIEW_ROUND` 예외, 행 수 상한) · 설계표 정정 B6(酉酉 자형) · verifier PASS(V-D 반영) · REPORT `docs/handoffs/TASK-2026-0923-golden-39-REPORT.md` | `npm run verify` exit 0(테스트 675) |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과

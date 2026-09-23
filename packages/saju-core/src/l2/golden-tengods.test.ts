@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import type { Branch } from "../cycle.js";
-import { goldenCase } from "../golden-pillars.load.js";
+import { goldenCase, loadGoldenPillarCases } from "../golden-pillars.load.js";
 import { calculatePillars } from "../pillars.js";
 import { buildSajuPillarsV1Response } from "../saju-pillars-v1.js";
 import { loadHiddenStemTables } from "./hidden-stems-rules.load.js";
@@ -13,6 +13,12 @@ const GOLDEN_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
 /** pending rows are allowed while a table awaits 검산, but never as the steady state (C). */
 const MAX_PENDING_RATIO = 0.2;
+/**
+ * The 검산 round now open: rows for the 39 golden charts added 2026-09-23 start 100% pending, so the cap
+ * skips them until their confirmed PR, which deletes this constant (#81 REPORT §6 운영 규칙). `rows` bounds the
+ * exemption to exactly this round, so the tag cannot be reused to park later rows.
+ */
+const OPEN_REVIEW_ROUND = { tag: "TASK-2026-0923-golden-39", goldenVerifiedOn: "2026-09-23", rows: 39 } as const;
 
 interface Row {
   id: string;
@@ -68,9 +74,12 @@ describe("GOLDEN-TENGODS.md — core output for the golden charts, confirmed 202
   const rows = parseRows(readFileSync(GOLDEN_MD, "utf8"));
 
   it("covers every golden chart with a valid status and source, unique ids, and pending below the cap", () => {
-    expect(rows.length).toBeGreaterThanOrEqual(11);
+    expect(rows.map((row) => row.id).sort()).toEqual(loadGoldenPillarCases().map((golden) => golden.id).sort());
     expect(new Set(rows.map((row) => row.id)).size).toBe(rows.length);
-    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
+    const inOpenRound = (row: Row): boolean => row.status === "pending" && row.source.includes(OPEN_REVIEW_ROUND.tag);
+    for (const row of rows.filter(inOpenRound)) expect(goldenCase(row.id).verifiedOn).toBe(OPEN_REVIEW_ROUND.goldenVerifiedOn);
+    expect(rows.filter(inOpenRound).length).toBeLessThanOrEqual(OPEN_REVIEW_ROUND.rows);
+    expect(rows.filter((row) => row.status === "pending" && !inOpenRound(row)).length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
     for (const row of rows) {
       expect(["pending", "confirmed"]).toContain(row.status);
       for (const pillar of Object.values(row.pillars)) {
@@ -102,13 +111,17 @@ describe("GOLDEN-TENGODS.md — core output for the golden charts, confirmed 202
       return [entry?.residual?.stem, entry?.middle?.stem, entry?.primary.stem].filter(Boolean).join(" ");
     };
     let predicted = 0;
+    let predictedConfirmed = 0;
     for (const row of rows) {
       const pillars = calculatePillars(goldenCase(row.id).input);
       for (const branch of [pillars.year.branch, pillars.month.branch, pillars.day.branch, pillars.time?.branch]) {
-        if (branch && stems("yeonhae", branch) !== stems("japyeong", branch)) predicted += 1;
+        if (branch && stems("yeonhae", branch) !== stems("japyeong", branch)) {
+          predicted += 1;
+          if (row.status === "confirmed") predictedConfirmed += 1;
+        }
       }
     }
-    expect(predicted).toBe(20); // 子壬6·卯甲7·午丙3·酉庚2·亥戊2 (실측 2026-09-22, 머리말)
+    expect(predictedConfirmed).toBe(20); // 子壬6·卯甲7·午丙3·酉庚2·亥戊2 (실측 2026-09-22, 머리말 — confirmed 11행)
     let differing = 0;
     for (const row of rows) {
       const chart = tenGodsOfChart(calculatePillars(goldenCase(row.id).input), "japyeong");

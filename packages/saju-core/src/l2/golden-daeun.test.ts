@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { goldenCase } from "../golden-pillars.load.js";
+import { goldenCase, loadGoldenPillarCases } from "../golden-pillars.load.js";
 import { calculatePillars, resolveBirthKst } from "../pillars.js";
 import { daeunOf, isDaeunUnavailable, type DaeunDirection, type DaeunReading } from "./daeun.js";
 
@@ -10,6 +10,12 @@ const GOLDEN_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
 /** pending rows are allowed while a table awaits 검산, but never as the steady state (C). */
 const MAX_PENDING_RATIO = 0.2;
+/**
+ * The 검산 round now open: rows for the 39 golden charts added 2026-09-23 start 100% pending, so the cap
+ * skips them until their confirmed PR, which deletes this constant (#81 REPORT §6 운영 규칙). `rows` bounds the
+ * exemption to exactly this round, so the tag cannot be reused to park later rows.
+ */
+const OPEN_REVIEW_ROUND = { tag: "TASK-2026-0923-golden-39", goldenVerifiedOn: "2026-09-23", rows: 43 } as const;
 
 interface Row {
   id: string;
@@ -67,14 +73,18 @@ describe("GOLDEN-DAEUN.md — core output for the golden charts, confirmed 2026-
     const confirmed = rows.filter((row) => row.status === "confirmed");
     expect(confirmed.length).toBe(16);
     for (const row of confirmed) expect(row.source).toContain("CODE-REVIEW-2026-0922-saju-pr80-daeun.md");
-    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
+    const inOpenRound = (row: Row): boolean => row.status === "pending" && row.source.includes(OPEN_REVIEW_ROUND.tag);
+    for (const row of rows.filter(inOpenRound)) expect(goldenCase(row.id).verifiedOn).toBe(OPEN_REVIEW_ROUND.goldenVerifiedOn);
+    expect(rows.filter(inOpenRound).length).toBeLessThanOrEqual(OPEN_REVIEW_ROUND.rows);
+    expect(rows.filter((row) => row.status === "pending" && !inOpenRound(row)).length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
   });
 
-  it("covers every golden chart: other → two rows, male/female → one, 16 rows in all", () => {
-    expect(rows).toHaveLength(16);
+  it("covers every golden chart: other → two rows, male/female → one", () => {
+    const golden = loadGoldenPillarCases();
+    expect(rows).toHaveLength(golden.reduce((sum, goldenRow) => sum + (goldenRow.input.sex === "other" ? 2 : 1), 0));
     expect(new Set(rows.map((row) => `${row.id}/${row.direction}`)).size).toBe(rows.length);
     const ids = new Set(rows.map((row) => row.id));
-    expect(ids.size).toBe(11);
+    expect([...ids].sort()).toEqual(golden.map((goldenRow) => goldenRow.id).sort());
     for (const id of ids) {
       const forId = rows.filter((row) => row.id === id);
       const sex = goldenCase(id).input.sex;
