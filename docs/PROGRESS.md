@@ -58,6 +58,7 @@
 | 2026-09-23 | PR #85 머지(e9b88ea) · #86 워커 settings 템플릿(2261763, 사용자 지시) · #87 8단계 설계 채택(6a0b1e2, LC 반박 4 판정·개선 4 반영) · 세션 마감 인계서 `docs/handoffs/2026-09-23-golden50-diff-stage8-design-close-handoff.md` | CI 초록 · verify 675 |
 | 2026-09-23 | AWAY-PLAN §2-1: 8a 강약 팩터 `strengthFactorsOf` + STRENGTH.md + 골든 50행 pending + REPORT(8조합 YNY 0 → 보강 후보 2, 사령 경계 4행) — PR #90 | verify exit 0(788), verifier PASS, LC 게이트 대기 |
 | 2026-09-23 | 베타 UI 1차(토큰·명식 카드 한자·오행 점·44px 접힘·대운 가로 카드·한자 서브셋 자가호스팅) + supplementPriority 계약 1문장 — PR #89, 프리뷰만(머지 = 프로덕션 → 사용자 승인 대기) | verify exit 0(675), CI·Vercel pass, verifier PASS, headless 3케이스×360/1280 |
+| 2026-09-24 | #89 베타 UI 1차 머지 `92cbd13`(사용자 직접 승인·HO 격상) → 프로덕션 `saju-lab-phi` 반영 실측(번들 `index-CSoxBuOG.js`, `/`·woff2 200) · 원격 브랜치 삭제 · REPORT `docs/handoffs/HO-2026-0924-saju-web-beta-ui-merge-01-REPORT.md` | 병합 트리 verify exit 0(788), Vercel Deployment has completed |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과
