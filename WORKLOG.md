@@ -6,6 +6,22 @@
 ---
 date: 2026-09-23
 project: saju-lab
+agent: claude-code (Opus 5.5, 세션 마감)
+summary: 세션 마감 — PR #83~#87 5건 착지(골든 50 confirmed·교차 구현 차분 게이트·L2 121행 confirmed·워커 settings·8단계 설계 채택), 마감 인계서 작성
+status: on_track
+progress: "main 6a0b1e2 · 골든 4표 전 행 confirmed · 차분 unexplained 0 · 테스트 388→675 (근거: docs/handoffs/2026-09-23-golden50-diff-stage8-design-close-handoff.md §1, 각 PR CI 초록)"
+changes:
+  - "#83 골든 11→50 · #84 차분 게이트 · #85 L2 confirmed · #86 워커 settings · #87 8단계 설계"
+next: "새 세션: 8a 강약 팩터 구현(STRENGTH.md · strength-factors.ts · GOLDEN-STRENGTH-FACTORS 50행)"
+blockers: "8b = 사용자 G2-3 결정 · 남은 worktree 폴더 2개 사용자 삭제"
+learning_need: "§6-4 워커 주권 첫 적용 — LC 발주의 「코어가 강약 판정」을 회의 확정안 근거로 반박했고 LC가 4건 전부 판정 수용. 절차형 발주를 전부 수용하던 앞 세션 패턴을 끊었다."
+---
+## 의미
+8단계 착수 조건 중 결정론 쪽(골든 ≥ 50 confirmed · 교차 구현 차분 0)이 다 채워졌다. 남은 것은 사람 결정(G2-3)뿐이고, 그와 무관한 8a는 설계가 채택돼 바로 들어갈 수 있다.
+
+---
+date: 2026-09-23
+project: saju-lab
 agent: claude-code (Opus 5.5, TASK L2 39행 confirmed)
 summary: 골든 십신·합충·대운 39·39·43행 pending → confirmed(LC 검산 1,042셀 불일치 0) + OPEN_REVIEW_ROUND 삭제(pending 상한 전면 복귀) + 머리말 모호점 2건 정정
 status: on_track
