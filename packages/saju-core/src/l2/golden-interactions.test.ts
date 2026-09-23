@@ -12,12 +12,6 @@ const GOLDEN_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
 /** pending rows are allowed while a table awaits 검산, but never as the steady state (C). */
 const MAX_PENDING_RATIO = 0.2;
-/**
- * The 검산 round now open: rows for the 39 golden charts added 2026-09-23 start 100% pending, so the cap
- * skips them until their confirmed PR, which deletes this constant (#81 REPORT §6 운영 규칙). `rows` bounds the
- * exemption to exactly this round, so the tag cannot be reused to park later rows.
- */
-const OPEN_REVIEW_ROUND = { tag: "TASK-2026-0923-golden-39", goldenVerifiedOn: "2026-09-23", rows: 39 } as const;
 
 const KIND_COLUMNS: Array<[BranchInteractionKind, string]> = [
   ["yukhap", "육합"],
@@ -157,16 +151,13 @@ describe("GOLDEN-INTERACTIONS.md — confirmed 2026-09-22, compared against an m
     expect(rows.map((row) => row.id).sort()).toEqual(loadGoldenPillarCases().map((golden) => golden.id).sort());
     expect(new Set(rows.map((row) => row.id)).size).toBe(rows.length);
     for (const row of rows) expect(["pending", "confirmed"]).toContain(row.status);
-    const inOpenRound = (row: Row): boolean => row.status === "pending" && row.source.includes(OPEN_REVIEW_ROUND.tag);
-    for (const row of rows.filter(inOpenRound)) expect(goldenCase(row.id).verifiedOn).toBe(OPEN_REVIEW_ROUND.goldenVerifiedOn);
-    expect(rows.filter(inOpenRound).length).toBeLessThanOrEqual(OPEN_REVIEW_ROUND.rows);
-    expect(rows.filter((row) => row.status === "pending" && !inOpenRound(row)).length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
+    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
   });
 
-  it("is fully confirmed (LC 검산 2026-09-22) and every confirmed row cites the verification document", () => {
-    const confirmed = rows.filter((row) => row.status === "confirmed");
-    expect(confirmed.length).toBe(11);
-    for (const row of confirmed) expect(row.source).toContain("VERIFY-2026-0922-golden-interactions.md");
+  it("is fully confirmed (LC 검산 2026-09-22 11행 · 2026-09-23 39행) and every row cites its verification document", () => {
+    expect(rows.every((row) => row.status === "confirmed")).toBe(true);
+    expect(rows.filter((row) => row.source.includes("VERIFY-2026-0922-golden-interactions.md"))).toHaveLength(11);
+    expect(rows.filter((row) => row.source.includes("VERIFY-2026-0923-golden-l2-39.md"))).toHaveLength(39);
   });
 
   it.each(rows.map((row) => [row.id, row] as const))("%s matches interactionsOfChart on every field (order-independent)", (_id, row) => {
@@ -183,12 +174,12 @@ describe("GOLDEN-INTERACTIONS.md — confirmed 2026-09-22, compared against an m
     expect(canonical(actual.branches)).toEqual(canonical(expectedAll));
   });
 
-  it("documents the C3 minimum cases: g-2011-11-08-0334 has 卯戌 육합 twice (연·월, 월·일); no confirmed chart is relation-free, three of the 09-23 charts are", () => {
+  it("documents the C3 minimum cases: g-2011-11-08-0334 has 卯戌 육합 twice (연·월, 월·일); the confirmed 09-22 charts are never relation-free, three of the 09-23 charts are", () => {
     const sample = rows.find((row) => row.id === "g-2011-11-08-0334");
     expect(sample?.cells["육합"]).toBe("myo-sul:year-month sul-myo:month-day");
     const relationFree = rows.filter((row) => Object.values(row.cells).every((cell) => cell === "-"));
-    expect(relationFree.filter((row) => row.status === "confirmed")).toEqual([]);
-    // 巳巳·丑丑·寅寅 are not 자형 and 甲戊·丙壬 천간충 is outside v1 — the golden table's first relation-free charts.
+    expect(relationFree.filter((row) => row.source.includes("VERIFY-2026-0922-golden-interactions.md"))).toEqual([]);
+    // 巳巳·丑丑·寅寅 are not 자형, no stem pair is a 간합, and 丙壬 천간충 is outside v1 — the golden table's first relation-free charts.
     expect(relationFree.map((row) => row.id).sort()).toEqual(["g-1946-05-19-2359", "g-1963-06-06-1000", "g-2022-01-25-0350"]);
   });
 

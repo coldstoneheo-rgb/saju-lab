@@ -10,12 +10,6 @@ const GOLDEN_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
 /** pending rows are allowed while a table awaits 검산, but never as the steady state (C). */
 const MAX_PENDING_RATIO = 0.2;
-/**
- * The 검산 round now open: rows for the 39 golden charts added 2026-09-23 start 100% pending, so the cap
- * skips them until their confirmed PR, which deletes this constant (#81 REPORT §6 운영 규칙). `rows` bounds the
- * exemption to exactly this round, so the tag cannot be reused to park later rows.
- */
-const OPEN_REVIEW_ROUND = { tag: "TASK-2026-0923-golden-39", goldenVerifiedOn: "2026-09-23", rows: 43 } as const;
 
 interface Row {
   id: string;
@@ -69,14 +63,11 @@ function render(reading: DaeunReading): Record<string, string> {
 describe("GOLDEN-DAEUN.md — core output for the golden charts, confirmed 2026-09-22", () => {
   const rows = parseRows(readFileSync(GOLDEN_MD, "utf8"));
 
-  it("is fully confirmed (LC 독립 재계산 16/16 + 손계산) and cites the review document; pending below the cap", () => {
-    const confirmed = rows.filter((row) => row.status === "confirmed");
-    expect(confirmed.length).toBe(16);
-    for (const row of confirmed) expect(row.source).toContain("CODE-REVIEW-2026-0922-saju-pr80-daeun.md");
-    const inOpenRound = (row: Row): boolean => row.status === "pending" && row.source.includes(OPEN_REVIEW_ROUND.tag);
-    for (const row of rows.filter(inOpenRound)) expect(goldenCase(row.id).verifiedOn).toBe(OPEN_REVIEW_ROUND.goldenVerifiedOn);
-    expect(rows.filter(inOpenRound).length).toBeLessThanOrEqual(OPEN_REVIEW_ROUND.rows);
-    expect(rows.filter((row) => row.status === "pending" && !inOpenRound(row)).length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
+  it("is fully confirmed (LC 독립 재계산 16행 09-22 · 43행 09-23) and cites the review documents; pending below the cap", () => {
+    expect(rows.every((row) => row.status === "confirmed")).toBe(true);
+    expect(rows.filter((row) => row.source.includes("CODE-REVIEW-2026-0922-saju-pr80-daeun.md"))).toHaveLength(16);
+    expect(rows.filter((row) => row.source.includes("VERIFY-2026-0923-golden-l2-39.md"))).toHaveLength(43);
+    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
   });
 
   it("covers every golden chart: other → two rows, male/female → one", () => {

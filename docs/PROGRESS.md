@@ -54,6 +54,7 @@
 | 2026-09-23 | TASK-2026-0923-golden-39: GOLDEN-PILLARS 11→50행(T1~T6·N1~N3·L1~L4·S1~S6·Z1~Z3·D1~D3·U2·B1~B7·X1~X5·R1, U1은 단위 테스트), 일진 `getLunCalInfo` 34/34·윤달 `getSolCalInfo` 4/4, KASI 인용 68/68 자동 대조 · 십신·합충·대운 골든 39행분 pending(`OPEN_REVIEW_ROUND` 예외, 행 수 상한) · 설계표 정정 B6(酉酉 자형) · verifier PASS(V-D 반영) · REPORT `docs/handoffs/TASK-2026-0923-golden-39-REPORT.md` | `npm run verify` exit 0(테스트 675) |
 | 2026-09-23 | PR #83 머지(79299e9, LC 판정 「머지 가」). 머지 직후 auto-mode 분류기가 「Merge Without Review」로 후속 명령 차단 → LC 프로토콜 §9-4(머지 요건 = verifier PASS + LC 판정) 갱신, 차단은 사용자 allow 규칙으로 해소 예정 | CI 초록 |
 | 2026-09-23 | HO-2026-0923-saju-cross-impl-diff-01: `scripts/diff_cross_impl.mjs`(saju-core ↔ lunar-typescript 1.8.6, esbuild 번들) 5,550건+음력 1,000건 unexplained 0 · 분류 solar-term-minute/ja-hour-policy/lunar-table(KARI 66/66) · 변이 시험 577 · CI 별도 스텝 · `docs/CROSS-IMPL-DIFF.md` · verifier PASS(V-F 수치 정정) | `npm run verify` exit 0 · `npm run diff:cross-impl` exit 0 |
+| 2026-09-23 | PR #84 머지(4877b17, LC 판정 「머지 가」). L2 골든 3표 39·39·43행 confirmed(LC VERIFY-2026-0923-golden-l2-39 1,042셀 불일치 0) · `OPEN_REVIEW_ROUND` 삭제(pending 상한 전면) · 십신 japyeong 차분 셀 50행 92 고정 · 머리말 정정 2(시간미상 시주 `-` · 천간충 목록) | `npm run verify` exit 0(675) |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과
