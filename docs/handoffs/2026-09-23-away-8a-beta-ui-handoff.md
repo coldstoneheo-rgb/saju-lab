@@ -1,5 +1,7 @@
 # 2026-09-23 외출 모드 인계 — 8a 강약 팩터 머지 · 베타 UI 프리뷰(머지 보류)
 
+> **갱신 2026-09-24 04:05** — #89 머지 `92cbd13`(프로덕션 반영, REPORT `HO-2026-0924-saju-web-beta-ui-merge-01-REPORT.md`) · 문서 #92 `d0b290a` · 새벽 PR #93·#94·#95 대기(verifier·LC 게이트 PASS, 머지 = 기상 후). 아래 §0~§3의 head·대기 항목은 그 시점 기준이다.
+
 - 발주: LC `life-coordinator-c4`, AWAY-PLAN §2-1(`life-coordinator/docs/AWAY-PLAN-2026-0923.md`) · P1 회의 A1~A7(`MEETING-2026-0923-saju-away.md`). 이 세션 = saju-lab, Opus 5.5.
 - main = `a253f08`(#90 squash). **프로덕션은 아직 `ad0f1f6`** — Vercel Hobby 배포 한도 초과(«Deployment rate limited — retry in 24 hours»)로 #90 배포가 생성되지 않았다. 화면 변화가 없는 머지라 영향은 0.
 - 로컬 브랜치 `main` · `feat/web-beta-ui`(#89 대기). worktree = 메인 1개.

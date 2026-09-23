@@ -59,6 +59,9 @@
 | 2026-09-23 | AWAY-PLAN §2-1: 8a 강약 팩터 `strengthFactorsOf` + STRENGTH.md + 골든 50행 pending + REPORT(8조합 YNY 0 → 보강 후보 2, 사령 경계 4행) — PR #90 | verify exit 0(788), verifier PASS, LC 게이트 대기 |
 | 2026-09-23 | 베타 UI 1차(토큰·명식 카드 한자·오행 점·44px 접힘·대운 가로 카드·한자 서브셋 자가호스팅) + supplementPriority 계약 1문장 — PR #89, 프리뷰만(머지 = 프로덕션 → 사용자 승인 대기) | verify exit 0(675), CI·Vercel pass, verifier PASS, headless 3케이스×360/1280 |
 | 2026-09-24 | #89 베타 UI 1차 머지 `92cbd13`(사용자 직접 승인·HO 격상) → 프로덕션 `saju-lab-phi` 반영 실측(번들 `index-CSoxBuOG.js`, `/`·woff2 200) · 원격 브랜치 삭제 · REPORT `docs/handoffs/HO-2026-0924-saju-web-beta-ui-merge-01-REPORT.md` | 병합 트리 verify exit 0(788), Vercel Deployment has completed |
+| 2026-09-24 | 새벽 TASK(LC): #93 8a 검증 팩 `scripts/strength_verify_pack.mjs` → `docs/golden/STRENGTH-FACTORS-VERIFY-PACK.md`(골든 50 + YNY 후보 2, 팩터별 유도 근거, 골든 셀 diff 0) | --check 일치 50×16, CI verify pass, verifier PASS, LC 게이트 PASS, 머지 보류 |
+| 2026-09-24 | 새벽 TASK(LC): #94 한국어 투자권유 어휘 가드 `finance-vocabulary-guard.ts`(규칙 7종, 같은 문장 부정·면책 예외) + 재무 카피 0건 테스트(core 6·web 2: 카피 소스·i18n·골든 50명식 리포트·저장 HTML) — 런타임 배선·화면 변경 0 | verify exit 0(796), verifier PASS(권고 2건 반영), LC 게이트 PASS, 머지 보류 |
+| 2026-09-24 | 새벽 TASK(LC): #95 베타 UI 정적 가드 `design-tokens.test.ts`(WCAG 대비 4.5:1 라이트·다크·수동 다크 동기, 44px min-height, font-face 배선) + `hanja-subset.test.ts`(woff2 cmap Node 파싱, 59자 fontTools 일치) — 360px 실측은 playwright 필요(사용자 결정) | verify exit 0(798), verifier PASS, LC 게이트 PASS, 머지 보류 |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과

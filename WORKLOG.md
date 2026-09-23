@@ -6,6 +6,24 @@
 ---
 date: 2026-09-24
 project: saju-lab
+agent: claude-code (Fable 5.1, saju-lab-a8, 새벽 루프)
+summary: LC 새벽 TASK 4항 완료 — PR #93 8a 검증 팩 · #94 투자권유 어휘 가드 · #95 베타 UI 정적 가드(전부 verifier PASS·LC 게이트 PASS·머지 보류) · head 갱신
+status: on_track
+progress: "main d0b290a · 대기 PR 3(#93 문서+스크립트 / #94 테스트 796 / #95 테스트 798) (근거: 각 PR CI verify pass, 로컬 npm run verify exit 0, verifier PASS 3건, LC 게이트 PASS 코멘트)"
+changes:
+  - "#93 chore(golden): 8a 강약 팩터 검증 팩 (167a4fc)"
+  - "#94 feat(saju-core): 한국어 투자권유 어휘 가드 (b8519cc→32f06b1, verifier 권고 2건 반영)"
+  - "#95 test(web): 베타 UI 정적 가드 (bd9f450)"
+next: "기상 후 #93·#94·#95 머지(새벽 배포 0 규칙) → LC 8a 골든 52행 재계산 → confirmed PR"
+blockers: "Vercel Hobby 배포 한도 재소진(새벽 PR 푸시 4회) — 프리뷰만 영향, 프로덕션은 92cbd13 번들 그대로. 다음 main 머지 배포는 한도 해제 뒤"
+learning_need: "① 새벽 배치는 PR 푸시 횟수 자체가 Vercel Hobby 한도를 먹는다 — 한 PR에 커밋을 모아 푸시. ② 어휘 가드는 «권유 형태»만 잡고 같은 문장 부정·면책은 통과시켜야 면책문을 오탐하지 않는다(문장 경계 = 구두점 + 종결어미). ③ woff2 cmap은 Node 내장 brotli로 파싱 가능 — 외부 의존성 0으로 서브셋 누락 검사 가능."
+---
+## 의미
+8a는 LC가 재계산할 수 있는 한 파일(입력→명식→층→팩터별 유도 근거)이 생겨 confirmed 라운드가 열릴 수 있다. 재무 섹션은 회의 A1이 지적한 «코드 가드 없는 유일한 표면»에서 벗어났다(런타임 변경 없이 테스트 린트). 베타 UI는 대비·탭 타깃·한자 서브셋이 회귀 테스트로 잠겼고, 남은 것은 브라우저 기반 360px 실측(playwright = 사용자 결정)이다.
+
+---
+date: 2026-09-24
+project: saju-lab
 agent: claude-code (Fable 5.1, saju-lab-a8)
 summary: #89 베타 UI 1차 머지 92cbd13 → 프로덕션 saju-lab-phi 반영(사용자 직접 승인, HO 격상)
 status: shipped
