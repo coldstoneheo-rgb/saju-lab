@@ -1,6 +1,6 @@
 # DESIGN — L2 8단계: 일간 강약 팩터 · 강약 판독 · 용신 후보 (초안)
 
-- **상태: 채택(LC 검수 2026-09-23, `life-coordinator/docs/DESIGN-REVIEW-2026-0923-saju-stage8.md` — 반박 4건 전부 수용, 개선 4건 반영).** **8a 착수 허용(LC 결정, 사용자 거부권 유효) · 8b는 사용자 G2-3 결정 뒤.** 저자 = saju-lab 워커(Claude Opus 5.5), 2026-09-23. 검수 = LC(목표·전략 정렬).
+- **상태: 채택(LC 검수 2026-09-23, `life-coordinator/docs/DESIGN-REVIEW-2026-0923-saju-stage8.md` — 반박 ①②④ 수용 · ③ LC 결정으로 허용(사용자 거부권 유효), 개선 4건 반영).** **8a 착수 허용(LC 결정, 사용자 거부권 유효) · 8b는 사용자 G2-3 결정 뒤.** 저자 = saju-lab 워커(Claude Opus 5.5), 2026-09-23. 검수 = LC(목표·전략 정렬).
 - **목표(LC 발주 원문 요지):** 일간 강약 판정 + 용신 «후보»(추천 아님) 산출. 입력 재료 = VERIFY 2본 말미 표(십신 집계 2벌 · 투간 · 득령·득지·득세 · 사령 · `dayStemCombined` · `monthBranchClashed` · 化 재료).
 - **제약:** saju-pillars-v1 공개 계약 불변 · 매수/매도식 «추천» 어휘 금지 · G3 게이트. **반박 가능: 전부.**
 - **읽은 정본:** 회의록 `life-coordinator/docs/MEETING-2026-0922-saju-council-minutes.md` A2-4·7-2(확정) · `PLAN-2026-0922-saju-capability-v1.md` §2-1·2-4·§6(단계표) · `ACTION-PLAN-2026-0922-saju-quality-gates.md` G2-3 · `VERIFY-2026-0922-golden-tengods.md`·`-interactions.md` 말미 표 · saju-lab `docs/rules/HIDDEN-STEMS.md`·`INTERACTIONS.md`·`DAEUN.md` · `SAJU_PILLARS_API_V1.md`.
