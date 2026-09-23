@@ -148,8 +148,9 @@ function saryeongOf(monthBranch: Branch, birthMinute: number, school: HiddenStem
 }
 
 /**
- * 8a strength factors for the main chart. `birthKst` is the normalized KST wall
- * clock the pillars were calculated from (resolveBirthKst); it is used only for 사령.
+ * 8a strength factors for the main chart. `birthKst` is resolveBirthKst(input): the
+ * normalized KST wall clock the month pillar and 대운 use — 진태양시 is NOT applied
+ * even when the hour pillar was shifted by it. It is used only for 사령.
  */
 export function strengthFactorsOf(pillars: PillarsResult, birthKst: ParsedBirthDateTime, options: StrengthFactorOptions = {}): StrengthFactors {
   const school = options.school ?? DEFAULT_HIDDEN_STEM_SCHOOL;

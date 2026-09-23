@@ -68,7 +68,7 @@
 | `exposed` | 지지마다 장간 각각이 네 천간(일간 포함) 중 어느 기둥에 투출됐는지. 투출 없는 장간은 싣지 않는다 | 있음 | 시주 없음 |
 | `roots` | 일간과 같은 오행의 장간(통근) — 기둥 · 자리(여기/중기/정기) · 천간 | 있음 | 기둥 3 |
 | `deukryeong` · `deukji` · `deukse` | 표 1 채택 정의. 결과 = `value` 불리언 + `definitionId` + 근거 글자 | 득지만 | 득세 = 기둥 3 |
-| `saryeong` | 월 절입 뒤 경과 분(整數) ÷ 1440 = 경과일. 월지 장간을 여기 → 중기 → 정기 순으로 일수 누적 구간에 놓고, 경과일이 속한 구간의 천간. 구간은 `[누적 시작, 누적 끝)`, 정기 구간은 월 끝까지. `nearThreshold` = 내부 경계(여기 끝, 중기 끝)와 경과일의 거리가 표 4 폭 **이하** | **`yeonhae` 전용** — `japyeong`은 `null` + `saryeongUnavailable: "no-day-counts"` | 표 4 시각으로 계산, `precision: "time-unknown"` |
+| `saryeong` | 월 절입 뒤 경과 분(整數) ÷ 1440 = 경과일. 출생 순간 = 시간대 이력 정규화 뒤 **KST 벽시계(`resolveBirthKst`) — 진태양시 보정은 반영하지 않는다**(월주·대운과 같은 시계. 예 g-1983-06-25-1525는 시주만 진태양시로 바뀌고 사령은 15:25 기준). 월지 장간을 여기 → 중기 → 정기 순으로 일수 누적 구간에 놓고, 경과일이 속한 구간의 천간. 구간은 `[누적 시작, 누적 끝)`, 정기 구간은 월 끝까지. `nearThreshold` = 내부 경계(여기 끝, 중기 끝)와 경과일의 거리가 표 4 폭 **이하** | **`yeonhae` 전용** — `japyeong`은 `null` + `saryeongUnavailable: "no-day-counts"` | 표 4 시각으로 계산, `precision: "time-unknown"` |
 | `dayStemCombined` | 일간이 당사자인 천간합 — 상대 기둥 · 규칙 id | 없음 | — |
 | `monthBranchClashed` | 월지가 당사자인 충 — 상대 기둥 · 규칙 id | 없음 | — |
 | `dayBranchInteractions` | 일지가 당사자인 육합·삼합·방합·충·형 — `kind` · 규칙 id · 기둥(합충표 순서, 같은 id가 기둥 조합별로 여러 번 나올 수 있다) | 없음 | — |
