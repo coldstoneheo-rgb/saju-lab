@@ -4,6 +4,22 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-09-23
+project: saju-lab
+agent: claude-code (Opus 5.5, TASK-2026-0923-golden-39)
+summary: 골든 명식 11 → 50행(일진 API 34/34·윤달 KARI 4/4 교차, 코어 = 설계표 39/39) + 십신·합충·대운 골든 39행분 pending 재생성 — PR 오픈, LC 판정 대기
+status: on_track
+progress: "골든 50행(G1-3 범주 최소치 테스트로 고정) · 테스트 388→675 · 코어 코드 변경 0 (근거: npm run verify exit 0, verifier PASS, docs/handoffs/TASK-2026-0923-golden-39-REPORT.md)"
+changes:
+  - "#83 docs(golden): 골든 명식 11→50행 + L2 골든 39행분 pending"
+next: "LC 판정 「머지 가」 뒤 머지 → LC 검산 라운드 뒤 L2 세 표 confirmed PR(OPEN_REVIEW_ROUND 삭제) · 병행: 교차 구현 차분 HO"
+blockers: "머지 = LC 판정 대기(HANDOFF §9) · L2 39행 confirmed = LC 검산 라운드"
+learning_need: "설계표의 규칙 서술 1건(B6 酉酉 자형 아님)이 규칙표와 어긋났다 — 행 값은 맞고 비고만 틀렸다. 설계표 비고도 md 규칙표 오라클로 한 번 돌리면 잡힌다."
+---
+## 의미
+골든이 50건이 되어 1920~2100 연대·9범주(진태양시·시간미상·윤달·DST·UTC+8:30·절기경계·23시대·기본·합충)를 전부 덮는다. 일주는 전 건 외부 API 인용이라 «자기정합» 단계를 벗어났고, 8단계 HO의 G1-3 발신 조건(골든 ≥ 50)을 기계 테스트로 판정할 수 있게 됐다.
+
+---
 date: 2026-09-22
 project: saju-lab
 agent: claude-code (Opus 5, 세션 마감 2차)

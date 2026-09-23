@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import type { Branch, Stem } from "../cycle.js";
-import { goldenCase } from "../golden-pillars.load.js";
+import { goldenCase, loadGoldenPillarCases } from "../golden-pillars.load.js";
 import { calculatePillars } from "../pillars.js";
 import { loadInteractionRules, type ParsedInteractionTables } from "./interactions-rules.load.js";
 import { interactionsOfChart, type BranchInteraction, type BranchInteractionKind, type PillarKey, type StemInteraction } from "./interactions.js";
@@ -12,6 +12,12 @@ const GOLDEN_MD = resolve(dirname(fileURLToPath(import.meta.url)), "../../../../
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
 /** pending rows are allowed while a table awaits 검산, but never as the steady state (C). */
 const MAX_PENDING_RATIO = 0.2;
+/**
+ * The 검산 round now open: rows for the 39 golden charts added 2026-09-23 start 100% pending, so the cap
+ * skips them until their confirmed PR, which deletes this constant (#81 REPORT §6 운영 규칙). `rows` bounds the
+ * exemption to exactly this round, so the tag cannot be reused to park later rows.
+ */
+const OPEN_REVIEW_ROUND = { tag: "TASK-2026-0923-golden-39", goldenVerifiedOn: "2026-09-23", rows: 39 } as const;
 
 const KIND_COLUMNS: Array<[BranchInteractionKind, string]> = [
   ["yukhap", "육합"],
@@ -148,10 +154,13 @@ describe("GOLDEN-INTERACTIONS.md — confirmed 2026-09-22, compared against an m
   const rules = loadInteractionRules();
 
   it("covers every golden chart with a valid status and source, unique ids, and pending below the cap", () => {
-    expect(rows.length).toBeGreaterThanOrEqual(11);
+    expect(rows.map((row) => row.id).sort()).toEqual(loadGoldenPillarCases().map((golden) => golden.id).sort());
     expect(new Set(rows.map((row) => row.id)).size).toBe(rows.length);
     for (const row of rows) expect(["pending", "confirmed"]).toContain(row.status);
-    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
+    const inOpenRound = (row: Row): boolean => row.status === "pending" && row.source.includes(OPEN_REVIEW_ROUND.tag);
+    for (const row of rows.filter(inOpenRound)) expect(goldenCase(row.id).verifiedOn).toBe(OPEN_REVIEW_ROUND.goldenVerifiedOn);
+    expect(rows.filter(inOpenRound).length).toBeLessThanOrEqual(OPEN_REVIEW_ROUND.rows);
+    expect(rows.filter((row) => row.status === "pending" && !inOpenRound(row)).length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
   });
 
   it("is fully confirmed (LC 검산 2026-09-22) and every confirmed row cites the verification document", () => {
@@ -174,11 +183,34 @@ describe("GOLDEN-INTERACTIONS.md — confirmed 2026-09-22, compared against an m
     expect(canonical(actual.branches)).toEqual(canonical(expectedAll));
   });
 
-  it("documents the C3 minimum cases: g-2011-11-08-0334 has 卯戌 육합 twice (연·월, 월·일) and no golden chart is relation-free", () => {
+  it("documents the C3 minimum cases: g-2011-11-08-0334 has 卯戌 육합 twice (연·월, 월·일); no confirmed chart is relation-free, three of the 09-23 charts are", () => {
     const sample = rows.find((row) => row.id === "g-2011-11-08-0334");
     expect(sample?.cells["육합"]).toBe("myo-sul:year-month sul-myo:month-day");
     const relationFree = rows.filter((row) => Object.values(row.cells).every((cell) => cell === "-"));
-    expect(relationFree).toEqual([]);
+    expect(relationFree.filter((row) => row.status === "confirmed")).toEqual([]);
+    // 巳巳·丑丑·寅寅 are not 자형 and 甲戊·丙壬 천간충 is outside v1 — the golden table's first relation-free charts.
+    expect(relationFree.map((row) => row.id).sort()).toEqual(["g-1946-05-19-2359", "g-1963-06-06-1000", "g-2022-01-25-0350"]);
+  });
+
+  it("pins the 합충 structures the golden-39 candidate table designed (GOLDEN-CANDIDATES-2026-0923 §3-9·§7, 근거 열)", () => {
+    // Literal tokens from the design table, not from the core: each 합충 row must carry its designed structure.
+    const designed: Array<[string, string, string]> = [
+      ["g-1929-06-13-1730", "삼합", "sa-chuk-yu:year-day-time"], // X1 巳酉丑 완전 삼합, 반합 따로 없음
+      ["g-1947-09-14-1930", "방합", "yu-sin-sul:month-day-time"], // X2 申酉戌 방합
+      ["g-1986-07-12-1530", "형", "in-sa-sin:year-day-time"], // X3 寅巳申 완전 삼형 …
+      ["g-1986-07-12-1530", "충", "in-sin:year-time"], // … 과 같은 寅申 쌍의 충
+      ["g-1992-10-02-2130", "형", "hae-hae:day-time"], // X4 亥亥 자형 1건
+      ["g-2013-05-22-0530", "형", "ja-myo:day-time"], // X5 子卯 상형, 巳巳 미산출
+      ["g-1986-07-08-1900", "형", "mi-chuk-sul:month-day-time"] // R1 丑戌未 완전 삼형
+    ];
+    for (const [id, column, token] of designed) {
+      const cell = rows.find((row) => row.id === id)?.cells[column] ?? "";
+      expect(cell.split(/\s+/), `${id} ${column}`).toContain(token);
+    }
+    // Subsumption: a complete triple leaves no 2-char record of the same rule in that column.
+    expect(rows.find((row) => row.id === "g-1929-06-13-1730")?.cells["삼합"]).toBe("sa-chuk-yu:year-day-time");
+    expect(rows.find((row) => row.id === "g-1986-07-12-1530")?.cells["형"]).toBe("in-sa-sin:year-day-time");
+    expect(rows.find((row) => row.id === "g-2013-05-22-0530")?.cells["형"]).toBe("ja-myo:day-time");
   });
 
   it("the oracle rejects a swapped field (sanity: 무은↔지세 or water↔fire would not pass)", () => {

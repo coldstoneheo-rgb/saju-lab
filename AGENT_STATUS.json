@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-23T00:20:00+09:00",
+  "as_of": "2026-09-23T13:30:00+09:00",
   "head": "392d794",
-  "working_on": null,
-  "waiting_on": "① 09-23 골든 보강 TASK(39건→50) 발주 ② 교차 구현 차분 테스트 HO ③ 라이브 A1·A3·A4 curl(LC) ④ 만세력 대운수 교차 3건(사용자) ⑤ KASI 저작권 회신(D10)",
+  "working_on": "골든 39행 PR(golden/g39-add) LC 판정 대기 · 교차 구현 차분 HO 착수(test/cross-impl-diff)",
+  "waiting_on": "① 골든 39 PR LC 판정 ② LC 검산 라운드(L2 39행 confirmed) ③ 라이브 A1·A3·A4 curl(LC) ④ 만세력 대운수 교차 3건(사용자) ⑤ KASI 저작권 회신(D10)",
   "recent": [
+    {
+      "at": "2026-09-23",
+      "what": "골든 11→50행(일진 34/34·윤달 4/4) + L2 골든 39행분 pending, 테스트 675, verifier PASS. PR 오픈 (TASK REPORT draft)"
+    },
     {
       "at": "2026-09-22",
       "what": "세션 마감(2차): 보정 PR #81 머지 392d794, 인계서 docs/handoffs/2026-09-22-l2-stage567-close-handoff.md, 브랜치·프로세스 정리"
@@ -27,9 +31,9 @@
     }
   ],
   "next_actions": [
-    "새 세션: pull --ff-only → verify(388) → LC 핑 → 골든 보강 TASK 대기(인계서 §4)",
-    "골든 보강: P1·P2 열로 행 추가 → 골든 3표 재생성(pending) → PR → REPORT(draft) → LC 판정",
-    "8단계 HO는 보정·골든 보강·차분 테스트 뒤 — 착수 금지"
+    "골든 39 PR: LC 판정 → 머지 → main 동기화",
+    "교차 구현 차분 HO(lunar-typescript): unexplained 0 게이트 + docs/CROSS-IMPL-DIFF.md",
+    "8단계 HO는 골든 confirmed·차분 테스트 뒤 — 착수 금지"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
