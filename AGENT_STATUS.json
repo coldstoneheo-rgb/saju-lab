@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-23T18:00:00+09:00",
-  "head": "6a0b1e2",
+  "as_of": "2026-09-23T19:30:00+09:00",
+  "head": "a253f08",
   "working_on": null,
-  "waiting_on": "① 사용자 G2-3(8b 조건) ② 8a 선착수 거부권(사용자) ③ 만세력 교차 3건·KASI 회신(사용자)",
+  "waiting_on": "① 사용자: #89 베타 UI 프리뷰 확인 → 머지 승인(= 프로덕션, Vercel 한도 해제 후) ② LC: 8a 골든 52행 재계산 ③ 사용자 G2-3(8b 조건)",
   "recent": [
+    {
+      "at": "2026-09-23",
+      "what": "외출 모드: #90 8a 강약 팩터 머지 a253f08(verifier PASS·LC 가, 프로덕션 배포는 Vercel 한도로 미생성) · #89 베타 UI 프리뷰(머지 보류). 인계서 docs/handoffs/2026-09-23-away-8a-beta-ui-handoff.md"
+    },
     {
       "at": "2026-09-23",
       "what": "세션 마감: #83~#87 착지, 인계서 docs/handoffs/2026-09-23-golden50-diff-stage8-design-close-handoff.md"
@@ -28,15 +32,12 @@
     {
       "at": "2026-09-23",
       "what": "골든 11→50행(일진 34/34·윤달 4/4) + L2 골든 39행분 pending, 테스트 675, verifier PASS. PR 오픈 (TASK REPORT draft)"
-    },
-    {
-      "at": "2026-09-22",
-      "what": "세션 마감(2차): 보정 PR #81 머지 392d794, 인계서 docs/handoffs/2026-09-22-l2-stage567-close-handoff.md, 브랜치·프로세스 정리"
     }
   ],
   "next_actions": [
-    "새 세션: pull → verify(675) → diff:cross-impl → LC 핑",
-    "8a 강약 팩터 구현(설계 §2·§4·§5·§8, REPORT 8조합·사령 경계 절)",
+    "새 세션: pull → verify(788)",
+    "#89 머지는 사용자 승인 + Vercel 한도 해제 뒤(origin/main 머지 → verify → squash → 번들 해시 실측)",
+    "LC 재계산 오면 골든 52행 confirmed PR(OPEN_REVIEW_ROUND 삭제)",
     "8b는 G2-3 뒤 — 착수 금지"
   ],
   "gauge": {

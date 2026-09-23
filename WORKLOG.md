@@ -6,6 +6,21 @@
 ---
 date: 2026-09-23
 project: saju-lab
+agent: claude-code (Opus 5.5, 외출 모드 마감)
+summary: #90 8a 머지 a253f08 · #89 베타 UI는 프리뷰 상태로 머지 보류 · 인계서 작성
+status: on_track
+progress: "main a253f08 · 테스트 788 (근거: #90 CI verify pass, verifier PASS, LC 머지 가). 프로덕션은 ad0f1f6 유지(Vercel 배포 한도)"
+changes:
+  - "#90 a253f08 feat(saju-core): L2 8a 강약 팩터"
+next: "사용자 승인 + Vercel 한도 해제 뒤 #89 머지"
+blockers: "Vercel Hobby 배포 한도 초과(24시간) — 지출 0 원칙이라 Pro 전환 없음"
+---
+## 의미
+8a 사실 층이 main에 들어갔고 공개 계약·화면은 그대로다. 귀가 테스트는 #89 프리뷰로 한다. 프로덕션 반영은 사용자 승인과 배포 한도 해제 두 조건이 필요하다.
+
+---
+date: 2026-09-23
+project: saju-lab
 agent: claude-code (Opus 5.5, 외출 모드 AWAY-PLAN §2-1)
 summary: 8a 강약 팩터 구현(PR #90, 골든 50행 pending) + 베타 UI 1차(PR #89, 프리뷰 URL, 머지 보류 = 사용자 승인)
 status: on_track
