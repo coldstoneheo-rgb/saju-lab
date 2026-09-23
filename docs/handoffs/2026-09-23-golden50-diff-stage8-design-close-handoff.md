@@ -1,7 +1,7 @@
 # 2026-09-23 세션 마감 인계 — 골든 50 confirmed · 교차 구현 차분 · 워커 settings · 8단계 설계
 
 - **마감 SHA(콘텐츠) = origin/main `6a0b1e2`**(PR #87). 이 인계서 PR이 그 뒤에 붙는다 — `git log --oneline -2`에 `6a0b1e2`가 바로 아래면 정상.
-- 로컬 브랜치 `main`만 · 원격 브랜치 `origin/main`만. **남은 폴더 2개**(`C:/Users/colds/saju-lab-g39`, `C:/Users/colds/saju-lab-diff`) = git 등록은 풀렸고 머지된 내용 사본 + node_modules만 있다. `rm -rf ../…`는 새 settings deny라 워커가 못 지운다 → **사용자 삭제 대기**.
+- 로컬 브랜치 `main`만 · 원격 브랜치 `origin/main`만. 남았던 worktree 폴더 2개(`saju-lab-g39`·`saju-lab-diff`)는 사용자가 삭제했다(`ls` 실측 없음, 2026-09-23).
 - 발신·검수 LC = `life-coordinator-a5`. 이 세션 = `saju-lab-6e`, Opus 5.5.
 
 ## 1. 오늘 착지한 PR — 전부 squash, CI 초록
@@ -31,7 +31,6 @@
 | --- | --- |
 | G2-3(실제 역술가 유료 대조 vs 페르소나) — 8b 착수 조건 | 사용자 |
 | 8a 선착수 거부권(LC 결정으로 허용 상태) | 사용자 |
-| 남은 폴더 2개 삭제 `rm -rf ../saju-lab-g39 ../saju-lab-diff` | 사용자 |
 | 시중 만세력 교차 3건(D2·S2·Z3 추천 표본) · KASI 저작권 회신(D10) | 사용자 |
 
 ## 5. 이 세션에서 배운 것

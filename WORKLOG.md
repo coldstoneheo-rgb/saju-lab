@@ -13,7 +13,7 @@ progress: "main 6a0b1e2 · 골든 4표 전 행 confirmed · 차분 unexplained 0
 changes:
   - "#83 골든 11→50 · #84 차분 게이트 · #85 L2 confirmed · #86 워커 settings · #87 8단계 설계"
 next: "새 세션: 8a 강약 팩터 구현(STRENGTH.md · strength-factors.ts · GOLDEN-STRENGTH-FACTORS 50행)"
-blockers: "8b = 사용자 G2-3 결정 · 남은 worktree 폴더 2개 사용자 삭제"
+blockers: "8b = 사용자 G2-3 결정"
 learning_need: "§6-4 워커 주권 첫 적용 — LC 발주의 「코어가 강약 판정」을 회의 확정안 근거로 반박했고 LC가 4건 전부 판정 수용. 절차형 발주를 전부 수용하던 앞 세션 패턴을 끊었다."
 ---
 ## 의미
