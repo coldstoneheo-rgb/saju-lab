@@ -12,6 +12,7 @@ import { findPolicyPage, policyPages, type PolicyPage } from "./policy-pages.js"
 import { buildFreeReportFilename } from "./report-filenames.js";
 import {
   BIRTH_PLACES,
+  BRANCH_FIVE_ELEMENT,
   calculatePillarsWithResolution,
   daeunOf,
   hiddenStemList,
@@ -21,6 +22,7 @@ import {
   INTERACTION_LABELS,
   interactionsOfChart,
   leapMonth,
+  STEM_FIVE_ELEMENT,
   TEN_GOD_LABELS,
   tenGodsOfChart,
   generatePaidReportV1,
@@ -406,16 +408,19 @@ function ReportView({ alternates, daeun, interactions, onBirthPlace, paidReport,
         {exportStatus ? <p className="exportStatus" aria-live="polite">{exportStatus}</p> : null}
       </section>
 
+      {/* 명식 카드: 時日月年 좌→우(전통 배열, 베타 UI 시안 2026-09-23). 오행색은 글자·점에만 쓰고 좋고 나쁨을 뜻하지 않는다. */}
       <section className="pillarGrid" aria-label="사주 구조">
-        <PillarCell termKey="yearPillar" tenGods={tenGods.year} value={report.pillars.year} />
-        <PillarCell termKey="monthPillar" tenGods={tenGods.month} value={report.pillars.month} />
-        <PillarCell termKey="dayPillar" tenGods={tenGods.day} value={report.pillars.day} />
         <PillarCell termKey="timePillar" tenGods={tenGods.time} value={report.pillars.time} />
+        <PillarCell termKey="dayPillar" tenGods={tenGods.day} value={report.pillars.day} />
+        <PillarCell termKey="monthPillar" tenGods={tenGods.month} value={report.pillars.month} />
+        <PillarCell termKey="yearPillar" tenGods={tenGods.year} value={report.pillars.year} />
       </section>
+      <p className="elementNote">색과 점은 오행(목·화·토·금·수) 표시일 뿐, 좋고 나쁨을 뜻하지 않습니다.</p>
+      <PillarTermsDetails />
       <HiddenStemsDetails pillars={report.pillars} tenGods={tenGods} />
       <InteractionsLine interactions={interactions} />
-      <DaeunRow daeun={daeun} />
       <CalculationRuleLine alternates={alternates} onBirthPlace={onBirthPlace} resolution={resolution} />
+      <DaeunRow daeun={daeun} />
 
       <ArticleCard id="overview" icon={<Compass size={20} />} title="전체 요약" items={[report.overview.summary, ...report.overview.toneGuidelines]} />
       <SafetyNote />
@@ -564,25 +569,65 @@ function countAlternateView(): void {
   }
 }
 
+const STEM_HANJA: Record<string, string> = { gap: "甲", eul: "乙", byeong: "丙", jeong: "丁", mu: "戊", gi: "己", gyeong: "庚", sin: "辛", im: "壬", gye: "癸" };
+const BRANCH_HANJA: Record<string, string> = { ja: "子", chuk: "丑", in: "寅", myo: "卯", jin: "辰", sa: "巳", o: "午", mi: "未", sin: "申", yu: "酉", sul: "戌", hae: "亥" };
+
 function PillarCell({ termKey, tenGods, value }: {
   termKey: SajuTermKey;
   tenGods: ChartTenGods["year"] | undefined;
   value: { stem: string; branch: string } | undefined;
 }): JSX.Element {
   const term = getSajuTerm(termKey);
+  const isDay = termKey === "dayPillar";
   // 계산 층의 라벨이지 해석이 아니다: 천간 십신(일간 자신은 「일간」) · 지지 정기 십신.
-  const tenGodLine = value && tenGods
-    ? `${tenGods.stem ? TEN_GOD_LABELS[tenGods.stem].ko : "일간"} · ${TEN_GOD_LABELS[tenGods.branchPrimary].ko}`
-    : undefined;
+  const stemGod = value && tenGods ? (tenGods.stem ? TEN_GOD_LABELS[tenGods.stem].ko : "일간") : undefined;
+  const branchGod = value && tenGods ? TEN_GOD_LABELS[tenGods.branchPrimary].ko : undefined;
 
   return (
-    <div className="pillarCell">
-      <span>{term.label}</span>
-      <strong>{value ? `${termLabel(value.stem)} ${termLabel(value.branch)}` : "미상"}</strong>
-      {tenGodLine ? <em className="tenGodLine" aria-label="십신">{tenGodLine}</em> : null}
-      <p>{term.short}</p>
-      <small>{term.description}</small>
+    <div className={isDay ? "pillarCell dayPillar" : "pillarCell"}>
+      <span className="pillarLabel">{term.label}</span>
+      {value ? (
+        <>
+          {stemGod ? <em className="tenGodLine" aria-label="천간 십신">{stemGod}</em> : null}
+          <Glyph hanja={STEM_HANJA[value.stem]} ko={termLabel(value.stem)} element={STEM_FIVE_ELEMENT[value.stem as keyof typeof STEM_FIVE_ELEMENT]} />
+          <hr />
+          <Glyph hanja={BRANCH_HANJA[value.branch]} ko={termLabel(value.branch)} element={BRANCH_FIVE_ELEMENT[value.branch as keyof typeof BRANCH_FIVE_ELEMENT]} />
+          {branchGod ? <em className="tenGodLine" aria-label="지지 정기 십신">{branchGod}</em> : null}
+        </>
+      ) : (
+        <strong className="pillarUnknown">미상</strong>
+      )}
     </div>
+  );
+}
+
+function Glyph({ element, hanja, ko }: { element: string | undefined; hanja: string | undefined; ko: string }): JSX.Element {
+  return (
+    <span className={`glyph element-${element ?? "none"}`}>
+      <strong className="hanja" lang="zh-Hant">{hanja ?? ko}</strong>
+      <span className="glyphLabel"><i className="elementDot" aria-hidden="true" />{ko} · {elementLabel(element ?? "")}</span>
+    </span>
+  );
+}
+
+// 기둥 설명 카피(기존 카드 본문)는 카드가 좁아져 접힘으로 옮긴다 — 문구는 그대로.
+function PillarTermsDetails(): JSX.Element {
+  const keys: SajuTermKey[] = ["yearPillar", "monthPillar", "dayPillar", "timePillar"];
+  return (
+    <details className="pillarTerms">
+      <summary>기둥 설명 보기</summary>
+      <dl>
+        {keys.map((key) => {
+          const term = getSajuTerm(key);
+          return (
+            <div key={key}>
+              <dt>{term.label} — {term.short}</dt>
+              <dd>{term.description}</dd>
+            </div>
+          );
+        })}
+      </dl>
+    </details>
   );
 }
 
@@ -722,7 +767,8 @@ function DaeunRow({ daeun }: { daeun: DaeunBlock | null }): JSX.Element {
             {reading.periods.map((period) => (
               <li key={period.index} className={reading.current?.index === period.index ? "current" : undefined} aria-current={reading.current?.index === period.index ? "true" : undefined}>
                 <span className="daeunAge">{period.startAge.toFixed(1)}세</span>
-                <strong>{termLabel(period.stem)}{termLabel(period.branch)}</strong>
+                <strong className="hanja" lang="zh-Hant">{STEM_HANJA[period.stem]}{BRANCH_HANJA[period.branch]}</strong>
+                <span className="daeunKo">{termLabel(period.stem)}{termLabel(period.branch)}</span>
                 <em>{TEN_GOD_LABELS[period.tenGods.stem].ko}·{TEN_GOD_LABELS[period.tenGods.branchPrimary].ko}</em>
               </li>
             ))}
