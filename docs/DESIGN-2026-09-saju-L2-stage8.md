@@ -1,6 +1,6 @@
 # DESIGN — L2 8단계: 일간 강약 팩터 · 강약 판독 · 용신 후보 (초안)
 
-- **상태: 초안(설계만).** 구현 착수 금지 — 사용자 G2-3 결정 전(LC HO 2026-09-23, 규약 §6-4). 저자 = saju-lab 워커(Claude Opus 5.5), 2026-09-23. 검수 = LC(목표·전략 정렬).
+- **상태: 채택(LC 검수 2026-09-23, `life-coordinator/docs/DESIGN-REVIEW-2026-0923-saju-stage8.md` — 반박 4건 전부 수용, 개선 4건 반영).** **8a 착수 허용(LC 결정, 사용자 거부권 유효) · 8b는 사용자 G2-3 결정 뒤.** 저자 = saju-lab 워커(Claude Opus 5.5), 2026-09-23. 검수 = LC(목표·전략 정렬).
 - **목표(LC 발주 원문 요지):** 일간 강약 판정 + 용신 «후보»(추천 아님) 산출. 입력 재료 = VERIFY 2본 말미 표(십신 집계 2벌 · 투간 · 득령·득지·득세 · 사령 · `dayStemCombined` · `monthBranchClashed` · 化 재료).
 - **제약:** saju-pillars-v1 공개 계약 불변 · 매수/매도식 «추천» 어휘 금지 · G3 게이트. **반박 가능: 전부.**
 - **읽은 정본:** 회의록 `life-coordinator/docs/MEETING-2026-0922-saju-council-minutes.md` A2-4·7-2(확정) · `PLAN-2026-0922-saju-capability-v1.md` §2-1·2-4·§6(단계표) · `ACTION-PLAN-2026-0922-saju-quality-gates.md` G2-3 · `VERIFY-2026-0922-golden-tengods.md`·`-interactions.md` 말미 표 · saju-lab `docs/rules/HIDDEN-STEMS.md`·`INTERACTIONS.md`·`DAEUN.md` · `SAJU_PILLARS_API_V1.md`.
@@ -40,7 +40,7 @@
 | `roots` (통근) | 일간과 같은 오행 장간을 가진 지지 목록(기둥·장간 위치 여기/중기/정기) | **있음** | 기둥 3 |
 | `deukryeong` (득령) | 월지 **정기** 오행이 일간을 돕는가(비겁 또는 인성) — 정의 id `deukryeong.primary-support` | 없음(정기는 두 학파 같음) | 무관 |
 | `deukji` (득지) | 일지 장간 중 비겁·인성이 있는가 — `deukji.day-branch-support` | **있음** | 무관 |
-| `deukse` (득세) | 월지 외 글자 중 비겁+인성 수 ≥ 식상+재성+관성 수 — `deukse.surface-majority`(표층 기준) | 없음(표층) | 기둥 3 |
+| `deukse` (득세) | 월지 외 표층 글자 중 비겁+인성 수 **≥** 식상+재성+관성 수 — **동률이면 득세로 본다**(`deukse.surface-majority-ge`). 대안 행 `deukse.surface-majority-gt`(동률 = 득세 아님) | 없음(표층) | 기둥 3 |
 | `saryeong` (사령) | 월 절입 뒤 경과일로 월지 장간 일수(여기→중기→정기 누적)에서 지금 맡은 천간 + 경과일 + `nearThreshold` | **`yeonhae` 전용** | 정오 기준, `precision: "day"` |
 | `dayStemCombined` | 일간이 간합 당사자인가 + 상대 기둥 목록 | 없음 | — |
 | `monthBranchClashed` | 월지가 충 당사자인가 + 상대 기둥 | 없음 | — |
@@ -89,6 +89,7 @@ v1 후보 세트(초안 — 저작·검수는 10단계 관점 md와 함께):
 | `GOLDEN-YONGSIN-CANDIDATES.md` | 50 | 후보 목록(세트·방법별) | `실행` + `학설` | 같음 |
 
 - pending 상한 20%는 `상태`·`실행` 축에만 적용. `학설: unreviewed`는 상한 대상이 아니다(G2-3 전 정상 상태). 이 축이 `reviewed`가 되려면 G2-3 ⓐ(실제 역술가)의 기록 문서가 출처로 필요 — 페르소나 라운드 문서로는 `reviewed` 금지(파서가 출처 문서 종류를 검사).
+- **8a REPORT 필수 절(LC 개선 2·3):** ① 득령·득지·득세 **8조합 × 골든 50 실측 분포** 표 — 빈 조합은 보강 후보 명식을 설계표 R 행 방식(날짜·근거·일진 조회)으로 제안 ② 사령 `nearThreshold: true` 행 실측 — 없으면 보강 후보 1건.
 - 50명식 분포는 이미 9범주 + 합충 구조를 덮는다. **추가 필요 사례**(설계 단계에서 표시만): 득령·득지·득세 8조합 중 골든에 없는 조합, 월지 충 명식(`strength.month-first` indeterminate 분기), 사령 `nearThreshold`, 조후 봄·가을(후보 0) — 8단계 착수 시 골든 50에서 먼저 실측하고 빈 칸만 보강한다.
 - 오라클: 8a 기대값은 **md 규칙표 + 골든 명식에서 유도**(5·6단계 A5 패턴 — 코드 표 미참조). 8b는 규칙 세트 md를 파싱해 팩터 셀에 적용한 결과와 대조.
 
@@ -118,6 +119,7 @@ v1 후보 세트(초안 — 저작·검수는 10단계 관점 md와 함께):
 - 새 에러 코드 없음. `hiddenStemSchool: "japyeong"`에서 사령은 `null` + `saryeongUnavailable: "no-day-counts"`.
 - baby: 소비 필드 불변(`supplementPriority` 그대로). `yongsinCandidates`를 읽지 않는다(회의 B-1).
 - 11단계 L3 계약(`saju-insight-v1`)은 후보 id(`candidateId`·`ruleSetId`·`definitionId`)를 evidence로 인용한다 — 8단계 id 체계를 그 입력으로 설계했다.
+- **`doctrine` 라벨의 소비 경로(LC 개선 4):** 8b 판독·후보 레코드마다 `doctrine: "unreviewed" | "reviewed"`를 싣고, 11단계 evidence 항목이 이 값을 **그대로 복사**한다(L3 파서가 누락 시 실패). 관점 문장이 학설 미검토 규칙을 인용하는지 기계로 판독할 수 있게 한다.
 
 ## 8. 완료 조건 (8단계, 제안)
 
