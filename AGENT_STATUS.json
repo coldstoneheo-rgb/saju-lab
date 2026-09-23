@@ -1,10 +1,18 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-23T16:00:00+09:00",
-  "head": "79299e9",
-  "working_on": "교차 구현 차분 HO PR(test/cross-impl-diff) LC 판정 대기",
-  "waiting_on": "① 차분 PR LC 판정 ② #83 뒷정리(분류기 allow) ③ LC 검산 라운드(L2 39행 confirmed) ④ 만세력 대운수 교차 3건(사용자) ⑤ KASI 저작권 회신(D10)",
+  "as_of": "2026-09-23T17:00:00+09:00",
+  "head": "4877b17",
+  "working_on": "L2 골든 39행 confirmed PR(golden/l2-39-confirmed) LC 판정 대기",
+  "waiting_on": "① L2 confirmed PR LC 판정 ② #83·#84 브랜치·worktree 정리(분류기 allow) ③ 사용자 G2-3 결정(8단계 HO 조건) ④ 만세력 대운수 교차 3건(사용자) ⑤ KASI 저작권 회신(D10)",
   "recent": [
+    {
+      "at": "2026-09-23",
+      "what": "L2 골든 3표 39·39·43행 confirmed + OPEN_REVIEW_ROUND 삭제. PR 오픈"
+    },
+    {
+      "at": "2026-09-23",
+      "what": "PR #84 머지 4877b17 (차분 게이트)"
+    },
     {
       "at": "2026-09-23",
       "what": "차분 HO: saju-core ↔ lunar-typescript 5,550건 unexplained 0, CI 별도 스텝, verifier PASS. PR 오픈"
@@ -39,9 +47,9 @@
     }
   ],
   "next_actions": [
-    "차분 PR: LC 판정 → 머지 → main 동기화",
-    "#83 브랜치·worktree 정리(분류기 allow 뒤)",
-    "8단계 HO는 L2 39행 confirmed 뒤 — 착수 금지"
+    "L2 confirmed PR: LC 판정 → 머지 → main 동기화",
+    "#83·#84 브랜치·worktree 정리(분류기 allow 뒤)",
+    "8단계 HO는 사용자 G2-3 결정 뒤 — 착수 금지"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
