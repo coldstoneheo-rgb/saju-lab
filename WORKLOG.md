@@ -4,6 +4,21 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-09-24
+project: saju-lab
+agent: claude-code (Fable 5.1, saju-lab-a8)
+summary: #89 베타 UI 1차 머지 92cbd13 → 프로덕션 saju-lab-phi 반영(사용자 직접 승인, HO 격상)
+status: shipped
+progress: "main 92cbd13 · 테스트 788 · 프로덕션 번들 index-CSoxBuOG.js = 로컬 빌드 (근거: 병합 트리 npm run verify exit 0, Vercel Deployment has completed, curl 200)"
+changes:
+  - "#89 92cbd13 feat(web): 베타 UI 1차"
+next: "LC 8a 골든 52행 재계산 → confirmed PR(OPEN_REVIEW_ROUND 삭제)"
+learning_need: "프로덕션 배포 승인은 LC 채널 origin:user 인용이 있어도 saju-lab 창 AskUserQuestion으로 직접 확인(§7-7). main 최신 반영 확인은 merge-tree + 병합 트리 verify로 하면 head SHA·Vercel 프리뷰 소모 없이 된다."
+---
+## 의미
+베타 UI가 프로덕션에 올라갔다 — 귀가 테스트 DoD(명식 → 4주·십신·합충·대운을 베타 디자인으로)가 실사용 URL에서 충족된다. Vercel 배포 한도는 머지 시점에 이미 풀려 있어 추가 조치가 필요 없었다. 남은 것은 8a confirmed와 G2-3 뒤 8b다.
+
+---
 date: 2026-09-23
 project: saju-lab
 agent: claude-code (Opus 5.5, 외출 모드 마감)

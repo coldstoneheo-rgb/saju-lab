@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-23T19:30:00+09:00",
-  "head": "a253f08",
+  "as_of": "2026-09-24T01:35:00+09:00",
+  "head": "92cbd13",
   "working_on": null,
-  "waiting_on": "① 사용자: #89 베타 UI 프리뷰 확인 → 머지 승인(= 프로덕션, Vercel 한도 해제 후) ② LC: 8a 골든 52행 재계산 ③ 사용자 G2-3(8b 조건)",
+  "waiting_on": "① LC: 8a 골든 52행 재계산 → confirmed PR ② 사용자 G2-3(8b 조건)",
   "recent": [
+    {
+      "at": "2026-09-24",
+      "what": "#89 베타 UI 1차 머지 92cbd13 (사용자 직접 승인, HO 격상) · 프로덕션 saju-lab-phi 반영 실측(번들 index-CSoxBuOG.js) · 원격 feat/web-beta-ui 삭제. REPORT docs/handoffs/HO-2026-0924-saju-web-beta-ui-merge-01-REPORT.md"
+    },
     {
       "at": "2026-09-23",
       "what": "외출 모드: #90 8a 강약 팩터 머지 a253f08(verifier PASS·LC 가, 프로덕션 배포는 Vercel 한도로 미생성) · #89 베타 UI 프리뷰(머지 보류). 인계서 docs/handoffs/2026-09-23-away-8a-beta-ui-handoff.md"
@@ -36,9 +40,9 @@
   ],
   "next_actions": [
     "새 세션: pull → verify(788)",
-    "#89 머지는 사용자 승인 + Vercel 한도 해제 뒤(origin/main 머지 → verify → squash → 번들 해시 실측)",
     "LC 재계산 오면 골든 52행 confirmed PR(OPEN_REVIEW_ROUND 삭제)",
-    "8b는 G2-3 뒤 — 착수 금지"
+    "8b는 G2-3 뒤 — 착수 금지",
+    "이후 UI PR도 머지 = 프로덕션 → 사용자 직접 승인 규칙 유지"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
