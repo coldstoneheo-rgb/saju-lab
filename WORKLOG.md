@@ -11,7 +11,7 @@ summary: 골든 명식 11 → 50행(일진 API 34/34·윤달 KARI 4/4 교차, �
 status: on_track
 progress: "골든 50행(G1-3 범주 최소치 테스트로 고정) · 테스트 388→675 · 코어 코드 변경 0 (근거: npm run verify exit 0, verifier PASS, docs/handoffs/TASK-2026-0923-golden-39-REPORT.md)"
 changes:
-  - "golden/g39-add PR — docs(golden): 골든 39행 추가 + L2 골든 pending 재생성"
+  - "#83 docs(golden): 골든 명식 11→50행 + L2 골든 39행분 pending"
 next: "LC 판정 「머지 가」 뒤 머지 → LC 검산 라운드 뒤 L2 세 표 confirmed PR(OPEN_REVIEW_ROUND 삭제) · 병행: 교차 구현 차분 HO"
 blockers: "머지 = LC 판정 대기(HANDOFF §9) · L2 39행 confirmed = LC 검산 라운드"
 learning_need: "설계표의 규칙 서술 1건(B6 酉酉 자형 아님)이 규칙표와 어긋났다 — 행 값은 맞고 비고만 틀렸다. 설계표 비고도 md 규칙표 오라클로 한 번 돌리면 잡힌다."
