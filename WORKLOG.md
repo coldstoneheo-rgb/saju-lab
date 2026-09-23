@@ -6,6 +6,23 @@
 ---
 date: 2026-09-23
 project: saju-lab
+agent: claude-code (Opus 5.5, 외출 모드 AWAY-PLAN §2-1)
+summary: 8a 강약 팩터 구현(PR #90, 골든 50행 pending) + 베타 UI 1차(PR #89, 프리뷰 URL, 머지 보류 = 사용자 승인)
+status: on_track
+progress: "8a 코드·골든 pending·REPORT 완료, 베타 UI 프리뷰 배포 (근거: npm run verify exit 0 — #90 788 / #89 675, verifier PASS 2건, #89 CI·Vercel pass)"
+changes:
+  - "#90 feat(saju-core): L2 8a 강약 팩터 (b0d806c·5d7aac4)"
+  - "#89 feat(web): 베타 UI 1차 (2302b1b)"
+next: "사용자 귀가: #89 프리뷰(Vercel 로그인 필요)를 보고 머지 승인 → 머지 = 프로덕션 반영. LC: 8a 골든 50행 재계산 → confirmed PR"
+blockers: "#89 머지 = 프로덕션 배포라 사용자 직접 승인 필요 · 8b = G2-3"
+learning_need: "main 머지 = Vercel 프로덕션 자동 배포(번들 해시로 실측). UI PR 완료 조건을 «머지»가 아니라 «프리뷰 URL»로 둬야 «프로덕션은 프리뷰까지만» 제약과 맞는다. 이 기기는 다른 세션 부하로 Chrome 확장·vite dev가 멈춤 → headless playwright + vite preview로 검증."
+---
+## 의미
+귀가 테스트 DoD(명식 입력 → 4주·십신·합충·대운을 베타 디자인으로 보기)는 프리뷰 URL에서 충족됐고 프로덕션은 그대로다. 8a는 판결 없는 사실 층이 골든 50으로 잠겼다. LC가 재계산해 confirmed가 되면 9단계 API include와 8b(G2-3 뒤)로 이어질 수 있다.
+
+---
+date: 2026-09-23
+project: saju-lab
 agent: claude-code (Opus 5.5, 세션 마감)
 summary: 세션 마감 — PR #83~#87 5건 착지(골든 50 confirmed·교차 구현 차분 게이트·L2 121행 confirmed·워커 settings·8단계 설계 채택), 마감 인계서 작성
 status: on_track
