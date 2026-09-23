@@ -6,6 +6,22 @@
 ---
 date: 2026-09-23
 project: saju-lab
+agent: claude-code (Opus 5.5, HO-2026-0923-saju-cross-impl-diff-01)
+summary: 교차 구현 차분 테스트 — saju-core ↔ lunar-typescript 5,550건(골든 50 포함)+음력 1,000건, unexplained 0 CI 게이트(별도 스텝). PR 오픈, LC 판정 대기
+status: on_track
+progress: "unexplained 0(시드 3종) · 변이 시험(입춘 +10분)에서 unexplained 577로 게이트 실패 확인 · 코어 변경 0 (근거: npm run diff:cross-impl exit 0, npm run verify exit 0, verifier PASS, docs/CROSS-IMPL-DIFF.md)"
+changes:
+  - "#84 test(cross-impl): saju-core ↔ lunar-typescript 차분 게이트"
+next: "LC 판정 → 머지 · #83 뒷정리(분류기 allow 뒤) · LC 검산 라운드 뒤 L2 39행 confirmed TASK"
+blockers: "#83 브랜치·worktree 삭제 = auto-mode 분류기 차단, 사용자 allow 규칙 대기"
+learning_need: "rebase 전 실행 수치(시드 1·42)를 REPORT에 그대로 적었다가 verifier가 잡았다 — 기준 커밋이 바뀌면 문서 수치는 전부 다시 돌린다."
+---
+## 의미
+처음으로 **다른 원천·다른 구현**과 대량 대조가 붙었다. 명식 4주·십신·지장간·충·대운 순역·대운 간지는 불일치가 전부 원인별로 설명되고(절입 초 단위 차·23시 시간 학파·한중 음력 차), 음력 차이 66개월은 KARI로 한국 쪽이 맞음을 확인했다. 표 자체의 오류를 잡는 장치가 CI에 들어갔다.
+
+---
+date: 2026-09-23
+project: saju-lab
 agent: claude-code (Opus 5.5, TASK-2026-0923-golden-39)
 summary: 골든 명식 11 → 50행(일진 API 34/34·윤달 KARI 4/4 교차, 코어 = 설계표 39/39) + 십신·합충·대운 골든 39행분 pending 재생성 — PR 오픈, LC 판정 대기
 status: on_track

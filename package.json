@@ -12,6 +12,7 @@
     "build": "npm run build --workspaces --if-present",
     "collect:solar-terms": "python scripts/collect_public_data_solar_terms.py",
     "verify": "npm run typecheck && npm test && npm run build && npm audit --audit-level=moderate && git diff --check",
+    "diff:cross-impl": "node scripts/diff_cross_impl.mjs",
     "typecheck": "tsc -p api/tsconfig.json && npm run typecheck --workspaces --if-present",
     "test": "npm run test:api && npm run test --workspaces --if-present",
     "test:api": "vitest run api"
@@ -21,6 +22,7 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "astronomia": "4.2.0",
+    "lunar-typescript": "1.8.6",
     "typescript": "^5.9.3",
     "vite": "^7.3.3",
     "vitest": "^4.1.8"

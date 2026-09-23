@@ -38,6 +38,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Cross-implementation diff (saju-core vs lunar-typescript, gate unexplained = 0)
+        run: npm run diff:cross-impl
+
       - name: Audit
         run: npm audit --audit-level=moderate
 
