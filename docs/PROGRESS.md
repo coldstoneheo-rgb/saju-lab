@@ -62,6 +62,7 @@
 | 2026-09-24 | 새벽 TASK(LC): #93 8a 검증 팩 `scripts/strength_verify_pack.mjs` → `docs/golden/STRENGTH-FACTORS-VERIFY-PACK.md`(골든 50 + YNY 후보 2, 팩터별 유도 근거, 골든 셀 diff 0) | --check 일치 50×16, CI verify pass, verifier PASS, LC 게이트 PASS, 머지 보류 |
 | 2026-09-24 | 새벽 TASK(LC): #94 한국어 투자권유 어휘 가드 `finance-vocabulary-guard.ts`(규칙 7종, 같은 문장 부정·면책 예외) + 재무 카피 0건 테스트(core 6·web 2: 카피 소스·i18n·골든 50명식 리포트·저장 HTML) — 런타임 배선·화면 변경 0 | verify exit 0(796), verifier PASS(권고 2건 반영), LC 게이트 PASS, 머지 보류 |
 | 2026-09-24 | 새벽 TASK(LC): #95 베타 UI 정적 가드 `design-tokens.test.ts`(WCAG 대비 4.5:1 라이트·다크·수동 다크 동기, 44px min-height, font-face 배선) + `hanja-subset.test.ts`(woff2 cmap Node 파싱, 59자 fontTools 일치) — 360px 실측은 playwright 필요(사용자 결정) | verify exit 0(798), verifier PASS, LC 게이트 PASS, 머지 보류 |
+| 2026-09-24 | 세션 마감: #93·#94·#95·#96 머지(`54230cb`·`4f8c0da`·`1731038`·`e7df39c`, 배포 완료·번들 불변) · 인계서 `docs/handoffs/2026-09-24-session-close-handoff.md`(대기 = G2-3·PF 가드·playwright·8b) | verify exit 0(806), Vercel Deployment has completed ×4 |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과

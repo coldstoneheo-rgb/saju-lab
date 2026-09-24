@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-24T04:05:00+09:00",
-  "head": "d0b290a",
+  "as_of": "2026-09-24T16:05:00+09:00",
+  "head": "e7df39c",
   "working_on": null,
-  "waiting_on": "① 사용자 기상 후: PR #93·#94·#95 머지(verifier PASS·LC 게이트 PASS, 새벽 배포 0 규칙으로 보류) ② LC: 8a 골든 52행 재계산(팩 = docs/golden/STRENGTH-FACTORS-VERIFY-PACK.md, #93) ③ 사용자 G2-3(8b 조건) · 360px 실측용 playwright 추가 여부",
+  "waiting_on": "① 사용자: G2-3(8b 조건) · PF 가드 종결(PIDS 소관) · 360px 실측 playwright 추가 여부 ② LC: 8a 골든 52행 재계산 → confirmed PR",
   "recent": [
+    {
+      "at": "2026-09-24",
+      "what": "세션 마감: #93·#94·#95·#96 머지(54230cb·4f8c0da·1731038·e7df39c, 전부 배포 완료·번들 불변) · verify 806 · 인계서 docs/handoffs/2026-09-24-session-close-handoff.md"
+    },
     {
       "at": "2026-09-24",
       "what": "새벽 TASK(LC): PR #93 8a 검증 팩(골든 50+YNY 2, 유도 근거) · #94 한국어 투자권유 어휘 가드(재무 카피 0건 테스트, 화면 변경 0) · #95 베타 UI 정적 가드(토큰 대비 4.5:1·44px·한자 서브셋 cmap). 전부 CI verify pass + verifier PASS + LC 게이트 PASS, 머지 보류. Vercel Hobby 한도 재소진(프리뷰만, 프로덕션 영향 0)"
@@ -43,10 +47,10 @@
     }
   ],
   "next_actions": [
-    "기상 후 #93·#94·#95 순서대로 squash 머지(각 머지 전 origin/main 반영 확인) → pull --ff-only",
-    "LC 재계산 오면 골든 52행 confirmed PR(OPEN_REVIEW_ROUND 삭제, S-YNY 2행은 GOLDEN-PILLARS 선등록·KASI 대조)",
+    "새 세션: pull → verify(806) → LC REPORT",
+    "LC 재계산 오면 골든 52행 confirmed PR(OPEN_REVIEW_ROUND 삭제, S-YNY 2행 GOLDEN-PILLARS 선등록·KASI 대조)",
     "8b는 G2-3 뒤 — 착수 금지",
-    "360px 실제 레이아웃 테스트(playwright devDependency)는 사용자 결정 뒤"
+    "playwright 360px 실측은 사용자 결정 뒤"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
