@@ -5,6 +5,7 @@
 - **학파 고정** 값은 `yeonhae` 학파 하에서 고정이다. `japyeong` 차분 행 수는 `docs/rules/STRENGTH.md` 「`japyeong` 차분」 표에 있다.
 - **상태 열** `pending` = 코어 산출값, LC 독립 재계산 대기(규칙 md · KASI 절입 시각만으로). `confirmed` = 재계산 일치, 이후 값 고정. 50행 전부 검산 라운드 `HO-2026-0923-saju-L2-stage8a-01` 소속 — 이 라운드만 pending 상한 20% 예외이고, confirmed PR이 예외 상수를 지운다(`OPEN_REVIEW_ROUND` 패턴, #83·#85).
 - **출처 열 빈칸 = 파서 실패.**
+- **검증 팩** `docs/golden/STRENGTH-FACTORS-VERIFY-PACK.md`(`npm run golden:strength-pack`) — 행마다 입력·KST·명식·층 원본·팩터별 유도 근거를 적고 이 표와 셀 대조(불일치 0). LC 재계산은 팩을 보고 이 표의 `상태`를 바꾼다.
 - **이 표는 판결이 아니다.** 득령·득지·득세는 정의 id별 사실(불리언)이고 신강/신약 판독은 8b 규칙 세트 몫이다.
 
 ## 셀 형식

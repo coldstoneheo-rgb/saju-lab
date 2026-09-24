@@ -13,6 +13,7 @@
     "collect:solar-terms": "python scripts/collect_public_data_solar_terms.py",
     "verify": "npm run typecheck && npm test && npm run build && npm audit --audit-level=moderate && git diff --check",
     "diff:cross-impl": "node scripts/diff_cross_impl.mjs",
+    "golden:strength-pack": "node scripts/strength_verify_pack.mjs",
     "typecheck": "tsc -p api/tsconfig.json && npm run typecheck --workspaces --if-present",
     "test": "npm run test:api && npm run test --workspaces --if-present",
     "test:api": "vitest run api"
