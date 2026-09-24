@@ -6,6 +6,25 @@
 ---
 date: 2026-09-24
 project: saju-lab
+agent: claude-code (Fable 5.1, saju-lab-a8, 세션 마감)
+summary: 새벽 PR 4건 머지(#93 8a 검증 팩 · #94 투자권유 어휘 가드 · #95 베타 UI 정적 가드 · #96 head 갱신) · 프로덕션 = 베타 UI(번들 불변) · 마감 인계서
+status: shipped
+progress: "main e7df39c(+인계서 PR) · 테스트 806 · 프로덕션 saju-lab-phi 베타 UI (근거: npm run verify exit 0, 4 머지 커밋 Vercel Deployment has completed, 번들 index-CSoxBuOG.js 불변)"
+changes:
+  - "#93 54230cb chore(golden): 8a 검증 팩"
+  - "#94 4f8c0da feat(saju-core): 한국어 투자권유 어휘 가드"
+  - "#95 1731038 test(web): 베타 UI 정적 가드"
+  - "#96 e7df39c docs: 새벽 루프 head 갱신"
+next: "LC 8a 골든 52행 재계산 → confirmed PR(OPEN_REVIEW_ROUND 삭제). 8b는 G2-3 뒤"
+blockers: "사용자 결정 4건 대기: G2-3 · PF 가드 종결(PIDS) · playwright 360px 실측 · 8b 착수 — 인계서 §2"
+learning_need: "git add -A 금지(셸 부산물 파일 혼입 사례) · Bash heredoc의 이중 백슬래시 접힘 → 정규식 든 파일은 Write/Edit로"
+---
+## 의미
+8a는 LC가 재계산할 한 파일이 main에 있고, 재무 섹션은 코드 가드가 생겼으며, 베타 UI는 대비·탭 타깃·한자 서브셋이 회귀 테스트로 잠겼다. 프로덕션은 베타 UI 그대로이고 이번 4 머지는 화면을 바꾸지 않았다. 다음 진척은 전부 사용자 결정(G2-3·playwright)과 LC 재계산에 걸려 있다.
+
+---
+date: 2026-09-24
+project: saju-lab
 agent: claude-code (Fable 5.1, saju-lab-a8, 새벽 루프)
 summary: LC 새벽 TASK 4항 완료 — PR #93 8a 검증 팩 · #94 투자권유 어휘 가드 · #95 베타 UI 정적 가드(전부 verifier PASS·LC 게이트 PASS·머지 보류) · head 갱신
 status: on_track
