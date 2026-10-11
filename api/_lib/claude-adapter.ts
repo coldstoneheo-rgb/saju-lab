@@ -117,7 +117,12 @@ function translateNode(node: unknown, defs: SchemaNode, name: string): SchemaNod
     const items = translateNode(node["items"], defs, `${name}_item`);
     const length = expandedLength(node);
     if (length !== null) {
-      const defName = `${name}_item`;
+      // Two pinned arrays under the same property name with different item shapes
+      // must not overwrite each other's definition.
+      let defName = `${name}_item`;
+      for (let suffix = 2; Object.hasOwn(defs, defName) && JSON.stringify(defs[defName]) !== JSON.stringify(items); suffix += 1) {
+        defName = `${name}_item_${suffix}`;
+      }
       defs[defName] = items;
       const properties: SchemaNode = {};
       const required: string[] = [];
@@ -255,13 +260,13 @@ export function conformToSchema(value: unknown, node: SchemaNode, path = "$"): u
         }
       }
       for (const key of stringList(node["required"])) {
-        if (!(key in value)) {
+        if (!Object.hasOwn(value, key)) {
           throw new SchemaViolation(`${path}.${key}: missing required property`);
         }
       }
       const out: Record<string, unknown> = {};
       for (const key of declared) {
-        if (key in value) {
+        if (Object.hasOwn(value, key)) {
           out[key] = conformToSchema(value[key], properties[key] as SchemaNode, `${path}.${key}`);
         }
       }
@@ -276,7 +281,7 @@ export function conformToSchema(value: unknown, node: SchemaNode, path = "$"): u
           throw new SchemaViolation(`${path}: expected ${length} items`);
         }
         const keys = Array.from({ length }, (_, i) => itemKey(i));
-        if (Object.keys(value).length !== length || keys.some((key) => !(key in value))) {
+        if (Object.keys(value).length !== length || keys.some((key) => !Object.hasOwn(value, key))) {
           throw new SchemaViolation(`${path}: expected exactly ${length} items`);
         }
         entries = keys.map((key) => value[key]);

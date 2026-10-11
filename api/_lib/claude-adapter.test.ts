@@ -139,6 +139,35 @@ describe("toJsonSchema — count guarantee by expansion", () => {
     expect(toJsonSchema({ type: "STRING", format: "date" })).toEqual({ type: "string", format: "date" });
   });
 
+  it("keeps separate $defs when two pinned arrays share a property name but not an item shape", () => {
+    const schema = toJsonSchema({
+      type: "OBJECT",
+      properties: {
+        a: { type: "OBJECT", properties: { list: { type: "ARRAY", minItems: 2, maxItems: 2, items: { type: "STRING" } } } },
+        b: { type: "OBJECT", properties: { list: { type: "ARRAY", minItems: 2, maxItems: 2, items: { type: "INTEGER" } } } }
+      }
+    });
+    expect(schema["$defs"]).toEqual({ list_item: { type: "string" }, list_item_2: { type: "integer" } });
+  });
+
+  it("does not mistake inherited object members for answer keys", () => {
+    const out = fromAnthropicMessage(
+      message([{ type: "text", text: JSON.stringify({ saju_analysis_summary: SUMMARY }) }]),
+      narrowed({
+        contents: [{ parts: [{ text: "x" }] }],
+        generationConfig: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: "OBJECT",
+            properties: { saju_analysis_summary: { type: "OBJECT" }, constructor: { type: "STRING" } },
+            required: ["saju_analysis_summary", "constructor"]
+          }
+        }
+      })
+    );
+    expect(out).toEqual({ ok: false, reason: expect.stringContaining("constructor: missing required property") });
+  });
+
   it("refuses a type it cannot translate", () => {
     expect(() => toJsonSchema({ type: "TUPLE" })).toThrow(SchemaTranslationError);
   });
