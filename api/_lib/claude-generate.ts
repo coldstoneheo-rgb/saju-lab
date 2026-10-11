@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { ApiResponse } from "./http.js";
-import type { ProxyRequest } from "./gemini-request.js";
+import type { ClaudeEffort, ProxyRequest } from "./gemini-request.js";
 import { SchemaTranslationError, fromAnthropicMessage, toAnthropicParams } from "./claude-adapter.js";
 
 /**
@@ -22,14 +22,22 @@ const UPSTREAM_TIMEOUT_MS = 180_000;
 /** Non-streaming ceiling; a PREMIUM list is a few thousand tokens. */
 const MAX_TOKENS = 16_000;
 
-/** Set explicitly: the default differs by model (medium on Opus/Haiku 5.5, high on Sonnet 5.5). */
-const EFFORT = "medium";
+/**
+ * Set explicitly: the default differs by model (medium on Opus/Haiku 5.5, high on Sonnet 5.5).
+ * A caller may ask for "low" (`claudeEffort`) — the PREMIUM list ran past the app's 92s
+ * read timeout at medium in the baby evaluation (design §7-1 R3).
+ */
+const DEFAULT_EFFORT: ClaudeEffort = "medium";
 
 function errorBody(code: string, message: string): Record<string, unknown> {
   return { contract: "app-gemini-generate-v1", error: { code, message } };
 }
 
-export async function generateWithClaude(request: ProxyRequest, res: ApiResponse): Promise<void> {
+export async function generateWithClaude(
+  request: ProxyRequest,
+  res: ApiResponse,
+  effort: ClaudeEffort = DEFAULT_EFFORT
+): Promise<void> {
   const apiKey = process.env["ANTHROPIC_API_KEY"];
   if (!apiKey) {
     res.status(503).json(errorBody("UPSTREAM_NOT_CONFIGURED", "Generation is temporarily unavailable."));
@@ -39,7 +47,7 @@ export async function generateWithClaude(request: ProxyRequest, res: ApiResponse
   const model = process.env["CLAUDE_MODEL"] || DEFAULT_MODEL;
   let params: Anthropic.MessageCreateParamsNonStreaming;
   try {
-    params = toAnthropicParams(request, { model, effort: EFFORT, maxTokens: MAX_TOKENS });
+    params = toAnthropicParams(request, { model, effort, maxTokens: MAX_TOKENS });
   } catch (error) {
     if (error instanceof SchemaTranslationError) {
       res.status(400).json(errorBody("INVALID_BODY", "`responseSchema` is not a supported schema shape."));
@@ -59,7 +67,7 @@ export async function generateWithClaude(request: ProxyRequest, res: ApiResponse
     const translated = fromAnthropicMessage(message, request);
     // Usage only — never the body: it carries the caller's birth data and names.
     console.info(
-      `[app/gemini-generate] claude model=${message.model} in=${message.usage.input_tokens} ` +
+      `[app/gemini-generate] claude model=${message.model} effort=${effort} in=${message.usage.input_tokens} ` +
         `out=${message.usage.output_tokens} ms=${elapsed} ok=${translated.ok}`
     );
     if (!translated.ok) {

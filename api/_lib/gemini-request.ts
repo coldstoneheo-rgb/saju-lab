@@ -53,8 +53,11 @@ export interface ProxyRequest {
  */
 export type Provider = "gemini" | "claude";
 
+/** Effort a caller may ask of the Claude path. Lower-or-equal to the default only (design §7-1 R3). */
+export type ClaudeEffort = "low" | "medium";
+
 export type ValidationOutcome =
-  | { ok: true; request: ProxyRequest; provider: Provider }
+  | { ok: true; request: ProxyRequest; provider: Provider; claudeEffort?: ClaudeEffort }
   | { ok: false; code: "INVALID_BODY" | "PAYLOAD_TOO_LARGE"; message: string };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -186,6 +189,18 @@ export function validateGenerateContentRequest(body: unknown): ValidationOutcome
   }
   const provider: Provider = rawProvider ?? "gemini";
 
+  // Claude-only knob. The route is unauthenticated, so a caller may move spend down
+  // (low) but never up — "high" and above are refused. On the Gemini path the field
+  // is ignored like any other unknown top-level key, so those bytes do not change.
+  const rawEffort = body["claudeEffort"];
+  let claudeEffort: ClaudeEffort | undefined;
+  if (provider === "claude" && rawEffort !== undefined) {
+    if (rawEffort !== "low" && rawEffort !== "medium") {
+      return fail("INVALID_BODY", '`claudeEffort` must be "low" or "medium".');
+    }
+    claudeEffort = rawEffort;
+  }
+
   const rawContents = body["contents"];
   if (!Array.isArray(rawContents) || rawContents.length === 0 || rawContents.length > LIMITS.maxContents) {
     return fail("INVALID_BODY", "`contents` must be an array of 1 to " + LIMITS.maxContents + " entries.");
@@ -251,5 +266,5 @@ export function validateGenerateContentRequest(body: unknown): ValidationOutcome
     return fail("PAYLOAD_TOO_LARGE", "Request exceeds the size limit.");
   }
 
-  return { ok: true, request, provider };
+  return claudeEffort === undefined ? { ok: true, request, provider } : { ok: true, request, provider, claudeEffort };
 }

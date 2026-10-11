@@ -225,3 +225,49 @@ describe("Claude path", () => {
     }
   });
 });
+
+describe("claudeEffort opt-in (design §7-1 R3)", () => {
+  function sentEffort(): unknown {
+    const params = sdk.create.mock.calls[0]?.[0] as { output_config?: { effort?: unknown } };
+    return params.output_config?.effort;
+  }
+
+  it("defaults to medium and honours low", async () => {
+    sdk.create.mockResolvedValue(claudeReply(freeAnswer()));
+    await handler(makeReq({ ...babyNamingRequest("FREE"), provider: "claude" }), makeRes().res);
+    expect(sentEffort()).toBe("medium");
+
+    sdk.create.mockClear();
+    const { res, captured } = makeRes();
+    await handler(makeReq({ ...babyNamingRequest("FREE"), provider: "claude", claudeEffort: "low" }), res);
+    expect(sentEffort()).toBe("low");
+    expect(captured.status).toBe(200);
+  });
+
+  it("refuses anything that could raise spend", async () => {
+    for (const claudeEffort of ["high", "xhigh", "max", "LOW", 1, null]) {
+      const { res, captured } = makeRes();
+      await handler(makeReq({ ...babyNamingRequest("FREE"), provider: "claude", claudeEffort }), res);
+      expect(captured.status).toBe(400);
+    }
+    expect(sdk.create).not.toHaveBeenCalled();
+  });
+
+  it("is ignored on the Gemini path: same upstream bytes, no SDK", async () => {
+    const bodies: unknown[] = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (_url: string, init: { body: unknown }) => {
+        bodies.push(init.body);
+        return { ok: true, status: 200, text: async () => '{"candidates":[]}' };
+      })
+    );
+    for (const extra of [{}, { claudeEffort: "low" }, { claudeEffort: "high" }]) {
+      const { res, captured } = makeRes();
+      await handler(makeReq({ ...babyNamingRequest("PREMIUM"), ...extra }), res);
+      expect(captured.status).toBe(200);
+    }
+    expect(new Set(bodies).size).toBe(1);
+    expect(sdk.constructed).toHaveLength(0);
+  });
+});

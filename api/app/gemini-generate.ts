@@ -84,7 +84,7 @@ export default async function handler(req: ApiRequest, res: ApiResponse): Promis
   // Gemini path, byte for byte; the Anthropic SDK is loaded only on this branch.
   if (validation.provider === "claude") {
     const { generateWithClaude } = await import("../_lib/claude-generate.js");
-    await generateWithClaude(validation.request, res);
+    await generateWithClaude(validation.request, res, validation.claudeEffort);
     return;
   }
 

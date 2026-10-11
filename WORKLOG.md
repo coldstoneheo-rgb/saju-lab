@@ -6,6 +6,20 @@
 ---
 date: 2026-10-11
 project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, LC HO 격상 — effort 옵트인)
+summary: 게이트웨이 Claude 경로에 claudeEffort "low"|"medium" 옵트인 — baby 평가 R3(PREMIUM 92s 초과) 대응, 기본 medium 불변
+status: on_track
+progress: "구현·검증 완료·미머지 (근거: npm run verify exit 0 api 65·core 740·web 49, P1 스냅샷 diff 0, 번들 index-CSoxBuOG.js 불변)"
+changes: ["(브랜치 feat/claude-effort-optin, PR 대기)"]
+next: "사용자 직접 승인 → main 머지(= 프로덕션) → baby 러너가 prod 별칭에 provider:claude + claudeEffort:low로 PREMIUM 재측정"
+blockers: "머지 = 프로덕션 배포 → 사용자 직접 승인(§7-7)"
+---
+## 의미
+인증 없는 경로라 호출자가 고를 수 있는 effort는 기본 이하(low/medium)로만 열었다. 앱은 이 필드를 보내지 않으므로 실트래픽 동작은 그대로이고, 평가 러너만 지연을 줄인 설정을 재측정할 수 있다. Preview HTTP 검증은 보호 우회 시크릿을 되살리지 않으려고 생략했다(LC 판정).
+
+---
+date: 2026-10-11
+project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, 사용자 직접 승인)
 summary: 이중 LLM Stage 1 머지·프로덕션 반영 — PR #98 squash 347a465, main 자동 배포가 프로덕션 별칭에 올라감
 status: shipped
