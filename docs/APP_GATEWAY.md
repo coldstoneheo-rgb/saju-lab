@@ -28,7 +28,7 @@
 
 | 경로 | 하는 일 | 인증 | 레이트리밋 |
 |---|---|---|---|
-| `POST /api/app/gemini-generate` | Gemini `generateContent` 게이트웨이. 모델은 서버가 고정(`GEMINI_MODEL`, 기본 `gemini-3.5-flash`) | 없음 | IP당 20회 / 5분 |
+| `POST /api/app/gemini-generate` | Gemini `generateContent` 게이트웨이. 모델은 서버가 고정(`GEMINI_MODEL`, 기본 `gemini-3.5-flash`). 본문에 `provider: "claude"`가 있으면 Claude 경로(아래) | 없음 | IP당 20회 / 5분 (두 경로 공유) |
 | `POST /api/app/saju-pillars` | `/api/saju-pillars`와 **동일 계약**, 키 게이트만 없음 | 없음 | IP당 30회 / 5분 |
 
 `gemini-generate`는 성공 응답을 **그대로** 돌려준다. 이미 배포된 앱이 표준
@@ -43,6 +43,20 @@
 | `GEMINI_API_KEY` | ✅ | 없으면 `/api/app/gemini-generate`가 503. **Preview·Production 양쪽에 설정해야** 프리뷰 배포로 검증할 수 있다 |
 | `GEMINI_MODEL` | — | 기본 `gemini-3.5-flash` |
 | `SAJU_API_KEY` | — | 기존 `/api/saju-pillars` 게이트용. `/api/app/*`는 쓰지 않는다 |
+| `ANTHROPIC_API_KEY` | Claude 경로만 | 없으면 `provider: "claude"` 요청만 503, Gemini 경로는 영향 없음 → **값 삭제가 킬스위치**. Preview·Production 양쪽. 전역(setx) 금지, 로컬은 `.env.local` |
+| `CLAUDE_MODEL` | — | 기본 `claude-sonnet-5-5`. 평가 라운드별 교체용 |
+
+## Claude 경로 (`provider: "claude"`, 2026-10-11 Stage 1)
+
+설계 정본은 `docs/DESIGN-dualllm-saju-baby.md`. 요점만 적는다.
+- **Gemini 경로는 무변경이다.** `provider`가 없거나 `"gemini"`면 요청·응답 바이트가 이전과 같다.
+  `_lib/gemini-generate.regression.test.ts`가 이를 스냅샷으로 잠근다. 그 스냅샷이 바뀌면 갱신할 대상이 아니라 회귀다.
+- **응답 모양은 같다.** 성공 시 Gemini `generateContent` 모양(`candidates[0].content.parts[0].text`)으로 돌려주므로
+  앱 파서는 바뀌지 않는다. 구분은 응답 헤더 `x-llm-provider: claude`와 `modelVersion`으로 한다.
+- **개수 보증.** Claude 구조화 출력은 배열 길이를 강제하지 않는다. 그래서 `minItems == maxItems`인 배열은
+  `item_1..N` 필수 슬롯으로 펼쳐 보내고, 응답에서 다시 배열로 접은 뒤 원 스키마로 검사한다. 어긋나면 502를 돌려주고, 앱이 1회 재시도한다.
+- `temperature`는 보내지 않는다(5.5 모델은 기본값이 아니면 400). 거절·잘림·스키마 위반은 모두 502로 끝내고, 원인은 함수 로그에만 남긴다.
+- 함수 로그에는 `claude model=… in=… out=… ms=…`만 남기고 본문은 남기지 않는다(입력에 생년월일시가 들어 있다).
 
 ## 알려진 한계 (숨기지 않는다)
 

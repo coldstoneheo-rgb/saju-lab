@@ -80,6 +80,14 @@ export default async function handler(req: ApiRequest, res: ApiResponse): Promis
     return;
   }
 
+  // The one seam (docs/DESIGN-dualllm-saju-baby.md §1). Everything below stays the
+  // Gemini path, byte for byte; the Anthropic SDK is loaded only on this branch.
+  if (validation.provider === "claude") {
+    const { generateWithClaude } = await import("../_lib/claude-generate.js");
+    await generateWithClaude(validation.request, res);
+    return;
+  }
+
   const model = process.env["GEMINI_MODEL"] || DEFAULT_MODEL;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);

@@ -46,8 +46,15 @@ export interface ProxyRequest {
   systemInstruction?: ProxyContent;
 }
 
+/**
+ * Which upstream answers. Returned **beside** the request, never inside it: the
+ * Gemini path forwards `JSON.stringify(request)` as-is, so a field added there would
+ * change the bytes Gemini receives (docs/DESIGN-dualllm-saju-baby.md §1).
+ */
+export type Provider = "gemini" | "claude";
+
 export type ValidationOutcome =
-  | { ok: true; request: ProxyRequest }
+  | { ok: true; request: ProxyRequest; provider: Provider }
   | { ok: false; code: "INVALID_BODY" | "PAYLOAD_TOO_LARGE"; message: string };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -170,6 +177,15 @@ export function validateGenerateContentRequest(body: unknown): ValidationOutcome
     return fail("INVALID_BODY", "Request body must be a JSON object.");
   }
 
+  // Absent means Gemini, so every existing caller is unaffected. Anything other than
+  // the two names is refused rather than defaulted: a typo silently landing on Gemini
+  // would mislabel a provider comparison.
+  const rawProvider = body["provider"];
+  if (rawProvider !== undefined && rawProvider !== "gemini" && rawProvider !== "claude") {
+    return fail("INVALID_BODY", '`provider` must be "gemini" or "claude".');
+  }
+  const provider: Provider = rawProvider ?? "gemini";
+
   const rawContents = body["contents"];
   if (!Array.isArray(rawContents) || rawContents.length === 0 || rawContents.length > LIMITS.maxContents) {
     return fail("INVALID_BODY", "`contents` must be an array of 1 to " + LIMITS.maxContents + " entries.");
@@ -235,5 +251,5 @@ export function validateGenerateContentRequest(body: unknown): ValidationOutcome
     return fail("PAYLOAD_TOO_LARGE", "Request exceeds the size limit.");
   }
 
-  return { ok: true, request };
+  return { ok: true, request, provider };
 }
