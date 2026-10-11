@@ -6,6 +6,20 @@
 ---
 date: 2026-10-11
 project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, 사용자 직접 승인)
+summary: 이중 LLM Stage 1 머지·프로덕션 반영 — PR #98 squash 347a465, main 자동 배포가 프로덕션 별칭에 올라감
+status: shipped
+progress: "Stage 1 프로덕션 (근거: PR #98 MERGED 347a465, dpl_2XcwQh3B READY·별칭 saju-lab-phi, 프로덕션 스모크 gemini 200·claude 200 x-llm-provider:claude, provider 오입력 400, 런타임 오류 1h 0건, 머지 직전 P1 스냅샷 diff 0)"
+changes: ["347a465 feat(api): 이중 LLM Stage 1 (#98)"]
+next: "Stage 2 baby 디버그 토글 + 평가 75회(PREMIUM p95 지연 판정) — LC가 baby 워커에 발주"
+blockers: "사용자 콘솔: D3 Anthropic 월 한도 $20 · Vercel Protection Bypass for Automation 시크릿 폐기"
+---
+## 의미
+Claude 경로가 프로덕션에서 켜졌지만, 앱은 provider 필드를 보내지 않으므로 사용자 트래픽은 그대로 Gemini로 간다. Claude를 실제로 쓰는 건 Stage 2 디버그 토글부터다. 킬스위치는 Vercel의 ANTHROPIC_API_KEY 값 삭제이고, 삭제해도 Gemini 경로는 영향이 없다.
+
+---
+date: 2026-10-11
+project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO Stage 1 구현)
 summary: 이중 LLM Stage 1 — 게이트웨이 Claude 경로(provider 필드·구조화 출력·개수 펼침·Gemini 모양 역변환), Preview 스파이크 2회 PASS. 머지·프로덕션은 사용자 복귀 뒤
 status: on_track
