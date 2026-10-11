@@ -64,6 +64,7 @@
 | 2026-09-24 | 새벽 TASK(LC): #95 베타 UI 정적 가드 `design-tokens.test.ts`(WCAG 대비 4.5:1 라이트·다크·수동 다크 동기, 44px min-height, font-face 배선) + `hanja-subset.test.ts`(woff2 cmap Node 파싱, 59자 fontTools 일치) — 360px 실측은 playwright 필요(사용자 결정) | verify exit 0(798), verifier PASS, LC 게이트 PASS, 머지 보류 |
 | 2026-09-24 | 세션 마감: #93·#94·#95·#96 머지(`54230cb`·`4f8c0da`·`1731038`·`e7df39c`, 배포 완료·번들 불변) · 인계서 `docs/handoffs/2026-09-24-session-close-handoff.md`(대기 = G2-3·PF 가드·playwright·8b) | verify exit 0(806), Vercel Deployment has completed ×4 |
 | 2026-10-11 | 이중 LLM Stage 1(LC HO, 사용자 sign-off D2–D5): 게이트웨이 Claude 경로 — 브랜치 `feat/dualllm-claude-gateway`. 설계문 `a0cf19f` → audit fix `16b853e`(source-map-js high) → P1 기준선 스냅샷 `46d583b` → 기능 `41387d9`(provider 형제 필드·SDK 0.128.0 동적 import·개수 펼침·Gemini 모양 역변환) → 문서. baby 하네스·토글은 Stage 2 | P1: 스냅샷·기존 테스트 diff 0줄, gemini-generate.ts 삽입만. verify exit 0(api 60·core 740·web 49), 번들 `index-CSoxBuOG.js` 불변 |
+| 2026-10-11 | 사용자 직접 승인 «#98 머지, 프로덕션 승격 승인» → PR #98 squash `347a465`, main 자동 배포 `dpl_2XcwQh3B`가 프로덕션 별칭(saju-lab-phi) 차지 | 머지 직전 P1 스냅샷 diff 0. 프로덕션 스모크: provider 오입력 400 · gemini 200 · claude 200(`x-llm-provider: claude`, UTF-8 본문 «안녕») · 런타임 오류 1h 0건 |
 
 ## 세션 종료 체크
 - [x] `npm run verify` 통과
