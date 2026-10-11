@@ -6,6 +6,21 @@
 ---
 date: 2026-10-11
 project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, LC HO Stage 1 구현)
+summary: 이중 LLM Stage 1 — 게이트웨이 Claude 경로(provider 필드·구조화 출력·개수 펼침·Gemini 모양 역변환), Preview 스파이크 2회 PASS. 머지·프로덕션은 사용자 복귀 뒤
+status: on_track
+progress: "Stage 1 구현 완료·미머지 (근거: npm run verify exit 0 api 62·core 740·web 49, P1 스냅샷 diff 0, verifier PASS, Preview 7fb2be5 스파이크 PREMIUM 10/10·편지 200)"
+changes: ["16b853e chore(deps): npm audit fix", "46d583b test(api): P1 회귀 잠금", "41387d9 feat(api): Claude 경로", "7fb2be5 docs(gateway)", "(브랜치 feat/dualllm-claude-gateway, PR 대기)"]
+next: "사용자 복귀 → PR 머지 승인 → 프로덕션 승격 승인 → Stage 2 baby 디버그 토글(baby 워커)"
+blockers: "머지·프로덕션 승격·D3 콘솔 월 한도·Protection Bypass 시크릿 폐기 = 사용자 콘솔/승인 대기"
+learning_need: "vercel curl은 보호된 Preview 접근 시 확인 없이 프로젝트 우회 시크릿을 생성 → 보호 Preview 스모크 경로를 미리 정해 둘 것"
+---
+## 의미
+Gemini 경로를 바이트 단위로 고정해 둔 채(P1 스냅샷 diff 0) Claude로 같은 작명 계약을 만족시켰다. PREMIUM 10선은 개수·키 순서·한국어를 실호출 1회에서 모두 지켰다. 남은 리스크는 지연(66.8s, 앱 타임아웃 92s)뿐이고, Stage 2 평가에서 p95로 판정한다.
+
+---
+date: 2026-10-11
+project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO 설계 단계)
 summary: HO-2026-1011 이중 LLM(Gemini 유지 + Claude 추가) 설계문 v2 — docs/DESIGN-dualllm-saju-baby.md (코드 0, PR 0)
 status: on_track
