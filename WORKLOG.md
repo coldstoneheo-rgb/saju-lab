@@ -4,6 +4,20 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-10-12
+project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, 사용자 직접 지시 «#100 머지»)
+summary: claudeEffort 옵트인 머지·프로덕션 반영 — PR #100 squash 16bb2ac, main 자동 배포 success
+status: shipped
+progress: "effort 옵트인 프로덕션 (근거: verifier PASS(npm run verify exit 0), CI verify pass, PR #100 MERGED 16bb2ac, Vercel 커밋 상태 success). 프로덕션 HTTP 스모크는 미실시 — auto-mode 분류기가 유료 호출로 차단"
+changes: ["16bb2ac feat(api): Claude 경로 claudeEffort 옵트인 (#100)"]
+next: "baby 러너가 프로덕션 별칭에 provider:claude + claudeEffort:low로 PREMIUM 재측정(LC → baby 워커)"
+blockers: "프로덕션 스모크(high→400, low→200)는 사용자 허용 필요 · 사용자 콘솔: D3 Anthropic 월 한도 $20 · Vercel Protection Bypass 시크릿 폐기"
+---
+## 의미
+평가 러너가 effort를 낮춰 PREMIUM 지연을 다시 잴 수 있게 됐다. 앱은 이 필드를 보내지 않으므로 사용자 트래픽 동작은 그대로다. Anthropic API가 effort "low"를 실제로 받는지는 mock 테스트로만 확인됐다 — baby 재측정이 첫 라이브 확인이 된다.
+
+---
 date: 2026-10-11
 project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO 격상 — effort 옵트인)
