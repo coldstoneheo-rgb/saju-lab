@@ -4,6 +4,22 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-10-11
+project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, LC HO 설계 단계)
+summary: HO-2026-1011 이중 LLM(Gemini 유지 + Claude 추가) 설계문 v2 — docs/DESIGN-dualllm-saju-baby.md (코드 0, PR 0)
+status: on_track
+progress: "설계 완료조건 1–7 초안 완료, LC 판정 F1–F6 수용 (근거: 설계문 §0 체크리스트·§9 협의 이력, LC [판정] 10-11). 구현 0"
+changes: ["(미커밋) docs/DESIGN-dualllm-saju-baby.md"]
+next: "사용자 sign-off(D2 토글 단계화 · D3 워크스페이스 지출 한도 · D4 평가 세트 · D5 SDK 대 fetch) → §6 P1 증명 PR 먼저"
+blockers: "구현은 사용자 sign-off + ANTHROPIC_API_KEY(사용자 손, Vercel env) 뒤"
+synergy: "같은 펼침·역변환 규칙을 MLP 11 스키마 트랙(PLAN-2026-1011 §4-C)에 재사용 가능"
+learning_need: "Claude 구조화 출력은 minItems/maxItems 미지원, Opus/Sonnet 5.5는 강제 tool_choice 400 → 스키마 패리티 설계는 모델 문서부터"
+---
+## 의미
+Gemini 경로를 바이트 단위로 그대로 두고 Claude를 붙일 수 있는 지점이 게이트웨이 한 곳이라는 것을 확인했다. 그러면서 발주안의 두 전제(강제 tool 호출, 스키마 개수 보증)가 Claude에서 성립하지 않는다는 것을 문서 근거로 반박했고 LC가 수용했다. 이 설계로 baby 앱의 파서를 바꾸지 않고 품질 비교 평가를 시작할 수 있고, 사용자 sign-off 하나만 남았다.
+
+---
 date: 2026-09-24
 project: saju-lab
 agent: claude-code (Fable 5.1, saju-lab-a8, 세션 마감)
