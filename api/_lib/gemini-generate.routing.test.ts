@@ -357,3 +357,61 @@ describe("validation and key pre-check", () => {
     expect(captured.status).toBe(200);
   });
 });
+
+describe("timeouts and logs (saju #102 critic r1 #1·#5·#6)", () => {
+  function geminiTimers(spy: { mock: { calls: unknown[][] } }): unknown[] {
+    // runGemini arms exactly one abort timer per upstream call; the delay is the call's ceiling.
+    return spy.mock.calls.map((c) => c[1]);
+  }
+
+  it("release-shaped requests keep the 180s Gemini ceiling on list and letter", async () => {
+    route("gemini", "claude");
+    stubGemini();
+    const spy = vi.spyOn(globalThis, "setTimeout");
+    await call(babyNamingRequest("PREMIUM"));
+    await call({ ...babyNamingRequest("PREMIUM"), attempt: 2 });
+    await call(babyLetterRequest());
+    expect(geminiTimers(spy)).toEqual([180_000, 180_000, 180_000]);
+  });
+
+  it("routed Gemini ceilings: list main 60s with a sub, retry 180s, letter main 30s, no-sub 180s", async () => {
+    route("gemini", "claude");
+    stubGemini({ status: 200, payload: geminiReply("{}") }, { status: 200, payload: geminiReply("편지") });
+    sdk.create.mockResolvedValue(claudeText(freeAnswer()));
+    const spy = vi.spyOn(globalThis, "setTimeout");
+    await call({ ...babyNamingRequest("FREE"), ...OPT_IN });
+    await call({ ...babyLetterRequest(), ...OPT_IN });
+    expect(geminiTimers(spy)).toEqual([60_000, 30_000]);
+
+    spy.mockClear();
+    route("gemini", "none");
+    stubGemini();
+    await call({ ...babyNamingRequest("FREE"), ...OPT_IN });
+    await call({ ...babyNamingRequest("FREE"), ...OPT_IN, attempt: 2 });
+    expect(geminiTimers(spy)).toEqual([180_000, 180_000]);
+  });
+
+  it("no opt-in: no route log line at all; opt-in: one line naming the engine actually called", async () => {
+    route("gemini", "claude");
+    stubGemini();
+    sdk.create.mockResolvedValue(claudeText(freeAnswer()));
+    const info = vi.spyOn(console, "info").mockImplementation(() => undefined);
+    await call(babyNamingRequest("FREE"));
+    expect(info.mock.calls.filter((c) => String(c[0]).includes("route main="))).toHaveLength(0);
+
+    await call({ ...babyNamingRequest("FREE"), ...OPT_IN, attempt: 2 });
+    const lines = info.mock.calls.map((c) => String(c[0])).filter((l) => l.includes("route main="));
+    expect(lines).toEqual(["[app/gemini-generate] route main=gemini sub=claude engine=claude kind=list attempt=2"]);
+  });
+
+  it("an empty responseSchema still counts as a list (classification boundary)", async () => {
+    route("gemini", "claude");
+    const body = { ...babyLetterRequest(), ...OPT_IN, generationConfig: { responseSchema: {} } };
+    const gemini = stubGemini({ status: 500, payload: {} });
+    const captured = await call(body);
+    // A list main failure is answered as-is (no in-gateway fallback) — a letter would have tried the sub.
+    expect(captured.status).toBe(502);
+    expect(gemini.fetchMock).toHaveBeenCalledTimes(1);
+    expect(sdk.create).not.toHaveBeenCalled();
+  });
+});

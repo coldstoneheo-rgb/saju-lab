@@ -178,6 +178,7 @@ export function createRoutingResolver(deps: RoutingDeps): RoutingResolver {
 
       const read = await readRemote(deps);
       let routing: Routing;
+      let cacheAt = now;
       if (read.kind === "value") {
         routing = read.routing;
         lastGood = { routing, at: now };
@@ -187,10 +188,16 @@ export function createRoutingResolver(deps: RoutingDeps): RoutingResolver {
         routing = DEFAULT_ROUTING;
         lastGood = { routing, at: now };
       } else {
-        routing = lastGood !== null && now - lastGood.at <= LAST_GOOD_MAX_MS ? lastGood.routing : DEFAULT_ROUTING;
-        console.error("[app/gemini-generate] routing read failed; using " + (routing === DEFAULT_ROUTING ? "default" : "last good"));
+        const fresh = lastGood !== null && now - lastGood.at <= LAST_GOOD_MAX_MS;
+        routing = fresh && lastGood !== null ? lastGood.routing : DEFAULT_ROUTING;
+        if (fresh && lastGood !== null) {
+          // Cache only until the last good value itself expires, so it is never served past
+          // LAST_GOOD_MAX_MS in total (saju #102 critic #3: cache would otherwise add up to 60s).
+          cacheAt = Math.min(now, lastGood.at + LAST_GOOD_MAX_MS - ROUTING_CACHE_MS);
+        }
+        console.error("[app/gemini-generate] routing read failed; using " + (fresh ? "last good" : "default"));
       }
-      cached = { routing, at: now };
+      cached = { routing, at: cacheAt };
       return routing;
     }
   };

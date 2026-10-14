@@ -207,18 +207,21 @@ export default async function handler(req: ApiRequest, res: ApiResponse): Promis
   }
 
   const route = await routing.resolve(validation.claudeRoutingOptIn);
+  // The list request is the only one that carries a response schema (baby NamingRepository: list sets
+  // `responseSchema`, the letter does not). An empty `{}` schema still counts as a list (routing test).
   const isList = validation.request.generationConfig?.responseSchema !== undefined;
+  const engine = isList && validation.attempt === 2 && route.sub !== null ? route.sub : route.main;
 
   if (validation.claudeRoutingOptIn) {
-    // Values and engine names only — never the body or the caller's address.
+    // Values and engine names only — never the body or the caller's address. Release-shaped
+    // requests (no opt-in) log nothing here, exactly as before routing existed.
     console.info(
-      `[app/gemini-generate] route main=${route.main} sub=${route.sub ?? "none"} kind=${isList ? "list" : "letter"} ` +
-        `attempt=${validation.attempt ?? 1}`
+      `[app/gemini-generate] route main=${route.main} sub=${route.sub ?? "none"} engine=${engine} ` +
+        `kind=${isList ? "list" : "letter"} attempt=${validation.attempt ?? 1}`
     );
   }
 
   if (isList) {
-    const engine = validation.attempt === 2 && route.sub !== null ? route.sub : route.main;
     const timeoutMs = route.sub !== null && validation.attempt !== 2 ? ROUTED_LIST_MAIN_TIMEOUT_MS : UPSTREAM_TIMEOUT_MS;
     sendOutcome(res, await runEngine(engine, validation.request, timeoutMs, ROUTED_CLAUDE_EFFORT));
     return;

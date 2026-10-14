@@ -186,3 +186,45 @@ describe("remote value", () => {
     vi.restoreAllMocks();
   });
 });
+
+describe("read timeout and last-good ceiling (saju #102 critic r1 #2·#3)", () => {
+  it("a store that never answers is abandoned after 400ms and the request gets the default", async () => {
+    vi.useFakeTimers();
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+    try {
+      const hanging = vi.fn(
+        (_url: string, init: RequestInit) =>
+          new Promise<Response>((_resolve, reject) => {
+            init.signal?.addEventListener("abort", () => reject(new Error("aborted")));
+          })
+      );
+      const resolver = createRoutingResolver({ fetch: hanging as unknown as typeof fetch, now: () => 0, env: () => ENABLED });
+      let settled = false;
+      const pending = resolver.resolve(true).then((r) => {
+        settled = true;
+        return r;
+      });
+      await vi.advanceTimersByTimeAsync(399);
+      expect(settled).toBe(false);
+      await vi.advanceTimersByTimeAsync(1);
+      await expect(pending).resolves.toEqual(DEFAULT_ROUTING);
+    } finally {
+      vi.useRealTimers();
+      vi.restoreAllMocks();
+    }
+  });
+
+  it("a last good value is never served past LAST_GOOD_MAX_MS in total, cache included", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => undefined);
+    const errors = Array.from({ length: 20 }, () => new Error("network"));
+    const h = harness(ENABLED, [reply(200, { main: "claude", sub: "gemini" }), ...errors]);
+    expect(await h.resolver.resolve(true)).toEqual({ main: "claude", sub: "gemini" });
+    // Step to just before the limit, failing every read: still the last good value.
+    h.advance(LAST_GOOD_MAX_MS - 1);
+    expect(await h.resolver.resolve(true)).toEqual({ main: "claude", sub: "gemini" });
+    // One millisecond past the limit — even inside the cache window of that last read — it is the default.
+    h.advance(2);
+    expect(await h.resolver.resolve(true)).toEqual(DEFAULT_ROUTING);
+    vi.restoreAllMocks();
+  });
+});
