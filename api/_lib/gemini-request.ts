@@ -57,7 +57,18 @@ export type Provider = "gemini" | "claude";
 export type ClaudeEffort = "low" | "medium";
 
 export type ValidationOutcome =
-  | { ok: true; request: ProxyRequest; provider: Provider; claudeEffort?: ClaudeEffort }
+  | {
+      ok: true;
+      request: ProxyRequest;
+      provider: Provider;
+      claudeEffort?: ClaudeEffort;
+      /** The caller named a provider (debug toggle, evaluation harness) — routing and fallback never apply. */
+      providerExplicit: boolean;
+      /** 2 = the app's single list retry; routing sends it to the sub engine (llm-routing.ts). */
+      attempt?: 2;
+      /** The app may be routed to Claude (llm-routing.ts gate 1). Release builds never send it. */
+      claudeRoutingOptIn: boolean;
+    }
   | { ok: false; code: "INVALID_BODY" | "PAYLOAD_TOO_LARGE"; message: string };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -188,6 +199,18 @@ export function validateGenerateContentRequest(body: unknown): ValidationOutcome
     return fail("INVALID_BODY", '`provider` must be "gemini" or "claude".');
   }
   const provider: Provider = rawProvider ?? "gemini";
+  const providerExplicit = rawProvider !== undefined;
+
+  // Routing fields (llm-routing.ts). Like `provider`, a malformed value is refused rather than
+  // ignored: a typo silently dropping the opt-in or the retry marker would hide a client bug.
+  const rawAttempt = body["attempt"];
+  if (rawAttempt !== undefined && rawAttempt !== 1 && rawAttempt !== 2) {
+    return fail("INVALID_BODY", "`attempt` must be 1 or 2.");
+  }
+  const rawOptIn = body["claudeRoutingOptIn"];
+  if (rawOptIn !== undefined && typeof rawOptIn !== "boolean") {
+    return fail("INVALID_BODY", "`claudeRoutingOptIn` must be a boolean.");
+  }
 
   // Claude-only knob. The route is unauthenticated, so a caller may move spend down
   // (low) but never up — "high" and above are refused. On the Gemini path the field
@@ -266,5 +289,13 @@ export function validateGenerateContentRequest(body: unknown): ValidationOutcome
     return fail("PAYLOAD_TOO_LARGE", "Request exceeds the size limit.");
   }
 
-  return claudeEffort === undefined ? { ok: true, request, provider } : { ok: true, request, provider, claudeEffort };
+  return {
+    ok: true,
+    request,
+    provider,
+    ...(claudeEffort === undefined ? {} : { claudeEffort }),
+    providerExplicit,
+    ...(rawAttempt === 2 ? { attempt: 2 as const } : {}),
+    claudeRoutingOptIn: rawOptIn === true
+  };
 }

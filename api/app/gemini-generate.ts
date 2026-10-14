@@ -1,7 +1,9 @@
 import type { ApiRequest, ApiResponse } from "../_lib/http.js";
 import { clientIp, parseJsonBody } from "../_lib/http.js";
 import { createRateLimiter } from "../_lib/rate-limit.js";
-import { validateGenerateContentRequest } from "../_lib/gemini-request.js";
+import { type ClaudeEffort, type ProxyRequest, validateGenerateContentRequest } from "../_lib/gemini-request.js";
+import { type EngineOutcome, errorBody, sendOutcome } from "../_lib/engine-outcome.js";
+import { type Engine, createRoutingResolver } from "../_lib/llm-routing.js";
 
 /**
  * App-facing Gemini gateway (`/api/app/gemini-generate`).
@@ -36,12 +38,123 @@ const RATE_WINDOW_MS = 5 * 60 * 1000;
  */
 const UPSTREAM_TIMEOUT_MS = 180_000;
 
+/**
+ * Routed calls only (an opted-in request with a sub engine configured). Measured on the
+ * 75-set evaluation: PREMIUM max 44.3s on either engine, none over 60s; letters p95 ≤13.2s.
+ *   - list main: cut at 60s so the app's retry (attempt 2) still reaches the sub engine;
+ *   - letter main 30s → sub 55s: both inside one app call, under its 92s read timeout.
+ */
+const ROUTED_LIST_MAIN_TIMEOUT_MS = 60_000;
+const ROUTED_LETTER_MAIN_TIMEOUT_MS = 30_000;
+const ROUTED_LETTER_SUB_TIMEOUT_MS = 55_000;
+
+/**
+ * Effort for Claude reached by routing (the app sends no `claudeEffort` then). The
+ * evaluation passed at low; the explicit-provider default (medium, #100) is untouched.
+ */
+const ROUTED_CLAUDE_EFFORT: ClaudeEffort = "low";
+
 // Module scope: warm instances reuse the window. Cold starts begin with an empty one,
 // which is the documented weakness of the in-memory approach.
 const limiter = createRateLimiter(RATE_LIMIT, RATE_WINDOW_MS);
+const routing = createRoutingResolver({ fetch: (input, init) => fetch(input, init), now: () => Date.now(), env: () => process.env });
 
-function errorBody(code: string, message: string): Record<string, unknown> {
-  return { contract: "app-gemini-generate-v1", error: { code, message } };
+const UPSTREAM_ERROR = errorBody("UPSTREAM_ERROR", "Generation failed upstream.");
+
+/** The Gemini call, held. Status table, log lines and pass-through are the pre-routing code's (P1). */
+async function runGemini(request: ProxyRequest, timeoutMs: number = UPSTREAM_TIMEOUT_MS): Promise<EngineOutcome> {
+  const apiKey = process.env["GEMINI_API_KEY"];
+  if (!apiKey) {
+    return {
+      ok: false,
+      status: 503,
+      body: errorBody("UPSTREAM_NOT_CONFIGURED", "Generation is temporarily unavailable."),
+      headers: {},
+      failClass: "not_configured"
+    };
+  }
+
+  const model = process.env["GEMINI_MODEL"] || DEFAULT_MODEL;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const upstream = await fetch(`${UPSTREAM_BASE}/${model}:generateContent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Header rather than ?key=: the URL shows up in logs and error strings.
+        "x-goog-api-key": apiKey
+      },
+      body: JSON.stringify(request),
+      signal: controller.signal
+    });
+
+    const text = await upstream.text();
+
+    if (!upstream.ok) {
+      // The upstream error body can carry project and quota details. Log it for us,
+      // return a shape-stable error to the client.
+      console.error(`[app/gemini-generate] upstream ${upstream.status}: ${text.slice(0, 500)}`);
+      const rateLimited = upstream.status === 429;
+      return {
+        ok: false,
+        status: rateLimited ? 429 : 502,
+        body: UPSTREAM_ERROR,
+        headers: {},
+        failClass: rateLimited ? "rate_limited" : "upstream"
+      };
+    }
+
+    let payload: unknown;
+    try {
+      payload = JSON.parse(text);
+    } catch {
+      console.error("[app/gemini-generate] upstream returned non-JSON body");
+      return { ok: false, status: 502, body: UPSTREAM_ERROR, headers: {}, failClass: "unusable" };
+    }
+
+    // Verbatim pass-through of the success body: the client parses the standard
+    // `generateContent` response, so changing its shape here would be a silent
+    // contract break in an app that is already published.
+    return { ok: true, status: 200, body: payload, headers: {} };
+  } catch (error) {
+    const aborted = error instanceof Error && error.name === "AbortError";
+    console.error(`[app/gemini-generate] ${aborted ? "upstream timeout" : "upstream call failed"}`);
+    return {
+      ok: false,
+      status: aborted ? 504 : 502,
+      body: UPSTREAM_ERROR,
+      headers: {},
+      failClass: aborted ? "timeout" : "upstream"
+    };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function runEngine(
+  engine: Engine,
+  request: ProxyRequest,
+  timeoutMs: number,
+  claudeEffort?: ClaudeEffort
+): Promise<EngineOutcome> {
+  if (engine === "claude") {
+    // Loaded only on this branch — the Gemini path never imports the Anthropic SDK.
+    const { runClaude } = await import("../_lib/claude-generate.js");
+    return runClaude(request, claudeEffort, timeoutMs);
+  }
+  return runGemini(request, timeoutMs);
+}
+
+/** A letter answer the app can use: 200 with a non-blank first text part. */
+function usableLetter(outcome: EngineOutcome): boolean {
+  if (!outcome.ok) {
+    return false;
+  }
+  const body = outcome.body as { candidates?: { content?: { parts?: { text?: unknown }[] } }[] } | null;
+  const text = body?.candidates?.[0]?.content?.parts?.[0]?.text;
+  return typeof text === "string" && text.trim() !== "";
 }
 
 export default async function handler(req: ApiRequest, res: ApiResponse): Promise<void> {
@@ -52,9 +165,10 @@ export default async function handler(req: ApiRequest, res: ApiResponse): Promis
     return;
   }
 
-  const apiKey = process.env["GEMINI_API_KEY"];
-  if (!apiKey) {
-    // Configuration fault, not a caller fault — say so without naming the variable's value.
+  // Configuration fault, not a caller fault — say so without naming the variable's value.
+  // Only when **no** engine is configured: with routing, a missing Gemini key must not
+  // also block the Claude sub (the per-engine check lives in runGemini / runClaude).
+  if (!process.env["GEMINI_API_KEY"] && !process.env["ANTHROPIC_API_KEY"]) {
     res.status(503).json(errorBody("UPSTREAM_NOT_CONFIGURED", "Generation is temporarily unavailable."));
     return;
   }
@@ -80,60 +194,48 @@ export default async function handler(req: ApiRequest, res: ApiResponse): Promis
     return;
   }
 
-  // The one seam (docs/DESIGN-dualllm-saju-baby.md §1). Everything below stays the
-  // Gemini path, byte for byte; the Anthropic SDK is loaded only on this branch.
-  if (validation.provider === "claude") {
-    const { generateWithClaude } = await import("../_lib/claude-generate.js");
-    await generateWithClaude(validation.request, res, validation.claudeEffort);
+  // A named provider (debug toggle, evaluation harness) is answered by that engine, as before
+  // routing existed — no remote value, no fallback (docs/DESIGN-dualllm-saju-baby.md §1).
+  if (validation.providerExplicit) {
+    if (validation.provider === "claude") {
+      const { generateWithClaude } = await import("../_lib/claude-generate.js");
+      await generateWithClaude(validation.request, res, validation.claudeEffort);
+      return;
+    }
+    sendOutcome(res, await runGemini(validation.request));
     return;
   }
 
-  const model = process.env["GEMINI_MODEL"] || DEFAULT_MODEL;
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+  const route = await routing.resolve(validation.claudeRoutingOptIn);
+  const isList = validation.request.generationConfig?.responseSchema !== undefined;
 
-  try {
-    const upstream = await fetch(`${UPSTREAM_BASE}/${model}:generateContent`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Header rather than ?key=: the URL shows up in logs and error strings.
-        "x-goog-api-key": apiKey
-      },
-      body: JSON.stringify(validation.request),
-      signal: controller.signal
-    });
-
-    const text = await upstream.text();
-
-    if (!upstream.ok) {
-      // The upstream error body can carry project and quota details. Log it for us,
-      // return a shape-stable error to the client.
-      console.error(`[app/gemini-generate] upstream ${upstream.status}: ${text.slice(0, 500)}`);
-      res.status(upstream.status === 429 ? 429 : 502).json(
-        errorBody("UPSTREAM_ERROR", "Generation failed upstream.")
-      );
-      return;
-    }
-
-    let payload: unknown;
-    try {
-      payload = JSON.parse(text);
-    } catch {
-      console.error("[app/gemini-generate] upstream returned non-JSON body");
-      res.status(502).json(errorBody("UPSTREAM_ERROR", "Generation failed upstream."));
-      return;
-    }
-
-    // Verbatim pass-through of the success body: the client parses the standard
-    // `generateContent` response, so changing its shape here would be a silent
-    // contract break in an app that is already published.
-    res.status(200).json(payload);
-  } catch (error) {
-    const aborted = error instanceof Error && error.name === "AbortError";
-    console.error(`[app/gemini-generate] ${aborted ? "upstream timeout" : "upstream call failed"}`);
-    res.status(aborted ? 504 : 502).json(errorBody("UPSTREAM_ERROR", "Generation failed upstream."));
-  } finally {
-    clearTimeout(timer);
+  if (validation.claudeRoutingOptIn) {
+    // Values and engine names only — never the body or the caller's address.
+    console.info(
+      `[app/gemini-generate] route main=${route.main} sub=${route.sub ?? "none"} kind=${isList ? "list" : "letter"} ` +
+        `attempt=${validation.attempt ?? 1}`
+    );
   }
+
+  if (isList) {
+    const engine = validation.attempt === 2 && route.sub !== null ? route.sub : route.main;
+    const timeoutMs = route.sub !== null && validation.attempt !== 2 ? ROUTED_LIST_MAIN_TIMEOUT_MS : UPSTREAM_TIMEOUT_MS;
+    sendOutcome(res, await runEngine(engine, validation.request, timeoutMs, ROUTED_CLAUDE_EFFORT));
+    return;
+  }
+
+  if (route.sub === null) {
+    sendOutcome(res, await runEngine(route.main, validation.request, UPSTREAM_TIMEOUT_MS, ROUTED_CLAUDE_EFFORT));
+    return;
+  }
+
+  const first = await runEngine(route.main, validation.request, ROUTED_LETTER_MAIN_TIMEOUT_MS, ROUTED_CLAUDE_EFFORT);
+  if (usableLetter(first)) {
+    sendOutcome(res, first);
+    return;
+  }
+  console.error(
+    `[app/gemini-generate] fallback letter main=${route.main} sub=${route.sub} reason=${first.failClass ?? "empty"}`
+  );
+  sendOutcome(res, await runEngine(route.sub, validation.request, ROUTED_LETTER_SUB_TIMEOUT_MS, ROUTED_CLAUDE_EFFORT));
 }

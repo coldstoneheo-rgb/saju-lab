@@ -2,6 +2,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { ApiResponse } from "./http.js";
 import type { ClaudeEffort, ProxyRequest } from "./gemini-request.js";
 import { SchemaTranslationError, fromAnthropicMessage, toAnthropicParams } from "./claude-adapter.js";
+import { type EngineOutcome, errorBody, sendOutcome } from "./engine-outcome.js";
 
 /**
  * Claude branch of `/api/app/gemini-generate`, reached only when the caller sends
@@ -29,19 +30,25 @@ const MAX_TOKENS = 16_000;
  */
 const DEFAULT_EFFORT: ClaudeEffort = "medium";
 
-function errorBody(code: string, message: string): Record<string, unknown> {
-  return { contract: "app-gemini-generate-v1", error: { code, message } };
-}
+export { UPSTREAM_TIMEOUT_MS as CLAUDE_UPSTREAM_TIMEOUT_MS };
 
-export async function generateWithClaude(
+const UPSTREAM_ERROR = errorBody("UPSTREAM_ERROR", "Generation failed upstream.");
+
+/** Claude call → held outcome. Same status table as before the split (502 / 504 / 429 / 503). */
+export async function runClaude(
   request: ProxyRequest,
-  res: ApiResponse,
-  effort: ClaudeEffort = DEFAULT_EFFORT
-): Promise<void> {
+  effort: ClaudeEffort = DEFAULT_EFFORT,
+  timeoutMs: number = UPSTREAM_TIMEOUT_MS
+): Promise<EngineOutcome> {
   const apiKey = process.env["ANTHROPIC_API_KEY"];
   if (!apiKey) {
-    res.status(503).json(errorBody("UPSTREAM_NOT_CONFIGURED", "Generation is temporarily unavailable."));
-    return;
+    return {
+      ok: false,
+      status: 503,
+      body: errorBody("UPSTREAM_NOT_CONFIGURED", "Generation is temporarily unavailable."),
+      headers: {},
+      failClass: "not_configured"
+    };
   }
 
   const model = process.env["CLAUDE_MODEL"] || DEFAULT_MODEL;
@@ -50,15 +57,20 @@ export async function generateWithClaude(
     params = toAnthropicParams(request, { model, effort, maxTokens: MAX_TOKENS });
   } catch (error) {
     if (error instanceof SchemaTranslationError) {
-      res.status(400).json(errorBody("INVALID_BODY", "`responseSchema` is not a supported schema shape."));
-      return;
+      return {
+        ok: false,
+        status: 400,
+        body: errorBody("INVALID_BODY", "`responseSchema` is not a supported schema shape."),
+        headers: {},
+        failClass: "unusable"
+      };
     }
     throw error;
   }
 
   // Retries stay with the app (one retry per list call); SDK retries on top would
   // multiply the wall clock past the app's read timeout.
-  const client = new Anthropic({ apiKey, maxRetries: 0, timeout: UPSTREAM_TIMEOUT_MS });
+  const client = new Anthropic({ apiKey, maxRetries: 0, timeout: timeoutMs });
   const started = Date.now();
 
   try {
@@ -72,24 +84,35 @@ export async function generateWithClaude(
     );
     if (!translated.ok) {
       console.error(`[app/gemini-generate] claude unusable response: ${translated.reason}`);
-      res.status(502).json(errorBody("UPSTREAM_ERROR", "Generation failed upstream."));
-      return;
+      return { ok: false, status: 502, body: UPSTREAM_ERROR, headers: {}, failClass: "unusable" };
     }
-    res.setHeader("x-llm-provider", "claude");
-    res.status(200).json(translated.body);
+    return { ok: true, status: 200, body: translated.body, headers: { "x-llm-provider": "claude" } };
   } catch (error) {
     if (error instanceof Anthropic.APIConnectionTimeoutError) {
       console.error("[app/gemini-generate] claude upstream timeout");
-      res.status(504).json(errorBody("UPSTREAM_ERROR", "Generation failed upstream."));
-      return;
+      return { ok: false, status: 504, body: UPSTREAM_ERROR, headers: {}, failClass: "timeout" };
     }
     if (error instanceof Anthropic.APIError) {
       // Status and request id only: the error body can name the organisation.
       console.error(`[app/gemini-generate] claude upstream ${String(error.status)} request_id=${String(error.requestID)}`);
-      res.status(error.status === 429 ? 429 : 502).json(errorBody("UPSTREAM_ERROR", "Generation failed upstream."));
-      return;
+      const rateLimited = error.status === 429;
+      return {
+        ok: false,
+        status: rateLimited ? 429 : 502,
+        body: UPSTREAM_ERROR,
+        headers: {},
+        failClass: rateLimited ? "rate_limited" : "upstream"
+      };
     }
     console.error("[app/gemini-generate] claude upstream call failed");
-    res.status(502).json(errorBody("UPSTREAM_ERROR", "Generation failed upstream."));
+    return { ok: false, status: 502, body: UPSTREAM_ERROR, headers: {}, failClass: "upstream" };
   }
+}
+
+export async function generateWithClaude(
+  request: ProxyRequest,
+  res: ApiResponse,
+  effort: ClaudeEffort = DEFAULT_EFFORT
+): Promise<void> {
+  sendOutcome(res, await runClaude(request, effort));
 }
