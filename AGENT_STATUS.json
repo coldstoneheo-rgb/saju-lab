@@ -1,8 +1,8 @@
 {
   "project": "saju-lab",
   "as_of": "2026-10-16T05:30:00+09:00",
-  "head": "#107 squash (feat/claude-list-prompt-layer)",
-  "working_on": "[IDLE] HO-2026-1016-saju-claude-list-prompt-ab-01 done(#107 레이어+REPORT · baby #187 fbe536c)",
+  "head": "#107 squash (머지 커밋 SHA는 git log main 참조)",
+  "working_on": "[IDLE] · 다음 = DEC-2026-1015 개정(레이어 채택·60s 컷·FREE 2판) 사용자 복귀 뒤",
   "waiting_on": "[LC·사용자] DEC: Claude 목록 레이어 채택 + 목록 main 60s 컷 동시 결정(REPORT §4) · 종류별 라우팅 HO · Global Config 생성·release ON은 처리방침 게시 뒤",
   "recent": [
     {
