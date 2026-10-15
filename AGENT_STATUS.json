@@ -1,10 +1,26 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-09-24T16:05:00+09:00",
-  "head": "e7df39c",
-  "working_on": null,
-  "waiting_on": "① 사용자: G2-3(8b 조건) · PF 가드 종결(PIDS 소관) · 360px 실측 playwright 추가 여부 ② LC: 8a 골든 52행 재계산 → confirmed PR",
+  "as_of": "2026-10-15T21:07:00+09:00",
+  "head": "f7f3b9f",
+  "working_on": "[IDLE] HO-2026-1015-saju-explicit-provider-interlock-01 done(#104 f95cb94·#105 f7f3b9f·#103 76c2611)",
+  "waiting_on": "[LC·사용자] 종류별 라우팅 HO(편지 main Claude·목록 main Gemini, LC DEC-2026-1015 초안 사용자 확인 대기) · [사용자] Preview CLAUDE_ROUTING_ENABLED 유무 확인 · Global Config 생성·release ON은 처리방침 게시 뒤",
   "recent": [
+    {
+      "at": "2026-10-15",
+      "what": "HO-2026-1015 인터록: 명시 provider:\"claude\"도 CLAUDE_ROUTING_ENABLED 뒤로 — #104 f95cb94, prod 스모크 claude→403·기본→200, 기록 #105 f7f3b9f. 사용자 지시 effort TASK #103 76c2611(/effort status medium)"
+    },
+    {
+      "at": "2026-10-15",
+      "what": "이월(10-15 기준 미착수): 8a 골든 52행 confirmed PR(LC 재계산 대기) · 8b(G2-3 뒤) · playwright 360px 실측(사용자 결정)"
+    },
+    {
+      "at": "2026-10-12",
+      "what": "#100 claudeEffort 옵트인 16bb2ac · 기록 #101 fddc859"
+    },
+    {
+      "at": "2026-10-11~15",
+      "what": "이중 LLM: Stage 1 #98 347a465(기록 #99) · main/sub 라우팅 #102 a26ec5e"
+    },
     {
       "at": "2026-09-24",
       "what": "세션 마감: #93·#94·#95·#96 머지(54230cb·4f8c0da·1731038·e7df39c, 전부 배포 완료·번들 불변) · verify 806 · 인계서 docs/handoffs/2026-09-24-session-close-handoff.md"
@@ -20,37 +36,12 @@
     {
       "at": "2026-09-23",
       "what": "외출 모드: #90 8a 강약 팩터 머지 a253f08(verifier PASS·LC 가, 프로덕션 배포는 Vercel 한도로 미생성) · #89 베타 UI 프리뷰(머지 보류). 인계서 docs/handoffs/2026-09-23-away-8a-beta-ui-handoff.md"
-    },
-    {
-      "at": "2026-09-23",
-      "what": "세션 마감: #83~#87 착지, 인계서 docs/handoffs/2026-09-23-golden50-diff-stage8-design-close-handoff.md"
-    },
-    {
-      "at": "2026-09-23",
-      "what": "L2 골든 3표 39·39·43행 confirmed + OPEN_REVIEW_ROUND 삭제. PR 오픈"
-    },
-    {
-      "at": "2026-09-23",
-      "what": "PR #84 머지 4877b17 (차분 게이트)"
-    },
-    {
-      "at": "2026-09-23",
-      "what": "차분 HO: saju-core ↔ lunar-typescript 5,550건 unexplained 0, CI 별도 스텝, verifier PASS. PR 오픈"
-    },
-    {
-      "at": "2026-09-23",
-      "what": "PR #83 머지 79299e9 (골든 50)"
-    },
-    {
-      "at": "2026-09-23",
-      "what": "골든 11→50행(일진 34/34·윤달 4/4) + L2 골든 39행분 pending, 테스트 675, verifier PASS. PR 오픈 (TASK REPORT draft)"
     }
   ],
   "next_actions": [
-    "새 세션: pull → verify(806) → LC REPORT",
-    "LC 재계산 오면 골든 52행 confirmed PR(OPEN_REVIEW_ROUND 삭제, S-YNY 2행 GOLDEN-PILLARS 선등록·KASI 대조)",
-    "8b는 G2-3 뒤 — 착수 금지",
-    "playwright 360px 실측은 사용자 결정 뒤"
+    "종류별 라우팅 값 설계(llm_routing 1값 → list/letter 분리, 하위 호환) — HO 수령 뒤",
+    "baby 평가 러너 대상 = Preview(ENABLED=1) 또는 로컬 (prod는 명시 claude 403)",
+    "prod modelVersion gemini-3.6-flash vs 문서 기본 3.5 불일치 확인"
   ],
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
