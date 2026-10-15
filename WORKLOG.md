@@ -4,6 +4,19 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-10-15
+project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1015 + 사용자 직접 effort TASK)
+summary: 명시 provider:"claude"도 CLAUDE_ROUTING_ENABLED 인터록 뒤로(403 PROVIDER_NOT_ENABLED) + effort 정본 설정 적용
+status: shipped
+progress: "인터록 프로덕션 (근거: PR #104 MERGED f95cb94, verify exit 0 api111·core740·web49, verifier high PASS, 프로덕션 스모크 claude→403·기본→200)"
+changes: ["f95cb94 fix(api): 명시 provider claude 인터록 (#104)", "76c2611 chore(claude): effort 정본 적용 (#103)"]
+next: "baby 레포 디버그 토글·평가 하네스 문서에 «프로덕션 명시 Claude = 403, ENABLED=1 Preview/로컬에서» 1줄 갱신(baby 워커)"
+---
+## 의미
+무인증 게이트웨이에서 body 한 줄로 Anthropic 키를 쓰던 경로가 닫혔다. 피해 상한이 크레딧이던 비용 누수가 0이 됐다. 릴리스 앱은 provider를 보내지 않으므로 사용자 동작은 그대로다. 평가는 이제 `CLAUDE_ROUTING_ENABLED=1`인 배포에서만 돈다.
+
+---
 date: 2026-10-12
 project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, 사용자 직접 지시 «#100 머지»)
