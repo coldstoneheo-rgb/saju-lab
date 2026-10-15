@@ -30,5 +30,8 @@
     "Stop": [
       { "matcher": "", "hooks": [ { "type": "command", "command": "node C:/Users/colds/AI/claude/life-coordinator/scripts/hooks/lc-signal.mjs stop" } ] }
     ]
+  },
+  "modelSettings": {
+    "claude-opus-5-5": { "effortLevel": "medium" }
   }
 }
