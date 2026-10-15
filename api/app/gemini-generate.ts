@@ -198,6 +198,12 @@ export default async function handler(req: ApiRequest, res: ApiResponse): Promis
   // routing existed — no remote value, no fallback (docs/DESIGN-dualllm-saju-baby.md §1).
   if (validation.providerExplicit) {
     if (validation.provider === "claude") {
+      // Same interlock as routing: this route is unauthenticated, so only a deployment that sets
+      // CLAUDE_ROUTING_ENABLED=1 may spend the Anthropic key. Refuse rather than answer with Gemini.
+      if (process.env["CLAUDE_ROUTING_ENABLED"] !== "1") {
+        res.status(403).json(errorBody("PROVIDER_NOT_ENABLED", "The requested provider is not enabled on this deployment."));
+        return;
+      }
       const { generateWithClaude } = await import("../_lib/claude-generate.js");
       await generateWithClaude(validation.request, res, validation.claudeEffort);
       return;

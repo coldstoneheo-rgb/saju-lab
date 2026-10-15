@@ -33,6 +33,8 @@ LC 안(게이트웨이 1곳, 요청 본문의 `provider` 필드)을 **수용**�
 | Claude 어댑터 | 신규 `api/_lib/claude-adapter.ts` (순수 함수) + `api/app/claude-call.ts` 또는 핸들러 내부 함수 `handleClaude` | 번역(§2)·호출·역변환(§3)·오류 매핑을 전부 여기에 둔다. |
 | 앱(2단계) | baby `GeminiApi.kt` `GenerateContentRequest`에 `@Json(name = "provider") val provider: String? = null` | **`NamingInput`에는 넣지 않는다** — `inputAdapter.toJson(input.forPrompt())`(NamingRepository.kt:487)가 사용자 블록 본문이 되므로, 넣는 순간 Gemini 프롬프트 바이트가 바뀐다. Moshi는 기본적으로 null을 직렬화하지 않으므로 `provider = null`이면 앱이 보내는 바이트도 지금과 같다. Gemini 선택 시에는 `"gemini"`가 아니라 **null**을 보낸다. |
 
+- **개정 2026-10-15 (HO-2026-1015-saju-explicit-provider-interlock-01):** 명시 `provider: "claude"`도 라우팅과 같은 인터록 `CLAUDE_ROUTING_ENABLED=1` 뒤에 둔다. 값이 `"1"`이 아닌 배포에서는 Claude 호출·클라이언트 생성 없이 `403 PROVIDER_NOT_ENABLED`로 끝나며, Gemini로 폴백하지 않는다(무인증 경로의 키 과금 차단). 평가 하네스·디버그 토글은 `CLAUDE_ROUTING_ENABLED=1`인 Preview/로컬에서 돈다. `"gemini"` 명시·부재 경로는 무변경.
+
 ### 1-2. 무변경 보장 방식 (요약 — 증명은 §6)
 - Gemini 경로는 (a) 같은 `request` 객체, (b) 같은 URL·헤더·본문 직렬화, (c) 같은 응답 pass-through(:123)를 유지한다. 바뀌는 것은 `validateGenerateContentRequest`의 **반환 객체에 필드 하나가 붙는 것**뿐이다.
 - 오류 순서도 보존한다. `GEMINI_API_KEY` 검사(:55)는 그대로 맨 앞에 둔다. `ANTHROPIC_API_KEY` 검사는 Claude 분기 **안**에서 한다(없으면 `503 UPSTREAM_NOT_CONFIGURED`). 부작용: Claude 요청도 `GEMINI_API_KEY`가 있어야 통과한다 — 운영에는 항상 있으므로 수용하고, Gemini 오류 순서를 바꾸지 않는 쪽을 택한다.

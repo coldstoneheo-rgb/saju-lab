@@ -105,6 +105,8 @@ const savedEnv = { ...process.env };
 beforeEach(() => {
   process.env["GEMINI_API_KEY"] = "test-gemini-key";
   process.env["ANTHROPIC_API_KEY"] = "test-anthropic-key";
+  // Explicit `provider: "claude"` is behind the same interlock as routing (HO-2026-1015).
+  process.env["CLAUDE_ROUTING_ENABLED"] = "1";
   delete process.env["CLAUDE_MODEL"];
   sdk.create.mockReset();
   sdk.constructed.length = 0;
