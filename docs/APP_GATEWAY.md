@@ -43,12 +43,14 @@
 | `GEMINI_API_KEY` | ✅ | 없으면 `/api/app/gemini-generate`가 503. **Preview·Production 양쪽에 설정해야** 프리뷰 배포로 검증할 수 있다 |
 | `GEMINI_MODEL` | — | 기본 `gemini-3.5-flash` |
 | `SAJU_API_KEY` | — | 기존 `/api/saju-pillars` 게이트용. `/api/app/*`는 쓰지 않는다 |
-| `ANTHROPIC_API_KEY` | Claude 경로만 | 없으면 `provider: "claude"` 요청만 503, Gemini 경로는 영향 없음 → **값 삭제가 킬스위치**. Preview·Production 양쪽. 전역(setx) 금지, 로컬은 `.env.local` |
+| `ANTHROPIC_API_KEY` | Claude 경로만 | 없으면 (`CLAUDE_ROUTING_ENABLED=1`인 배포에서) `provider: "claude"` 요청만 503, Gemini 경로는 영향 없음 → **값 삭제가 킬스위치**. Preview·Production 양쪽. 전역(setx) 금지, 로컬은 `.env.local` |
 | `CLAUDE_MODEL` | — | 기본 `claude-sonnet-5-5`. 평가 라운드별 교체용 |
+| `CLAUDE_ROUTING_ENABLED` | Claude 경로만 | `"1"`일 때만 Claude를 쓸 수 있는 배포다 — 옵트인 라우팅과 **명시 `provider: "claude"` 둘 다**. 그 밖이면 명시 요청은 `403 PROVIDER_NOT_ENABLED`(Claude 호출 0, Gemini 폴백 없음), 라우팅은 Gemini만. 평가·디버그는 이 값을 켠 Preview/로컬에서 |
 
 ## Claude 경로 (`provider: "claude"`, 2026-10-11 Stage 1)
 
 설계 정본은 `docs/DESIGN-dualllm-saju-baby.md`. 요점만 적는다.
+- **인터록.** 명시 `provider: "claude"`는 `CLAUDE_ROUTING_ENABLED=1`인 배포에서만 Claude로 간다. 아니면 `403 PROVIDER_NOT_ENABLED`(2026-10-15, 무인증 경로의 키 과금 차단).
 - **Gemini 경로는 무변경이다.** `provider`가 없거나 `"gemini"`면 요청·응답 바이트가 이전과 같다.
   `_lib/gemini-generate.regression.test.ts`가 이를 스냅샷으로 잠근다. 그 스냅샷이 바뀌면 갱신할 대상이 아니라 회귀다.
 - **응답 모양은 같다.** 성공 시 Gemini `generateContent` 모양(`candidates[0].content.parts[0].text`)으로 돌려주므로

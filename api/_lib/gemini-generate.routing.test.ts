@@ -316,6 +316,39 @@ describe("explicit provider bypasses routing", () => {
     expect(sdk.constructed).toEqual([expect.objectContaining({ timeout: 180_000 })]);
   });
 
+  it("provider claude without CLAUDE_ROUTING_ENABLED: 403, no Anthropic client, no Gemini", async () => {
+    for (const flag of [undefined, "0", "true"]) {
+      if (flag === undefined) {
+        delete process.env["CLAUDE_ROUTING_ENABLED"];
+      } else {
+        process.env["CLAUDE_ROUTING_ENABLED"] = flag;
+      }
+      const gemini = stubGemini();
+      for (const body of [{ ...babyNamingRequest("FREE"), provider: "claude" }, { ...babyLetterRequest(), ...OPT_IN, provider: "claude" }]) {
+        const captured = await call(body);
+        expect(captured.status).toBe(403);
+        expect(captured.body).toEqual({
+          contract: "app-gemini-generate-v1",
+          error: { code: "PROVIDER_NOT_ENABLED", message: "The requested provider is not enabled on this deployment." }
+        });
+      }
+      expect(gemini.fetchMock).not.toHaveBeenCalled();
+    }
+    expect(sdk.constructed).toHaveLength(0);
+    expect(sdk.create).not.toHaveBeenCalled();
+  });
+
+  it("provider claude with CLAUDE_ROUTING_ENABLED=1 goes straight to Claude, no routing read", async () => {
+    process.env["CLAUDE_ROUTING_ENABLED"] = "1";
+    const gemini = stubGemini();
+    sdk.create.mockResolvedValue(claudeText(freeAnswer()));
+    const captured = await call({ ...babyNamingRequest("FREE"), provider: "claude" });
+    expect(captured.status).toBe(200);
+    expect(captured.headers["x-llm-provider"]).toBe("claude");
+    expect(gemini.fetchMock).not.toHaveBeenCalled();
+    expect(sdk.constructed).toEqual([expect.objectContaining({ timeout: 180_000 })]);
+  });
+
   it("provider gemini ignores a Claude routing value", async () => {
     route("claude", "gemini");
     const gemini = stubGemini();
