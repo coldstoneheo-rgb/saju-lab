@@ -66,6 +66,7 @@
 | 2026-10-11 | 이중 LLM Stage 1(LC HO, 사용자 sign-off D2–D5): 게이트웨이 Claude 경로 — 브랜치 `feat/dualllm-claude-gateway`. 설계문 `a0cf19f` → audit fix `16b853e`(source-map-js high) → P1 기준선 스냅샷 `46d583b` → 기능 `41387d9`(provider 형제 필드·SDK 0.128.0 동적 import·개수 펼침·Gemini 모양 역변환) → 문서. baby 하네스·토글은 Stage 2 | P1: 스냅샷·기존 테스트 diff 0줄, gemini-generate.ts 삽입만. verify exit 0(api 60·core 740·web 49), 번들 `index-CSoxBuOG.js` 불변 |
 | 2026-10-11 | 사용자 직접 승인 «#98 머지, 프로덕션 승격 승인» → PR #98 squash `347a465`, main 자동 배포 `dpl_2XcwQh3B`가 프로덕션 별칭(saju-lab-phi) 차지 | 머지 직전 P1 스냅샷 diff 0. 프로덕션 스모크: provider 오입력 400 · gemini 200 · claude 200(`x-llm-provider: claude`, UTF-8 본문 «안녕») · 런타임 오류 1h 0건 |
 | 2026-10-11 | LC HO(격상): Claude 경로 `claudeEffort: "low"|"medium"` 옵트인 — baby 평가에서 PREMIUM이 medium으로 92s 앱 timeout 초과(14/15). `provider: "claude"`일 때만 해석, high 이상 400, Gemini 경로 무시 | verify exit 0(api 65·core 740·web 49), P1 스냅샷 diff 0, 번들 불변. Preview HTTP는 우회 시크릿 회피로 생략 |
+| 2026-10-15 | LC HO: 명시 `provider:"claude"`도 `CLAUDE_ROUTING_ENABLED` 인터록 뒤로(무인증 경로 과금 차단) — PR #104 `f95cb94` · 사용자 지시 effort TASK — PR #103 `76c2611` | verify exit 0(api 111·core 740·web 49), verifier(high) PASS, P1 스냅샷 내용 diff 0, 프로덕션 스모크 ① claude 403 ② 기본 200 |
 | 2026-10-12 | 사용자 직접 지시 «#100 머지» → verifier PASS(차단 0, 비차단: 빈 문자열·"Medium" 테스트 추가 권고) → PR #100 squash `16bb2ac`, main 자동 배포 success | verifier `npm run verify` exit 0, CI verify pass. 프로덕션 HTTP 스모크 미실시(auto-mode 분류기 «Real-World Transactions» 차단) |
 
 ## 세션 종료 체크
