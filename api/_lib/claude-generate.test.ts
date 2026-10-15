@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ApiRequest, ApiResponse } from "./http.js";
 import { babyLetterRequest, babyNamingRequest } from "./baby-request-fixtures.js";
+import { LIST_PROMPT_LAYER } from "./claude-adapter.js";
 
 /**
  * Handler-level tests for the Claude branch. The SDK is replaced with a fake that
@@ -108,6 +109,7 @@ beforeEach(() => {
   // Explicit `provider: "claude"` is behind the same interlock as routing (HO-2026-1015).
   process.env["CLAUDE_ROUTING_ENABLED"] = "1";
   delete process.env["CLAUDE_MODEL"];
+  delete process.env["CLAUDE_LIST_LAYER"];
   sdk.create.mockReset();
   sdk.constructed.length = 0;
   vi.spyOn(console, "error").mockImplementation(() => undefined);
@@ -182,6 +184,26 @@ describe("Claude path", () => {
     const names = (JSON.parse(body.candidates[0]?.content.parts[0]?.text ?? "{}") as { recommended_names: unknown[] })
       .recommended_names;
     expect(names).toHaveLength(3);
+  });
+
+  it("sends the list layer by default and drops it with CLAUDE_LIST_LAYER=off; the letter never gets it", async () => {
+    sdk.create.mockResolvedValue(claudeReply(freeAnswer()));
+    const systemOf = async (body: unknown) => {
+      sdk.create.mockClear();
+      await handler(makeReq(body), makeRes().res);
+      return (sdk.create.mock.calls[0]?.[0] as { system: Array<{ text: string }> }).system.map((block) => block.text);
+    };
+    const list = { ...babyNamingRequest("FREE"), provider: "claude" };
+    const on = await systemOf(list);
+    expect(on.at(-1)).toBe(LIST_PROMPT_LAYER);
+
+    process.env["CLAUDE_LIST_LAYER"] = "off";
+    const off = await systemOf(list);
+    expect(off).toEqual(on.slice(0, -1));
+
+    delete process.env["CLAUDE_LIST_LAYER"];
+    sdk.create.mockResolvedValue(claudeReply("편지 본문"));
+    expect(await systemOf({ ...babyLetterRequest(), provider: "claude" })).not.toContain(LIST_PROMPT_LAYER);
   });
 
   it("uses CLAUDE_MODEL when set", async () => {

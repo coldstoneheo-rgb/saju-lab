@@ -188,10 +188,31 @@ export function orderingHint(schema: SchemaNode): string | null {
   return ["Write the JSON object's fields in exactly this order:", ...lines].join("\n");
 }
 
+/**
+ * Claude-only system block for the naming **list** (a request with a response schema; the
+ * letter has none). One sentence per error type the two LLM judges found in Claude's v2
+ * lists (baby `docs/eval/2026-10-15-dualllm-judge.md` §1-4): reading ↔ Hanja mismatch,
+ * surname pronunciation element, source element ↔ Hanja mismatch, forced stroke «harmony»,
+ * overstatement. The initial-consonant table is copied verbatim from the app's naming prompt
+ * (baby `NamingRepository.kt` namingSystemInstructionBase, rule 2); a test pins the copy.
+ * It runs alongside the app's ClaudeOutputFilter (duplicate readings,
+ * 30-char clamp), which covers other error types and stays as the safety net.
+ */
+export const LIST_PROMPT_LAYER = [
+  "추천 이름 목록을 쓸 때 아래 다섯 가지를 지킨다.",
+  "- name_korean의 각 음절은 name_hanja의 같은 자리 한자의 표준 한국어 독음과 정확히 같아야 한다. 맞지 않으면 독음이 맞는 다른 한자를 고른다.",
+  "- pronunciation_ohaeng은 성씨 음절까지 포함해 모든 음절을 초성으로 판정한다 — Wood (木): ㄱ, ㅋ / Fire (火): ㄴ, ㄷ, ㄹ, ㅌ / Earth (土): ㅇ, ㅎ / Metal (金): ㅅ, ㅈ, ㅊ / Water (水): ㅁ, ㅂ, ㅍ",
+  "- jawon_ohaeng에는 각 한자의 실제 자원오행을 적고, 부족 오행은 입력에 주어진 값을 그대로 쓰며, 그 오행을 가진 한자가 이름에 실제로 있을 때만 «보완한다»고 쓴다.",
+  "- stroke_yinyang에서 획수의 음양이 한쪽으로 치우치면 «조화»라고 쓰지 말고 있는 그대로 적는다.",
+  "- «완벽하게», «반드시», «최고의» 같은 단정·과장 표현을 쓰지 않는다."
+].join("\n");
+
 export interface ClaudeCallOptions {
   model: string;
   effort: "low" | "medium" | "high";
   maxTokens: number;
+  /** Append [LIST_PROMPT_LAYER] to list requests. Off reproduces the v2 evaluation bytes. */
+  listLayer?: boolean;
 }
 
 function textBlocks(content: ProxyContent): Anthropic.TextBlockParam[] {
@@ -215,6 +236,9 @@ export function toAnthropicParams(
     const hint = orderingHint(schema);
     if (hint !== null) {
       system.push({ type: "text", text: hint });
+    }
+    if (options.listLayer === true) {
+      system.push({ type: "text", text: LIST_PROMPT_LAYER });
     }
   }
 

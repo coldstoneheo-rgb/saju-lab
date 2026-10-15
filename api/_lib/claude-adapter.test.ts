@@ -1,6 +1,7 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { describe, expect, it } from "vitest";
 import {
+  LIST_PROMPT_LAYER,
   SchemaTranslationError,
   fromAnthropicMessage,
   orderingHint,
@@ -200,6 +201,34 @@ describe("toAnthropicParams", () => {
     expect(params).not.toHaveProperty("temperature");
     expect(params.system).toEqual([{ type: "text", text: request.systemInstruction?.parts[0]?.text }]);
     expect(params.messages).toHaveLength(1);
+  });
+
+  it("appends the list layer as one more system block when on, and nothing else changes", () => {
+    for (const tier of ["FREE", "PREMIUM"] as const) {
+      const request = narrowed(babyNamingRequest(tier));
+      const off = toAnthropicParams(request, OPTIONS);
+      const on = toAnthropicParams(request, { ...OPTIONS, listLayer: true });
+
+      const onSystem = on.system as Anthropic.TextBlockParam[];
+      expect(onSystem).toHaveLength(3);
+      expect(onSystem[2]).toEqual({ type: "text", text: LIST_PROMPT_LAYER });
+      // Byte difference is exactly the appended block: same schema, messages, effort, first two blocks.
+      expect({ ...on, system: onSystem.slice(0, 2) }).toEqual(off);
+      expect(JSON.stringify(on).length - JSON.stringify(off).length).toBe(
+        JSON.stringify({ type: "text", text: LIST_PROMPT_LAYER }).length + 1
+      );
+    }
+  });
+
+  it("leaves the letter request untouched even when the list layer is on", () => {
+    const request = narrowed(babyLetterRequest());
+    expect(toAnthropicParams(request, { ...OPTIONS, listLayer: true })).toEqual(toAnthropicParams(request, OPTIONS));
+  });
+
+  it("copies the initial-consonant table verbatim from the app's naming prompt", () => {
+    // baby-naming-ai app/src/main/java/com/example/data/repository/NamingRepository.kt:225 (rule 2).
+    const appTable = "Wood (木): ㄱ, ㅋ / Fire (火): ㄴ, ㄷ, ㄹ, ㅌ / Earth (土): ㅇ, ㅎ / Metal (金): ㅅ, ㅈ, ㅊ / Water (水): ㅁ, ㅂ, ㅍ";
+    expect(LIST_PROMPT_LAYER).toContain(appTable);
   });
 
   it("orders the hint the way the app's schema pins it", () => {
