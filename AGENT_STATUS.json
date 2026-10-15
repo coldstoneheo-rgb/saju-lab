@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-10-15T21:07:00+09:00",
-  "head": "f7f3b9f",
-  "working_on": "[IDLE] HO-2026-1015-saju-explicit-provider-interlock-01 done(#104 f95cb94·#105 f7f3b9f·#103 76c2611)",
-  "waiting_on": "[LC·사용자] 종류별 라우팅 HO(편지 main Claude·목록 main Gemini, LC DEC-2026-1015 초안 사용자 확인 대기) · [사용자] Preview CLAUDE_ROUTING_ENABLED 유무 확인 · Global Config 생성·release ON은 처리방침 게시 뒤",
+  "as_of": "2026-10-16T05:30:00+09:00",
+  "head": "#107 squash (머지 커밋 SHA는 git log main 참조)",
+  "working_on": "[IDLE] · 다음 = DEC-2026-1015 개정(레이어 채택·60s 컷·FREE 2판) 사용자 복귀 뒤",
+  "waiting_on": "[LC·사용자] DEC: Claude 목록 레이어 채택 + 목록 main 60s 컷 동시 결정(REPORT §4) · 종류별 라우팅 HO · Global Config 생성·release ON은 처리방침 게시 뒤",
   "recent": [
+    {
+      "at": "2026-10-16",
+      "what": "HO-2026-1016 Claude 목록 system 레이어 A/B: 발음오행 오기 12→0/156, Claude 심판 15–5–4→18–2–4, Gemini 심판 7–8–9→9–6–9(FREE 후퇴), PREMIUM 상류 p95 57.5s(60s 컷 여유 2s). 비용 ≈$2.28. REPORT docs/eval/2026-10-16-claude-list-prompt-ab.md"
+    },
     {
       "at": "2026-10-15",
       "what": "HO-2026-1015 인터록: 명시 provider:\"claude\"도 CLAUDE_ROUTING_ENABLED 뒤로 — #104 f95cb94, prod 스모크 claude→403·기본→200, 기록 #105 f7f3b9f. 사용자 지시 effort TASK #103 76c2611(/effort status medium)"
@@ -39,6 +43,7 @@
     }
   ],
   "next_actions": [
+    "DEC 뒤: 레이어 채택 시 ROUTED_LIST_MAIN_TIMEOUT_MS 값 조정 · FREE용 레이어 2판(strokeYinyang 문장) 재측정",
     "종류별 라우팅 값 설계(llm_routing 1값 → list/letter 분리, 하위 호환) — HO 수령 뒤",
     "baby 평가 러너 대상 = Preview(ENABLED=1) 또는 로컬 (prod는 명시 claude 403)",
     "prod modelVersion gemini-3.6-flash vs 문서 기본 3.5 불일치 확인"

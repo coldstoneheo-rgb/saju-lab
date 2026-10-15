@@ -4,6 +4,20 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-10-16
+project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1016-saju-claude-list-prompt-ab-01, 무인 루프)
+summary: Claude 목록 전용 system 레이어(2판 지적 5유형) + 24쌍 재생성·2심판 96호출 A/B — 발음오행 오기 12→0/156, Claude 심판 15–5–4→18–2–4, Gemini 심판 7–8–9→9–6–9
+status: on_track
+progress: "레이어 구현·A/B 완료 (근거: npm run verify exit 0 api115·core740·web49, verifier PASS, PR #107 CI pass, 생성 24/24·심판 96/96 실패 0, Anthropic 실비 ≈$2.28/$5). 프로덕션 호출·배포 0"
+changes: ["#107 feat(api): Claude 목록 system 레이어 + docs/eval/2026-10-16-claude-list-prompt-ab.md", "baby #187 fbe536c -DevalKinds"]
+next: "LC·사용자 DEC — 레이어 채택 여부 + 목록 main 60s 컷(ROUTED_LIST_MAIN_TIMEOUT_MS) 동시 결정, FREE는 레이어 2판(strokeYinyang 문장) 재측정 여부"
+blockers: "없음 (결정 대기만)"
+---
+## 의미
+2판에서 지적된 Claude 목록의 정확성 결함(성씨 발음오행 오기·독음·자원오행)이 프롬프트 한 블록으로 결정적 지표상 0이 됐다. 대가는 PREMIUM 상류 p95 44.6→57.5s로, 라우팅 60s 컷과 여유 2s다. 그래서 레이어 채택은 타임아웃 값과 묶어서 정해야 한다. FREE는 두 심판 모두 설명 길이 축에서 후퇴했다. 레이어는 env `CLAUDE_LIST_LAYER=off`로 즉시 끌 수 있다.
+
+---
 date: 2026-10-15
 project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1015 + 사용자 직접 effort TASK)

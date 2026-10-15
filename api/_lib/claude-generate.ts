@@ -54,7 +54,9 @@ export async function runClaude(
   const model = process.env["CLAUDE_MODEL"] || DEFAULT_MODEL;
   let params: Anthropic.MessageCreateParamsNonStreaming;
   try {
-    params = toAnthropicParams(request, { model, effort, maxTokens: MAX_TOKENS });
+    // CLAUDE_LIST_LAYER=off reproduces the v2 evaluation request (no list layer).
+    const listLayer = process.env["CLAUDE_LIST_LAYER"] !== "off";
+    params = toAnthropicParams(request, { model, effort, maxTokens: MAX_TOKENS, listLayer });
   } catch (error) {
     if (error instanceof SchemaTranslationError) {
       return {
