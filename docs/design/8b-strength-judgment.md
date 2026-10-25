@@ -105,7 +105,9 @@ function strengthReadingsOf(factors: StrengthFactors): StrengthReading[]; // 규
 - 레코드에는 `doctrine`만 싣는다. `execution`은 골든 표의 상태라 런타임 값이 아니다.
 - **골든 분기(완료 조건 3):** 8a 골든이 50/50 `pending`(실측 2026-10-25, confirmed 0)이라 8b-1 골든 표 `GOLDEN-STRENGTH-READINGS.md`는 **보류**한다. 8a 셀 자체가 확정되지 않았는데 그 위에 판독 골든을 쌓으면 상한 예외를 한 겹 더 만든다. 대신 8b-1 테스트가 8a 골든 md 셀(득령·득지·득세·월지충 열)을 읽어 규칙표를 적용한 기대값과 코어를 대조한다. 8a가 confirmed가 되면 같은 유도로 READINGS 표를 `실행: pending`으로 생성한다.
 
-## 6. 8b-2 용신 후보 연결 인터페이스 (구현은 다음 회차)
+## 6. 8b-2 용신 후보 연결 인터페이스 (구현 = HO-2026-1026, 정본 `docs/rules/YONGSIN-CANDIDATES.md`)
+
+> 구현 메모(2026-10-26): `candidateId`는 억부에 `@${ruleSetId}`를 덧붙인다(판독 세트마다 같은 id가 나와 유일성이 깨지므로). 두 번째 인자는 `Pick<StrengthReading, "ruleSetId" | "verdict">[]`. `indeterminate`의 사유는 규칙 md 표 1 행으로만 남는다(후보 배열 밖).
 
 ```ts
 interface YongsinCandidate {
