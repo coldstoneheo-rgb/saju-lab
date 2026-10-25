@@ -14,9 +14,9 @@
 | --- | --- | --- |
 | 월지 · 월지 장간(여기·중기·정기) | 8a `layers.hiddenStems`(pillar = month) | 학파 영향 있음 |
 | 월지 장간의 투출 위치 | 8a `exposed` | 일간에 투출된 것은 제외(일간은 격의 주체) |
-| 사령 천간 | 8a `saryeong.stem` | `yeonhae` 전용. `japyeong`이면 사령 세트는 `unavailable` |
+| 사령 천간 | 8a `saryeong.stem` | `yeonhae` 전용. `saryeong: null`이면 8a `saryeongUnavailable`(`no-day-counts` · `month-term-mismatch`)을 그대로 사령 세트 `unavailable`로 옮긴다 |
 | 월지 정기 십신 | 8a `deukryeong.tenGod` | |
-| 월지 충 | 8a `monthBranchClashed` | 격 «흔들림» 표시용 불리언 — 판정에 쓰지 않고 그대로 싣는다 |
+| 월지 충 | 8a `monthBranchClashed.value` | 격 «흔들림» 표시용 불리언(`.value`만 복사) — 판정에 쓰지 않는다 |
 
 ```
 8a strengthFactors ──┬──> 8b-1 strengthReadings ──> 8b-2 yongsinCandidates
@@ -41,10 +41,13 @@
 | 양인 대상 일간 | 양간만 / 음간 포함 | 음간 양인은 학파 갈림 | **양간만** 양인. 음간 일간의 월지가 겁재 정기면 `wolgeop`(월겁) |
 | 토(戊己) 일간 고지 월지(辰戌丑未 정기 = 비겁) | 잡기(雜氣)격으로 투출 장간 취격 / 비겁격 | 자평진전 잡기 재관 | 록·양인 표에 없으면 ①②③ 세트 규칙 그대로(정기 비겁이면 `bigyeop-month` 사유로 후보 0) |
 
-**록(祿)·양인(羊刃) 표(v1 정의):** 록 = 甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉 壬亥 癸子 · 양인(양간만) = 甲卯 丙午 戊午 庚酉 壬子. 월지가 일간의 록이면 `geonrok`, 양인이면 `yangin`. 戊·己는 정기 십신이 아니라 이 표로 정한다(戊 일간 巳월 = 건록, 巳 정기 丙은 편인).
 | 외격(종격·화격·일행득기 등) | 포함 / 제외 | 성립 판단이 化·從 판단을 요구 | **v1 제외**(회의 Q1 기본값) — 사용자 확인 목록 |
 | 성격·파격·상신 | 포함 / 제외 | 판단 | **v1 제외** |
 | 지장간 학파 | `yeonhae` / `japyeong` | HIDDEN-STEMS 표 1·2 | 기존 `options.school` |
+
+**록(祿)·양인(羊刃) 표(v1 정의):** 록 = 甲寅 乙卯 丙巳 丁午 戊巳 己午 庚申 辛酉 壬亥 癸子 · 양인(양간만) = 甲卯 丙午 戊午 庚酉 壬子. 월지가 일간의 록이면 `geonrok`, 양인이면 `yangin`. 戊·己는 정기 십신이 아니라 이 표로 정한다(戊 일간 巳월 = 건록, 巳 정기 丙은 편인).
+
+**정기 비겁(록·양인 표 밖) 세트별 처리:** ① 투출 우선 — 정기 비겁은 건너뛰고 투출된 중기·여기로 취격(잡기 취격), 투출 없으면 후보 0 + `unavailable: "bigyeop-month"` / ② 사령 — 사령 천간이 비겁이면 후보 0 + `bigyeop-month`, 아니면 그 천간 / ③ 정기 고정 — 항상 후보 0 + `bigyeop-month`.
 
 - **기본 세트 없음.** 세 세트를 모두 실행한다. 관점층이 세트 id를 인용한다(담천 = `exposed-first` 예상).
 - **채택안을 못 정한 항목**(양쪽 병기 + `unreviewed`): 투출 여러 개의 우선순위 · 음간 양인 · 외격 포함 여부.
@@ -60,8 +63,8 @@ interface GyeokgukReading {
   ruleSetId: "gyeokguk.exposed-first" | "gyeokguk.primary-only" | "gyeokguk.saryeong";
   candidates: Array<{ gyeok: GyeokId; stem: Stem; role: HiddenRole; exposedIn: PillarKey[] }>; // 보통 1개, ambiguous면 2개
   ambiguous: boolean;
-  unavailable?: "no-day-counts" | "bigyeop-month"; // 사령 세트 + japyeong / 록·양인 아닌 정기 비겁
-  monthBranchClashed: boolean;        // 8a 그대로, 판정에 쓰지 않음
+  unavailable?: "no-day-counts" | "month-term-mismatch" | "bigyeop-month"; // 앞 둘 = 8a saryeongUnavailable 그대로(사령 세트) / 정기 비겁
+  monthBranchClashed: boolean;        // 8a monthBranchClashed.value, 판정에 쓰지 않음
   school: HiddenStemSchool;
   precision: StrengthPrecision;       // 시각 미상이면 시간 투출이 빠진다
   doctrine: "unreviewed";
@@ -70,6 +73,10 @@ interface GyeokgukReading {
 
 - 점수·성패·순위 필드 없음. `candidates` 순서 = 정기 → 중기 → 여기(자리 순), 순위 아님.
 - 세트 간 일치 필드: 강약과 같은 이름·형식으로 둔다(8b-1에서 정한 필드를 재사용).
+
+## 3-1. 공개 계약
+
+`saju-pillars-v1` 기본 응답은 바뀌지 않는다. 격국 블록은 9단계에서 `options.include`(가칭 `gyeokguk`)로만 열고, 열기 전에는 `INVALID_OPTIONS`(include-only 규칙, `SAJU_PILLARS_API_V1.md`).
 
 ## 4. 골든 설계
 
@@ -101,3 +108,4 @@ lunar-typescript 1.8.6에는 격국 API가 없다(`dist/index.d.ts` grep: 십신
 1. 외격 포함 여부 — 기본값 **제외**.
 2. 투출 여러 개 우선순위 — 기본값 **둘 다 후보 + ambiguous**.
 3. 음간 양인 — 기본값 **양간만**(음간은 월겁).
+4. 건록·양인·월겁 3격 추가 — 회의 1003 E2 표는 「정격 8격만」이었다. 이 설계는 월지 비겁을 「격 없음」으로 버리지 않으려고 3격을 별도 id로 더했다(범위 확대). 기본값 **추가**, 거부 시 3 id를 `unavailable: "bigyeop-month"`로 접는다.
