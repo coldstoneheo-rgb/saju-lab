@@ -27,8 +27,9 @@
 | `npm run verify` (#109 브랜치, `agreesAcrossSets` 전) | typecheck OK · api **115** · core **774**(기준선 740, +34) · web **49** · build OK · **Audit fail**(아래) → EXIT 1 |
 | `npx vitest run src` + `npx tsc --noEmit` (core, `agreesAcrossSets` 뒤) | 774/774 · tsc OK · root `npm run typecheck` OK · `git diff --check` OK |
 | CI `verify` (#108·#109·#110) | Audit 단계만 failure, 나머지 step success |
+| `npx vitest run src/index.test.ts src/saju-pillars-v1.test.ts` (core, 첫 커밋 직후) | **238** — LC 보고의 «core 238»은 이 두 파일 분할만의 수다(core 전체 774와 다른 집계) |
 
-**Audit 선존재 결함:** `npm audit --audit-level=moderate` → 4건(low 1 · moderate 2 · high 1), vitest / `@vitest/mocker` 계열, `npm audit fix` 가능 표시. main 마지막 CI(10-15 #107)는 green이었으므로 그 뒤 공개된 advisory다. 이 HO 변경과 무관하다. **권고:** 의존성 업그레이드 TASK 1건 별도(vitest 메이저 여부 확인 → verify 전체 재실행).
+**Audit 선존재 결함 4건:** `npm audit --audit-level=moderate` → 4 vulnerabilities(low 1 · moderate 2 · high 1), vitest / `@vitest/mocker` 계열(로그: «Depends on vulnerable versions of @vitest/mocker»), `npm audit fix` 가능 표시. main 마지막 CI(10-15 #107)는 green이었으므로 그 뒤 공개된 advisory다. 이 HO 변경과 무관하다. **권고:** 의존성 업그레이드 TASK 1건 별도(vitest 메이저 여부 확인 → verify 전체 재실행).
 
 ## 테스트가 실행한 분기 (8b-1)
 
