@@ -4,6 +4,21 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-10-25
+project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1025-saju-8b-design-01, 사용자 외출 중 LC 하네스)
+summary: 8b 착수 — 강약 판독 설계서 + 8b-1 strengthReadingsOf(세트 2 병렬·doctrine unreviewed·세트 간 일치 필드) + 격국·신살 설계서 2장, 기본 응답 바이트 고정 테스트
+status: on_track
+progress: "8b-1 코드 완료·골든 보류(8a 50/50 pending) (근거: npm run verify typecheck·test api115·core774·web49·build OK, Audit만 선존재 fail · verifier PASS ×3 · LC 게이트 ×3 · #108 #109 #110 MERGED). 배포 0"
+changes: ["#108 a719d90 docs(design): 8b 강약 판독 설계서", "#109 9cf9be8 feat(saju-core): 8b-1 strengthReadingsOf", "#110 8fe4a04 docs(design): 격국·신살 설계서", "docs/handoffs/HO-2026-1025-saju-8b-REPORT.md"]
+next: "8b-2 yongsinCandidatesOf + 격국 착수 HO(LC) — 골든은 8a 52행 재계산 뒤"
+blockers: "8b-1·격국 골든 = LC 채무(8a 재계산) 대기 · CI Audit 빨강(vitest 계열 advisory 4건, 코드 무관)"
+learning_need: "괴강 판본(壬戌 포함 vs 戊戌 포함) 서지 확인 — 신살 착수 전"
+---
+## 의미
+09-24 이후 멈췄던 L2 8단계가 «실행 축» 기준으로 다시 움직였다. 강약은 학파를 단정하지 않고 세트 둘을 나란히 내며, 골든 50에서 10행이 세트끼리 갈린다는 사실과 지장간 학파만 바꿔도 1행의 판독이 뒤집힌다는 사실을 테스트로 고정했다. baby 공급 엔진의 기본 응답은 바이트 스냅샷으로 묶여, 남은 격국·신살 단계가 붙어도 작명 결과가 조용히 바뀌지 않는다.
+
+---
 date: 2026-10-16
 project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1016-saju-claude-list-prompt-ab-01, 무인 루프)

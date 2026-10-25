@@ -65,7 +65,7 @@ v1 후보 세트(초안 — 저작·검수는 10단계 관점 md와 함께):
 | `strength.triad-majority` | 득령·득지·득세 중 2개 이상 참 = `strong`, 1개 이하 = `weak`. 동률 구조 없음 | 통용 교재(삼득 다수결) |
 | `strength.month-first` | 득령 참이면 `strong` 쪽, 거짓이면 득지·득세 둘 다 참일 때만 `strong`. 월지 충(`monthBranchClashed`)이면 `indeterminate` | 월령 우선(자평 계열) |
 
-출력 = `{ruleSetId, verdict, firedConditions[], factorRefs[]}`. **기본 세트 없음 — 모든 세트를 실행해 나란히 돌려준다.** 관점 md가 어느 세트를 인용할지 고른다(담천 = 월령 우선, 한소율 = 다수결, 안).
+출력 = `{ruleSetId, verdict, firedConditions[], factorRefs[]}`. **(2026-10-25 구현 정본으로 대체: 규칙표 `docs/rules/STRENGTH-READINGS.md`, 출력 `docs/design/8b-strength-judgment.md` §2 — `factorRefs[]` 대신 `inputs`·`definitionIds`, 세트 간 일치 `agreesAcrossSets` 추가.)** **기본 세트 없음 — 모든 세트를 실행해 나란히 돌려준다.** 관점 md가 어느 세트를 인용할지 고른다(담천 = 월령 우선, 한소율 = 다수결, 안).
 
 ### 3-2. 용신 후보 `yongsinCandidates[]`
 

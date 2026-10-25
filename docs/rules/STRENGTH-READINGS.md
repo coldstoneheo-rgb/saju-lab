@@ -6,6 +6,7 @@
 - **기본 세트는 없다.** 코어는 아래 세트를 전부 실행해 `ruleSetId` 순으로 나란히 돌려준다. 어느 세트를 인용할지는 관점층이 고른다.
 - 세트마다 조건 행을 `순서`대로 평가하고 **첫 일치**에서 멈춘다. 결과 = `verdict`(`strong` · `weak` · `indeterminate`) + 발화 조건 id.
 - 레코드마다 `doctrine: "unreviewed"`를 싣는다. 이 표의 명리학적 타당성은 G2-3(실제 역술가 대조) 전에는 검토되지 않았다.
+- **출력 레코드** = `{ruleSetId, verdict, firedConditions[1], inputs, definitionIds, school, precision, agreesAcrossSets, doctrine}` — 필드 정의는 `docs/design/8b-strength-judgment.md` §2.
 - 시각 미상이면 판독은 그대로 계산하고 8a의 `precision: "time-unknown"`을 복사한다(득세가 기둥 3으로 세어진다).
 
 ## 표 1 — 조건 토큰
