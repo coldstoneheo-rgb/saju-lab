@@ -60,7 +60,7 @@
 - **무엇:** #109 머지 뒤 `git worktree remove --force ../saju-8b1`이 워크트리 안의 NTFS junction(`node_modules` → 메인 repo `node_modules`, `apps/web/node_modules` → 메인 `apps/web/node_modules`)을 따라가 메인 repo의 `node_modules`와 `apps/web`·`packages/saju-core` 추적 파일 90개를 지웠다. 직전 junction 해제(`rmdir`)는 경로 이스케이프 오류로 실패했는데, 그걸 확인하지 않고 `--force`로 진행했다.
 - **피해:** 추적 파일 90개(전부 커밋된 상태) · 의존성 · 빌드 산출물. `.env.local`·`.vercel`·`.claude/settings.local.json`은 남아 있었다. 원격·커밋 영향 0.
 - **복구:** `git restore -- apps packages` → 삭제 90 → 0 · `npm ci` · main에서 typecheck OK · test api115·core774·web49 · build OK · `git status` clean.
-- **재발 방지:** 워크트리에 junction을 걸었으면 제거 전에 `cmd /c rmdir <junction>` 성공을 확인하고, `--force` 없이 `git worktree remove`를 쓴다. 남은 복사본 `C:\Users\colds\saju-8b1`은 `rm -rf`가 권한 거부돼 그대로 두었다(내용 = 추적 파일 복사본, junction 없음 확인).
+- **재발 방지:** 워크트리에 junction을 걸었으면 제거 전에 `cmd /c rmdir <junction>` 성공을 확인하고, `--force` 없이 `git worktree remove`를 쓴다. 남은 복사본 `C:\Users\colds\saju-8b1`은 `rm -rf`가 권한 거부돼 그대로 두었다(내용 = 추적 파일 복사본). 처음엔 «junction 없음»으로 적었으나 재확인에서 `packages/saju-core/node_modules` junction 1개가 남아 있어 `cmd /c rmdir`로 링크만 끊었다(메인 쪽 대상 유지 확인, 남은 reparse point 0).
 
 ## LC 채무
 
