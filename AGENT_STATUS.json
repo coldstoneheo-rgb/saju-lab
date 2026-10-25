@@ -1,13 +1,13 @@
 {
   "project": "saju-lab",
   "as_of": "2026-10-25T19:40:00+09:00",
-  "head": "#109 squash (__109_SHA__) — 이 PR 머지 뒤 git log main 참조",
+  "head": "#109 squash (9cf9be8) — 이 PR 머지 뒤 git log main 참조",
   "working_on": "[IDLE] · HO-2026-1025 8b 착수 완료(설계서 #108·8b-1 #109·격국·신살 설계서 #110) · 다음 = 8b-2 + 격국 착수 HO 수령",
   "waiting_on": "[LC] 8a 골든 52행 재계산 채무(READINGS·격국 골든 선행) · Audit 의존성 TASK 발주 여부 · [사용자] REPORT 확인 목록 6건(기본값 진행) · DEC-2026-1015(레이어·60s 컷·FREE 2판) 별건",
   "recent": [
     {
       "at": "2026-10-25",
-      "what": "HO-2026-1025 8b: 설계서 #108 a719d90 · 8b-1 strengthReadingsOf #109 __109_SHA__(세트 2 병렬, doctrine unreviewed, agreesAcrossSets, 기본 응답 바이트 스냅샷) · 격국·신살 설계서 #110 8fe4a04. verify api115·core774·web49, Audit 선존재 fail(vitest 계열 4건). REPORT docs/handoffs/HO-2026-1025-saju-8b-REPORT.md"
+      "what": "HO-2026-1025 8b: 설계서 #108 a719d90 · 8b-1 strengthReadingsOf #109 9cf9be8(세트 2 병렬, doctrine unreviewed, agreesAcrossSets, 기본 응답 바이트 스냅샷) · 격국·신살 설계서 #110 8fe4a04. verify api115·core774·web49, Audit 선존재 fail(vitest 계열 4건). REPORT docs/handoffs/HO-2026-1025-saju-8b-REPORT.md"
     },
     {
       "at": "2026-10-16",

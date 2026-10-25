@@ -6,7 +6,7 @@
 
 - [x] 1. 계획 REPLY — 8a 골든 실측: `| pending |` 50 · `| confirmed |` 0, 마지막 갱신 a253f08(#90)·팩 54230cb(#93) → 완료 조건 3은 **(b) 분기**
 - [x] 2. 8b 설계서 `docs/design/8b-strength-judgment.md` → #108 **a719d90**
-- [x] 3. 8b-1 구현(판정 함수 + 픽스처 24 + 골든 50 md 유도 대조) · (b) READINGS 골든 표 보류 · 8a 재계산 LC 채무 1줄 → #109 **__109_SHA__**
+- [x] 3. 8b-1 구현(판정 함수 + 픽스처 24 + 골든 50 md 유도 대조) · (b) READINGS 골든 표 보류 · 8a 재계산 LC 채무 1줄 → #109 **9cf9be8**
 - [x] 4. 격국·신살 설계서 2장 → #110 **8fe4a04**
 - [x] 5. baby 공급 계약 테스트(기본 응답 바이트 스냅샷 + `strengthReadings` include 미개방 → `INVALID_OPTIONS`) + include-only 1절(`SAJU_PILLARS_API_V1.md`) → #109
 - [x] 6. 테스트 증가분 green · verify(Audit 선존재 fail 표기) · verifier PASS ×3 · LC 게이트 ×3 → 머지
@@ -17,7 +17,7 @@
 | PR | 범위 | verifier | LC 게이트 | 머지 |
 | --- | --- | --- | --- | --- |
 | #108 | 8b 설계서 + REPORT 초안 | PASS(high) — 골든 50 분포 독립 재계산 일치 | 차단 0 · 관찰 5 | a719d90 |
-| #109 | `l2/strength-readings.ts` · `docs/rules/STRENGTH-READINGS.md` · 테스트 34 · 계약 테스트 · API include-only 1절 · `agreesAcrossSets` | PASS(high) — core 774/774, 기본 응답 671B main 실측 일치 · 델타 재검증 | 판정 반영 | __109_SHA__ |
+| #109 | `l2/strength-readings.ts` · `docs/rules/STRENGTH-READINGS.md` · 테스트 34 · 계약 테스트 · API include-only 1절 · `agreesAcrossSets` | PASS(high) — core 774/774, 기본 응답 671B main 실측 일치 · 델타 재검증 | 판정 반영 | 9cf9be8 |
 | #110 | 격국 취격·신살 설계서 2장(코드 0) | 조건부 PASS(high) — 명리 사실 틀린 칸 0, 권고 6 반영 | 차단 0 · 관찰 6 | 8fe4a04 |
 
 ## 검증 (명령 · 결과)
@@ -54,6 +54,13 @@
 3. **월지 비겁 처리 = 범위 확대** — 회의 E2 «정격 8격만» 대비 격국 설계에 건록·양인·월겁 3 id를 더했다. 사용자 확인 목록 5번.
 4. **lunar-typescript 1.8.6** — 격국 API 없음, 신살 계열은 택일용(`getDayJiShen`·`getDayXiongSha`·`getDaySha`·`getTianShen*`). 둘 다 명식 교차 차분 대상 아님.
 5. **괴강 판본** — 「庚辰 庚戌 壬辰 戊戌(壬戌 제외)」 판본 존재 가능(verifier 기억, 서지 미확인). 신살 착수 HO에서 서지 확인.
+
+## 사고 기록 — 워크트리 정리 중 메인 작업 트리 삭제 (복구 완료)
+
+- **무엇:** #109 머지 뒤 `git worktree remove --force ../saju-8b1`이 워크트리 안의 NTFS junction(`node_modules` → 메인 repo `node_modules`, `apps/web/node_modules` → 메인 `apps/web/node_modules`)을 따라가 메인 repo의 `node_modules`와 `apps/web`·`packages/saju-core` 추적 파일 90개를 지웠다. 직전 junction 해제(`rmdir`)는 경로 이스케이프 오류로 실패했는데, 그걸 확인하지 않고 `--force`로 진행했다.
+- **피해:** 추적 파일 90개(전부 커밋된 상태) · 의존성 · 빌드 산출물. `.env.local`·`.vercel`·`.claude/settings.local.json`은 남아 있었다. 원격·커밋 영향 0.
+- **복구:** `git restore -- apps packages` → 삭제 90 → 0 · `npm ci` · main에서 typecheck OK · test api115·core774·web49 · build OK · `git status` clean.
+- **재발 방지:** 워크트리에 junction을 걸었으면 제거 전에 `cmd /c rmdir <junction>` 성공을 확인하고, `--force` 없이 `git worktree remove`를 쓴다. 남은 복사본 `C:\Users\colds\saju-8b1`은 `rm -rf`가 권한 거부돼 그대로 두었다(내용 = 추적 파일 복사본, junction 없음 확인).
 
 ## LC 채무
 

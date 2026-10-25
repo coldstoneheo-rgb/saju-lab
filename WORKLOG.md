@@ -10,7 +10,7 @@ agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1025-saju-8b-design-01, �
 summary: 8b 착수 — 강약 판독 설계서 + 8b-1 strengthReadingsOf(세트 2 병렬·doctrine unreviewed·세트 간 일치 필드) + 격국·신살 설계서 2장, 기본 응답 바이트 고정 테스트
 status: on_track
 progress: "8b-1 코드 완료·골든 보류(8a 50/50 pending) (근거: npm run verify typecheck·test api115·core774·web49·build OK, Audit만 선존재 fail · verifier PASS ×3 · LC 게이트 ×3 · #108 #109 #110 MERGED). 배포 0"
-changes: ["#108 a719d90 docs(design): 8b 강약 판독 설계서", "#109 __109_SHA__ feat(saju-core): 8b-1 strengthReadingsOf", "#110 8fe4a04 docs(design): 격국·신살 설계서", "docs/handoffs/HO-2026-1025-saju-8b-REPORT.md"]
+changes: ["#108 a719d90 docs(design): 8b 강약 판독 설계서", "#109 9cf9be8 feat(saju-core): 8b-1 strengthReadingsOf", "#110 8fe4a04 docs(design): 격국·신살 설계서", "docs/handoffs/HO-2026-1025-saju-8b-REPORT.md"]
 next: "8b-2 yongsinCandidatesOf + 격국 착수 HO(LC) — 골든은 8a 52행 재계산 뒤"
 blockers: "8b-1·격국 골든 = LC 채무(8a 재계산) 대기 · CI Audit 빨강(vitest 계열 advisory 4건, 코드 무관)"
 learning_need: "괴강 판본(壬戌 포함 vs 戊戌 포함) 서지 확인 — 신살 착수 전"
