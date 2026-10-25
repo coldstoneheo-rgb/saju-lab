@@ -111,7 +111,7 @@ function strengthReadingsOf(factors: StrengthFactors): StrengthReading[]; // 규
 
 ```ts
 interface YongsinCandidate {
-  candidateId: string;              // `${method}.${ruleId}.${element}`
+  candidateId: string;              // `${method}.${ruleId}.${element}` (+ 억부는 `@${ruleSetId}`)
   element: FiveElement;
   method: "eokbu" | "johu";
   ruleId: string;                   // docs/rules/YONGSIN-CANDIDATES.md 행 id
@@ -121,7 +121,7 @@ interface YongsinCandidate {
   doctrine: "unreviewed";
 }
 
-function yongsinCandidatesOf(factors: StrengthFactors, readings: StrengthReading[]): YongsinCandidate[];
+function yongsinCandidatesOf(factors: StrengthFactors, readings: ReadonlyArray<Pick<StrengthReading, "ruleSetId" | "verdict">>): YongsinCandidate[];
 ```
 
 | 연결 | 규칙(상위 설계 §3-2) |
