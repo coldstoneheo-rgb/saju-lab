@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-10-16T05:30:00+09:00",
-  "head": "#107 squash (머지 커밋 SHA는 git log main 참조)",
-  "working_on": "[IDLE] · 다음 = DEC-2026-1015 개정(레이어 채택·60s 컷·FREE 2판) 사용자 복귀 뒤",
-  "waiting_on": "[LC·사용자] DEC: Claude 목록 레이어 채택 + 목록 main 60s 컷 동시 결정(REPORT §4) · 종류별 라우팅 HO · Global Config 생성·release ON은 처리방침 게시 뒤",
+  "as_of": "2026-10-25T19:40:00+09:00",
+  "head": "#109 squash (__109_SHA__) — 이 PR 머지 뒤 git log main 참조",
+  "working_on": "[IDLE] · HO-2026-1025 8b 착수 완료(설계서 #108·8b-1 #109·격국·신살 설계서 #110) · 다음 = 8b-2 + 격국 착수 HO 수령",
+  "waiting_on": "[LC] 8a 골든 52행 재계산 채무(READINGS·격국 골든 선행) · Audit 의존성 TASK 발주 여부 · [사용자] REPORT 확인 목록 6건(기본값 진행) · DEC-2026-1015(레이어·60s 컷·FREE 2판) 별건",
   "recent": [
+    {
+      "at": "2026-10-25",
+      "what": "HO-2026-1025 8b: 설계서 #108 a719d90 · 8b-1 strengthReadingsOf #109 __109_SHA__(세트 2 병렬, doctrine unreviewed, agreesAcrossSets, 기본 응답 바이트 스냅샷) · 격국·신살 설계서 #110 8fe4a04. verify api115·core774·web49, Audit 선존재 fail(vitest 계열 4건). REPORT docs/handoffs/HO-2026-1025-saju-8b-REPORT.md"
+    },
     {
       "at": "2026-10-16",
       "what": "HO-2026-1016 Claude 목록 system 레이어 A/B: 발음오행 오기 12→0/156, Claude 심판 15–5–4→18–2–4, Gemini 심판 7–8–9→9–6–9(FREE 후퇴), PREMIUM 상류 p95 57.5s(60s 컷 여유 2s). 비용 ≈$2.28. REPORT docs/eval/2026-10-16-claude-list-prompt-ab.md"
@@ -43,13 +47,16 @@
     }
   ],
   "next_actions": [
+    "8b-2 yongsinCandidatesOf(설계서 §6 인터페이스) + 격국 K1~K6 착수 HO 수령",
+    "Audit: vitest/@vitest/mocker advisory 4건 의존성 업그레이드 TASK(별도)",
+    "8a confirmed 뒤 GOLDEN-STRENGTH-READINGS.md 50행 실행 pending 생성",
     "DEC 뒤: 레이어 채택 시 ROUTED_LIST_MAIN_TIMEOUT_MS 값 조정 · FREE용 레이어 2판(strokeYinyang 문장) 재측정",
     "종류별 라우팅 값 설계(llm_routing 1값 → list/letter 분리, 하위 호환) — HO 수령 뒤",
     "baby 평가 러너 대상 = Preview(ENABLED=1) 또는 로컬 (prod는 명시 claude 403)",
     "prod modelVersion gemini-3.6-flash vs 문서 기본 3.5 불일치 확인"
   ],
   "gauge": {
-    "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살)",
+    "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살) — 강약은 8a+8b-1 코드 완료, 골든 confirmed 대기라 미산입",
     "value": 4,
     "max": 8
   },
