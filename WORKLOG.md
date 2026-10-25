@@ -4,6 +4,20 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-10-26
+project: saju-lab
+agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1026-saju-8b2-gyeokguk-01, 사용자 취침 중 LC 하네스)
+summary: 8b-2 용신 후보(yongsinCandidatesOf) + 격국 취격(gyeokgukReadingsOf, K1~K6 중 K3 골든 표만 8a 대기) + 의존성 audit 0
+status: on_track
+progress: "8b-2·격국 코드 완료·골든 표 보류(8a 50/50 pending) (근거: npm run verify EXIT 0 ×4 core 774→868·api115·web49·audit 0 · verifier PASS ×3 · LC 게이트 · #112~#115 MERGED). 배포 0"
+changes: ["#112 0661a83 chore(deps): npm audit fix", "#113 d32c347 feat(saju-core): 8b-2 yongsinCandidatesOf", "#114 0237f8d feat(saju-core): 격국 gyeokgukReadingsOf", "#115 1d7475f test(saju-core): 격국 K3", "docs/handoffs/HO-2026-1026-saju-8b2-REPORT.md"]
+next: "LC 8a 52행 재계산 → 파생 골든 3장(READINGS·YONGSIN·GYEOKGUK, 156행) 생성 PR — 아니면 신살 S1~S6 착수 HO"
+blockers: "파생 골든 3장 = LC 채무(8a 재계산) 대기"
+---
+## 의미
+L2 8단계 안A 순서(8b → 격국 → 신살)에서 격국까지 코드가 닫혔다. 용신과 격 모두 하나로 고르지 않고 학파별 세트를 나란히 내며, 골든 50에서 격국 세트가 21행에서 갈린다는 사실과 설계서 안의 월겁/토 고지 충돌을 실측으로 드러내 사용자 확인 목록에 올렸다. CI Audit 빨강이 풀려 다음 PR부터 게이트가 다시 초록 기준이 됐고, 기본 응답은 여전히 바이트 동일이라 baby 공급은 영향이 없다.
+
+---
 date: 2026-10-25
 project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1025-saju-8b-design-01, 사용자 외출 중 LC 하네스)
