@@ -46,6 +46,7 @@ function strengthReadingsOf(factors: StrengthFactors): StrengthReading[]; // 규
 - **`balanced` 없음:** v1 세트 둘 다 `balanced`를 내지 않는다. 낼 세트가 생기면 열거값을 추가한다(additive).
 - **시각 미상:** 판독은 그대로 계산하고 `precision`만 복사한다. 득세가 기둥 3으로 세어져 뒤집힐 수 있다는 점은 소비 측(9·11단계) 고지 몫이다. 판독을 `indeterminate`로 바꾸지 않는다 — 그건 학설 결정이다.
 - 순서 = `ruleSetId` 사전순. 순위가 아니다.
+- **상위 설계 §3-1과의 의도적 차이:** 상위의 `factorRefs[]` 대신 `inputs`(값 스냅샷)·`definitionIds`를 싣는다 — 참조만으로는 재계산 시 값을 다시 찾아야 해서다. `firedConditions`는 첫 일치 평가라 항상 1개다(배열 형태는 상위와 같다). 상위 설계 §3-1의 출력 줄은 이 문서로 대체된다.
 
 ## 3. 판정 규칙표 (정본 = `docs/rules/STRENGTH-READINGS.md`)
 
@@ -110,6 +111,8 @@ interface YongsinCandidate {
   method: "eokbu" | "johu";
   ruleId: string;                   // docs/rules/YONGSIN-CANDIDATES.md 행 id
   basis: { readingRef?: { ruleSetId: string; verdict: StrengthVerdict }; factorRefs: string[] };
+  /** 규칙 정체성만 적는다(상위 §6). 사람 대면 문장 아님. */
+  note: string;
   doctrine: "unreviewed";
 }
 
