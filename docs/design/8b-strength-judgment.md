@@ -80,7 +80,7 @@ function strengthReadingsOf(factors: StrengthFactors): StrengthReading[]; // 규
 | strength.triad-majority | 29 | 21 | 0 |
 | strength.month-first | 29 | 12 | 9 |
 
-두 세트가 다른 판독을 내는 행은 10행이다. 월지충 9행(month-first = `indeterminate`)과 g-2013-05-22-0530(득령만 참, 충 없음: triad = `weak`, month-first = `strong`)이다. 이 갈림이 세트를 나란히 돌려주는 이유다.
+분포는 지장간 학파 `yeonhae`(기본) 기준이다. `japyeong`에서는 g-1923-10-05-0840 1행만 triad가 strong → weak로 바뀐다(득지 차분, `docs/rules/STRENGTH-READINGS.md` 「학파 차분」). 두 세트가 다른 판독을 내는 행은 10행이다. 월지충 9행(month-first = `indeterminate`)과 g-2013-05-22-0530(득령만 참, 충 없음: triad = `weak`, month-first = `strong`)이다. 이 갈림이 세트를 나란히 돌려주는 이유다.
 
 ## 4. 학파 선택표
 
