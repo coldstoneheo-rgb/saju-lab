@@ -36,6 +36,8 @@ interface StrengthReading {
   definitionIds: { deukryeong: string; deukji: string; deukse: string };
   school: HiddenStemSchool;        // 8a에서 복사
   precision: StrengthPrecision;    // 8a에서 복사 — "time-unknown"이면 소비 측 confidence를 낮춘다
+  /** 세트 간 일치(회의 2026-10-03 E3): 모든 세트의 verdict가 같으면 true. 레코드마다 같은 값을 싣는다. */
+  agreesAcrossSets: boolean;
   doctrine: "unreviewed";          // G2-3 ⓐ 기록 전까지 고정
 }
 
@@ -43,6 +45,7 @@ function strengthReadingsOf(factors: StrengthFactors): StrengthReading[]; // 규
 ```
 
 - **점수 아님:** `triadCount`는 입력 스냅샷이고 출력 등급이 아니다. `score`·`rank`·`primary` 필드를 두지 않는다.
+- **세트 간 일치 `agreesAcrossSets`:** 회의 E3 합의(「8b 응답에 세트 간 일치 여부 필드」)를 받는다. 배열 대신 레코드마다 싣는 이유 = 11단계 evidence가 레코드 하나만 복사해도 「세트끼리 갈렸다」는 사실이 따라가게 하려는 것. 골든 50 기대값 = 일치 40 · 불일치 10(§3).
 - **`balanced` 없음:** v1 세트 둘 다 `balanced`를 내지 않는다. 낼 세트가 생기면 열거값을 추가한다(additive).
 - **시각 미상:** 판독은 그대로 계산하고 `precision`만 복사한다. 득세가 기둥 3으로 세어져 뒤집힐 수 있다는 점은 소비 측(9·11단계) 고지 몫이다. 판독을 `indeterminate`로 바꾸지 않는다 — 그건 학설 결정이다.
 - 순서 = `ruleSetId` 사전순. 순위가 아니다.
