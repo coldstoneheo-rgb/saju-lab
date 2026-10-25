@@ -49,6 +49,8 @@ export interface StrengthReading {
   definitionIds: typeof STRENGTH_DEFINITIONS;
   school: HiddenStemSchool;
   precision: StrengthPrecision;
+  /** 세트 간 일치(회의 2026-10-03 E3): every set returned the same verdict. Same value on every record. */
+  agreesAcrossSets: boolean;
   /** 학설 축 — fixed until a G2-3 ⓐ record (a real practitioner) reviews the table. */
   doctrine: "unreviewed";
 }
@@ -71,7 +73,7 @@ export function strengthReadingsOf(factors: StrengthFactors): StrengthReading[] 
     monthBranchClashed: factors.monthBranchClashed.value,
     triadCount: triad.filter(Boolean).length
   };
-  return (Object.keys(STRENGTH_RULE_SETS) as StrengthRuleSetId[]).map((ruleSetId) => {
+  const readings = (Object.keys(STRENGTH_RULE_SETS) as StrengthRuleSetId[]).map((ruleSetId): Omit<StrengthReading, "agreesAcrossSets"> => {
     const rules: readonly StrengthRule[] = STRENGTH_RULE_SETS[ruleSetId];
     const fired = rules.find((rule) => CONDITIONS[rule.when](inputs));
     if (!fired) throw new Error(`strength rule set ${ruleSetId} has no matching condition`);
@@ -86,4 +88,6 @@ export function strengthReadingsOf(factors: StrengthFactors): StrengthReading[] 
       doctrine: "unreviewed"
     };
   });
+  const agreesAcrossSets = new Set(readings.map((reading) => reading.verdict)).size === 1;
+  return readings.map((reading) => ({ ...reading, agreesAcrossSets }));
 }

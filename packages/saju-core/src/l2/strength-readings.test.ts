@@ -141,8 +141,10 @@ describe("strengthReadingsOf — 경계 · 실명식", () => {
     expect(verdicts(factors)).toEqual({ "strength.month-first": "strong", "strength.triad-majority": "strong" });
   });
 
-  it("세트 갈림: g-2013-05-22-0530 (득령만 참, 충 없음) → triad weak · month-first strong", () => {
+  it("세트 갈림: g-2013-05-22-0530 (득령만 참, 충 없음) → triad weak · month-first strong, agreesAcrossSets false", () => {
     expect(verdicts(chart("g-2013-05-22-0530"))).toEqual({ "strength.month-first": "strong", "strength.triad-majority": "weak" });
+    expect(strengthReadingsOf(chart("g-2013-05-22-0530")).map((r) => r.agreesAcrossSets)).toEqual([false, false]);
+    expect(strengthReadingsOf(chart("g-2015-12-22-0030")).map((r) => r.agreesAcrossSets)).toEqual([true, true]);
   });
 
   it("월지충: g-2011-11-08-0925 (NYY, 巳亥충 @time) → triad strong · month-first indeterminate", () => {
@@ -219,6 +221,8 @@ describe("골든 50 — 8a md 셀에서 유도한 판독 = 코어 (READINGS 골�
     expect(tally("strength.month-first")).toEqual({ strong: 29, weak: 12, indeterminate: 9 });
     const split = rows.filter((row) => new Set(Object.values(verdicts(chart(row.id)))).size > 1);
     expect(split).toHaveLength(10);
+    const disagreeing = rows.filter((row) => strengthReadingsOf(chart(row.id)).every((r) => !r.agreesAcrossSets));
+    expect(disagreeing.map((row) => row.id)).toEqual(split.map((row) => row.id));
   });
 });
 
