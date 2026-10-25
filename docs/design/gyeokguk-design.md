@@ -65,6 +65,7 @@ interface GyeokgukReading {
   ambiguous: boolean;
   unavailable?: "no-day-counts" | "month-term-mismatch" | "bigyeop-month"; // 앞 둘 = 8a saryeongUnavailable 그대로(사령 세트) / 정기 비겁
   monthBranchClashed: boolean;        // 8a monthBranchClashed.value, 판정에 쓰지 않음
+  agreesAcrossSets: boolean;          // 8b-1과 같은 정의: 세 세트의 candidates gyeok 집합이 모두 같으면 true (unavailable 세트는 비교에서 뺀다)
   school: HiddenStemSchool;
   precision: StrengthPrecision;       // 시각 미상이면 시간 투출이 빠진다
   doctrine: "unreviewed";
@@ -72,7 +73,7 @@ interface GyeokgukReading {
 ```
 
 - 점수·성패·순위 필드 없음. `candidates` 순서 = 정기 → 중기 → 여기(자리 순), 순위 아님.
-- 세트 간 일치 필드: 강약과 같은 이름·형식으로 둔다(8b-1에서 정한 필드를 재사용).
+- 세트 간 일치 필드 `agreesAcrossSets`: 8b-1 `StrengthReading.agreesAcrossSets`와 같은 이름·의미(레코드마다 같은 값).
 
 ## 3-1. 공개 계약
 
