@@ -10,7 +10,7 @@
 - [x] 4. S3 `GOLDEN-SINSAL.md` 50×13 `pending` + md 오라클 + 코어 대조 · 적중 0 칸 0 → 보강 0행 → #119 **16302f2**
 - [x] 5. S6 PR마다 `npm run verify` EXIT 0 · verifier PASS · LC 게이트(아래 표)
 - [x] 6. `docs/design/l2-include-design.md` → #120 **963b92b**
-- [~] 7. 8a confirmed + 파생 골든 3장 → #121(critic PASS, LC 게이트 요청 — 이 REPORT 작성 시점 미머지)
+- [x] 7. 8a confirmed + 파생 골든 3장 → #121 **a9551fd**
 - [x] 8. 인계 블록(이 REPORT · AGENT_STATUS · WORKLOG + 관찰 묶음 정리) → 이 PR
 
 ## 한 일
@@ -21,8 +21,8 @@
 | #118 | S2·S4·S5 sinsalOf · 테스트 10 · CROSS-IMPL-DIFF · API 문서 | PASS · 손 유도 6명식 · 변이 9 · 관찰 5 | PASS · 관찰 4 | 6890af1 |
 | #119 | S3 GOLDEN-SINSAL 50×13 pending · 오라클 테스트 4 | PASS · 손 유도 14행 · 변이 4 · 관찰 3 | PASS · 관찰 3 | 16302f2 |
 | #120 | include 개방 설계서(코드 0) | 생략(발주서 허용) | PASS · 관찰 2 | 963b92b |
-| #121 | 8a 50행 confirmed · OPEN_REVIEW_ROUND 삭제 · 파생 3장 · STRENGTH.md 명문화 | PASS · 8a 값 셀 변경 0 · 파생 50행 전수 재유도 · 변이 6 · 권고 3 | 요청 | — |
-| 이 PR | 인계 + 관찰 정리(아래) | — | 요청 | — |
+| #121 | 8a 50행 confirmed · OPEN_REVIEW_ROUND 삭제 · 파생 3장 · STRENGTH.md 명문화 | PASS · 8a 값 셀 변경 0 · 파생 50행 전수 재유도 · 변이 6 · 권고 3 | PASS · 관찰 4 | a9551fd |
+| #122 | 인계 + 관찰 정리(아래) | — | PASS · 관찰 0 | 이 PR |
 
 critic·LC 판정 전문은 각 PR 코멘트.
 
@@ -70,7 +70,7 @@ critic·LC 판정 전문은 각 PR 코멘트.
 
 ## LC·사용자에게 필요한 것
 
-- LC: #121 게이트(파생 confirmed 경로 인정 여부 — 발견 4) · 이 PR 게이트.
+- LC: 없음(#121 PASS — 파생 confirmed 경로 인정, 머리말 «md 오라클 미검증» 조건 반영 9216c6c).
 - 사용자: 아래 확인 목록(전부 기본값으로 진행 중, 막는 것 없음).
 
 ## 사용자 확인 목록 (기본값으로 진행 중, 결정 시 바꾼다)
@@ -84,6 +84,6 @@ critic·LC 판정 전문은 각 PR 코멘트.
 
 ## 남은 것 · 다음 (우선순위)
 
-1. #121 머지(LC 게이트) → 9단계 include 개방 착수 HO(설계서 §5 I1~I7). 선행 게이트 재료는 8a·READINGS·YONGSIN·GYEOKGUK(50) confirmed로 준비됐고, 신살은 GOLDEN-SINSAL pending이다.
+1. 9단계 include 개방 착수 HO(설계서 §5 I1~I7). 선행 게이트 재료는 8a·READINGS·YONGSIN·GYEOKGUK(50) confirmed로 준비됐고, 신살은 GOLDEN-SINSAL pending이다.
 2. LC 재계산: GOLDEN-SINSAL 50×13(md 표 + 명식 글자만으로 닫힘) · GOLDEN-GYEOKGUK 보강 6행.
 3. S-YNY 2행: GOLDEN-PILLARS 선등록(`getLunCalInfo` 일진 외부 출처) → 8a 편입. 이때 `golden-strength-factors.test.ts`의 `toHaveLength(50)` 하드코딩을 같이 고친다(#121 critic 권고 ②).

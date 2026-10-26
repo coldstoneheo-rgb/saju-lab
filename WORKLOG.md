@@ -9,9 +9,9 @@ project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1026-saju-sinsal-01, 사용자 여행 중 RC 루프)
 summary: 신살 7종(변형 13) 표·sinsalOf·골든 50×13 pending + 9단계 include 개방 설계서 + 8a 골든 50행 confirmed(LC 재계산) 위 파생 골든 3장
 status: on_track
-progress: "L2 판독 층 코드 완료(8a·8b-1·8b-2·격국·신살), 골든 8a·READINGS·YONGSIN·GYEOKGUK 50 confirmed · SINSAL pending (근거: npm run verify EXIT 0 ×4 core 868→1049·api115·web49 · verifier PASS ×4 · LC 게이트 · #117~#120 MERGED, #121 게이트). 배포 0"
-changes: ["#117 3360b36 feat(saju-core): 신살 S1 SINSAL.md + 상수 파서", "#118 6890af1 feat(saju-core): 신살 S2·S4·S5 sinsalOf", "#119 16302f2 test(saju-core): 신살 S3 GOLDEN-SINSAL", "#120 963b92b docs(design): 9단계 L2 include 개방 설계", "#121 docs(golden): 8a confirmed + 파생 골든 3장", "docs/handoffs/HO-2026-1026-saju-sinsal-REPORT.md"]
-next: "9단계 include 개방 착수 HO(설계서 §5 I1~I7) — #121 머지 뒤"
+progress: "L2 판독 층 코드 완료(8a·8b-1·8b-2·격국·신살), 골든 8a·READINGS·YONGSIN·GYEOKGUK 50 confirmed · SINSAL pending (근거: npm run verify EXIT 0 ×4 core 868→1049·api115·web49 · verifier PASS ×4 · LC 게이트 · #117~#122 MERGED). 배포 0"
+changes: ["#117 3360b36 feat(saju-core): 신살 S1 SINSAL.md + 상수 파서", "#118 6890af1 feat(saju-core): 신살 S2·S4·S5 sinsalOf", "#119 16302f2 test(saju-core): 신살 S3 GOLDEN-SINSAL", "#120 963b92b docs(design): 9단계 L2 include 개방 설계", "#121 a9551fd docs(golden): 8a confirmed + 파생 골든 3장", "docs/handoffs/HO-2026-1026-saju-sinsal-REPORT.md"]
+next: "9단계 include 개방 착수 HO(설계서 §5 I1~I7)"
 blockers: "GOLDEN-SINSAL confirmed = LC 재계산 대기(md 표 + 명식 글자만으로 닫힘)"
 learning_need: "괴강 판본 서지(壬戌 포함 vs 戊戌 포함) — 레포 내 근거 0, 사용자 확인 목록"
 ---

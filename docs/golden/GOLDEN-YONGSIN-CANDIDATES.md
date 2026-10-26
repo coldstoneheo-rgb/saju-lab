@@ -3,7 +3,7 @@
 `packages/saju-core/src/l2/golden-l2-derived.test.ts`가 이 파일을 직접 파싱해 코어 산출과 대조한다(열 이름 매핑). 규칙 정본 = `docs/rules/YONGSIN-CANDIDATES.md`.
 
 - **두 상태 축**(`docs/DESIGN-2026-09-saju-L2-stage8.md` §5): `실행` = 코어가 규칙 md를 표대로 실행했는가 · `학설` = 그 표가 명리학적으로 맞는가. 학설 축은 G2-3(실제 역술가 대조) 전에는 전부 `unreviewed`다.
-- **실행 축 confirmed 근거**: 입력인 8a 팩터가 2026-10-26 LC 독립 재계산으로 `confirmed`(`GOLDEN-STRENGTH-FACTORS.md`, `life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md`)이다. 이 표의 **후보 id 집합**은 그 8a md 셀에서 규칙 md만으로 유도한 기대값과 같다(`yongsin-candidates.test.ts` «골든 50» 테스트가 코드 독립 오라클로 강제). **후보 순서 · 후보수**은 코어만 내는 셀이고 **md 오라클 미검증**이다 — 2026-10-26 #121 critic이 레포 밖 스크래치 오라클로 50행 전수 재유도해 대조했다(후보 순서는 코어 의존). 즉 실행 축 confirmed의 경로는 «LC 독립 재계산»(설계 `DESIGN-2026-09-saju-L2-stage8.md` §4)이 아니라 «LC 재계산으로 confirmed된 8a 위의 md 유도»다(HO-2026-1026-sinsal LC 보강 ③). 8a 행이 confirmed가 아니면 실행 축도 confirmed가 될 수 없다(테스트가 확인).
+- **실행 축 confirmed 근거**: 입력인 8a 팩터가 2026-10-26 LC 독립 재계산으로 `confirmed`(`GOLDEN-STRENGTH-FACTORS.md`, `life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md`)이다. 이 표의 **후보 id 집합**은 그 8a md 셀에서 규칙 md만으로 유도한 기대값과 같다(`yongsin-candidates.test.ts` «골든 50» 테스트가 코드 독립 오라클로 강제). **후보 순서 · 후보수**은 코어만 내는 셀이고 **md 오라클 미검증**이다 — 2026-10-26 대조 기록은 PR #121 critic 코멘트에만 있다(레포 안 재현 수단 아님, 후보 순서는 코어 의존). 즉 실행 축 confirmed의 경로는 «LC 독립 재계산»(설계 `DESIGN-2026-09-saju-L2-stage8.md` §4)이 아니라 «LC 재계산으로 confirmed된 8a 위의 md 유도»다(HO-2026-1026-sinsal LC 보강 ③). 8a 행이 confirmed가 아니면 실행 축도 confirmed가 될 수 없다(테스트가 확인).
 - **이 표는 판결이 아니다.** 사람 대면 문장·추천은 13단계 몫이다.
 - **셀 형식** `후보` = 코어 출력 순서의 `candidateId`(공백 구분), 없으면 `-`. 50행 합계 267건(억부 240 · 조후 27). 후보는 순위가 아니다.
 

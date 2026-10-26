@@ -1,13 +1,13 @@
 {
   "project": "saju-lab",
   "as_of": "2026-10-26T18:30:00+09:00",
-  "head": "#120 squash (963b92b) — #121·인계 PR 머지 뒤 git log main 참조",
-  "working_on": "[IDLE] · HO-2026-1026-sinsal 완료: S1 #117 · S2·S4·S5 #118 · S3 #119 · include 설계 #120 · 8a confirmed+파생 3장 #121(LC 게이트) · 다음 = 9단계 include 개방 착수 HO",
-  "waiting_on": "[LC] #121 게이트 · GOLDEN-SINSAL 50×13 + GYEOKGUK 보강 6 재계산 · [사용자] REPORT 확인 목록(괴강 판본 · 층 노출 범위 · 의존 블록 · monthBranch, 기본값 진행) · DEC-2026-1015 별건",
+  "head": "#121 squash (a9551fd) — 인계 #122 머지 뒤 git log main 참조",
+  "working_on": "[IDLE] · HO-2026-1026-sinsal 완료: S1 #117 · S2·S4·S5 #118 · S3 #119 · include 설계 #120 · 8a confirmed+파생 3장 #121 a9551fd · 다음 = 9단계 include 개방 착수 HO",
+  "waiting_on": "[LC] GOLDEN-SINSAL 50×13 + GYEOKGUK 보강 6 재계산 · [사용자] REPORT 확인 목록(괴강 판본 · 층 노출 범위 · 의존 블록 · monthBranch, 기본값 진행) · DEC-2026-1015 별건",
   "recent": [
     {
       "at": "2026-10-26",
-      "what": "HO-2026-1026-sinsal: #117 3360b36 SINSAL.md 7종(변형 13)+파서 · #118 6890af1 sinsalOf(경계 4·어휘·계약) · #119 16302f2 GOLDEN-SINSAL 50×13 pending(md 오라클) · #120 963b92b include 개방 설계서 · #121 8a 50행 confirmed(LC 재계산 800셀 일치)+OPEN_REVIEW_ROUND 삭제+파생 3장(READINGS·YONGSIN 50 · GYEOKGUK 50+보강6). verify core 868→1049·api115·web49 EXIT 0. REPORT docs/handoffs/HO-2026-1026-saju-sinsal-REPORT.md"
+      "what": "HO-2026-1026-sinsal: #117 3360b36 SINSAL.md 7종(변형 13)+파서 · #118 6890af1 sinsalOf(경계 4·어휘·계약) · #119 16302f2 GOLDEN-SINSAL 50×13 pending(md 오라클) · #120 963b92b include 개방 설계서 · #121 a9551fd 8a 50행 confirmed(LC 재계산 800셀 일치)+OPEN_REVIEW_ROUND 삭제+파생 3장(READINGS·YONGSIN 50 · GYEOKGUK 50+보강6). verify core 868→1049·api115·web49 EXIT 0. REPORT docs/handoffs/HO-2026-1026-saju-sinsal-REPORT.md"
     },
     {
       "at": "2026-10-26",
@@ -55,7 +55,7 @@
     }
   ],
   "next_actions": [
-    "9단계 include 개방 착수 HO(docs/design/l2-include-design.md §5 I1~I7) — #121 머지 뒤",
+    "9단계 include 개방 착수 HO(docs/design/l2-include-design.md §5 I1~I7)",
     "LC 재계산: GOLDEN-SINSAL 50×13 · GOLDEN-GYEOKGUK 보강 6 → confirmed PR(SINSAL 출처 열 추가)",
     "S-YNY 2행 GOLDEN-PILLARS 선등록(getLunCalInfo) → 8a 편입 + toHaveLength(50) 수정",
     "8a monthBranch 필드(안 A) 별도 PR — 격국 monthBranchOf 우회 삭제",
