@@ -5,9 +5,9 @@
 ## 체크리스트 (완료 조건 번호)
 
 - [x] 1. 계획 REPLY — LC로 송신(반박 1: 괴강 戊戌 = 옵션 플래그 대신 상시 변형 `goegang.day-mu-sul`)
-- [ ] 2. S1 `docs/rules/SINSAL.md` + `l2/sinsal.data.ts` + 파서 테스트 → critic → 게이트 → 머지
-- [ ] 3. S2·S4·S5 `l2/sinsal.ts` · 계약 · 경계 4종 · 어휘 가드
-- [ ] 4. S3 골든 50×7 `GOLDEN-SINSAL.md` pending + 보강
+- [~] 2. S1 `docs/rules/SINSAL.md` + `l2/sinsal.data.ts` + 파서 테스트 → #117 critic PASS · LC 게이트 접수 · 머지 대기
+- [~] 3. S2·S4·S5 `l2/sinsal.ts` · 계약 · 경계 4종 · 어휘 가드 → #118 critic PASS · 게이트 요청
+- [~] 4. S3 골든 50×13 `GOLDEN-SINSAL.md` pending · 적중 0 칸 0 → 보강 0행 → PR3
 - [ ] 5. S6 PR마다 verify EXIT 0 · verifier PASS · LC 게이트
 - [ ] 6. `docs/design/l2-include-design.md`
 - [ ] 7. 8a confirmed(LC 파일 도착 시) / 미도착이면 «대기»
