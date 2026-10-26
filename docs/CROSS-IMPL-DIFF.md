@@ -96,4 +96,5 @@ node scripts/diff_cross_impl.mjs --lunar-month-diffs        # 한·중 음력 �
 - 절기 원천이 둘 다 천문 계산 계열이라 **3분 안쪽의 공통 오류**는 이 방법으로 잡히지 않는다. KASI 표 자체는 `scripts/verify_solar_terms_astronomia.mjs`와 기존 픽스처 검증이 맡는다.
 - 천간·지지의 한자↔로마자 대응은 saju-core의 `STEMS`·`BRANCHES` 순서를 그대로 쓴다. 그 순서 자체가 틀리면 이 차분도 같은 오류를 물려받는다(순서는 골든 표·단위 테스트가 고정한다).
 - 격국 취격·용신 후보(8b-2)는 교차 구현이 없다: lunar-typescript 1.8.6에는 격국·용신 API가 없다(`dist/index.d.ts` grep, 십신 `getBaZiShiShen*`만, 2026-10-25 실측). 규칙 md ↔ 코드 파서 테스트와 8a 골든 md 셀에서 유도한 기대값 대조가 대신한다(HO-2026-1026).
+- 신살(`l2/sinsal.ts`)도 교차 구현이 없다: lunar-typescript 1.8.6의 `getDayJiShen`·`getDayXiongSha`·`getDaySha`·`getTianShen*`은 날짜 단위 택일(黃曆) 정보라 명식 기둥 기준 신살과 정의가 다르다(`dist/index.d.ts` grep, 2026-10-25 실측, `docs/design/sinsal-design.md` §5). `docs/rules/SINSAL.md` ↔ 코드 파서 테스트와 골든 명식 글자에서 md 표만으로 유도한 기대값 대조가 대신한다(HO-2026-1026-sinsal).
 - 음력 설명(`lunar-table`)은 2026-09-23 KARI 조회에 묶여 있다. 코어 음력 표를 바꾸면 `--lunar-month-diffs`로 목록을 다시 뽑고 KARI로 다시 확인해야 한다.
