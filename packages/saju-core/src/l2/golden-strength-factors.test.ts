@@ -12,11 +12,8 @@ const GOLDEN_MD = resolve(HERE, "../../../../docs/golden/GOLDEN-STRENGTH-FACTORS
 const TENGODS_MD = resolve(HERE, "../../../../docs/golden/GOLDEN-TENGODS.md");
 const HAND_WAVED = /commonly listed|widely listed|알려짐|알려져/i;
 const MAX_PENDING_RATIO = 0.2;
-/**
- * The 검산 round now open: all 50 rows start pending until LC's independent recalculation, whose
- * confirmed PR deletes this constant (#81 REPORT §6 운영 규칙, same pattern as #83 → #85).
- */
-const OPEN_REVIEW_ROUND = { tag: "HO-2026-0923-saju-L2-stage8a-01", rows: 50 } as const;
+/** LC 독립 재계산 2026-10-26 — 50행 800셀 일치(OPEN_REVIEW_ROUND 예외는 이 confirmed로 삭제). */
+const LC_RECALC = "life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md";
 const SUPPORT = new Set(["bigyeon", "geopjae", "pyeonin", "jeongin"]);
 
 interface Row {
@@ -72,12 +69,11 @@ const factorsOf = (id: string) => {
 };
 
 describe("GOLDEN-STRENGTH-FACTORS.md — 8a factors for the golden charts", () => {
-  it("covers every golden chart with a valid status and source, unique ids, and pending only inside the open round", () => {
+  it("covers every golden chart with a valid status and source, unique ids, pending within the 20% cap, and all 50 confirmed by the LC recalculation", () => {
     expect(rows.map((row) => row.id).sort()).toEqual(loadGoldenPillarCases().map((golden) => golden.id).sort());
     expect(new Set(rows.map((row) => row.id)).size).toBe(rows.length);
-    const inOpenRound = (row: Row): boolean => row.status === "pending" && row.source.includes(OPEN_REVIEW_ROUND.tag);
-    expect(rows.filter(inOpenRound).length).toBeLessThanOrEqual(OPEN_REVIEW_ROUND.rows);
-    expect(rows.filter((row) => row.status === "pending" && !inOpenRound(row)).length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
+    expect(rows.filter((row) => row.status === "pending").length).toBeLessThanOrEqual(Math.floor(rows.length * MAX_PENDING_RATIO));
+    expect(rows.filter((row) => row.status === "confirmed" && row.source.includes(LC_RECALC))).toHaveLength(50);
   });
 
   it.each(rows.map((row) => [row.id, row] as const))("%s matches strengthFactorsOf (yeonhae)", (id, row) => {

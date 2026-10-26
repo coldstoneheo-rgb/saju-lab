@@ -12,9 +12,9 @@ import { tenGodOf } from "./ten-gods.js";
 import { BIGYEOP_MONTH_TABLE, gyeokgukReadingsOf, type GyeokgukReading } from "./gyeokguk.js";
 
 /**
- * 격국 K3 — 골든 50 + 보강. GOLDEN-GYEOKGUK.md is held until the 8a golden is confirmed
- * (설계 §4 「골든 선행 조건」, same branch as 8b-1 READINGS). Until then this file derives the
- * expected 취격 from the 8a golden md cells and pins the distribution.
+ * 격국 K3 — 골든 50 + 보강. This file derives the expected 취격 from the 8a golden md cells and
+ * pins the distribution; GOLDEN-GYEOKGUK.md (8a confirmed 2026-10-26 뒤 생성) is checked against the
+ * core in golden-l2-derived.test.ts.
  */
 
 const HERE = dirname(fileURLToPath(import.meta.url));

@@ -36,7 +36,7 @@
 
 ## 골든 50행
 
-### g-1990-01-01-1030 — 일간 丙byeong · 득령득지득세 NYY · pending
+### g-1990-01-01-1030 — 일간 丙byeong · 득령득지득세 NYY · confirmed
 
 - 입력: 1990-01-01 10:30 · solar · other · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1990-01-01T10:30 · precision exact · 학파 yeonhae
@@ -55,7 +55,7 @@
 - 조후: 겨울(winter) fire=4 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2000-02-04-1200 — 일간 壬im · 득령득지득세 NYN · pending
+### g-2000-02-04-1200 — 일간 壬im · 득령득지득세 NYN · confirmed
 
 - 입력: 2000-02-04 12:00 · solar · other · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2000-02-04T12:00 · precision exact · 학파 yeonhae
@@ -74,7 +74,7 @@
 - 조후: 겨울(winter) fire=3 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2010-06-21-2359 — 일간 壬im · 득령득지득세 NNY · pending
+### g-2010-06-21-2359 — 일간 壬im · 득령득지득세 NNY · confirmed
 
 - 입력: 2010-06-21 23:59 · solar · other · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2010-06-21T23:59 · precision exact · 학파 yeonhae
@@ -93,7 +93,7 @@
 - 조후: 여름(summer) fire=1 water=3 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2015-12-22-0030 — 일간 壬im · 득령득지득세 YYY · pending
+### g-2015-12-22-0030 — 일간 壬im · 득령득지득세 YYY · confirmed
 
 - 입력: 2015-12-22 00:30 · solar · other · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2015-12-22T00:30 · precision exact · 학파 yeonhae
@@ -112,7 +112,7 @@
 - 조후: 겨울(winter) fire=0 water=3 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2024-02-04-1727 — 일간 戊mu · 득령득지득세 NYY · pending
+### g-2024-02-04-1727 — 일간 戊mu · 득령득지득세 NYY · confirmed
 
 - 입력: 2024-02-04 17:27 · solar · other · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2024-02-04T17:27 · precision exact · 학파 yeonhae
@@ -131,7 +131,7 @@
 - 조후: 봄(spring) fire=1 water=0 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2011-11-08-0334 — 일간 丁jeong · 득령득지득세 NYY · pending
+### g-2011-11-08-0334 — 일간 丁jeong · 득령득지득세 NYY · confirmed
 
 - 입력: 2011-11-08 03:34 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2011-11-08T03:34 · precision exact · 학파 yeonhae
@@ -150,7 +150,7 @@
 - 조후: 가을(autumn) fire=1 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2011-11-08-0335 — 일간 丁jeong · 득령득지득세 NYY · pending
+### g-2011-11-08-0335 — 일간 丁jeong · 득령득지득세 NYY · confirmed
 
 - 입력: 2011-11-08 03:35 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2011-11-08T03:35 · precision exact · 학파 yeonhae
@@ -169,7 +169,7 @@
 - 조후: 겨울(winter) fire=1 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2011-11-08-0925 — 일간 丁jeong · 득령득지득세 NYY · pending
+### g-2011-11-08-0925 — 일간 丁jeong · 득령득지득세 NYY · confirmed
 
 - 입력: 2011-11-08 09:25 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2011-11-08T09:25 · precision exact · 학파 yeonhae
@@ -188,7 +188,7 @@
 - 조후: 겨울(winter) fire=2 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1955-02-04-2247 — 일간 丙byeong · 득령득지득세 NNY · pending
+### g-1955-02-04-2247 — 일간 丙byeong · 득령득지득세 NNY · confirmed
 
 - 입력: 1955-02-04 22:47 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1955-02-04T23:17 · precision exact · 학파 yeonhae
@@ -207,7 +207,7 @@
 - 조후: 겨울(winter) fire=3 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1955-02-04-2248 — 일간 丙byeong · 득령득지득세 YNN · pending
+### g-1955-02-04-2248 — 일간 丙byeong · 득령득지득세 YNN · confirmed
 
 - 입력: 1955-02-04 22:48 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1955-02-04T23:18 · precision exact · 학파 yeonhae
@@ -226,7 +226,7 @@
 - 조후: 봄(spring) fire=1 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1988-10-09-0230 — 일간 丁jeong · 득령득지득세 NNN · pending
+### g-1988-10-09-0230 — 일간 丁jeong · 득령득지득세 NNN · confirmed
 
 - 입력: 1988-10-09 02:30 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1988-10-09T01:30 · precision exact · 학파 yeonhae
@@ -245,7 +245,7 @@
 - 조후: 가을(autumn) fire=1 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1927-08-20-0915 — 일간 丙byeong · 득령득지득세 NYN · pending
+### g-1927-08-20-0915 — 일간 丙byeong · 득령득지득세 NYN · confirmed
 
 - 입력: 1927-08-20 09:15 · solar · male · 옵션 출생지 busan · trueSolarTime · dayBoundary=midnight
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1927-08-20T09:15 · precision exact · 학파 yeonhae
@@ -264,7 +264,7 @@
 - 조후: 가을(autumn) fire=2 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1943-03-18-1320 — 일간 乙eul · 득령득지득세 YYY · pending
+### g-1943-03-18-1320 — 일간 乙eul · 득령득지득세 YYY · confirmed
 
 - 입력: 1943-03-18 13:20 · solar · female · 옵션 출생지 jeju · trueSolarTime · dayBoundary=midnight
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1943-03-18T13:20 · precision exact · 학파 yeonhae
@@ -283,7 +283,7 @@
 - 조후: 봄(spring) fire=1 water=3 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1952-11-12-0510 — 일간 壬im · 득령득지득세 YYY · pending
+### g-1952-11-12-0510 — 일간 壬im · 득령득지득세 YYY · confirmed
 
 - 입력: 1952-11-12 05:10 · solar · male · 옵션 출생지 daegu · trueSolarTime · dayBoundary=midnight
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1952-11-12T05:10 · precision exact · 학파 yeonhae
@@ -302,7 +302,7 @@
 - 조후: 겨울(winter) fire=0 water=4 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1983-06-25-1525 — 일간 甲gap · 득령득지득세 NYN · pending
+### g-1983-06-25-1525 — 일간 甲gap · 득령득지득세 NYN · confirmed
 
 - 입력: 1983-06-25 15:25 · solar · female · 옵션 출생지 incheon · trueSolarTime · dayBoundary=midnight
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1983-06-25T15:25 · precision exact · 학파 yeonhae
@@ -321,7 +321,7 @@
 - 조후: 여름(summer) fire=1 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1994-09-14-0715 — 일간 癸gye · 득령득지득세 YNN · pending
+### g-1994-09-14-0715 — 일간 癸gye · 득령득지득세 YNN · confirmed
 
 - 입력: 1994-09-14 07:15 · solar · other · 옵션 출생지 gangwon · trueSolarTime · dayBoundary=midnight
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1994-09-14T07:15 · precision exact · 학파 yeonhae
@@ -340,7 +340,7 @@
 - 조후: 가을(autumn) fire=0 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2005-04-22-0130 — 일간 丙byeong · 득령득지득세 NNN · pending
+### g-2005-04-22-0130 — 일간 丙byeong · 득령득지득세 NNN · confirmed
 
 - 입력: 2005-04-22 01:30 · solar · male · 옵션 출생지 jeonnam · trueSolarTime · dayBoundary=midnight
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2005-04-22T01:30 · precision exact · 학파 yeonhae
@@ -359,7 +359,7 @@
 - 조후: 봄(spring) fire=1 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1933-11-17-xxxx — 일간 丁jeong · 득령득지득세 NYN · pending
+### g-1933-11-17-xxxx — 일간 丁jeong · 득령득지득세 NYN · confirmed
 
 - 입력: 1933-11-17 시각 모름 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1933-11-17 시각 미상(12:00 대체) · precision time-unknown · 학파 yeonhae
@@ -378,7 +378,7 @@
 - 조후: 겨울(winter) fire=1 water=4 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1972-03-14-xxxx — 일간 甲gap · 득령득지득세 YYY · pending
+### g-1972-03-14-xxxx — 일간 甲gap · 득령득지득세 YYY · confirmed
 
 - 입력: 1972-03-14 시각 모름 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1972-03-14 시각 미상(12:00 대체) · precision time-unknown · 학파 yeonhae
@@ -397,7 +397,7 @@
 - 조후: 봄(spring) fire=0 water=3 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1999-08-23-xxxx — 일간 丁jeong · 득령득지득세 NYN · pending
+### g-1999-08-23-xxxx — 일간 丁jeong · 득령득지득세 NYN · confirmed
 
 - 입력: 1999-08-23 시각 모름 · solar · other · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1999-08-23 시각 미상(12:00 대체) · precision time-unknown · 학파 yeonhae
@@ -416,7 +416,7 @@
 - 조후: 가을(autumn) fire=1 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1963-06-06-1000 — 일간 庚gyeong · 득령득지득세 NYN · pending
+### g-1963-06-06-1000 — 일간 庚gyeong · 득령득지득세 NYN · confirmed
 
 - 입력: 1963-04-15 10:00 · lunar · male · 옵션 lunar 윤달
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1963-06-06T10:00 · precision exact · 학파 yeonhae
@@ -435,7 +435,7 @@
 - 조후: 여름(summer) fire=3 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1971-07-02-1400 — 일간 戊mu · 득령득지득세 YNN · pending
+### g-1971-07-02-1400 — 일간 戊mu · 득령득지득세 YNN · confirmed
 
 - 입력: 1971-05-10 14:00 · lunar · female · 옵션 lunar 윤달
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1971-07-02T14:00 · precision exact · 학파 yeonhae
@@ -454,7 +454,7 @@
 - 조후: 여름(summer) fire=1 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1984-12-12-0600 — 일간 庚gyeong · 득령득지득세 NYN · pending
+### g-1984-12-12-0600 — 일간 庚gyeong · 득령득지득세 NYN · confirmed
 
 - 입력: 1984-10-20 06:00 · lunar · male · 옵션 lunar 윤달
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1984-12-12T06:00 · precision exact · 학파 yeonhae
@@ -473,7 +473,7 @@
 - 조후: 겨울(winter) fire=1 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2020-05-27-2000 — 일간 庚gyeong · 득령득지득세 NYY · pending
+### g-2020-05-27-2000 — 일간 庚gyeong · 득령득지득세 NYY · confirmed
 
 - 입력: 2020-04-05 20:00 · lunar · female · 옵션 lunar 윤달
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2020-05-27T20:00 · precision exact · 학파 yeonhae
@@ -492,7 +492,7 @@
 - 조후: 여름(summer) fire=3 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1975-02-04-1958 — 일간 辛sin · 득령득지득세 YYN · pending
+### g-1975-02-04-1958 — 일간 辛sin · 득령득지득세 YYN · confirmed
 
 - 입력: 1975-02-04 19:58 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1975-02-04T19:58 · precision exact · 학파 yeonhae
@@ -511,7 +511,7 @@
 - 조후: 겨울(winter) fire=2 water=0 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1975-02-04-1959 — 일간 辛sin · 득령득지득세 NYY · pending
+### g-1975-02-04-1959 — 일간 辛sin · 득령득지득세 NYY · confirmed
 
 - 입력: 1975-02-04 19:59 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1975-02-04T19:59 · precision exact · 학파 yeonhae
@@ -530,7 +530,7 @@
 - 조후: 봄(spring) fire=1 water=0 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1975-02-04-2000 — 일간 辛sin · 득령득지득세 NYY · pending
+### g-1975-02-04-2000 — 일간 辛sin · 득령득지득세 NYY · confirmed
 
 - 입력: 1975-02-04 20:00 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1975-02-04T20:00 · precision exact · 학파 yeonhae
@@ -549,7 +549,7 @@
 - 조후: 봄(spring) fire=1 water=0 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1936-03-06-0248 — 일간 丁jeong · 득령득지득세 YYN · pending
+### g-1936-03-06-0248 — 일간 丁jeong · 득령득지득세 YYN · confirmed
 
 - 입력: 1936-03-06 02:48 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1936-03-06T02:48 · precision exact · 학파 yeonhae
@@ -568,7 +568,7 @@
 - 조후: 봄(spring) fire=2 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1936-03-06-0249 — 일간 丁jeong · 득령득지득세 YYN · pending
+### g-1936-03-06-0249 — 일간 丁jeong · 득령득지득세 YYN · confirmed
 
 - 입력: 1936-03-06 02:49 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1936-03-06T02:49 · precision exact · 학파 yeonhae
@@ -587,7 +587,7 @@
 - 조후: 봄(spring) fire=2 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1936-03-06-0250 — 일간 丁jeong · 득령득지득세 YYN · pending
+### g-1936-03-06-0250 — 일간 丁jeong · 득령득지득세 YYN · confirmed
 
 - 입력: 1936-03-06 02:50 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1936-03-06T02:50 · precision exact · 학파 yeonhae
@@ -606,7 +606,7 @@
 - 조후: 봄(spring) fire=2 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1965-11-07-2300 — 일간 乙eul · 득령득지득세 NYN · pending
+### g-1965-11-07-2300 — 일간 乙eul · 득령득지득세 NYN · confirmed
 
 - 입력: 1965-11-07 23:00 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1965-11-07T23:00 · precision exact · 학파 yeonhae
@@ -625,7 +625,7 @@
 - 조후: 가을(autumn) fire=3 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1946-05-19-2359 — 일간 癸gye · 득령득지득세 NYY · pending
+### g-1946-05-19-2359 — 일간 癸gye · 득령득지득세 NYY · confirmed
 
 - 입력: 1946-05-19 23:59 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1946-05-19T23:59 · precision exact · 학파 yeonhae
@@ -644,7 +644,7 @@
 - 조후: 여름(summer) fire=3 water=4 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1965-11-08-0000 — 일간 丙byeong · 득령득지득세 NYY · pending
+### g-1965-11-08-0000 — 일간 丙byeong · 득령득지득세 NYY · confirmed
 
 - 입력: 1965-11-08 00:00 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1965-11-08T00:00 · precision exact · 학파 yeonhae
@@ -663,7 +663,7 @@
 - 조후: 가을(autumn) fire=3 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1949-07-15-0920 — 일간 丙byeong · 득령득지득세 NYN · pending
+### g-1949-07-15-0920 — 일간 丙byeong · 득령득지득세 NYN · confirmed
 
 - 입력: 1949-07-15 09:20 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1949-07-15T08:20 · precision exact · 학파 yeonhae
@@ -682,7 +682,7 @@
 - 조후: 여름(summer) fire=2 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1957-06-02-2320 — 일간 乙eul · 득령득지득세 NNN · pending
+### g-1957-06-02-2320 — 일간 乙eul · 득령득지득세 NNN · confirmed
 
 - 입력: 1957-06-02 23:20 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1957-06-02T22:50 · precision exact · 학파 yeonhae
@@ -701,7 +701,7 @@
 - 조후: 여름(summer) fire=4 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1987-05-10-0230 — 일간 己gi · 득령득지득세 YYY · pending
+### g-1987-05-10-0230 — 일간 己gi · 득령득지득세 YYY · confirmed
 
 - 입력: 1987-05-10 02:30 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1987-05-10T02:30 · precision exact · 학파 yeonhae
@@ -720,7 +720,7 @@
 - 조후: 여름(summer) fire=2 water=0 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1960-11-20-2235 — 일간 壬im · 득령득지득세 YYY · pending
+### g-1960-11-20-2235 — 일간 壬im · 득령득지득세 YYY · confirmed
 
 - 입력: 1960-11-20 22:35 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1960-11-20T23:05 · precision exact · 학파 yeonhae
@@ -739,7 +739,7 @@
 - 조후: 겨울(winter) fire=1 water=5 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1923-10-05-0840 — 일간 辛sin · 득령득지득세 YYN · pending
+### g-1923-10-05-0840 — 일간 辛sin · 득령득지득세 YYN · confirmed
 
 - 입력: 1923-10-05 08:40 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1923-10-05T08:40 · precision exact · 학파 yeonhae
@@ -758,7 +758,7 @@
 - 조후: 가을(autumn) fire=0 water=4 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1953-04-27-1610 — 일간 戊mu · 득령득지득세 YYN · pending
+### g-1953-04-27-1610 — 일간 戊mu · 득령득지득세 YYN · confirmed
 
 - 입력: 1953-04-27 16:10 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1953-04-27T16:10 · precision exact · 학파 yeonhae
@@ -777,7 +777,7 @@
 - 조후: 봄(spring) fire=2 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1981-12-03-0520 — 일간 乙eul · 득령득지득세 YYN · pending
+### g-1981-12-03-0520 — 일간 乙eul · 득령득지득세 YYN · confirmed
 
 - 입력: 1981-12-03 05:20 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1981-12-03T05:20 · precision exact · 학파 yeonhae
@@ -796,7 +796,7 @@
 - 조후: 겨울(winter) fire=0 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1996-07-19-1145 — 일간 丁jeong · 득령득지득세 NYY · pending
+### g-1996-07-19-1145 — 일간 丁jeong · 득령득지득세 NYY · confirmed
 
 - 입력: 1996-07-19 11:45 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1996-07-19T11:45 · precision exact · 학파 yeonhae
@@ -815,7 +815,7 @@
 - 조후: 여름(summer) fire=5 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2008-03-11-2115 — 일간 庚gyeong · 득령득지득세 NYN · pending
+### g-2008-03-11-2115 — 일간 庚gyeong · 득령득지득세 NYN · confirmed
 
 - 입력: 2008-03-11 21:15 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2008-03-11T21:15 · precision exact · 학파 yeonhae
@@ -834,7 +834,7 @@
 - 조후: 봄(spring) fire=1 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2017-09-30-1305 — 일간 庚gyeong · 득령득지득세 YYY · pending
+### g-2017-09-30-1305 — 일간 庚gyeong · 득령득지득세 YYY · confirmed
 
 - 입력: 2017-09-30 13:05 · solar · other · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2017-09-30T13:05 · precision exact · 학파 yeonhae
@@ -853,7 +853,7 @@
 - 조후: 가을(autumn) fire=1 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2022-01-25-0350 — 일간 戊mu · 득령득지득세 YYN · pending
+### g-2022-01-25-0350 — 일간 戊mu · 득령득지득세 YYN · confirmed
 
 - 입력: 2022-01-25 03:50 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2022-01-25T03:50 · precision exact · 학파 yeonhae
@@ -872,7 +872,7 @@
 - 조후: 겨울(winter) fire=0 water=0 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1929-06-13-1730 — 일간 己gi · 득령득지득세 YYY · pending
+### g-1929-06-13-1730 — 일간 己gi · 득령득지득세 YYY · confirmed
 
 - 입력: 1929-06-13 17:30 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1929-06-13T17:30 · precision exact · 학파 yeonhae
@@ -891,7 +891,7 @@
 - 조후: 여름(summer) fire=2 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1947-09-14-1930 — 일간 丙byeong · 득령득지득세 NNN · pending
+### g-1947-09-14-1930 — 일간 丙byeong · 득령득지득세 NNN · confirmed
 
 - 입력: 1947-09-14 19:30 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1947-09-14T19:30 · precision exact · 학파 yeonhae
@@ -910,7 +910,7 @@
 - 조후: 가을(autumn) fire=2 water=1 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1986-07-12-1530 — 일간 丁jeong · 득령득지득세 NYY · pending
+### g-1986-07-12-1530 — 일간 丁jeong · 득령득지득세 NYY · confirmed
 
 - 입력: 1986-07-12 15:30 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1986-07-12T15:30 · precision exact · 학파 yeonhae
@@ -929,7 +929,7 @@
 - 조후: 여름(summer) fire=3 water=0 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1992-10-02-2130 — 일간 辛sin · 득령득지득세 YYY · pending
+### g-1992-10-02-2130 — 일간 辛sin · 득령득지득세 YYY · confirmed
 
 - 입력: 1992-10-02 21:30 · solar · female · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1992-10-02T21:30 · precision exact · 학파 yeonhae
@@ -948,7 +948,7 @@
 - 조후: 가을(autumn) fire=0 water=3 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-2013-05-22-0530 — 일간 戊mu · 득령득지득세 YNN · pending
+### g-2013-05-22-0530 — 일간 戊mu · 득령득지득세 YNN · confirmed
 
 - 입력: 2013-05-22 05:30 · solar · other · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 2013-05-22T05:30 · precision exact · 학파 yeonhae
@@ -967,7 +967,7 @@
 - 조후: 여름(summer) fire=3 water=2 (일간 **포함** 표층)
 - 골든 셀 대조: 일치 16/16
 
-### g-1986-07-08-1900 — 일간 癸gye · 득령득지득세 NYN · pending
+### g-1986-07-08-1900 — 일간 癸gye · 득령득지득세 NYN · confirmed
 
 - 입력: 1986-07-08 19:00 · solar · male · 옵션 -
 - 정규화 KST(월주·사령 기준, 진태양시 미적용): 1986-07-08T19:00 · precision exact · 학파 yeonhae

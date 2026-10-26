@@ -65,15 +65,15 @@
 | `tenGodCounts.surface` | 일간을 뺀 천간 3 + 지지 정기 4의 십신별 개수 | 없음 | 천간 2 + 지지 3 |
 | `tenGodCounts.withHidden` | 일간을 뺀 천간 3 + 지장간 전체의 십신별 개수 | 있음 | 기둥 3 |
 | `elementCounts.surface` · `.withHidden` | 같은 두 층(일간 제외)의 오행별 개수. 층 원본은 `layers`(`stems` · `branchPrimary` · `hiddenStems`, 일수 원본 포함) | withHidden만 | 기둥 3 |
-| `exposed` | 지지마다 장간 각각이 네 천간(일간 포함) 중 어느 기둥에 투출됐는지. 투출 없는 장간은 싣지 않는다 | 있음 | 시주 없음 |
+| `exposed` | 지지마다 장간 각각이 네 천간(일간 포함) 중 어느 기둥에 투출됐는지. **장간이 자기 기둥 천간에 있어도 투출로 센다**(예 `day.primary:gi>day`). 투출 없는 장간은 싣지 않는다 | 있음 | 시주 없음 |
 | `roots` | 일간과 같은 오행의 장간(통근) — 기둥 · 자리(여기/중기/정기) · 천간 | 있음 | 기둥 3 |
 | `deukryeong` · `deukji` · `deukse` | 표 1 채택 정의. 결과 = `value` 불리언 + `definitionId` + 근거 글자 | 득지만 | 득세 = 기둥 3 |
-| `saryeong` | 월 절입 뒤 경과 분(整數) ÷ 1440 = 경과일. 출생 순간 = 시간대 이력 정규화 뒤 **KST 벽시계(`resolveBirthKst`) — 진태양시 보정은 반영하지 않는다**(월주·대운과 같은 시계. 예 g-1983-06-25-1525는 시주만 진태양시로 바뀌고 사령은 15:25 기준). 월지 장간을 여기 → 중기 → 정기 순으로 일수 누적 구간에 놓고, 경과일이 속한 구간의 천간. 구간은 `[누적 시작, 누적 끝)`, 정기 구간은 월 끝까지. `nearThreshold` = 내부 경계(여기 끝, 중기 끝)와 경과일의 거리가 표 4 폭 **이하** | **`yeonhae` 전용** — `japyeong`은 `null` + `saryeongUnavailable: "no-day-counts"` | 표 4 시각으로 계산, `precision: "time-unknown"` |
+| `saryeong` | 월 절입 뒤 경과 분(整數) ÷ 1440 = 경과일. 출생 순간 = 시간대 이력 정규화 뒤 **KST 벽시계(`resolveBirthKst`) — 진태양시 보정은 반영하지 않는다**(월주·대운과 같은 시계. 예 g-1983-06-25-1525는 시주만 진태양시로 바뀌고 사령은 15:25 기준). 월지 장간을 여기 → 중기 → 정기 순으로 일수 누적 구간에 놓고, 경과일이 속한 구간의 천간. 구간은 `[누적 시작, 누적 끝)`, 정기 구간은 월 끝까지. `nearThreshold` = 내부 경계(여기 끝, 중기 끝)와 경과일의 거리가 표 4 폭 **이하**. 월 시작(경과 0분)과 월 끝은 경계가 아니다(예 g-1986-07-08-1900 경과 0.9993일 → N). 중기 없는 子·卯·酉는 내부 경계가 1개 | **`yeonhae` 전용** — `japyeong`은 `null` + `saryeongUnavailable: "no-day-counts"` | 표 4 시각으로 계산, `precision: "time-unknown"` |
 | `dayStemCombined` | 일간이 당사자인 천간합 — 상대 기둥 · 규칙 id | 없음 | — |
 | `monthBranchClashed` | 월지가 당사자인 충 — 상대 기둥 · 규칙 id | 없음 | — |
-| `dayBranchInteractions` | 일지가 당사자인 육합·삼합·방합·충·형 — `kind` · 규칙 id · 기둥(합충표 순서, 같은 id가 기둥 조합별로 여러 번 나올 수 있다) | 없음 | — |
+| `dayBranchInteractions` | 일지가 당사자인 육합·삼합·방합·충·형 — `kind` · 규칙 id · 기둥(합충표 순서, 같은 id가 기둥 조합별로 여러 번 나올 수 있다). **정렬 = 완전 3자 관계 전부 먼저(기둥 조합 연→시 순), 그다음 2자 관계(기둥 조합 순 → 같은 조합 안에서 육합·삼합 반합·충·형 순)**(`interactions.ts` 생성 순서, 예 g-1986-07-08-1900 `hyeong:chuk-sul-mi@month+day+time chung:chuk-mi@month+day`). 삼합 반합·부분 형은 같은 국의 완전 3자가 있을 때 **그 세 기둥 안의** 2자만 생략한다(네 번째 기둥과 이루는 2자는 그대로) | 없음 | — |
 | `transformationMaterials` | 천간합마다 `{ganhapId, pillars, potentialElement, monthElementMatches, potentialElementExposed}`. `monthElementMatches` = 월지 오행(`BRANCH_FIVE_ELEMENT`) == 화기 오행. `potentialElementExposed` = **합의 두 천간을 뺀** 다른 천간 중 화기 오행 천간이 있다. **化 판정 필드는 없다** | 없음 | 시간 제외 |
-| `climate` | 표 3 계절 + 표층(일간 **포함** 천간 + 지지 정기)의 火·水 개수 | 없음 | 기둥 3 |
+| `climate` | 표 3 계절 + 표층(일간 **포함** 천간 + 지지 정기)의 火·水 개수. 0도 값으로 싣는다(골든 셀 `fire=1 water=0`) | 없음 | 기둥 3 |
 
 ## 학파 선택 항목
 
