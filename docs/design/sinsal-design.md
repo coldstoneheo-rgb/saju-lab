@@ -48,6 +48,7 @@ interface SinsalHit {
   variantId: string;           // 예 "cheoneul.a" · "dohwa.year-basis" · "goegang.day-four"
   basis: { pillar: PillarKey; char: Stem | Branch | `${Stem}-${Branch}` };
   at: PillarKey[];             // 걸린 기둥(연→시)
+  precision: "exact" | "time-unknown"; // 구현에서 더함(§2 시각 미상, PR #118 critic 관찰 ③)
   doctrine: "unreviewed";
 }
 // sinsalOf(pillars) → SinsalHit[] — sinsalId → variantId → at 순. 맞는 게 없으면 싣지 않는다.
