@@ -1,10 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-10-26T03:10:00+09:00",
-  "head": "#115 squash (1d7475f) — 인계 PR 머지 뒤 git log main 참조",
-  "working_on": "[IDLE] · HO-2026-1026 완료: Audit #112 · 8b-2 yongsinCandidatesOf #113 · 격국 K1·K2·K4·K5 #114 · K3 #115 · 다음 = 신살 착수 HO 또는 8a 재계산 뒤 파생 골든 3장",
-  "waiting_on": "[LC] 8a 골든 52행 재계산 채무 → 파생 골든 156행(READINGS 50·YONGSIN 50·GYEOKGUK 56) · [사용자] REPORT 확인 목록 6건(기본값 진행, 신규 2) · DEC-2026-1015 별건",
+  "as_of": "2026-10-26T18:30:00+09:00",
+  "head": "#121 squash (a9551fd) — 인계 #122 머지 뒤 git log main 참조",
+  "working_on": "[IDLE] · HO-2026-1026-sinsal 완료: S1 #117 · S2·S4·S5 #118 · S3 #119 · include 설계 #120 · 8a confirmed+파생 3장 #121 a9551fd · 다음 = 9단계 include 개방 착수 HO",
+  "waiting_on": "[LC] GOLDEN-SINSAL 50×13 + GYEOKGUK 보강 6 재계산 · [사용자] REPORT 확인 목록(괴강 판본 · 층 노출 범위 · 의존 블록 · monthBranch, 기본값 진행) · DEC-2026-1015 별건",
   "recent": [
+    {
+      "at": "2026-10-26",
+      "what": "HO-2026-1026-sinsal: #117 3360b36 SINSAL.md 7종(변형 13)+파서 · #118 6890af1 sinsalOf(경계 4·어휘·계약) · #119 16302f2 GOLDEN-SINSAL 50×13 pending(md 오라클) · #120 963b92b include 개방 설계서 · #121 a9551fd 8a 50행 confirmed(LC 재계산 800셀 일치)+OPEN_REVIEW_ROUND 삭제+파생 3장(READINGS·YONGSIN 50 · GYEOKGUK 50+보강6). verify core 868→1049·api115·web49 EXIT 0. REPORT docs/handoffs/HO-2026-1026-saju-sinsal-REPORT.md"
+    },
     {
       "at": "2026-10-26",
       "what": "HO-2026-1026 8b-2·격국: #112 0661a83 audit 4→0 · #113 d32c347 yongsinCandidatesOf(억부·조후, 골든 유도 후보 267) · #114 0237f8d gyeokgukReadingsOf(세트 3, 월지 비겁 표 19행) · #115 1d7475f K3 골든 50 유도 + 보강 6. verify core 774→868·api115·web49 EXIT 0, CI Audit 초록. REPORT docs/handoffs/HO-2026-1026-saju-8b2-REPORT.md"
@@ -51,9 +55,10 @@
     }
   ],
   "next_actions": [
-    "8b-2 yongsinCandidatesOf(설계서 §6 인터페이스) + 격국 K1~K6 착수 HO 수령",
-    "Audit: vitest/@vitest/mocker advisory 4건 의존성 업그레이드 TASK(별도)",
-    "8a confirmed 뒤 GOLDEN-STRENGTH-READINGS.md 50행 실행 pending 생성",
+    "9단계 include 개방 착수 HO(docs/design/l2-include-design.md §5 I1~I7)",
+    "LC 재계산: GOLDEN-SINSAL 50×13 · GOLDEN-GYEOKGUK 보강 6 → confirmed PR(SINSAL 출처 열 추가)",
+    "S-YNY 2행 GOLDEN-PILLARS 선등록(getLunCalInfo) → 8a 편입 + toHaveLength(50) 수정",
+    "8a monthBranch 필드(안 A) 별도 PR — 격국 monthBranchOf 우회 삭제",
     "DEC 뒤: 레이어 채택 시 ROUTED_LIST_MAIN_TIMEOUT_MS 값 조정 · FREE용 레이어 2판(strokeYinyang 문장) 재측정",
     "종류별 라우팅 값 설계(llm_routing 1값 → list/letter 분리, 하위 호환) — HO 수령 뒤",
     "baby 평가 러너 대상 = Preview(ENABLED=1) 또는 로컬 (prod는 명시 claude 403)",

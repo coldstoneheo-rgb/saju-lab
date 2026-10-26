@@ -18,7 +18,7 @@
 | `gyeokguk` | `gyeokgukReadingsOf(factors)` | 8a | `gyeokguk` (배열, ruleSetId 순) | 같음 + `agreesAcrossSets` | 8a 게이트 + `GOLDEN-GYEOKGUK.md` 56 `confirmed` |
 | `sinsal` | `sinsalOf(pillars)` | 명식만 | `sinsal` (배열, 변형 순) | `precision` · `doctrine` | `GOLDEN-SINSAL.md` 50×변형 `confirmed`(8a와 무관) |
 
-- **실행 축 vs 학설 축**: 선행 게이트는 «코어가 표대로 실행했는가»(실행 축, LC 재계산으로 닫힘)만 본다. «표가 명리학적으로 맞는가»(학설 축)는 G2-3 전까지 열리지 않으므로 게이트로 쓰지 않고, 응답 레코드마다 `doctrine: "unreviewed"`로 싣는다.
+- **실행 축 vs 학설 축**: 선행 게이트는 «코어가 표대로 실행했는가»(실행 축, LC 재계산으로 닫힘)만 본다. «표가 명리학적으로 맞는가»(학설 축)는 G2-3 전까지 열리지 않으므로 게이트로 쓰지 않고, 응답 레코드마다 `doctrine: "unreviewed"`로 싣는다. 서지가 레포 안에서 확인되지 않은 항목(괴강 판본 — `docs/design/sinsal-design.md` §2 각주, 레포 내 근거 0)도 이 축에 속하며 G2-3 서지 검토 대상이다.
 - 게이트 테스트 형태(제안): 블록별 골든 md를 파싱해 `상태`가 전부 `confirmed`가 아니면 그 블록의 «개방됨» 테스트가 실패한다. 즉 개방 PR은 골든 confirmed PR 뒤에만 green이 된다.
 
 ## 2. 요청 · 응답 형태 (제안)
@@ -72,6 +72,7 @@
 | I4 | `SAJU_PILLARS_API_V1.md` 블록 절 + 예시 1건씩 | 문서 |
 | I5 | 8a `monthBranch`(안 A 채택 시) 별도 PR | 키 집합 |
 | I6 | verify EXIT 0 · verifier PASS · LC 게이트 | G3 |
+| I7 | 블록을 여는 PR에서 그 블록의 코어 함수·타입을 `packages/saju-core/src/index.ts`로 export(현재 `sinsalOf`·`SinsalHit`·`SINSAL_VARIANTS`는 미export — 격국·용신·8b와 다름, #118 LC 관찰 ①) | 공개 API 면 |
 
 ## 6. 사용자 확인 목록
 
