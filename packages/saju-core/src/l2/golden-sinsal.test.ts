@@ -132,7 +132,7 @@ describe("GOLDEN-SINSAL.md — 50행 · 변형 13열 · pending", () => {
     expect(rows.some((cell) => cell("cheoneul.a") !== "-" && cell("cheoneul.b") === "-")).toBe(true);
     expect(rows.some((cell) => cell("cheoneul.a") === "-" && cell("cheoneul.b") !== "-")).toBe(true);
     expect(rows.some((cell) => cell("goegang.day-four") === "-" && cell("goegang.day-mu-sul") !== "-")).toBe(true);
-    expect(rows.some((cell) => cell("goegang.day-four") === "-" && cell("goegang.four-pillars") !== "-")).toBe(true);
+    expect(rows.some((cell) => cell("goegang.day-four") === "-" && cell("goegang.day-mu-sul") === "-" && cell("goegang.four-pillars") !== "-")).toBe(true);
     const selfEffective = rows.filter((cell) => {
       const loose = oracle(cell("명식"), false);
       return loose["hwagae.year-basis"] !== cell("hwagae.year-basis") || loose["hwagae.day-basis"] !== cell("hwagae.day-basis");

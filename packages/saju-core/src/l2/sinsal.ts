@@ -15,7 +15,7 @@ import {
 
 /**
  * 신살 표 조회 — runs every variant in docs/rules/SINSAL.md 표 1 over the chart's
- * characters and returns one hit per matched basis. Lookup only: no 길흉, no strength,
+ * characters and returns one hit per matched basis. Lookup only: no good/bad labels, no strength,
  * no default variant. Reads PillarsResult only (not 8a · 8b · 격국).
  */
 

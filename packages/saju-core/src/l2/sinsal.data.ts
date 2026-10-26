@@ -3,7 +3,7 @@ import { BIGYEOP_MONTH_TABLE } from "./gyeokguk.js";
 
 /**
  * 신살 조회표 — the source of truth is docs/rules/SINSAL.md; sinsal.data.test.ts parses it.
- * Lookup data only: no 길흉, no strength, no default variant.
+ * Lookup data only: no good/bad labels, no strength, no default variant.
  */
 
 export type SinsalId = "cheoneul" | "dohwa" | "yeokma" | "hwagae" | "yangin" | "goegang" | "baekho";
