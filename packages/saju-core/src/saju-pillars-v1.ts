@@ -289,7 +289,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   if (options === null) {
     return failure(
       "INVALID_OPTIONS",
-      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include (['hiddenStems' | 'tenGods' | 'interactions' | 'daeun' | 'strengthReadings' | 'yongsinCandidates' | 'gyeokguk' | 'sinsal']), referenceDate (YYYY-MM-DD) and hiddenStemSchool ('yeonhae' | 'japyeong').",
+      `options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include ([${INCLUDE_BLOCKS.map((block) => `'${block}'`).join(" | ")}]), referenceDate (YYYY-MM-DD) and hiddenStemSchool ('yeonhae' | 'japyeong').`,
       "options"
     );
   }

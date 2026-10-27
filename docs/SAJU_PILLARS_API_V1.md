@@ -136,7 +136,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - **키 라우트 `/api/saju-pillars`만 연다.** keyless `/api/app/saju-pillars`는 이 네 블록을 `INVALID_OPTIONS`(400)로 거절한다 — 무료/유료 층 노출은 사용자 결정 전이라 keyless 공개면을 바꾸지 않는다(`docs/design/l2-include-design.md` §4). 기본 응답과 5~7단계 블록은 두 라우트가 같다.
 - **선행 게이트**: 블록마다 골든이 실행 축 전부 `confirmed`여야 열린다(`packages/saju-core/src/l2/include-gate.test.ts`). 학설 축은 열리지 않았다 — 모든 레코드에 `doctrine: "unreviewed"`(G2-3 역술가 대조 전). 판정·추천이 아니라 **규칙표를 실행한 사실**이다. 사람 대면 문장은 13단계 몫.
 - **의존 블록은 자동으로 붙지 않는다.** `yongsinCandidates`만 요청해도 응답에 `strengthReadings`가 없다(코어가 내부에서만 계산). 8a 강약 팩터 자체는 블록으로 열지 않았다.
-- `hiddenStemSchool`은 네 블록 모두에 적용된다(`japyeong`이면 사령 기반 세트가 `no-day-counts`). 시각 미상이면 레코드마다 `precision: "time-unknown"`.
+- `hiddenStemSchool`은 강약·용신 후보·격국 세 블록에 적용된다(`japyeong`이면 사령 기반 세트가 `no-day-counts`). `sinsal`은 명식 글자만 읽어 학파와 무관하다. 시각 미상이면 네 블록 모두 레코드마다 `precision: "time-unknown"`.
 - `strengthReadings: StrengthReading[]` — 규칙 세트마다 1개(`strength.month-first` · `strength.triad-majority`, 기본 세트 없음): `{ ruleSetId, verdict, firedConditions[1], inputs, definitionIds, school, precision, agreesAcrossSets, doctrine }`. 규칙 정본 `docs/rules/STRENGTH-READINGS.md`, 골든 `GOLDEN-STRENGTH-READINGS.md`.
 - `yongsinCandidates: YongsinCandidate[]` — 후보 목록(용신 결정 아님): `{ candidateId, element, method, ruleId, basis: { readingRef?, factorRefs[] }, note, doctrine }`. 규칙 `docs/rules/YONGSIN-CANDIDATES.md`, 골든 `GOLDEN-YONGSIN-CANDIDATES.md`.
 - `gyeokguk: GyeokgukReading[]` — 규칙 세트마다 1개(`gyeokguk.exposed-first` · `.primary-only` · `.saryeong`): `{ ruleSetId, candidates[], ambiguous, unavailable?, firedConditions[1], monthBranchClashed, agreesAcrossSets, school, precision, doctrine }`. 규칙 `docs/rules/GEOKGUK.md`, 골든 `GOLDEN-GYEOKGUK.md`.
@@ -235,7 +235,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 | 400 | `INVALID_BIRTH_TIME` | `HH:mm` 형식 아님 |
 | 400 | `INVALID_SEX` | 허용 값 아님 |
 | 400 | `INVALID_BIRTH_PLACE` | 17 시·도 코드 아님 |
-| 400 | `INVALID_OPTIONS` | `options`에 모르는 키·값(`include` 블록, 학파, `referenceDate` 형식 포함) |
+| 400 | `INVALID_OPTIONS` | `options`에 모르는 키·값(`include` 블록, 학파, `referenceDate` 형식 포함). keyless `/api/app/saju-pillars`는 9단계 블록(`strengthReadings`·`yongsinCandidates`·`gyeokguk`·`sinsal`) include도 이 코드로 거절(다른 필드 검증보다 먼저) |
 | 400 | `OUT_OF_SUPPORTED_RANGE` | 검증된 절기 계산 범위 밖의 날짜 — 현재 범위는 1920-01-06 소한 ~ 2100-12-07 대설 직전(KASI 24기 표, `docs/algorithms/SOLAR_TERM_SPEC.md` «지원 범위»). 음력은 1900~2050년 |
 | 401 | `UNAUTHORIZED` | `x-api-key` 누락/불일치(`/api/saju-pillars`) |
 | 405 | `METHOD_NOT_ALLOWED` | POST 외 메서드 |
