@@ -9,8 +9,8 @@ project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1026-saju-l2-include-01, 사용자 여행 중 RC 루프)
 summary: 9단계 — L2 판독 블록 4개(강약·용신 후보·격국·신살)를 saju-pillars-v1 include로 개방(키 라우트만) + 선행 게이트 테스트 + 신살·격국 보강 골든 confirmed + 8a monthBranch
 status: on_track
-progress: "9단계 데이터 블록 개방 완료(화면·유료 노출 0) (근거: npm run verify EXIT 0 api 117 · core 1057 · web 49, #123 d8e4ef9 · #124 7617ffa · #125 · #126)"
-changes: ["#123 d8e4ef9 docs(golden): GOLDEN-SINSAL 50 + GYEOKGUK 보강 6 confirmed", "#124 7617ffa test(saju-core): 9단계 I1 선행 게이트", "#125 feat(saju-core): 8a monthBranch 안 A", "#126 feat(saju-core,api): L2 판독 블록 4개 include 개방"]
+progress: "9단계 데이터 블록 개방 완료(화면·유료 노출 0) (근거: npm run verify EXIT 0 api 118 · core 1057 · web 49, #123 d8e4ef9 · #124 7617ffa · #125 e2c3f58 · #126 839c3ba)"
+changes: ["#123 d8e4ef9 docs(golden): GOLDEN-SINSAL 50 + GYEOKGUK 보강 6 confirmed", "#124 7617ffa test(saju-core): 9단계 I1 선행 게이트", "#125 e2c3f58 feat(saju-core): 8a monthBranch 안 A", "#126 839c3ba feat(saju-core,api): L2 판독 블록 4개 include 개방"]
 next: "층 노출 결정 뒤 UI HO(apps/web·유료 리포트 블록 사용, 13단계 문장)"
 blockers: "S-YNY 2행 = 일주 외부 출처(getLunCalInfo) 사용자 결정 대기"
 monetization: "유료 리포트(generatePaidReportV1)가 쓸 판독 데이터 블록이 계약으로 열림 — 층 결정만 남음"
