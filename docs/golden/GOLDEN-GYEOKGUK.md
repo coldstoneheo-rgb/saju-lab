@@ -1,9 +1,9 @@
-# 골든 격국 취격표 (격국 · 56 실행 confirmed · 학설 unreviewed)
+# 골든 격국 취격표 (격국 · 실행 confirmed 56 = 골든 50 8a 경로 + 보강 6 LC 재계산 세트 셀만 · 학설 unreviewed)
 
 `packages/saju-core/src/l2/golden-l2-derived.test.ts`가 이 파일을 직접 파싱해 코어 산출과 대조한다(열 이름 매핑). 규칙 정본 = `docs/rules/GEOKGUK.md`.
 
 - **두 상태 축**(`docs/DESIGN-2026-09-saju-L2-stage8.md` §5): `실행` = 코어가 규칙 md를 표대로 실행했는가 · `학설` = 그 표가 명리학적으로 맞는가. 학설 축은 G2-3(실제 역술가 대조) 전에는 전부 `unreviewed`다.
-- **실행 축 confirmed 근거**: 입력인 8a 팩터가 2026-10-26 LC 독립 재계산으로 `confirmed`(`GOLDEN-STRENGTH-FACTORS.md`, `life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md`)이다. 이 표의 **세트별 취격 요약(격/자리 · unavailable · ambiguous)**은 그 8a md 셀에서 규칙 md만으로 유도한 기대값과 같다(`golden-gyeokguk.test.ts` «골든 50» 테스트가 코드 독립 오라클로 강제). **세트일치**은 코어만 내는 셀이고 **md 오라클 미검증**이다 — 2026-10-26 대조 기록은 PR #121 critic 코멘트에만 있다(레포 안 재현 수단 아님, 후보 순서는 코어 의존). 즉 실행 축 confirmed의 경로는 «LC 독립 재계산»(설계 `DESIGN-2026-09-saju-L2-stage8.md` §4)이 아니라 «LC 재계산으로 confirmed된 8a 위의 md 유도»다(HO-2026-1026-sinsal LC 보강 ③). 8a 행이 confirmed가 아니면 실행 축도 confirmed가 될 수 없다(테스트가 확인).
+- **실행 축 confirmed 근거**: 입력인 8a 팩터가 2026-10-26 LC 독립 재계산으로 `confirmed`(`GOLDEN-STRENGTH-FACTORS.md`, `life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md`)이다. 이 표의 **세트별 취격 요약(격/자리 · unavailable · ambiguous)**은 그 8a md 셀에서 규칙 md만으로 유도한 기대값과 같다(`golden-gyeokguk.test.ts` «골든 50» 테스트가 코드 독립 오라클로 강제). **세트일치**은 코어만 내는 셀이고 **md 오라클 미검증**이다 — 2026-10-26 대조 기록은 PR #121 critic 코멘트에만 있다(레포 안 재현 수단 아님, 후보 순서는 코어 의존). 즉 실행 축 confirmed의 경로는 «LC 독립 재계산»(설계 `DESIGN-2026-09-saju-L2-stage8.md` §4)이 아니라 «LC 재계산으로 confirmed된 8a 위의 md 유도»다(HO-2026-1026-sinsal LC 보강 ③). 골든 50행은 8a 행이 confirmed가 아니면 실행 축도 confirmed가 될 수 없다(테스트가 확인). 보강 6행(`k-`)은 8a 밖이라 이 경로가 아니다 — 아래 «보강 6행».
 - **이 표는 판결이 아니다.** 사람 대면 문장·추천은 13단계 몫이다.
 - **셀 형식** 세트 열 = `격/자리`(ambiguous면 `,`로 둘 + `!`) 또는 `unavailable` 사유. `세트일치` = `agreesAcrossSets`.
 - **보강 6행**(`k-` id, `입력` 열 = 양력 KST 시계값): 골든 50에 없는 칸(월겁 2 · 고지 무투출 2 · 잡기 ambiguous 1 · 시각 미상에 민감한 1). 8a 골든 밖이라 8a 경로가 아니라 **LC 독립 재계산**(`life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md` 표 3 — HIDDEN-STEMS · STRENGTH 사령 · GEOKGUK 표 · KASI 절입만, 코어 코드 미참조)으로 2026-10-26 `실행: confirmed`. 세트 셀 18/18 일치. **세트일치 열은 이 6행에서도 md 오라클 미검증**(LC 참고값 6/6 같음, 집계 제외)이고, **명식 열(입력 → 명식 환산)은 GOLDEN-PILLARS 밖이라 미검증**(코어 산출 · 월지만 절입 대조로 간접 확인).

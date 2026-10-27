@@ -90,7 +90,7 @@ interface GyeokgukReading {
 
 **골든 선행 조건:** 8a 골든 confirmed. 8a 셀(투간·사령)이 확정되지 않으면 격국 골든도 `실행: pending`에 머문다.
 
-**K3 실측(2026-10-26, HO-2026-1026):** 8a가 50/50 pending이라 `GOLDEN-GYEOKGUK.md`는 보류(8b-1 READINGS와 같은 분기). 대신 `l2/golden-gyeokguk.test.ts`가 8a md 셀(일간·득령·투간·사령) + `GOLDEN-PILLARS.md` 월지에서 기대 취격을 유도해 50행 대조하고 분포를 고정한다. 보강: ①③⑤는 골든 50에 있음(월지충 9행 · 양인 4행(골든 50 중 양인 판정 행 수 — §2 월겁 표 4행과 다른 숫자) · nearThreshold 갈림 g-1983-06-25-1525) · ②는 1행(g-1927-08-20-0915) + 보강 1 · ④ 월겁 보강 2 · ⑥ 시각 미상 격 변화 보강 1 · 고지 무투출 보강 2 = **보강 6**(실명 입력, 기둥 문자열 고정).
+**K3 실측(2026-10-26, HO-2026-1026 — 당시 기록):** 8a가 50/50 pending이라 `GOLDEN-GYEOKGUK.md`는 보류(8b-1 READINGS와 같은 분기). 대신 `l2/golden-gyeokguk.test.ts`가 8a md 셀(일간·득령·투간·사령) + `GOLDEN-PILLARS.md` 월지에서 기대 취격을 유도해 50행 대조하고 분포를 고정한다. 보강: ①③⑤는 골든 50에 있음(월지충 9행 · 양인 4행(골든 50 중 양인 판정 행 수 — §2 월겁 표 4행과 다른 숫자) · nearThreshold 갈림 g-1983-06-25-1525) · ②는 1행(g-1927-08-20-0915) + 보강 1 · ④ 월겁 보강 2 · ⑥ 시각 미상 격 변화 보강 1 · 고지 무투출 보강 2 = **보강 6**(실명 입력, 기둥 문자열 고정).
 
 ## 5. 교차 구현
 
@@ -102,7 +102,7 @@ lunar-typescript 1.8.6에는 격국 API가 없다(`dist/index.d.ts` grep: 십신
 | --- | --- | --- |
 | K1 | `docs/rules/GEOKGUK.md`(세트 3개 규칙표 + 학파 선택표) ↔ 코드 상수 파서 테스트 | 동일성 |
 | K2 | `l2/gyeokguk.ts` 순수 함수, 공개 계약 diff 0, export 추가만 | typecheck · 계약 테스트 |
-| K3 | 골든 50 + 보강 ≥5, `실행: pending` → LC 재계산 → confirmed | 불일치 0 |
+| K3 | 골든 50 + 보강 ≥5, `실행: pending` → LC 재계산 → confirmed(2026-10-26: 골든 50 = 8a 경로 #121 · 보강 6 = LC 재계산 세트 셀 HO-2026-1026-l2-include PR1) | 불일치 0 |
 | K4 | 경계 테스트: `ambiguous` · 건록/양인/월겁 · 戊 일간 巳월(건록, 정기 편인) · 토 일간 고지 월지 · japyeong 사령 unavailable · 시각 미상 | 각 1건 이상 |
 | K5 | 어휘 가드(성격·파격·길흉 단정·추천어 0), 기본 응답 바이트 동일 | 0건 · 스냅샷 |
 | K6 | verify exit 0 · verifier PASS · LC 게이트 | G3 |
