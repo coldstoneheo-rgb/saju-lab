@@ -56,11 +56,18 @@ const chartText = (input: BirthInput) => {
   return [p.year, p.month, p.day, p.time].filter(Boolean).map((pillar) => `${pillar!.stem}-${pillar!.branch}`).join(" ");
 };
 
-/** Shared axis checks: 실행 confirmed only on a confirmed 8a row, 학설 always unreviewed, pending ≤ 20%, source present. */
+/** 8a 골든 밖 보강 행(`k-`)의 실행 confirmed 근거 = LC 독립 재계산 파일(8a 경로 아님). */
+const SUPPLEMENT_RECALC = "life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md";
+const SUPPLEMENT_IDS: ReadonlySet<string> = new Set([
+  "k-1980-02-12-1030", "k-1980-11-16-1030", "k-1980-10-23-1030", "k-1980-01-26-1030", "k-1981-07-09-1030", "k-1980-04-09-1030"
+]);
+
+/** Shared axis checks: 실행 confirmed only on a confirmed 8a row (or, for a `k-` row, an LC recalc source), 학설 always unreviewed, pending ≤ 20%, source present. */
 function axes(rows: Array<(name: string) => string>) {
   for (const cell of rows) {
     expect(["confirmed", "pending"]).toContain(cell("실행"));
-    if (cell("실행") === "confirmed") expect(factorsStatus.get(cell("id")), cell("id")).toBe("confirmed");
+    if (cell("실행") === "confirmed" && SUPPLEMENT_IDS.has(cell("id"))) expect(cell("출처"), cell("id")).toContain(SUPPLEMENT_RECALC);
+    else if (cell("실행") === "confirmed") expect(factorsStatus.get(cell("id")), cell("id")).toBe("confirmed");
     expect(cell("학설")).toBe("unreviewed");
     expect(cell("출처")).not.toBe("");
   }
@@ -118,14 +125,12 @@ describe("GOLDEN-GYEOKGUK.md (격국 50 + 보강 6)", () => {
     return { birthDate: birthDate!, birthTime: birthTime!, timezone: "Asia/Seoul", calendar: "solar", sex: "other" };
   };
 
-  it("56행 = 골든 50(순서) + 보강 6 · 골든 50 실행 confirmed · 보강 6 pending", () => {
+  it("56행 = 골든 50(순서) + 보강 6 · 56행 전부 실행 confirmed(보강 6 = LC 재계산)", () => {
     expect(rows.slice(0, 50).map((cell) => cell("id"))).toEqual(goldenIds);
-    expect(rows.slice(50).map((cell) => cell("id"))).toEqual([
-      "k-1980-02-12-1030", "k-1980-11-16-1030", "k-1980-10-23-1030", "k-1980-01-26-1030", "k-1981-07-09-1030", "k-1980-04-09-1030"
-    ]);
+    expect(rows.slice(50).map((cell) => cell("id"))).toEqual([...SUPPLEMENT_IDS]);
     axes(rows);
     expect(rows.slice(0, 50).every((cell) => cell("실행") === "confirmed" && cell("입력") === "-")).toBe(true);
-    expect(rows.slice(50).every((cell) => cell("실행") === "pending")).toBe(true);
+    expect(rows.slice(50).every((cell) => cell("실행") === "confirmed" && cell("입력") !== "-")).toBe(true);
   });
 
   it.each(Array.from({ length: 56 }, (_, index) => index))("행 %i = gyeokgukReadingsOf", (index) => {
