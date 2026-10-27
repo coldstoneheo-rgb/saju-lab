@@ -62,6 +62,7 @@
 
 | 필드 | 정의 | 학파 영향 | 시각 미상 |
 | --- | --- | --- | --- |
+| `monthBranch` | 월주 지지(명식 그대로). 계산 없음 — 월지를 읽는 블록(격국)이 장간 목록에서 되찾지 않게 싣는다(2026-10-27, include 설계 §3 안 A) | 없음 | 그대로 |
 | `tenGodCounts.surface` | 일간을 뺀 천간 3 + 지지 정기 4의 십신별 개수 | 없음 | 천간 2 + 지지 3 |
 | `tenGodCounts.withHidden` | 일간을 뺀 천간 3 + 지장간 전체의 십신별 개수 | 있음 | 기둥 3 |
 | `elementCounts.surface` · `.withHidden` | 같은 두 층(일간 제외)의 오행별 개수. 층 원본은 `layers`(`stems` · `branchPrimary` · `hiddenStems`, 일수 원본 포함) | withHidden만 | 기둥 3 |
