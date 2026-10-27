@@ -119,7 +119,7 @@ describe("A6 — API document error table equals the code's error union", () => 
     expect(code({ ...base, birthDate: "1990-01-01", birthTime: "25:00" })).toBe("INVALID_BIRTH_TIME");
     expect(code({ ...base, birthDate: "1990-01-01", birthTime: "10:30", sex: "unknown" })).toBe("INVALID_SEX");
     expect(code({ ...base, birthDate: "1990-01-01", birthTime: "10:30", birthPlace: "mars" })).toBe("INVALID_BIRTH_PLACE");
-    expect(code({ ...base, birthDate: "1990-01-01", birthTime: "10:30", options: { include: ["sinsal"] } })).toBe("INVALID_OPTIONS");
+    expect(code({ ...base, birthDate: "1990-01-01", birthTime: "10:30", options: { include: ["strengthFactors"] } })).toBe("INVALID_OPTIONS");
     expect(code({ ...base, calendar: "lunar", birthDate: "2025-06-30", birthTime: "10:30", isLeapMonth: true })).toBe("INVALID_LUNAR_DATE");
     expect(code({ ...base, birthDate: "1900-05-05", birthTime: "10:30" })).toBe("OUT_OF_SUPPORTED_RANGE");
   });
