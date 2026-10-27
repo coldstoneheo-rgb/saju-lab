@@ -8,7 +8,7 @@ import { sinsalOf } from "./sinsal.js";
 
 /**
  * 신살 S3 — GOLDEN-SINSAL.md 50행 × 변형 13열. 오라클은 SINSAL.md 표 + GOLDEN-PILLARS.md
- * 기둥 글자만 읽는다(코드 표 미참조, 5·6단계 A5 패턴). 상태는 전부 pending — LC 재계산 뒤 confirmed.
+ * 기둥 글자만 읽는다(코드 표 미참조, 5·6단계 A5 패턴). 50행 전부 confirmed — 2026-10-26 LC 독립 재계산 650셀 일치.
  */
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -91,13 +91,16 @@ const chartOf = (id: string) => {
 };
 const cellsOf = (cell: (name: string) => string) => Object.fromEntries(VARIANTS.map((variant) => [variant.id, cell(variant.id)]));
 
-describe("GOLDEN-SINSAL.md — 50행 · 변형 13열 · pending", () => {
-  it("행 = GOLDEN-PILLARS 50행(같은 순서) · 명식 열 = GOLDEN-PILLARS 기둥 · 열 = SINSAL.md 표 1 변형 · 상태 pending", () => {
+const LC_RECALC = "life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md";
+
+describe("GOLDEN-SINSAL.md — 50행 · 변형 13열 · confirmed", () => {
+  it("행 = GOLDEN-PILLARS 50행(같은 순서) · 명식 열 = GOLDEN-PILLARS 기둥 · 열 = SINSAL.md 표 1 변형 · 상태 confirmed · 출처 = LC 재계산 파일", () => {
     expect(rows.map((cell) => cell("id"))).toEqual(loadGoldenPillarCases().map((golden) => golden.id));
     expect(rows).toHaveLength(50);
     for (const cell of rows) {
       expect(cell("명식")).toBe(chartOf(cell("id")));
-      expect(cell("상태")).toBe("pending");
+      expect(cell("상태")).toBe("confirmed");
+      expect(cell("출처")).toContain(LC_RECALC);
       for (const variant of VARIANTS) expect(cell(variant.id), `${cell("id")} ${variant.id}`).toMatch(/^(-|(year|month|day|time)(,(month|day|time))*)$/);
     }
   });
@@ -138,6 +141,12 @@ describe("GOLDEN-SINSAL.md — 50행 · 변형 13열 · pending", () => {
       return loose["hwagae.year-basis"] !== cell("hwagae.year-basis") || loose["hwagae.day-basis"] !== cell("hwagae.day-basis");
     });
     expect(selfEffective.length).toBeGreaterThan(0);
+    // LC 재계산 «화개 자기 제외가 결과를 바꾼 셀» 23과 같은 수.
+    const selfCells = rows.flatMap((cell) => {
+      const loose = oracle(cell("명식"), false);
+      return ["hwagae.year-basis", "hwagae.day-basis"].filter((id) => loose[id] !== cell(id));
+    });
+    expect(selfCells).toHaveLength(23);
     const timeless = rows.filter((cell) => words(cell("명식")).length === 3);
     expect(timeless).toHaveLength(3);
     for (const cell of timeless) expect(Object.values(cellsOf(cell)).some((value) => value.includes("time"))).toBe(false);

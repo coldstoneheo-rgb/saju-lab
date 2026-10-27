@@ -81,7 +81,7 @@ lunar-typescript 1.8.6의 `getDayJiShen`·`getDayXiongSha`(택일 黃曆용 그�
 | --- | --- | --- |
 | S1 | `docs/rules/SINSAL.md`(7종 표 + 변형 + 학파 선택표) ↔ 코드 상수 파서 테스트 | 동일성 |
 | S2 | `l2/sinsal.ts` 순수 함수, 공개 계약 diff 0 | typecheck · 계약 |
-| S3 | 골든 50×7 `pending` → LC 재계산 → confirmed | 불일치 0 |
+| S3 | 골든 50 × 변형 13열 `pending` → LC 재계산 → confirmed(2026-10-26, HO-2026-1026-l2-include PR1) | 불일치 0 |
 | S4 | 경계: 시각 미상 시지 제외 · 기준 기둥 자기 제외 · 천을귀인 A/B 갈림 행 · 괴강 戊戌 변형 | 각 1건 이상 |
 | S5 | 어휘 가드(길흉 단정·추천어 0) · 기본 응답 바이트 동일 | 0건 · 스냅샷 |
 | S6 | verify exit 0 · verifier PASS · LC 게이트 | G3 |

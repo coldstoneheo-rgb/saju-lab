@@ -1,4 +1,4 @@
-# 골든 격국 취격표 (격국 · 50 실행 confirmed + 보강 6 pending · 학설 unreviewed)
+# 골든 격국 취격표 (격국 · 56 실행 confirmed · 학설 unreviewed)
 
 `packages/saju-core/src/l2/golden-l2-derived.test.ts`가 이 파일을 직접 파싱해 코어 산출과 대조한다(열 이름 매핑). 규칙 정본 = `docs/rules/GEOKGUK.md`.
 
@@ -6,7 +6,7 @@
 - **실행 축 confirmed 근거**: 입력인 8a 팩터가 2026-10-26 LC 독립 재계산으로 `confirmed`(`GOLDEN-STRENGTH-FACTORS.md`, `life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md`)이다. 이 표의 **세트별 취격 요약(격/자리 · unavailable · ambiguous)**은 그 8a md 셀에서 규칙 md만으로 유도한 기대값과 같다(`golden-gyeokguk.test.ts` «골든 50» 테스트가 코드 독립 오라클로 강제). **세트일치**은 코어만 내는 셀이고 **md 오라클 미검증**이다 — 2026-10-26 대조 기록은 PR #121 critic 코멘트에만 있다(레포 안 재현 수단 아님, 후보 순서는 코어 의존). 즉 실행 축 confirmed의 경로는 «LC 독립 재계산»(설계 `DESIGN-2026-09-saju-L2-stage8.md` §4)이 아니라 «LC 재계산으로 confirmed된 8a 위의 md 유도»다(HO-2026-1026-sinsal LC 보강 ③). 8a 행이 confirmed가 아니면 실행 축도 confirmed가 될 수 없다(테스트가 확인).
 - **이 표는 판결이 아니다.** 사람 대면 문장·추천은 13단계 몫이다.
 - **셀 형식** 세트 열 = `격/자리`(ambiguous면 `,`로 둘 + `!`) 또는 `unavailable` 사유. `세트일치` = `agreesAcrossSets`.
-- **보강 6행**(`k-` id, `입력` 열 = 양력 KST 시계값): 골든 50에 없는 칸(월겁 2 · 고지 무투출 2 · 잡기 ambiguous 1 · 시각 미상에 민감한 1). 8a 골든 밖이라 `실행: pending` — LC 재계산 대기(6/56 = 10.7%, pending 상한 20% 안).
+- **보강 6행**(`k-` id, `입력` 열 = 양력 KST 시계값): 골든 50에 없는 칸(월겁 2 · 고지 무투출 2 · 잡기 ambiguous 1 · 시각 미상에 민감한 1). 8a 골든 밖이라 8a 경로가 아니라 **LC 독립 재계산**(`life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md` 표 3 — HIDDEN-STEMS · STRENGTH 사령 · GEOKGUK 표 · KASI 절입만, 코어 코드 미참조)으로 2026-10-26 `실행: confirmed`. 세트 셀 18/18 일치. **세트일치 열은 이 6행에서도 md 오라클 미검증**(LC 참고값 6/6 같음, 집계 제외)이고, **명식 열(입력 → 명식 환산)은 GOLDEN-PILLARS 밖이라 미검증**(코어 산출 · 월지만 절입 대조로 간접 확인).
 
 ## 표
 
@@ -62,9 +62,9 @@
 | g-1992-10-02-2130 | - | im-sin gi-yu sin-hae gi-hae | geonrok/primary | geonrok/primary | geonrok/primary | Y | confirmed | unreviewed | 8a confirmed 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md`) 위 md 셀 유도 = 코어 |
 | g-2013-05-22-0530 | - | gye-sa jeong-sa mu-ja eul-myo | geonrok/primary | geonrok/primary | geonrok/primary | Y | confirmed | unreviewed | 8a confirmed 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md`) 위 md 셀 유도 = 코어 |
 | g-1986-07-08-1900 | - | byeong-in eul-mi gye-chuk im-sul | siksin/middle | pyeongwan/primary | pyeonjae/residual | N | confirmed | unreviewed | 8a confirmed 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-8a-recalc.md`) 위 md 셀 유도 = 코어 |
-| k-1980-02-12-1030 | 1980-02-12 10:30 | gyeong-sin mu-in eul-myo sin-sa | wolgeop/primary | wolgeop/primary | wolgeop/primary | Y | pending | unreviewed | 코어 산출 2026-10-26, 8a 골든 밖 보강(golden-gyeokguk.test.ts «보강 6») — LC 재계산 대기 |
-| k-1980-11-16-1030 | 1980-11-16 10:30 | gyeong-sin jeong-hae gye-sa jeong-sa | wolgeop/primary | wolgeop/primary | wolgeop/primary | Y | pending | unreviewed | 코어 산출 2026-10-26, 8a 골든 밖 보강(golden-gyeokguk.test.ts «보강 6») — LC 재계산 대기 |
-| k-1980-10-23-1030 | 1980-10-23 10:30 | gyeong-sin byeong-sul gi-sa gi-sa | bigyeop-month | bigyeop-month | bigyeop-month | Y | pending | unreviewed | 코어 산출 2026-10-26, 8a 골든 밖 보강(golden-gyeokguk.test.ts «보강 6») — LC 재계산 대기 |
-| k-1980-01-26-1030 | 1980-01-26 10:30 | gi-mi jeong-chuk mu-sul jeong-sa | bigyeop-month | bigyeop-month | bigyeop-month | Y | pending | unreviewed | 코어 산출 2026-10-26, 8a 골든 밖 보강(golden-gyeokguk.test.ts «보강 6») — LC 재계산 대기 |
-| k-1981-07-09-1030 | 1981-07-09 10:30 | sin-yu eul-mi mu-ja jeong-sa | jeonggwan/middle,jeongin/residual! | bigyeop-month | jeongin/residual | N | pending | unreviewed | 코어 산출 2026-10-26, 8a 골든 밖 보강(golden-gyeokguk.test.ts «보강 6») — LC 재계산 대기 |
-| k-1980-04-09-1030 | 1980-04-09 10:30 | gyeong-sin gyeong-jin im-ja eul-sa | sanggwan/residual | pyeongwan/primary | sanggwan/residual | N | pending | unreviewed | 코어 산출 2026-10-26, 8a 골든 밖 보강(golden-gyeokguk.test.ts «보강 6») — LC 재계산 대기 |
+| k-1980-02-12-1030 | 1980-02-12 10:30 | gyeong-sin mu-in eul-myo sin-sa | wolgeop/primary | wolgeop/primary | wolgeop/primary | Y | confirmed | unreviewed | LC 재계산 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md` 표 3) 세트 셀만 — 명식 환산·세트일치 미검증(코어 산출) |
+| k-1980-11-16-1030 | 1980-11-16 10:30 | gyeong-sin jeong-hae gye-sa jeong-sa | wolgeop/primary | wolgeop/primary | wolgeop/primary | Y | confirmed | unreviewed | LC 재계산 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md` 표 3) 세트 셀만 — 명식 환산·세트일치 미검증(코어 산출) |
+| k-1980-10-23-1030 | 1980-10-23 10:30 | gyeong-sin byeong-sul gi-sa gi-sa | bigyeop-month | bigyeop-month | bigyeop-month | Y | confirmed | unreviewed | LC 재계산 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md` 표 3) 세트 셀만 — 명식 환산·세트일치 미검증(코어 산출) |
+| k-1980-01-26-1030 | 1980-01-26 10:30 | gi-mi jeong-chuk mu-sul jeong-sa | bigyeop-month | bigyeop-month | bigyeop-month | Y | confirmed | unreviewed | LC 재계산 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md` 표 3) 세트 셀만 — 명식 환산·세트일치 미검증(코어 산출) |
+| k-1981-07-09-1030 | 1981-07-09 10:30 | sin-yu eul-mi mu-ja jeong-sa | jeonggwan/middle,jeongin/residual! | bigyeop-month | jeongin/residual | N | confirmed | unreviewed | LC 재계산 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md` 표 3) 세트 셀만 — 명식 환산·세트일치 미검증(코어 산출) |
+| k-1980-04-09-1030 | 1980-04-09 10:30 | gyeong-sin gyeong-jin im-ja eul-sa | sanggwan/residual | pyeongwan/primary | sanggwan/residual | N | confirmed | unreviewed | LC 재계산 2026-10-26(`life-coordinator/handoffs/LC-2026-1026-saju-sinsal-recalc.md` 표 3) 세트 셀만 — 명식 환산·세트일치 미검증(코어 산출) |

@@ -83,6 +83,7 @@
 | gyeokguk.saryeong | 3 | saryeong.bigyeop | saryeong-bigyeop | none-bigyeop |
 | gyeokguk.saryeong | 4 | saryeong.otherwise | else | saryeong |
 
+- 십신 판정(일간 기준 오행 생극 + 음양 동이 → 10 십신)은 `docs/golden/GOLDEN-TENGODS.md` 머리 «십신 코드·배정 규칙»을 따른다(같은 정의, 이 문서에서 재정의하지 않음).
 - 정격 8격 id = 십신 id 그대로: jeonggwan · pyeongwan · jeongjae · pyeonjae · siksin · sanggwan · jeongin · pyeonin.
 - 사령 세트는 사령이 있어야 실행된다. `japyeong`(일수 없음)은 항상 `no-day-counts`다 — 표 1에 해당해도 1행이 먼저다.
 
