@@ -9,6 +9,13 @@ import type { ApiResponse } from "./http.js";
 import { parseJsonBody } from "./http.js";
 
 /**
+ * 9단계 L2 판독 블록(2026-10-27)은 키가 걸린 호출에만 연다. 무료/유료 층 노출은 사용자 결정 전이라
+ * keyless 공개면(앱 라우트, 그리고 SAJU_API_KEY 미설정으로 열린 키 라우트)은 이 블록을 거절한다
+ * (docs/design/l2-include-design.md §4 · HO-2026-1026-l2-include).
+ */
+export const KEYLESS_DENIED_INCLUDES = ["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal"] as const;
+
+/**
  * Shared body of the saju-pillars-v1 endpoint: parse, delegate to the pure contract
  * builder, answer. No engine logic here, and deliberately no auth — each route owns
  * its own gate (`api/saju-pillars.ts` keeps the x-api-key contract, `api/app/…` is

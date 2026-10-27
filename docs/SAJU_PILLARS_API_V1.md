@@ -133,7 +133,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
   "options": { "include": ["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal"] } }
 ```
 
-- **키 라우트 `/api/saju-pillars`만 연다.** keyless `/api/app/saju-pillars`는 이 네 블록을 `INVALID_OPTIONS`(400)로 거절한다 — 무료/유료 층 노출은 사용자 결정 전이라 keyless 공개면을 바꾸지 않는다(`docs/design/l2-include-design.md` §4). 기본 응답과 5~7단계 블록은 두 라우트가 같다.
+- **키 라우트 `/api/saju-pillars`만 연다.** keyless `/api/app/saju-pillars`는 이 네 블록을 `INVALID_OPTIONS`(400)로 거절한다 — 무료/유료 층 노출은 사용자 결정 전이라 keyless 공개면을 바꾸지 않는다(`docs/design/l2-include-design.md` §4). 키 라우트도 `SAJU_API_KEY`가 설정되지 않아 열린 상태(로컬·PoC)이면 같은 네 블록을 거절한다 — 키가 실제로 걸린 호출에서만 열린다. 기본 응답과 5~7단계 블록은 두 라우트가 같다.
 - **선행 게이트**: 블록마다 골든이 실행 축 전부 `confirmed`여야 열린다(`packages/saju-core/src/l2/include-gate.test.ts`). 학설 축은 열리지 않았다 — 모든 레코드에 `doctrine: "unreviewed"`(G2-3 역술가 대조 전). 판정·추천이 아니라 **규칙표를 실행한 사실**이다. 사람 대면 문장은 13단계 몫.
 - **의존 블록은 자동으로 붙지 않는다.** `yongsinCandidates`만 요청해도 응답에 `strengthReadings`가 없다(코어가 내부에서만 계산). 8a 강약 팩터 자체는 블록으로 열지 않았다.
 - `hiddenStemSchool`은 강약·용신 후보·격국 세 블록에 적용된다(`japyeong`이면 사령 기반 세트가 `no-day-counts`). `sinsal`은 명식 글자만 읽어 학파와 무관하다. 시각 미상이면 네 블록 모두 레코드마다 `precision: "time-unknown"`.

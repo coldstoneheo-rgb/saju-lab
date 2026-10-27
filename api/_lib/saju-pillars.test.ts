@@ -41,6 +41,16 @@ describe("saju-pillars routes — 9단계 L2 블록 노출 (HO-2026-1026-l2-incl
     expect(call(appHandler, { ...base, options: { include: ["hiddenStems"] } }, { "x-forwarded-for": "10.0.1.2" }).status).toBe(200);
   });
 
+  it("키 라우트도 SAJU_API_KEY 미설정(열린 상태)이면 L2 판독 블록을 거절, 기존 블록은 그대로", () => {
+    delete process.env.SAJU_API_KEY;
+    for (const block of L2) {
+      const denied = call(keyedHandler, { ...base, options: { include: [block] } });
+      expect(denied.status, block).toBe(400);
+      expect((denied.payload.error as { code: string }).code).toBe("INVALID_OPTIONS");
+    }
+    expect(call(keyedHandler, { ...base, options: { include: ["hiddenStems", "daeun"] } }).status).toBe(200);
+  });
+
   it("키 라우트 /api/saju-pillars는 맞는 x-api-key로 네 블록을 모두 싣는다", () => {
     process.env.SAJU_API_KEY = "test-key";
     expect(call(keyedHandler, { ...base, options: { include: L2 } }).status).toBe(401);
