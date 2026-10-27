@@ -18,19 +18,21 @@ function split(line: string): string[] {
   return line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim());
 }
 
-/** 상태 열 값들 — `## 표` 아래 첫 표, 열 이름 매핑. */
+/** 상태 열 값들 — `## 표` 아래 첫 표, 열 이름 매핑. 표가 끊긴 뒤 같은 절에 표 줄이 또 있으면 던진다(빈 줄로 행을 숨기는 것 차단). */
 function statusCells(source: string, column: string): string[] {
   const lines = source.split(/\r?\n/);
   const start = lines.findIndex((line) => line.startsWith("## 표"));
   if (start === -1) throw new Error("section 표 not found");
   const values: string[] = [];
   let columns: string[] | undefined;
+  let ended = false;
   for (const line of lines.slice(start + 1)) {
     if (line.startsWith("## ")) break;
     if (!line.trim().startsWith("|")) {
-      if (columns) break;
+      if (columns) ended = true;
       continue;
     }
+    if (ended) throw new Error("table rows after the table ended");
     const cells = split(line);
     if (!columns) {
       columns = cells;
@@ -61,8 +63,22 @@ const gateOpen = (block: GatedBlock, readFile: (file: string) => string = read) 
   GATES[block].every((gate) => allConfirmed(readFile(gate.file), gate.column));
 const isOpen = (block: string) => (INCLUDE_BLOCKS as readonly string[]).includes(block);
 const BLOCKS = Object.keys(GATES) as GatedBlock[];
+/** 게이트 없이 열려도 되는 블록(5~7단계 — 명식 사실, 판독 아님). */
+const UNGATED = ["hiddenStems", "tenGods", "interactions", "daeun"];
 
 describe("9단계 I1 — L2 include 선행 게이트", () => {
+  it("INCLUDE_BLOCKS의 모든 이름 = 게이트 없는 4블록 ∪ 게이트 표의 키(다른 이름으로 열어 게이트를 우회하지 못함)", () => {
+    for (const block of INCLUDE_BLOCKS) expect([...UNGATED, ...BLOCKS], block).toContain(block);
+  });
+
+  it("판정기: 표가 끊긴 뒤 같은 절의 표 줄은 오류(빈 줄로 pending 행 숨기기 차단)", () => {
+    const source = read("GOLDEN-SINSAL.md");
+    const lines = source.split(/\r?\n/);
+    const firstRow = lines.findIndex((line) => line.startsWith("| g-"));
+    lines.splice(firstRow + 1, 0, "");
+    expect(() => statusCells(lines.join("\n"), "상태")).toThrow();
+  });
+
   it("INCLUDE_BLOCKS에 든 L2 판독 블록은 선행 골든이 전부 confirmed", () => {
     for (const block of BLOCKS.filter(isOpen)) expect(gateOpen(block), block).toBe(true);
   });
