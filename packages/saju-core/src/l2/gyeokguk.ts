@@ -1,5 +1,5 @@
-import { BRANCHES, type Branch, type Stem } from "../cycle.js";
-import { hiddenStemList, type HiddenStemSchool } from "./hidden-stems.data.js";
+import type { Branch, Stem } from "../cycle.js";
+import type { HiddenStemSchool } from "./hidden-stems.data.js";
 import type { PillarKey } from "./interactions.js";
 import type { HiddenRole, StrengthFactors, StrengthPrecision } from "./strength-factors.js";
 import { tenGodOf, type TenGod } from "./ten-gods.js";
@@ -107,14 +107,6 @@ export interface GyeokgukReading {
 const BIGYEOP: readonly TenGod[] = ["bigyeon", "geopjae"];
 const ROLE_ORDER: readonly HiddenRole[] = ["primary", "middle", "residual"];
 
-/** The month branch whose hidden-stem list (in this school) equals the 8a month layer. */
-function monthBranchOf(factors: StrengthFactors): Branch {
-  const month = factors.layers.hiddenStems.filter((entry) => entry.pillar === "month").map((entry) => `${entry.role}:${entry.stem}`).join(",");
-  const found = BRANCHES.filter((branch) => hiddenStemList(branch, factors.school).map((entry) => `${entry.role}:${entry.stem}`).join(",") === month);
-  if (found.length !== 1) throw new Error(`month hidden stems ${month} do not identify one branch`);
-  return found[0] as Branch;
-}
-
 interface Context {
   table: GyeokId | undefined;
   primary: GyeokCandidate & { tenGod: TenGod };
@@ -137,7 +129,7 @@ const asGyeok = ({ tenGod, ...candidate }: GyeokCandidate & { tenGod: TenGod }):
 
 export function gyeokgukReadingsOf(factors: StrengthFactors): GyeokgukReading[] {
   const dayMaster = factors.dayMaster;
-  const monthBranch = monthBranchOf(factors);
+  const monthBranch = factors.monthBranch;
   const exposedIn = (stem: Stem): PillarKey[] => factors.layers.stems.filter((entry) => entry.stem === stem).map((entry) => entry.pillar);
   const candidateOf = (stem: Stem, role: HiddenRole) => ({ gyeok: tenGodOf(dayMaster, stem) as GyeokId, stem, role, exposedIn: exposedIn(stem), tenGod: tenGodOf(dayMaster, stem) });
   const monthHidden = factors.layers.hiddenStems

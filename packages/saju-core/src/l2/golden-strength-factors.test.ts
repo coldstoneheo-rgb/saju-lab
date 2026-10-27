@@ -105,6 +105,12 @@ describe("8a oracle — 득령·득지·득세 and the surface count re-derived 
   });
 });
 
+describe("8a monthBranch (include 설계 §3 안 A, 2026-10-27) — 키 1 추가, 골든 셀 값 변경 0", () => {
+  it("골든 50: factors.monthBranch = GOLDEN-PILLARS 월주 지지", () => {
+    for (const golden of loadGoldenPillarCases()) expect(factorsOf(golden.id).monthBranch, golden.id).toBe(golden.expected.month.branch);
+  });
+});
+
 describe("8a coverage facts (REPORT 필수 절 — LC 개선 2·3)", () => {
   const combo = (id: string): string => {
     const factors = factorsOf(id);

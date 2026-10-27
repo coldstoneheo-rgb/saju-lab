@@ -75,6 +75,7 @@ function synthetic(
   return {
     ...rest,
     dayMaster,
+    monthBranch,
     layers: {
       ...base.layers,
       stems: (Object.entries(stems) as Array<[PillarKey, Stem]>).map(([pillar, stem]) => ({ pillar, stem })),

@@ -50,6 +50,8 @@ export interface StrengthFactors {
   school: HiddenStemSchool;
   precision: StrengthPrecision;
   dayMaster: Stem;
+  /** 월지 — 명식 그대로(격국 취격 등 월지를 읽는 블록용). */
+  monthBranch: Branch;
   /** 층 원본 — 일간 제외 천간(연→시), 지지 정기(연→시), 지장간 전체(일수 원본 포함). */
   layers: {
     stems: Array<{ pillar: PillarKey; stem: Stem }>;
@@ -222,6 +224,7 @@ export function strengthFactorsOf(pillars: PillarsResult, birthKst: ParsedBirthD
     school,
     precision: timeKnown ? "exact" : "time-unknown",
     dayMaster,
+    monthBranch: branchAt("month"),
     layers: { stems, branchPrimary, hiddenStems },
     tenGodCounts: { surface: surface.tenGods, withHidden: withHidden.tenGods },
     elementCounts: { surface: surface.elements, withHidden: withHidden.elements },
