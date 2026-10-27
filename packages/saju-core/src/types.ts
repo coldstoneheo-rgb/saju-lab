@@ -10,8 +10,9 @@ export type JaHourPolicy = "late" | "early";
 /** 일주 경계: "midnight" = KST 자정(기본), "trueSolar" = 진태양시 자정(학파 옵션). */
 export type DayBoundaryPolicy = "midnight" | "trueSolar";
 
-/** L2 blocks a caller can ask for on top of the pillars (2026-09-22, 5단계). */
-export type IncludeBlock = "hiddenStems" | "tenGods" | "interactions" | "daeun";
+/** L2 blocks a caller can ask for on top of the pillars (2026-09-22, 5단계). Opening a gated L2 block = adding it here (l2/include-gate.test.ts). */
+export const INCLUDE_BLOCKS = ["hiddenStems", "tenGods", "interactions", "daeun"] as const;
+export type IncludeBlock = (typeof INCLUDE_BLOCKS)[number];
 
 /** 지장간 table variant: 연해자평 월률분야 (default) or 자평진전 인원용사. */
 export type HiddenStemSchoolOption = "yeonhae" | "japyeong";

@@ -7,12 +7,14 @@ import { tenGodsOfChart, type ChartTenGods } from "./l2/ten-gods.js";
 import { interactionsOfChart, type ChartInteractions } from "./l2/interactions.js";
 import { daeunOf, isDaeunUnavailable, type DaeunBlock } from "./l2/daeun.js";
 import type { Branch } from "./cycle.js";
+import { INCLUDE_BLOCKS } from "./types.js";
 import type {
   BirthInput,
   CalculationOptions,
   CalendarSystem,
   FiveElement,
   FiveElementDistribution,
+  IncludeBlock,
   PillarsResult,
   Sex
 } from "./types.js";
@@ -179,9 +181,9 @@ function parseOptions(value: unknown): CalculationOptions | undefined | null {
     } else if (
       key === "include" &&
       Array.isArray(raw[key]) &&
-      (raw[key] as unknown[]).every((block) => block === "hiddenStems" || block === "tenGods" || block === "interactions" || block === "daeun")
+      (raw[key] as unknown[]).every((block) => (INCLUDE_BLOCKS as readonly unknown[]).includes(block))
     ) {
-      options.include = [...new Set(raw[key] as Array<"hiddenStems" | "tenGods" | "interactions" | "daeun">)];
+      options.include = [...new Set(raw[key] as IncludeBlock[])];
     } else if (key === "referenceDate" && typeof raw[key] === "string" && DATE_PATTERN.test(raw[key] as string) && isRealCalendarDate(raw[key] as string)) {
       options.referenceDate = raw[key] as string;
     } else {
