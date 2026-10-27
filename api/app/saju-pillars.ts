@@ -1,7 +1,7 @@
 import type { ApiRequest, ApiResponse } from "../_lib/http.js";
 import { clientIp } from "../_lib/http.js";
 import { createRateLimiter } from "../_lib/rate-limit.js";
-import { respondSajuPillars } from "../_lib/saju-pillars.js";
+import { KEYLESS_DENIED_INCLUDES, respondSajuPillars } from "../_lib/saju-pillars.js";
 
 /**
  * App-facing saju-pillars gateway (`/api/app/saju-pillars`).
@@ -20,6 +20,7 @@ import { respondSajuPillars } from "../_lib/saju-pillars.js";
 // A naming session makes exactly one pillars call. 30 per 5 minutes is far above any
 // human pattern and still bounds a hammering client on a warm instance.
 const limiter = createRateLimiter(30, 5 * 60 * 1000);
+
 
 export default function handler(req: ApiRequest, res: ApiResponse): void {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -42,5 +43,5 @@ export default function handler(req: ApiRequest, res: ApiResponse): void {
     return;
   }
 
-  respondSajuPillars(req.body, res);
+  respondSajuPillars(req.body, res, KEYLESS_DENIED_INCLUDES);
 }

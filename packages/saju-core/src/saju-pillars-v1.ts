@@ -6,6 +6,11 @@ import { DEFAULT_HIDDEN_STEM_SCHOOL, hiddenStemsOf, type HiddenStems } from "./l
 import { tenGodsOfChart, type ChartTenGods } from "./l2/ten-gods.js";
 import { interactionsOfChart, type ChartInteractions } from "./l2/interactions.js";
 import { daeunOf, isDaeunUnavailable, type DaeunBlock } from "./l2/daeun.js";
+import { strengthFactorsOf } from "./l2/strength-factors.js";
+import { strengthReadingsOf, type StrengthReading } from "./l2/strength-readings.js";
+import { yongsinCandidatesOf, type YongsinCandidate } from "./l2/yongsin-candidates.js";
+import { gyeokgukReadingsOf, type GyeokgukReading } from "./l2/gyeokguk.js";
+import { sinsalOf, type SinsalHit } from "./l2/sinsal.js";
 import type { Branch } from "./cycle.js";
 import { INCLUDE_BLOCKS } from "./types.js";
 import type {
@@ -74,6 +79,14 @@ export interface SajuPillarsV1Response {
   /** 대운 — only with options.include "daeun". Minute-precision decimals, no rounding; null (with daeunReason) when the reference 절 is outside the solar-term table. */
   daeun?: DaeunBlock | null;
   daeunReason?: "OUT_OF_SOLAR_TERM_TABLE";
+  /** 강약 판독 — only with options.include "strengthReadings". Every rule set side by side, `doctrine: "unreviewed"`; no default set. */
+  strengthReadings?: StrengthReading[];
+  /** 용신 후보 — only with options.include "yongsinCandidates". Candidates, not a 용신 decision; `doctrine: "unreviewed"`. */
+  yongsinCandidates?: YongsinCandidate[];
+  /** 격국 취격 — only with options.include "gyeokguk". Every rule set side by side, `doctrine: "unreviewed"`. */
+  gyeokguk?: GyeokgukReading[];
+  /** 신살 — only with options.include "sinsal". Table hits per variant; no good/bad labels, `doctrine: "unreviewed"`. */
+  sinsal?: SinsalHit[];
   fiveElements: {
     /** Count of each element across the counted stems and branches. */
     distribution: FiveElementDistribution;
@@ -276,7 +289,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   if (options === null) {
     return failure(
       "INVALID_OPTIONS",
-      "options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include (['hiddenStems' | 'tenGods' | 'interactions' | 'daeun']), referenceDate (YYYY-MM-DD) and hiddenStemSchool ('yeonhae' | 'japyeong').",
+      `options may contain trueSolarTime (boolean), jaHourPolicy ('late' | 'early'), dayBoundary ('midnight' | 'trueSolar'), include ([${INCLUDE_BLOCKS.map((block) => `'${block}'`).join(" | ")}]), referenceDate (YYYY-MM-DD) and hiddenStemSchool ('yeonhae' | 'japyeong').`,
       "options"
     );
   }
@@ -331,6 +344,16 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   const daeun = include.has("daeun")
     ? daeunOf(pillars, resolveBirthKst(birthInput), body.sex as Sex, { school, ...(options?.referenceDate ? { referenceDate: options.referenceDate } : {}) })
     : undefined;
+  // 의존 블록은 응답에 자동으로 싣지 않는다(설계 §2) — 8a·8b-1은 내부에서만 계산한다.
+  const factors =
+    include.has("strengthReadings") || include.has("yongsinCandidates") || include.has("gyeokguk")
+      ? strengthFactorsOf(pillars, resolveBirthKst(birthInput), { school })
+      : undefined;
+  const readings = factors && (include.has("strengthReadings") || include.has("yongsinCandidates")) ? strengthReadingsOf(factors) : undefined;
+  const strengthReadings = include.has("strengthReadings") ? readings : undefined;
+  const yongsinCandidates = factors && readings && include.has("yongsinCandidates") ? yongsinCandidatesOf(factors, readings) : undefined;
+  const gyeokguk = factors && include.has("gyeokguk") ? gyeokgukReadingsOf(factors) : undefined;
+  const sinsal = include.has("sinsal") ? sinsalOf(pillars) : undefined;
 
   return {
     ok: true,
@@ -345,6 +368,10 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
       ...(tenGods ? { tenGods } : {}),
       ...(interactions ? { interactions } : {}),
       ...(daeun ? (isDaeunUnavailable(daeun) ? { daeun: null, daeunReason: daeun.reason } : { daeun }) : {}),
+      ...(strengthReadings ? { strengthReadings } : {}),
+      ...(yongsinCandidates ? { yongsinCandidates } : {}),
+      ...(gyeokguk ? { gyeokguk } : {}),
+      ...(sinsal ? { sinsal } : {}),
       fiveElements: {
         distribution: analysis.distribution,
         absent: analysis.absent,

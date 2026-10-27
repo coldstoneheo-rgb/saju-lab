@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import type { ApiRequest, ApiResponse } from "./_lib/http.js";
 import { header } from "./_lib/http.js";
-import { respondSajuPillars } from "./_lib/saju-pillars.js";
+import { KEYLESS_DENIED_INCLUDES, respondSajuPillars } from "./_lib/saju-pillars.js";
 
 // Constant-time API key check. Hashing both sides to a fixed length lets
 // timingSafeEqual run even when the lengths differ, avoiding a length side-channel.
@@ -47,5 +47,6 @@ export default function handler(req: ApiRequest, res: ApiResponse): void {
     return;
   }
 
-  respondSajuPillars(req.body, res);
+  // Without SAJU_API_KEY this route is open (local/PoC), so it serves only what the keyless route serves.
+  respondSajuPillars(req.body, res, requiredKey ? [] : KEYLESS_DENIED_INCLUDES);
 }

@@ -124,12 +124,21 @@ describe("S2 모양 · S5 어휘·계약", () => {
     expect(readFileSync(resolve(HERE, "sinsal.data.ts"), "utf8")).not.toMatch(banned);
   });
 
-  it("공개 계약: sinsal은 include 블록이 아니다 → INVALID_OPTIONS, 기본 응답에 신살 키 0(바이트 스냅샷은 strength-readings.test.ts)", () => {
-    const base = { birthDate: "1990-01-01", birthTime: "10:30", calendar: "solar" as const, sex: "other" as const };
-    const asked = buildSajuPillarsV1Response({ ...base, options: { include: ["sinsal"] } as never });
-    expect(asked.ok).toBe(false);
-    if (!asked.ok) expect(asked.error.error.code).toBe("INVALID_OPTIONS");
-    const plain = buildSajuPillarsV1Response(base);
-    expect(plain.ok && JSON.stringify(plain.data)).not.toMatch(/sinsal|cheoneul|dohwa|yeokma|hwagae|goegang|baekho|doctrine/i);
+  const base = { birthDate: "1990-01-01", birthTime: "10:30", calendar: "solar" as const, sex: "other" as const };
+  // 1990-01-01 10:30에는 신살 적중이 없다(골든 g-1990-01-01-1030 전부 `-`) → 적중 있는 g-1988-10-09-0230으로 본다.
+  const hitBase = { birthDate: "1988-10-09", birthTime: "02:30", calendar: "solar" as const, sex: "other" as const };
+  it("9단계 개방: include [\"sinsal\"] → data.sinsal = 코어 직접 호출 · 기존 키 그대로 + sinsal 한 키만(의존 블록 자동 포함 없음) · doctrine unreviewed · 기본 응답엔 키 0", () => {
+    const asked = buildSajuPillarsV1Response({ ...hitBase, options: { include: ["sinsal"] } });
+    const plain = buildSajuPillarsV1Response(hitBase);
+    expect(JSON.stringify(buildSajuPillarsV1Response(base))).not.toMatch(/sinsal|doctrine/i);
+    expect(asked.ok && plain.ok).toBe(true);
+    if (!asked.ok || !plain.ok) return;
+    const { sinsal: block, ...rest } = asked.data;
+    expect(rest).toEqual(plain.data);
+    expect(Object.keys(asked.data).filter((key) => !(key in plain.data))).toEqual(["sinsal"]);
+    expect(block).toEqual(sinsalOf(calculatePillars(goldenCase("g-1988-10-09-0230").input)));
+    expect(block!.length).toBeGreaterThan(0);
+    expect(block!.every((record) => record.doctrine === "unreviewed")).toBe(true);
+    expect(JSON.stringify(plain.data)).not.toMatch(/sinsal|cheoneul|dohwa|yeokma|hwagae|goegang|baekho|doctrine/i);
   });
 });

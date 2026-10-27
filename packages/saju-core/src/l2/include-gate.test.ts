@@ -111,3 +111,11 @@ describe("9단계 I1 — L2 include 선행 게이트", () => {
     }
   });
 });
+
+describe("9단계 I3 — INVALID_OPTIONS 메시지의 include 목록 = INCLUDE_BLOCKS", () => {
+  it("모르는 블록 → 메시지가 열린 블록 이름을 전부 적는다", () => {
+    const result = buildSajuPillarsV1Response({ birthDate: "1990-01-01", birthTime: "10:30", calendar: "solar", sex: "other", options: { include: ["nope"] } });
+    expect(result.ok).toBe(false);
+    if (!result.ok) for (const block of INCLUDE_BLOCKS) expect(result.error.error.message).toContain(`'${block}'`);
+  });
+});
