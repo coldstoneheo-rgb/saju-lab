@@ -21,6 +21,10 @@ import { respondSajuPillars } from "../_lib/saju-pillars.js";
 // human pattern and still bounds a hammering client on a warm instance.
 const limiter = createRateLimiter(30, 5 * 60 * 1000);
 
+// 9단계 L2 판독 블록(2026-10-27)은 키 라우트에만 연다. 무료/유료 층 노출은 사용자 결정 전이라
+// keyless 공개면은 그대로 둔다(docs/design/l2-include-design.md §4 · HO-2026-1026-l2-include).
+export const APP_DENIED_INCLUDES = ["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal"] as const;
+
 export default function handler(req: ApiRequest, res: ApiResponse): void {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
@@ -42,5 +46,5 @@ export default function handler(req: ApiRequest, res: ApiResponse): void {
     return;
   }
 
-  respondSajuPillars(req.body, res);
+  respondSajuPillars(req.body, res, APP_DENIED_INCLUDES);
 }

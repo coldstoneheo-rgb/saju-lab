@@ -11,7 +11,17 @@ export type JaHourPolicy = "late" | "early";
 export type DayBoundaryPolicy = "midnight" | "trueSolar";
 
 /** L2 blocks a caller can ask for on top of the pillars (2026-09-22, 5단계). Opening a gated L2 block = adding it here (l2/include-gate.test.ts). */
-export const INCLUDE_BLOCKS = ["hiddenStems", "tenGods", "interactions", "daeun"] as const;
+export const INCLUDE_BLOCKS = [
+  "hiddenStems",
+  "tenGods",
+  "interactions",
+  "daeun",
+  // 9단계(2026-10-27) — L2 판독 블록. 선행 골든 전부 confirmed(l2/include-gate.test.ts).
+  "strengthReadings",
+  "yongsinCandidates",
+  "gyeokguk",
+  "sinsal"
+] as const;
 export type IncludeBlock = (typeof INCLUDE_BLOCKS)[number];
 
 /** 지장간 table variant: 연해자평 월률분야 (default) or 자평진전 인원용사. */

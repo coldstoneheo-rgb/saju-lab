@@ -51,7 +51,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
   "options": { "include": ["hiddenStems", "tenGods"], "hiddenStemSchool": "yeonhae" } }
 ```
 
-- `options.include`에 적은 블록만 응답에 붙는다(`hiddenStems` · `tenGods` · `interactions` · `daeun`). 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
+- `options.include`에 적은 블록만 응답에 붙는다(`hiddenStems` · `tenGods` · `interactions` · `daeun`, 9단계 `strengthReadings` · `yongsinCandidates` · `gyeokguk` · `sinsal` — 아래 절). 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
 - `hiddenStems: { school, year, month, day, time? }` — 기둥별 `{ residual, middle, primary }`(각 `{ stem, days }` 또는 null). 표 정본 `docs/rules/HIDDEN-STEMS.md`. `days`는 『연해자평』 월률분야 일수를 **데이터로만** 싣는다(가중 계산 없음). `hiddenStemSchool: "japyeong"`(『자평진전』 인원용사)이면 `days`가 null이고 子·卯·酉는 정기만, 亥는 戊 없음.
 - `tenGods: { dayMaster, school, year, month, day, time? }` — 기둥별 `{ stem?, branchPrimary, branchAll[] }`. `stem` = 그 기둥 천간의 십신(일주엔 없음 — 일간 자신), `branchPrimary` = 지지 정기의 십신, `branchAll` = 여기→중기→정기 각 `{ role, stem, tenGod }`.
 
@@ -124,7 +124,26 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 
 예(g-1988-10-09-0230, 戊辰 壬戌 丁酉 辛丑 男): 순행, 기준 절 입동 1988-11-07 13:49, D = 42,499분, startAgeExact = 9.8377…, 첫 대운 癸亥(편관·정관) → 甲子 … 壬申. 골든 11건(16행) 대운표는 `docs/golden/GOLDEN-DAEUN.md`(LC 독립 재계산 16/16 + 손계산으로 2026-09-22 `confirmed`).
 
-**v1 제외**: 세운·월운 · 대운수 반올림/버림 확정 · 대운↔원국 합충(v1.1 `include: "daeunInteractions"` 후보) · 절입 거리 진태양시 · 강약·용신·격국.
+**v1 제외**: 세운·월운 · 대운수 반올림/버림 확정 · 대운↔원국 합충(v1.1 `include: "daeunInteractions"` 후보) · 절입 거리 진태양시 · 강약·용신·격국(→ 9단계 블록).
+
+## L2 판독 블록 — 강약·용신 후보·격국·신살 (2026-10-27 additive, 9단계)
+
+```jsonc
+{ "birthDate": "1988-10-09", "birthTime": "02:30", "calendar": "solar", "sex": "male",
+  "options": { "include": ["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal"] } }
+```
+
+- **키 라우트 `/api/saju-pillars`만 연다.** keyless `/api/app/saju-pillars`는 이 네 블록을 `INVALID_OPTIONS`(400)로 거절한다 — 무료/유료 층 노출은 사용자 결정 전이라 keyless 공개면을 바꾸지 않는다(`docs/design/l2-include-design.md` §4). 기본 응답과 5~7단계 블록은 두 라우트가 같다.
+- **선행 게이트**: 블록마다 골든이 실행 축 전부 `confirmed`여야 열린다(`packages/saju-core/src/l2/include-gate.test.ts`). 학설 축은 열리지 않았다 — 모든 레코드에 `doctrine: "unreviewed"`(G2-3 역술가 대조 전). 판정·추천이 아니라 **규칙표를 실행한 사실**이다. 사람 대면 문장은 13단계 몫.
+- **의존 블록은 자동으로 붙지 않는다.** `yongsinCandidates`만 요청해도 응답에 `strengthReadings`가 없다(코어가 내부에서만 계산). 8a 강약 팩터 자체는 블록으로 열지 않았다.
+- `hiddenStemSchool`은 네 블록 모두에 적용된다(`japyeong`이면 사령 기반 세트가 `no-day-counts`). 시각 미상이면 레코드마다 `precision: "time-unknown"`.
+- `strengthReadings: StrengthReading[]` — 규칙 세트마다 1개(`strength.month-first` · `strength.triad-majority`, 기본 세트 없음): `{ ruleSetId, verdict, firedConditions[1], inputs, definitionIds, school, precision, agreesAcrossSets, doctrine }`. 규칙 정본 `docs/rules/STRENGTH-READINGS.md`, 골든 `GOLDEN-STRENGTH-READINGS.md`.
+- `yongsinCandidates: YongsinCandidate[]` — 후보 목록(용신 결정 아님): `{ candidateId, element, method, ruleId, basis: { readingRef?, factorRefs[] }, note, doctrine }`. 규칙 `docs/rules/YONGSIN-CANDIDATES.md`, 골든 `GOLDEN-YONGSIN-CANDIDATES.md`.
+- `gyeokguk: GyeokgukReading[]` — 규칙 세트마다 1개(`gyeokguk.exposed-first` · `.primary-only` · `.saryeong`): `{ ruleSetId, candidates[], ambiguous, unavailable?, firedConditions[1], monthBranchClashed, agreesAcrossSets, school, precision, doctrine }`. 규칙 `docs/rules/GEOKGUK.md`, 골든 `GOLDEN-GYEOKGUK.md`.
+- `sinsal: SinsalHit[]` — 변형마다 적중 레코드(적중 없으면 싣지 않음): `{ sinsalId, variantId, basis: { pillar, char }, at[], precision, doctrine }`. 길흉·강도 필드 없음. 규칙 `docs/rules/SINSAL.md`(7종 · 변형 13), 골든 `GOLDEN-SINSAL.md`.
+
+예(g-1988-10-09-0230, 戊辰 壬戌 丁酉 辛丑, 골든 셀 그대로): `strengthReadings` = month-first `indeterminate`(월지충) · triad-majority `weak`, `agreesAcrossSets: false` · `yongsinCandidates` 2개(`eokbu.weak.bigyeop.fire@strength.triad-majority` · `eokbu.weak.inseong.wood@…`) · `gyeokguk` = exposed-first `sanggwan/primary` · primary-only `sanggwan/primary` · saryeong `pyeonjae/residual` · `sinsal` = 천을귀인 A·B 일지 · 도화(연지 기준) 일지 · 화개(일지 기준) 시지 · 괴강(네 기둥) 월주 · 백호 연·월주.
+
 
 ## 요청 옵션 (2026-09-22 additive, 3단계)
 
@@ -187,7 +206,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - 오행 키: `wood,fire,earth,metal,water`(목화토금수).
 - `supplementPriority[0]`이 **가장 먼저 보완할 오행** = 작명이 채워야 할 1순위.
 - **계약 고정(2026-09-23, baby 회의 C4):** `fiveElements.supplementPriority`(및 `pillars`·`absent`·`deficient`)는 관점(perspective)·해석 계층과 무관한 결정론 계산값이며, 기본 응답(`include` 없는 호출)은 관점 도입 뒤에도 바뀌지 않는다. 소비자(baby-naming-ai)는 기본 응답의 `supplementPriority[0]`만으로 작명하므로, 이 값이 바뀌면 소비자 결과가 알림 없이 달라진다.
-- **include-only 규칙(2026-10-25, HO-2026-1025 완료 조건 5):** L2 블록(지장간·십신·합충·대운, 그리고 8b 강약 판독 이후 단계)은 `options.include`에 이름을 적은 호출에만 붙는다. `include` 없는 기본 응답은 블록이 늘어나도 **바이트 단위로 같다**. 새 블록은 ① 기존 키를 바꾸지 않고 ② 기본 응답에 키를 추가하지 않으며 ③ 이름이 열리기 전에는 `INVALID_OPTIONS`로 거절된다. 8b `strengthReadings`·8b-2 `yongsinCandidates`·격국 `gyeokguk`·신살 `sinsal`은 아직 열리지 않았다(9단계에서 골든 선행 게이트와 함께 연다). 고정 테스트 = `packages/saju-core/src/l2/strength-readings.test.ts` «baby 공급 계약»(기본 응답 바이트 스냅샷 + 미개방 블록 거절) · `l2/yongsin-candidates.test.ts`·`l2/gyeokguk.test.ts` «baby 공급 계약»(HO-2026-1026) · `l2/sinsal.test.ts` «공개 계약»(HO-2026-1026-sinsal).
+- **include-only 규칙(2026-10-25, HO-2026-1025 완료 조건 5):** L2 블록(지장간·십신·합충·대운, 그리고 8b 강약 판독 이후 단계)은 `options.include`에 이름을 적은 호출에만 붙는다. `include` 없는 기본 응답은 블록이 늘어나도 **바이트 단위로 같다**. 새 블록은 ① 기존 키를 바꾸지 않고 ② 기본 응답에 키를 추가하지 않으며 ③ 이름이 열리기 전에는 `INVALID_OPTIONS`로 거절된다. 8b `strengthReadings`·8b-2 `yongsinCandidates`·격국 `gyeokguk`·신살 `sinsal`은 2026-10-27 9단계에서 골든 선행 게이트와 함께 열었다(키 라우트만 — keyless 앱 라우트는 거절). 고정 테스트 = `packages/saju-core/src/l2/strength-readings.test.ts` «baby 공급 계약»(기본 응답 바이트 스냅샷 + 미개방 블록 거절) · `l2/yongsin-candidates.test.ts`·`l2/gyeokguk.test.ts` «baby 공급 계약»(HO-2026-1026) · `l2/sinsal.test.ts` «공개 계약»(HO-2026-1026-sinsal).
 - `alternates`는 요청 옵션의 **반대쪽**만 담는다(옵션 없이 부르면 `trueSolarTime.applied: true`, `jaHourPolicy.policy: "early"`). 명식이 같으면 키가 생략된다. `dayBoundary`는 alternates에 포함하지 않는다.
 - `nearBoundary`는 옵션과 무관하게 항상 계산된다. 소비자는 `hourBranch`가 있을 때만 출생지를 물어 `trueSolarTime: true`로 다시 부르는 흐름을 권장한다(웹앱이 그렇게 한다). 기준 시계는 **정규화 뒤 KST 벽시계**다(입력 시계가 아님) — 1961-08-10 00:10(+8:30) 입력은 KST 00:40이라 자정 경고가 붙지 않는다. 창: `hourBranch`·`dayMidnight` 모두 [−10, +34]분(경도 보정 최대 −34분을 덮는다), `solarTerm` ±60분.
 - `resolution`: 1908~1961년의 UTC+8:30 표준시 구간과 서머타임 연도(1948-51·55-60·87-88) 출생은 당시 시계값을

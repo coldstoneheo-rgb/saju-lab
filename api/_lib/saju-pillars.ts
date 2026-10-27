@@ -13,13 +13,25 @@ import { parseJsonBody } from "./http.js";
  * builder, answer. No engine logic here, and deliberately no auth — each route owns
  * its own gate (`api/saju-pillars.ts` keeps the x-api-key contract, `api/app/…` is
  * keyless and rate limited) so neither one's policy leaks into the other.
+ *
+ * `deniedIncludes`: include blocks this route refuses with INVALID_OPTIONS even though the
+ * contract opens them — a route-level exposure policy, decided before the core runs.
  */
-export function respondSajuPillars(rawBody: unknown, res: ApiResponse): void {
+export function respondSajuPillars(rawBody: unknown, res: ApiResponse, deniedIncludes: readonly string[] = []): void {
   const parsed = parseJsonBody(rawBody);
   if (!parsed.ok) {
     res.status(400).json({
       contract: "saju-pillars-v1",
       error: { code: "INVALID_BODY", message: "Request body must be valid JSON." }
+    });
+    return;
+  }
+
+  const include = (parsed.value as { options?: { include?: unknown } } | null)?.options?.include;
+  if (Array.isArray(include) && include.some((block) => deniedIncludes.includes(block as string))) {
+    res.status(400).json({
+      contract: "saju-pillars-v1",
+      error: { code: "INVALID_OPTIONS", message: `This route does not serve the include blocks: ${deniedIncludes.join(", ")}.`, field: "options" }
     });
     return;
   }

@@ -246,9 +246,17 @@ describe("baby 공급 계약 — 8b는 include-only, 기본 응답은 바이트 
     expect(bytes).toMatchSnapshot();
   });
 
-  it("strengthReadings is not an include block yet → INVALID_OPTIONS (opens in 9단계 with its gate)", () => {
-    const asked = buildSajuPillarsV1Response({ ...base, options: { include: ["strengthReadings"] } as never });
-    expect(asked.ok).toBe(false);
-    if (!asked.ok) expect(asked.error.error.code).toBe("INVALID_OPTIONS");
+  it("9단계 개방: include [\"strengthReadings\"] → data.strengthReadings = 코어 직접 호출 · 기존 키 그대로 + strengthReadings 한 키만(의존 블록 자동 포함 없음) · doctrine unreviewed · 기본 응답엔 키 0", () => {
+    const asked = buildSajuPillarsV1Response({ ...base, options: { include: ["strengthReadings"] } });
+    const plain = buildSajuPillarsV1Response(base);
+    expect(asked.ok && plain.ok).toBe(true);
+    if (!asked.ok || !plain.ok) return;
+    const { strengthReadings: block, ...rest } = asked.data;
+    expect(rest).toEqual(plain.data);
+    expect(Object.keys(asked.data).filter((key) => !(key in plain.data))).toEqual(["strengthReadings"]);
+    expect(block).toEqual(strengthReadingsOf(chart("g-1990-01-01-1030")));
+    expect(block!.length).toBeGreaterThan(0);
+    expect(block!.every((record) => record.doctrine === "unreviewed")).toBe(true);
+    expect(JSON.stringify(plain.data)).not.toMatch(/strength|yongsin|doctrine/i);
   });
 });
