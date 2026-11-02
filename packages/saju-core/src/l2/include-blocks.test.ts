@@ -139,6 +139,7 @@ describe("I3 — 블록별 레코드 키 스키마(골든 명식 전부 · 두 �
             const keys = Object.keys(record);
             for (const key of required) expect(keys, `${golden.id} ${school} ${block}`).toContain(key);
             for (const key of keys) expect([...required, ...optional], `${golden.id} ${school} ${block}.${key}`).toContain(key);
+            if (required.includes("doctrine")) expect(record.doctrine, `${golden.id} ${school} ${block}`).toBe("unreviewed");
             seen[block] += 1;
           }
         }
@@ -172,7 +173,9 @@ describe("9단계 개방 — strengthFactors 블록", () => {
 
 describe("어휘 가드 — L2 블록 응답 JSON 전체에 길흉·추천 어휘 0(골든 명식 전부 · 두 학파)", () => {
   const KOREAN = /추천|권장|최적|반드시|길하|흉하|길신|흉신|흉살|길흉|좋은|나쁜|조심|주의|성공|실패|행운|불운|대길|대흉/;
-  const ENGLISH = /\b(good|bad|lucky|unlucky|auspicious|inauspicious|recommend\w*|best|worst|score|rank|grade|fortune|success|failure)\b/i;
+  const ENGLISH = ["good", "bad", "lucky", "unlucky", "auspicious", "inauspicious", "recommend", "recommended", "best", "worst", "score", "rank", "grade", "fortune", "success", "failure", "luck"];
+  /** camelCase·kebab·snake 키까지 단어로 쪼갠다(`luckyColor` → lucky, color). */
+  const englishHits = (json: string) => (json.match(/[A-Z]?[a-z]+/g) ?? []).map((word) => word.toLowerCase()).filter((word) => ENGLISH.includes(word));
 
   it("5블록 값의 JSON(키·값 전부)에 금지어 0", () => {
     for (const golden of loadGoldenPillarCases()) {
@@ -182,7 +185,7 @@ describe("어휘 가드 — L2 블록 응답 JSON 전체에 길흉·추천 어�
         for (const block of L2_BLOCKS) {
           const json = JSON.stringify(data[block]);
           expect(json, `${golden.id} ${school} ${block}`).not.toMatch(KOREAN);
-          expect(json, `${golden.id} ${school} ${block}`).not.toMatch(ENGLISH);
+          expect(englishHits(json), `${golden.id} ${school} ${block}`).toEqual([]);
         }
       }
     }
@@ -190,8 +193,9 @@ describe("어휘 가드 — L2 블록 응답 JSON 전체에 길흉·추천 어�
 
   it("판정기 변이: 금지어 하나를 넣으면 잡는다", () => {
     expect(JSON.stringify({ note: "용신 추천" })).toMatch(KOREAN);
-    expect(JSON.stringify({ luck: "good" })).toMatch(ENGLISH);
-    expect(JSON.stringify({ recommended: true })).toMatch(ENGLISH);
+    expect(englishHits(JSON.stringify({ luck: "good" }))).toEqual(["luck", "good"]);
+    expect(englishHits(JSON.stringify({ recommended: true }))).toEqual(["recommended"]);
+    expect(englishHits(JSON.stringify({ luckyColor: 1, bestElement: 2, ruleSetId: "x" }))).toEqual(["lucky", "best"]);
   });
 });
 
