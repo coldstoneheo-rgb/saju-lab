@@ -4,6 +4,19 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-11-02
+project: saju-lab
+agent: claude-code (Opus 5.5, 클라우드 세션, LC CLOUD-2026-1102-wave2 §8)
+summary: keyless include 면 fail-closed — 거절 리터럴 4개를 허용 목록 + INCLUDE_BLOCKS 파생으로 교체 · 임시 블록 끝-끝 테스트 · 모델 상수 대조표
+status: on_track
+progress: "9단계 후속 0번 항목 닫힘 (근거: npm run verify EXIT 0 api 125 · core 1057 · web 49, docs/handoffs/CLOUD-2026-1102-saju-keyless-i5-REPORT.md)"
+changes: ["cloud/saju-keyless-i5 [cloud] keyless include fail-closed (PR 링크는 PR 본문)"]
+next: "Gemini 모델 정본 결정(레포 3.5 vs prod 관찰 3.6) — 사용자"
+---
+## 의미
+다음 L2 블록을 INCLUDE_BLOCKS에 추가해도 keyless 공개면(앱 라우트·키 미설정 키 라우트)은 자동으로 거절한다. 층 노출 결정 전 «무료 공개면 불변»이 리뷰어 기억이 아니라 테스트로 고정됐다. I5 monthBranch는 #125로 이미 집행돼 별도 PR이 없다.
+
+---
 date: 2026-10-27
 project: saju-lab
 agent: claude-code (Opus 5.5, saju-lab 창, LC HO-2026-1026-saju-l2-include-01, 사용자 여행 중 RC 루프)
