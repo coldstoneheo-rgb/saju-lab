@@ -48,6 +48,7 @@ function statusCells(source: string, column: string): string[] {
 /** 블록 → 선행 골든(파일 · 실행 축 열). 8a는 판독 블록 셋의 입력이라 함께 건다. */
 const STRENGTH_FACTORS = { file: "GOLDEN-STRENGTH-FACTORS.md", column: "상태" };
 const GATES = {
+  strengthFactors: [STRENGTH_FACTORS],
   strengthReadings: [STRENGTH_FACTORS, { file: "GOLDEN-STRENGTH-READINGS.md", column: "실행" }],
   yongsinCandidates: [STRENGTH_FACTORS, { file: "GOLDEN-YONGSIN-CANDIDATES.md", column: "실행" }],
   gyeokguk: [STRENGTH_FACTORS, { file: "GOLDEN-GYEOKGUK.md", column: "실행" }],
@@ -83,8 +84,9 @@ describe("9단계 I1 — L2 include 선행 게이트", () => {
     for (const block of BLOCKS.filter(isOpen)) expect(gateOpen(block), block).toBe(true);
   });
 
-  it("판정기: 현 골든 상태(2026-10-27 — 네 블록 모두 게이트 통과)", () => {
+  it("판정기: 현 골든 상태(2026-11-03 — 다섯 블록 모두 게이트 통과)", () => {
     expect(Object.fromEntries(BLOCKS.map((block) => [block, gateOpen(block)]))).toEqual({
+      strengthFactors: true,
       strengthReadings: true,
       yongsinCandidates: true,
       gyeokguk: true,
@@ -100,6 +102,10 @@ describe("9단계 I1 — L2 include 선행 게이트", () => {
         expect(gateOpen(block, mutated), `${block} ← ${gate.file}`).toBe(false);
       }
     }
+  });
+
+  it("게이트를 통과한 L2 블록 5종은 전부 INCLUDE_BLOCKS에 있다(CLOUD-2026-1103 §15 — 8a strengthFactors 개방)", () => {
+    for (const block of BLOCKS) expect(isOpen(block), block).toBe(true);
   });
 
   it("열리지 않은 L2 블록은 include에서 INVALID_OPTIONS", () => {
