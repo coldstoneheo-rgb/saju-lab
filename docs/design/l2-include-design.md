@@ -45,6 +45,7 @@
 | B | 지금처럼 장간 목록에서 되찾기 유지 | 8a 변경 0 | 우회가 남음(학파마다 12지 장간 목록이 유일하다는 가정에 기댐 — 테스트 고정) |
 
 - 순서 제안: 8a confirmed PR → `monthBranch` 추가 PR(값 변경 0, 키 1개 추가) → 9단계 개방 PR. 8a confirmed 전에 키를 바꾸면 LC 재계산 대상이 흔들린다.
+- 상태(2026-11-02): 안 A 집행 — #125 e2c3f58(10-27). 격국 `monthBranchOf` 우회는 #125로 제거됨.
 
 ## 4. 층 노출 범위 — 사용자 결정 표
 
@@ -74,8 +75,12 @@
 | I6 | verify EXIT 0 · verifier PASS · LC 게이트 | G3 |
 | I7 | 블록을 여는 PR에서 그 블록의 코어 함수·타입을 `packages/saju-core/src/index.ts`로 export(현재 `sinsalOf`·`SinsalHit`·`SINSAL_VARIANTS`는 미export — 격국·용신·8b와 다름, #118 LC 관찰 ①) | 공개 API 면 |
 
+- 상태(2026-11-02): **I5 ✓ #125 e2c3f58 10-27 완료** — `StrengthFactors.monthBranch`(`strength-factors.ts:54`·`:227`), 격국 `monthBranchOf` 코드 0건. 위 표 원문은 결정 기록으로 유지.
+
 ## 6. 사용자 확인 목록
 
 1. 층 노출 범위(§4 표) — 기본값 = 표의 «제안 기본값» 열. 결정 전에는 9단계가 데이터 블록만 열고 화면 노출 0.
 2. 의존 블록 자동 포함 — 기본값 **안 함**.
 3. 8a `monthBranch` — 기본값 **안 A**(8a confirmed 뒤 별도 PR).
+   - 상태(2026-11-02): **✓ #125 e2c3f58 10-27 완료**(안 A 집행).
+- 상태(2026-11-02): keyless 면 거절 목록은 **#128 7a6a0bf로 파생 완료** — 허용 목록 `KEYLESS_INCLUDE_BLOCKS` + `INCLUDE_BLOCKS` 파생(fail-closed). 새 블록은 keyless에서 기본 거절이므로 위 1번(층 노출 범위) 결정 전에도 무료 공개면은 불변.

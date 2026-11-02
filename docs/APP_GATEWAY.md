@@ -28,7 +28,7 @@
 
 | 경로 | 하는 일 | 인증 | 레이트리밋 |
 |---|---|---|---|
-| `POST /api/app/gemini-generate` | Gemini `generateContent` 게이트웨이. 모델은 서버가 고정(`GEMINI_MODEL`, 기본 `gemini-3.5-flash`). 본문에 `provider: "claude"`가 있으면 Claude 경로(아래) | 없음 | IP당 20회 / 5분 (두 경로 공유) |
+| `POST /api/app/gemini-generate` | Gemini `generateContent` 게이트웨이. 모델은 서버가 고정(`GEMINI_MODEL`, 기본 `gemini-3.5-flash`). ※ prod env 값은 별도 — 10-15 관찰 `gemini-3.6-flash`(`docs/handoffs/HO-2026-1015-saju-explicit-provider-interlock-01-REPORT.md:35`), 확인 = 사용자(Vercel env). 본문에 `provider: "claude"`가 있으면 Claude 경로(아래) | 없음 | IP당 20회 / 5분 (두 경로 공유) |
 | `POST /api/app/saju-pillars` | `/api/saju-pillars`와 **동일 계약**, 키 게이트만 없음 | 없음 | IP당 30회 / 5분 |
 
 `gemini-generate`는 성공 응답을 **그대로** 돌려준다. 이미 배포된 앱이 표준
@@ -41,10 +41,10 @@
 | 이름 | 필수 | 비고 |
 |---|---|---|
 | `GEMINI_API_KEY` | ✅ | 없으면 `/api/app/gemini-generate`가 503. **Preview·Production 양쪽에 설정해야** 프리뷰 배포로 검증할 수 있다 |
-| `GEMINI_MODEL` | — | 기본 `gemini-3.5-flash` |
+| `GEMINI_MODEL` | — | 기본 `gemini-3.5-flash`. ※ prod env 값은 별도 — 10-15 관찰 `gemini-3.6-flash`(`docs/handoffs/HO-2026-1015-saju-explicit-provider-interlock-01-REPORT.md:35`), 확인 = 사용자(Vercel env). |
 | `SAJU_API_KEY` | — | 기존 `/api/saju-pillars` 게이트용. `/api/app/*`는 쓰지 않는다 |
 | `ANTHROPIC_API_KEY` | Claude 경로만 | 없으면 (`CLAUDE_ROUTING_ENABLED=1`인 배포에서) `provider: "claude"` 요청만 503, Gemini 경로는 영향 없음 → **값 삭제가 킬스위치**. Preview·Production 양쪽. 전역(setx) 금지, 로컬은 `.env.local` |
-| `CLAUDE_MODEL` | — | 기본 `claude-sonnet-5-5`. 평가 라운드별 교체용 |
+| `CLAUDE_MODEL` | — | 기본 `claude-sonnet-5-5`. 평가 라운드별 교체용. ※ prod env 값은 별도 — 관찰 기록 없음, 확인 = 사용자(Vercel env). |
 | `CLAUDE_ROUTING_ENABLED` | Claude 경로만 | `"1"`일 때만 Claude를 쓸 수 있는 배포다 — 옵트인 라우팅과 **명시 `provider: "claude"` 둘 다**. 그 밖이면 명시 요청은 `403 PROVIDER_NOT_ENABLED`(Claude 호출 0, Gemini 폴백 없음), 라우팅은 Gemini만. 평가·디버그는 이 값을 켠 Preview/로컬에서 |
 
 ## Claude 경로 (`provider: "claude"`, 2026-10-11 Stage 1)

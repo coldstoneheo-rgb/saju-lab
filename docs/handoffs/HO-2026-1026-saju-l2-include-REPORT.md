@@ -87,6 +87,7 @@
 ## 남은 것 · 다음 (우선순위)
 
 0. **다음 HO 첫 항목(#126 LC 관찰 ①)**: `KEYLESS_DENIED_INCLUDES`가 리터럴 4개다. 다음 L2 블록을 추가하면 keyless 면이 기본 개방(fail-open)된다. `INCLUDE_BLOCKS`와 게이트 표에서 파생하거나, 집합 일치 테스트 1건을 둔다.
+   - **→ #128 7a6a0bf 완료**(2026-11-02, 허용 목록 + `INCLUDE_BLOCKS` 파생 · 집합 일치·임시 블록 끝-끝 테스트, `docs/handoffs/CLOUD-2026-1102-saju-keyless-i5-REPORT.md`).
 1. S-YNY 2행 편입(사용자 (a) 결정 뒤): GOLDEN-PILLARS 선등록 → 8a 2행 confirmed → `golden-strength-factors.test.ts`의 `toHaveLength(50)` 제거.
 2. 층 노출 결정 뒤 UI HO: apps/web 화면과 유료 리포트(`generatePaidReportV1`)의 블록 사용. 사람 대면 문장은 13단계 + `saju-domain`.
 3. 선택: synthetic factors의 «월 장간 = hiddenStemList(monthBranch)» 불변식 테스트(#125 critic 관찰).

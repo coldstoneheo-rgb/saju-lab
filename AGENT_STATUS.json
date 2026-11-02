@@ -1,10 +1,15 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-10-27T12:00:00+09:00",
-  "head": "#126 squash (839c3ba) — 인계 #127 머지 뒤 git log main 참조",
-  "working_on": "[IDLE 대기] HO-2026-1026-l2-include: #123 골든 confirmed d8e4ef9 · #124 I1 게이트 7617ffa · #125 e2c3f58 monthBranch · #126 839c3ba 9단계 4블록 개방(키 걸린 호출만) — 완료, 다음 HO 첫 항목 = KEYLESS_DENIED_INCLUDES 파생",
-  "waiting_on": "[LC] #127 인계 게이트 · [사용자] S-YNY 일주 출처((a) getLunCalInfo / (c) 보류, 기본 c) · 프로덕션 SAJU_API_KEY 설정 여부 · 층 노출 범위(설계 §4) · DEC-2026-1015 별건",
+  "as_of": "2026-11-02T16:47:54+09:00",
+  "head": "7a6a0bf (#128 squash, main 2026-11-02)",
+  "phase": "L2 9단계 데이터 블록 개방 완료(#126) + keyless fail-closed(#128) — 층 노출 결정 전 UI·유료 노출 0, 11-20 전 배포 묶음 대기",
+  "working_on": "[IDLE 대기] CLOUD-2026-1102 상태 현행화(docs·json만) — 다음 = 사용자 확인 4건 중 막는 항목(층 노출 범위) 뒤 UI HO",
+  "waiting_on": "[사용자] S-YNY 일주 출처((a) getLunCalInfo / (c) 보류, 기본 c) · 프로덕션 SAJU_API_KEY 설정 여부 · 층 노출 범위(설계 §4) · Gemini 정본 3.5/3.6 · DEC-2026-1015 별건 · [LC] 11-20 전 배포 묶음 판정",
   "recent": [
+    {
+      "at": "2026-11-02",
+      "what": "CLOUD-2026-1102: #128 7a6a0bf keyless include fail-closed(허용 목록 + INCLUDE_BLOCKS 파생, api 118→125) · 상태 현행화(AGENT_STATUS·설계서 I5 상태 표기·APP_GATEWAY prod env 주석, 코드 0). verify api 125 · core 1057 · web 49 = 1231. REPORT docs/handoffs/CLOUD-2026-1102-saju-keyless-i5-REPORT.md · CLOUD-2026-1102-saju-status-refresh-REPORT.md"
+    },
     {
       "at": "2026-10-27",
       "what": "HO-2026-1026-l2-include: #123 d8e4ef9 GOLDEN-SINSAL 50 confirmed(LC 재계산 650셀)+GYEOKGUK k-6 · #124 7617ffa INCLUDE_BLOCKS+선행 게이트 테스트 · #125 e2c3f58 8a monthBranch 안 A · #126 839c3ba strengthReadings·yongsinCandidates·gyeokguk·sinsal include 개방(keyless 앱 라우트 거절) · S-YNY 보류. verify api 115→118 · core 1049→1057 · web 49 EXIT 0. REPORT docs/handoffs/HO-2026-1026-saju-l2-include-REPORT.md"
@@ -59,15 +64,28 @@
     }
   ],
   "next_actions": [
-    "9단계 include 개방 착수 HO(docs/design/l2-include-design.md §5 I1~I7)",
-    "LC 재계산: GOLDEN-SINSAL 50×13 · GOLDEN-GYEOKGUK 보강 6 → confirmed PR(SINSAL 출처 열 추가)",
-    "S-YNY 2행 GOLDEN-PILLARS 선등록(getLunCalInfo) → 8a 편입 + toHaveLength(50) 수정",
-    "8a monthBranch 필드(안 A) 별도 PR — 격국 monthBranchOf 우회 삭제",
+    "[배포] 11-20 전 배포 묶음(#126 9단계 include · #128 keyless 파생 포함) — 배포 동결 12-01~02-28, 마지막 배포 11-20 전후",
+    "층 노출 결정 뒤 UI HO(apps/web·유료 리포트 generatePaidReportV1 블록 사용, 사람 대면 문장은 13단계 + saju-domain)",
+    "S-YNY 2행 GOLDEN-PILLARS 선등록(getLunCalInfo) → 8a 편입 + toHaveLength(50) 제거 — 사용자 (a) 결정 뒤",
+    "선택: synthetic factors «월 장간 = hiddenStemList(monthBranch)» 불변식 테스트(#125 critic 관찰)",
     "DEC 뒤: 레이어 채택 시 ROUTED_LIST_MAIN_TIMEOUT_MS 값 조정 · FREE용 레이어 2판(strokeYinyang 문장) 재측정",
     "종류별 라우팅 값 설계(llm_routing 1값 → list/letter 분리, 하위 호환) — HO 수령 뒤",
     "baby 평가 러너 대상 = Preview(ENABLED=1) 또는 로컬 (prod는 명시 claude 403)",
-    "prod modelVersion gemini-3.6-flash vs 문서 기본 3.5 불일치 확인"
+    "사용자 확인 — S-YNY 일주 출처: 닫히는 조건 = 사용자가 (a) getLunCalInfo 채택 또는 (c) 보류 확정을 1줄로 회신",
+    "사용자 확인 — prod SAJU_API_KEY: 닫히는 조건 = 사용자가 Vercel Production env에 SAJU_API_KEY 존재 여부(값 아님)를 확인해 회신 — 미설정이면 키 라우트도 keyless 취급(#128)",
+    "사용자 확인 — 층 노출 범위: 닫히는 조건 = docs/design/l2-include-design.md §4 표 «결정» 열 6행을 사용자가 채움(기본값 = 제안 열)",
+    "사용자 확인 — Gemini 정본 3.5/3.6: 닫히는 조건 = 사용자가 Vercel Production env GEMINI_MODEL 값을 확인하고 ⓐ 레포 3.5 유지 / ⓑ 3.6을 문서·코드 기본값에 반영 중 택1"
   ],
+  "metrics": {
+    "ci_tests_total": 1231,
+    "ci_tests": {
+      "api": 125,
+      "core": 1057,
+      "web": 49
+    },
+    "measured": "2026-11-02 npm test origin/main 7a6a0bf EXIT 0",
+    "note": "옛 «806»은 09-24 기준 수치로 폐기"
+  },
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살) — 강약은 8a+8b-1 코드 완료, 골든 confirmed 대기라 미산입",
     "value": 4,
