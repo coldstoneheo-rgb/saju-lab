@@ -6,6 +6,21 @@
 ---
 date: 2026-11-02
 project: saju-lab
+agent: claude-code (Opus 5.5, 클라우드 세션, LC CLOUD-2026-1102-wave3 §12)
+summary: 상태 현행화 — AGENT_STATUS(as_of·head 7a6a0bf·phase·next_actions·metrics 1231) · 설계서 I5 완료 표기 · APP_GATEWAY prod env 주석 · l2-include REPORT 0번 #128 완료 표기 (코드 0)
+status: on_track
+progress: "상태 파일이 main 7a6a0bf와 일치 (근거: npm test api 125 · core 1057 · web 49 EXIT 0, git diff --stat origin/main -- packages/ apps/ api/ docs/golden/ = 0, docs/handoffs/CLOUD-2026-1102-saju-status-refresh-REPORT.md)"
+changes: ["cloud/saju-status-refresh [cloud] 상태 현행화 (PR 링크는 PR 본문)"]
+next: "층 노출 범위 사용자 결정(l2-include-design §4 «결정» 열) → UI HO"
+blockers: "층 노출 범위 = 사용자 결정 대기(UI HO 전제)"
+learning_need: "AGENT_STATUS gauge(4/8) 재산정 — L2 골든 전부 confirmed 반영 여부 LC 판정"
+---
+## 의미
+10-27~11-02 머지(#125 I5 · #126 9단계 · #128 keyless 파생)가 상태 파일·설계서에 반영되지 않아 11-02 발주서가 끝난 I5를 다시 시켰다. 이제 next_actions에는 남은 일과 사용자 확인 4건(각각 닫히는 조건 포함), 11-20 전 배포 묶음만 남았다. 다음 발주서는 낡은 항목을 되묻지 않는다.
+
+---
+date: 2026-11-02
+project: saju-lab
 agent: claude-code (Opus 5.5, 클라우드 세션, LC CLOUD-2026-1102-wave2 §8)
 summary: keyless include 면 fail-closed — 거절 리터럴 4개를 허용 목록 + INCLUDE_BLOCKS 파생으로 교체 · 임시 블록 끝-끝 테스트 · 모델 상수 대조표
 status: on_track
