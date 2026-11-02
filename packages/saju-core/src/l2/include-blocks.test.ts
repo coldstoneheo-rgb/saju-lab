@@ -223,3 +223,15 @@ describe("I7 — L2 블록 코어 함수·타입·상수가 index.ts 공개 면�
     expect([readings.length, candidates.length > 0, gyeokguk.length, sinsal.length > 0]).toEqual([2, true, 3, true]);
   });
 });
+
+describe("I4 — API 문서의 strengthFactors 예 = 실제 응답(손으로 쓴 값 0)", () => {
+  it("docs/SAJU_PILLARS_API_V1.md `strengthFactors` 예 JSON = 같은 요청의 data.strengthFactors", () => {
+    const doc = readFileSync(resolve(HERE, "../../../../docs/SAJU_PILLARS_API_V1.md"), "utf8");
+    const after = doc.split("`strengthFactors` 예 —")[1];
+    expect(after).toBeDefined();
+    const json = /```json\n([\s\S]*?)\n```/.exec(after as string)?.[1];
+    expect(json).toBeDefined();
+    const data = dataOf({ ...base, sex: "male", options: { include: ["strengthFactors"] } });
+    expect(JSON.parse(json as string)).toEqual(data.strengthFactors);
+  });
+});

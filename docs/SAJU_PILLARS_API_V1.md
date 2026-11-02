@@ -51,7 +51,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
   "options": { "include": ["hiddenStems", "tenGods"], "hiddenStemSchool": "yeonhae" } }
 ```
 
-- `options.include`에 적은 블록만 응답에 붙는다(`hiddenStems` · `tenGods` · `interactions` · `daeun`, 9단계 `strengthReadings` · `yongsinCandidates` · `gyeokguk` · `sinsal` — 아래 절). 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
+- `options.include`에 적은 블록만 응답에 붙는다(`hiddenStems` · `tenGods` · `interactions` · `daeun`, 9단계 `strengthReadings` · `yongsinCandidates` · `gyeokguk` · `sinsal` · `strengthFactors` — 아래 절). 없으면 응답은 4단계와 바이트 동일. 알 수 없는 블록·학파 값은 `INVALID_OPTIONS`.
 - `hiddenStems: { school, year, month, day, time? }` — 기둥별 `{ residual, middle, primary }`(각 `{ stem, days }` 또는 null). 표 정본 `docs/rules/HIDDEN-STEMS.md`. `days`는 『연해자평』 월률분야 일수를 **데이터로만** 싣는다(가중 계산 없음). `hiddenStemSchool: "japyeong"`(『자평진전』 인원용사)이면 `days`가 null이고 子·卯·酉는 정기만, 亥는 戊 없음.
 - `tenGods: { dayMaster, school, year, month, day, time? }` — 기둥별 `{ stem?, branchPrimary, branchAll[] }`. `stem` = 그 기둥 천간의 십신(일주엔 없음 — 일간 자신), `branchPrimary` = 지지 정기의 십신, `branchAll` = 여기→중기→정기 각 `{ role, stem, tenGod }`.
 
@@ -126,23 +126,320 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 
 **v1 제외**: 세운·월운 · 대운수 반올림/버림 확정 · 대운↔원국 합충(v1.1 `include: "daeunInteractions"` 후보) · 절입 거리 진태양시 · 강약·용신·격국(→ 9단계 블록).
 
-## L2 판독 블록 — 강약·용신 후보·격국·신살 (2026-10-27 additive, 9단계)
+## L2 판독 블록 — 강약·용신 후보·격국·신살 (2026-10-27 additive, 9단계) · 8a 강약 팩터 (2026-11-03 additive)
 
 ```jsonc
 { "birthDate": "1988-10-09", "birthTime": "02:30", "calendar": "solar", "sex": "male",
-  "options": { "include": ["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal"] } }
+  "options": { "include": ["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal", "strengthFactors"] } }
 ```
 
-- **키 라우트 `/api/saju-pillars`만 연다.** keyless `/api/app/saju-pillars`는 이 네 블록을 `INVALID_OPTIONS`(400)로 거절한다 — 무료/유료 층 노출은 사용자 결정 전이라 keyless 공개면을 바꾸지 않는다(`docs/design/l2-include-design.md` §4). 키 라우트도 `SAJU_API_KEY`가 설정되지 않아 열린 상태(로컬·PoC)이면 같은 네 블록을 거절한다 — 키가 실제로 걸린 호출에서만 열린다. 기본 응답과 5~7단계 블록은 두 라우트가 같다. keyless 면은 **허용 목록**(`KEYLESS_INCLUDE_BLOCKS` = 5~7단계 4블록)으로 정하고 거절 목록은 `INCLUDE_BLOCKS`에서 파생한다 — 새 블록은 keyless에서 기본 거절이다(fail-closed, `api/_lib/keyless-includes*.test.ts`).
+- **키 라우트 `/api/saju-pillars`만 연다.** keyless `/api/app/saju-pillars`는 이 다섯 블록을 `INVALID_OPTIONS`(400)로 거절한다 — 무료/유료 층 노출은 사용자 결정 전이라 keyless 공개면을 바꾸지 않는다(`docs/design/l2-include-design.md` §4). 키 라우트도 `SAJU_API_KEY`가 설정되지 않아 열린 상태(로컬·PoC)이면 같은 다섯 블록을 거절한다 — 키가 실제로 걸린 호출에서만 열린다. 기본 응답과 5~7단계 블록은 두 라우트가 같다. keyless 면은 **허용 목록**(`KEYLESS_INCLUDE_BLOCKS` = 5~7단계 4블록)으로 정하고 거절 목록은 `INCLUDE_BLOCKS`에서 파생한다 — 새 블록은 keyless에서 기본 거절이다(fail-closed, `api/_lib/keyless-includes*.test.ts`).
 - **선행 게이트**: 블록마다 골든이 실행 축 전부 `confirmed`여야 열린다(`packages/saju-core/src/l2/include-gate.test.ts`). 학설 축은 열리지 않았다 — 모든 레코드에 `doctrine: "unreviewed"`(G2-3 역술가 대조 전). 판정·추천이 아니라 **규칙표를 실행한 사실**이다. 사람 대면 문장은 13단계 몫.
-- **의존 블록은 자동으로 붙지 않는다.** `yongsinCandidates`만 요청해도 응답에 `strengthReadings`가 없다(코어가 내부에서만 계산). 8a 강약 팩터 자체는 블록으로 열지 않았다.
-- `hiddenStemSchool`은 강약·용신 후보·격국 세 블록에 적용된다(`japyeong`이면 사령 기반 세트가 `no-day-counts`). `sinsal`은 명식 글자만 읽어 학파와 무관하다. 시각 미상이면 네 블록 모두 레코드마다 `precision: "time-unknown"`.
+- **의존 블록은 자동으로 붙지 않는다.** `yongsinCandidates`만 요청해도 응답에 `strengthReadings`·`strengthFactors`가 없다(코어가 내부에서만 계산). 8a 강약 팩터는 `strengthFactors`를 적었을 때만 붙는다(2026-11-03).
+- `hiddenStemSchool`은 강약 팩터·강약·용신 후보·격국 네 블록에 적용된다(`japyeong`이면 사령 기반 세트가 `no-day-counts`). `sinsal`은 명식 글자만 읽어 학파와 무관하다. 시각 미상이면 다섯 블록 모두 레코드마다 `precision: "time-unknown"`(강약 팩터는 사령 계산에 12:00을 쓴다).
+- `strengthFactors: StrengthFactors` — 객체 1개(8a 사실 블록, 판독 아님): `{ school, precision, dayMaster, monthBranch, layers, tenGodCounts, elementCounts, exposed, roots, deukryeong, deukji, deukse, saryeong, saryeongUnavailable?, dayStemCombined, monthBranchClashed, dayBranchInteractions, transformationMaterials, climate }`. 글자 수·표 조회·절입 거리만 싣고 신강/신약 판정·점수·가중치·化 성립 판정 필드는 없다(`doctrine` 라벨도 없다 — 학설 판독이 아니라 정의 id별 사실, `definitionId`로 정의를 밝힌다). `japyeong`이면 `saryeong: null` + `saryeongUnavailable: "no-day-counts"`. 정의 정본 `docs/rules/STRENGTH.md`, 골든 `GOLDEN-STRENGTH-FACTORS.md`(50 confirmed).
 - `strengthReadings: StrengthReading[]` — 규칙 세트마다 1개(`strength.month-first` · `strength.triad-majority`, 기본 세트 없음): `{ ruleSetId, verdict, firedConditions[1], inputs, definitionIds, school, precision, agreesAcrossSets, doctrine }`. 규칙 정본 `docs/rules/STRENGTH-READINGS.md`, 골든 `GOLDEN-STRENGTH-READINGS.md`.
 - `yongsinCandidates: YongsinCandidate[]` — 후보 목록(용신 결정 아님): `{ candidateId, element, method, ruleId, basis: { readingRef?, factorRefs[] }, note, doctrine }`. 규칙 `docs/rules/YONGSIN-CANDIDATES.md`, 골든 `GOLDEN-YONGSIN-CANDIDATES.md`.
 - `gyeokguk: GyeokgukReading[]` — 규칙 세트마다 1개(`gyeokguk.exposed-first` · `.primary-only` · `.saryeong`): `{ ruleSetId, candidates[], ambiguous, unavailable?, firedConditions[1], monthBranchClashed, agreesAcrossSets, school, precision, doctrine }`. 규칙 `docs/rules/GEOKGUK.md`, 골든 `GOLDEN-GYEOKGUK.md`.
 - `sinsal: SinsalHit[]` — 변형마다 적중 레코드(적중 없으면 싣지 않음): `{ sinsalId, variantId, basis: { pillar, char }, at[], precision, doctrine }`. 길흉·강도 필드 없음. 규칙 `docs/rules/SINSAL.md`(7종 · 변형 13), 골든 `GOLDEN-SINSAL.md`.
 
 예(g-1988-10-09-0230, 戊辰 壬戌 丁酉 辛丑, 골든 셀 그대로): `strengthReadings` = month-first `indeterminate`(월지충) · triad-majority `weak`, `agreesAcrossSets: false` · `yongsinCandidates` 2개(`eokbu.weak.bigyeop.fire@strength.triad-majority` · `eokbu.weak.inseong.wood@…`) · `gyeokguk` = exposed-first `sanggwan/primary` · primary-only `sanggwan/primary` · saryeong `pyeonjae/residual` · `sinsal` = 천을귀인 A·B 일지 · 도화(연지 기준) 일지 · 화개(일지 기준) 시지 · 괴강(네 기둥) 월주 · 백호 연·월주.
+
+`strengthFactors` 예 — 위 요청(`sex: "male"`, `include: ["strengthFactors"]`)의 실제 응답 `data.strengthFactors`를 그대로 옮겼다(`packages/saju-core/src/l2/include-blocks.test.ts`가 이 블록과 코어 응답을 대조). 득령·득지·득세 모두 N, 사령 辛(여기), 일간 丁이 월간 壬과 간합, 월지 戌이 연지 辰과 충:
+
+```json
+{
+  "school": "yeonhae",
+  "precision": "exact",
+  "dayMaster": "jeong",
+  "monthBranch": "sul",
+  "layers": {
+    "stems": [
+      {
+        "pillar": "year",
+        "stem": "mu"
+      },
+      {
+        "pillar": "month",
+        "stem": "im"
+      },
+      {
+        "pillar": "time",
+        "stem": "sin"
+      }
+    ],
+    "branchPrimary": [
+      {
+        "pillar": "year",
+        "stem": "mu"
+      },
+      {
+        "pillar": "month",
+        "stem": "mu"
+      },
+      {
+        "pillar": "day",
+        "stem": "sin"
+      },
+      {
+        "pillar": "time",
+        "stem": "gi"
+      }
+    ],
+    "hiddenStems": [
+      {
+        "pillar": "year",
+        "role": "residual",
+        "stem": "eul",
+        "days": 9
+      },
+      {
+        "pillar": "year",
+        "role": "middle",
+        "stem": "gye",
+        "days": 3
+      },
+      {
+        "pillar": "year",
+        "role": "primary",
+        "stem": "mu",
+        "days": 18
+      },
+      {
+        "pillar": "month",
+        "role": "residual",
+        "stem": "sin",
+        "days": 9
+      },
+      {
+        "pillar": "month",
+        "role": "middle",
+        "stem": "jeong",
+        "days": 3
+      },
+      {
+        "pillar": "month",
+        "role": "primary",
+        "stem": "mu",
+        "days": 18
+      },
+      {
+        "pillar": "day",
+        "role": "residual",
+        "stem": "gyeong",
+        "days": 10
+      },
+      {
+        "pillar": "day",
+        "role": "primary",
+        "stem": "sin",
+        "days": 20
+      },
+      {
+        "pillar": "time",
+        "role": "residual",
+        "stem": "gye",
+        "days": 9
+      },
+      {
+        "pillar": "time",
+        "role": "middle",
+        "stem": "sin",
+        "days": 3
+      },
+      {
+        "pillar": "time",
+        "role": "primary",
+        "stem": "gi",
+        "days": 18
+      }
+    ]
+  },
+  "tenGodCounts": {
+    "surface": {
+      "bigyeon": 0,
+      "geopjae": 0,
+      "siksin": 1,
+      "sanggwan": 3,
+      "pyeonjae": 2,
+      "jeongjae": 0,
+      "pyeongwan": 0,
+      "jeonggwan": 1,
+      "pyeonin": 0,
+      "jeongin": 0
+    },
+    "withHidden": {
+      "bigyeon": 1,
+      "geopjae": 0,
+      "siksin": 1,
+      "sanggwan": 3,
+      "pyeonjae": 4,
+      "jeongjae": 1,
+      "pyeongwan": 2,
+      "jeonggwan": 1,
+      "pyeonin": 1,
+      "jeongin": 0
+    }
+  },
+  "elementCounts": {
+    "surface": {
+      "wood": 0,
+      "fire": 0,
+      "earth": 4,
+      "metal": 2,
+      "water": 1
+    },
+    "withHidden": {
+      "wood": 1,
+      "fire": 1,
+      "earth": 4,
+      "metal": 5,
+      "water": 3
+    }
+  },
+  "exposed": [
+    {
+      "pillar": "year",
+      "role": "primary",
+      "stem": "mu",
+      "in": [
+        "year"
+      ]
+    },
+    {
+      "pillar": "month",
+      "role": "residual",
+      "stem": "sin",
+      "in": [
+        "time"
+      ]
+    },
+    {
+      "pillar": "month",
+      "role": "middle",
+      "stem": "jeong",
+      "in": [
+        "day"
+      ]
+    },
+    {
+      "pillar": "month",
+      "role": "primary",
+      "stem": "mu",
+      "in": [
+        "year"
+      ]
+    },
+    {
+      "pillar": "day",
+      "role": "primary",
+      "stem": "sin",
+      "in": [
+        "time"
+      ]
+    },
+    {
+      "pillar": "time",
+      "role": "middle",
+      "stem": "sin",
+      "in": [
+        "time"
+      ]
+    }
+  ],
+  "roots": [
+    {
+      "pillar": "month",
+      "role": "middle",
+      "stem": "jeong"
+    }
+  ],
+  "deukryeong": {
+    "value": false,
+    "definitionId": "deukryeong.primary-support",
+    "monthPrimary": "mu",
+    "tenGod": "sanggwan"
+  },
+  "deukji": {
+    "value": false,
+    "definitionId": "deukji.day-branch-support",
+    "supporting": []
+  },
+  "deukse": {
+    "value": false,
+    "definitionId": "deukse.surface-majority-ge",
+    "support": 0,
+    "other": 6
+  },
+  "saryeong": {
+    "stem": "sin",
+    "role": "residual",
+    "elapsedMinutes": 886,
+    "boundaries": [
+      9,
+      12
+    ],
+    "nearThreshold": false,
+    "term": {
+      "code": "hallo",
+      "at": "1988-10-08T10:44"
+    }
+  },
+  "dayStemCombined": {
+    "value": true,
+    "with": [
+      {
+        "pillar": "month",
+        "id": "jeong-im"
+      }
+    ]
+  },
+  "monthBranchClashed": {
+    "value": true,
+    "with": [
+      {
+        "pillar": "year",
+        "id": "jin-sul"
+      }
+    ]
+  },
+  "dayBranchInteractions": [
+    {
+      "kind": "yukhap",
+      "id": "jin-yu",
+      "pillars": [
+        "year",
+        "day"
+      ]
+    },
+    {
+      "kind": "samhap",
+      "id": "sa-yu-chuk",
+      "pillars": [
+        "day",
+        "time"
+      ]
+    }
+  ],
+  "transformationMaterials": [
+    {
+      "ganhapId": "jeong-im",
+      "pillars": [
+        "month",
+        "day"
+      ],
+      "potentialElement": "wood",
+      "monthElementMatches": false,
+      "potentialElementExposed": false
+    }
+  ],
+  "climate": {
+    "season": "autumn",
+    "fire": 1,
+    "water": 1
+  }
+}
+```
 
 
 ## 요청 옵션 (2026-09-22 additive, 3단계)
@@ -206,7 +503,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 - 오행 키: `wood,fire,earth,metal,water`(목화토금수).
 - `supplementPriority[0]`이 **가장 먼저 보완할 오행** = 작명이 채워야 할 1순위.
 - **계약 고정(2026-09-23, baby 회의 C4):** `fiveElements.supplementPriority`(및 `pillars`·`absent`·`deficient`)는 관점(perspective)·해석 계층과 무관한 결정론 계산값이며, 기본 응답(`include` 없는 호출)은 관점 도입 뒤에도 바뀌지 않는다. 소비자(baby-naming-ai)는 기본 응답의 `supplementPriority[0]`만으로 작명하므로, 이 값이 바뀌면 소비자 결과가 알림 없이 달라진다.
-- **include-only 규칙(2026-10-25, HO-2026-1025 완료 조건 5):** L2 블록(지장간·십신·합충·대운, 그리고 8b 강약 판독 이후 단계)은 `options.include`에 이름을 적은 호출에만 붙는다. `include` 없는 기본 응답은 블록이 늘어나도 **바이트 단위로 같다**. 새 블록은 ① 기존 키를 바꾸지 않고 ② 기본 응답에 키를 추가하지 않으며 ③ 이름이 열리기 전에는 `INVALID_OPTIONS`로 거절된다. 8b `strengthReadings`·8b-2 `yongsinCandidates`·격국 `gyeokguk`·신살 `sinsal`은 2026-10-27 9단계에서 골든 선행 게이트와 함께 열었다(키 라우트만 — keyless 앱 라우트는 거절). 고정 테스트 = `packages/saju-core/src/l2/strength-readings.test.ts` «baby 공급 계약»(기본 응답 바이트 스냅샷 + 미개방 블록 거절) · `l2/yongsin-candidates.test.ts`·`l2/gyeokguk.test.ts` «baby 공급 계약»(HO-2026-1026) · `l2/sinsal.test.ts` «공개 계약»(HO-2026-1026-sinsal).
+- **include-only 규칙(2026-10-25, HO-2026-1025 완료 조건 5):** L2 블록(지장간·십신·합충·대운, 그리고 8b 강약 판독 이후 단계)은 `options.include`에 이름을 적은 호출에만 붙는다. `include` 없는 기본 응답은 블록이 늘어나도 **바이트 단위로 같다**. 새 블록은 ① 기존 키를 바꾸지 않고 ② 기본 응답에 키를 추가하지 않으며 ③ 이름이 열리기 전에는 `INVALID_OPTIONS`로 거절된다. 8b `strengthReadings`·8b-2 `yongsinCandidates`·격국 `gyeokguk`·신살 `sinsal`은 2026-10-27 9단계에서, 8a 강약 팩터 `strengthFactors`는 2026-11-03에 골든 선행 게이트와 함께 열었다(키 라우트만 — keyless 앱 라우트는 거절). 5블록 공통 계약(응답 키 ↔ 설계서 §1 표 · 레코드 키 · 응답 JSON 어휘 가드 · export) = `l2/include-blocks.test.ts`. 고정 테스트 = `packages/saju-core/src/l2/strength-readings.test.ts` «baby 공급 계약»(기본 응답 바이트 스냅샷 + 미개방 블록 거절) · `l2/yongsin-candidates.test.ts`·`l2/gyeokguk.test.ts` «baby 공급 계약»(HO-2026-1026) · `l2/sinsal.test.ts` «공개 계약»(HO-2026-1026-sinsal).
 - `alternates`는 요청 옵션의 **반대쪽**만 담는다(옵션 없이 부르면 `trueSolarTime.applied: true`, `jaHourPolicy.policy: "early"`). 명식이 같으면 키가 생략된다. `dayBoundary`는 alternates에 포함하지 않는다.
 - `nearBoundary`는 옵션과 무관하게 항상 계산된다. 소비자는 `hourBranch`가 있을 때만 출생지를 물어 `trueSolarTime: true`로 다시 부르는 흐름을 권장한다(웹앱이 그렇게 한다). 기준 시계는 **정규화 뒤 KST 벽시계**다(입력 시계가 아님) — 1961-08-10 00:10(+8:30) 입력은 KST 00:40이라 자정 경고가 붙지 않는다. 창: `hourBranch`·`dayMidnight` 모두 [−10, +34]분(경도 보정 최대 −34분을 덮는다), `solarTerm` ±60분.
 - `resolution`: 1908~1961년의 UTC+8:30 표준시 구간과 서머타임 연도(1948-51·55-60·87-88) 출생은 당시 시계값을
@@ -235,7 +532,7 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 | 400 | `INVALID_BIRTH_TIME` | `HH:mm` 형식 아님 |
 | 400 | `INVALID_SEX` | 허용 값 아님 |
 | 400 | `INVALID_BIRTH_PLACE` | 17 시·도 코드 아님 |
-| 400 | `INVALID_OPTIONS` | `options`에 모르는 키·값(`include` 블록, 학파, `referenceDate` 형식 포함). keyless `/api/app/saju-pillars`는 9단계 블록(`strengthReadings`·`yongsinCandidates`·`gyeokguk`·`sinsal`) include도 이 코드로 거절(다른 필드 검증보다 먼저) |
+| 400 | `INVALID_OPTIONS` | `options`에 모르는 키·값(`include` 블록, 학파, `referenceDate` 형식 포함). keyless `/api/app/saju-pillars`는 9단계 블록(`strengthReadings`·`yongsinCandidates`·`gyeokguk`·`sinsal`·`strengthFactors`) include도 이 코드로 거절(다른 필드 검증보다 먼저) |
 | 400 | `OUT_OF_SUPPORTED_RANGE` | 검증된 절기 계산 범위 밖의 날짜 — 현재 범위는 1920-01-06 소한 ~ 2100-12-07 대설 직전(KASI 24기 표, `docs/algorithms/SOLAR_TERM_SPEC.md` «지원 범위»). 음력은 1900~2050년 |
 | 401 | `UNAUTHORIZED` | `x-api-key` 누락/불일치(`/api/saju-pillars`) |
 | 405 | `METHOD_NOT_ALLOWED` | POST 외 메서드 |
