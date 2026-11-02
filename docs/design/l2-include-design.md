@@ -72,10 +72,10 @@
 | I3 | 블록별 응답 키 스키마 테스트 + `INVALID_OPTIONS` 목록 갱신 | 계약 |
 | I4 | `SAJU_PILLARS_API_V1.md` 블록 절 + 예시 1건씩 | 문서 |
 | I5 | 8a `monthBranch`(안 A 채택 시) 별도 PR | 키 집합 |
-
-- 상태(2026-11-02): **I5 ✓ #125 e2c3f58 10-27 완료** — `StrengthFactors.monthBranch`(`strength-factors.ts:54`·`:227`), 격국 `monthBranchOf` 코드 0건. 위 표 원문은 결정 기록으로 유지.
 | I6 | verify EXIT 0 · verifier PASS · LC 게이트 | G3 |
 | I7 | 블록을 여는 PR에서 그 블록의 코어 함수·타입을 `packages/saju-core/src/index.ts`로 export(현재 `sinsalOf`·`SinsalHit`·`SINSAL_VARIANTS`는 미export — 격국·용신·8b와 다름, #118 LC 관찰 ①) | 공개 API 면 |
+
+- 상태(2026-11-02): **I5 ✓ #125 e2c3f58 10-27 완료** — `StrengthFactors.monthBranch`(`strength-factors.ts:54`·`:227`), 격국 `monthBranchOf` 코드 0건. 위 표 원문은 결정 기록으로 유지.
 
 ## 6. 사용자 확인 목록
 
