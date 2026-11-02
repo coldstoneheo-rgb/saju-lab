@@ -4,6 +4,20 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-11-03
+project: saju-lab
+agent: claude-code (클라우드 세션, LC CLOUD-2026-1103-wave4 §15 — 모델 식별자는 정책상 미기재)
+summary: 9단계 include 마지막 블록 8a strengthFactors 개방(키 라우트만) + L2 블록 5종 공통 계약 테스트(설계 §1 표 1:1 키·레코드 키·응답 JSON 어휘 가드·export·문서 예 대조)
+status: on_track
+progress: "9단계 데이터 블록 5/5 개방(화면·유료 노출 0) (근거: npm run verify EXIT 0 api 125 · core 1070 · web 49 = 1244, RED 371d294 → GREEN 651dc59 → 문서 426eccd)"
+changes: ["cloud/saju-l2-include [cloud] 9단계 strengthFactors include 개방 (PR 링크는 PR 본문)"]
+next: "층 노출 범위 사용자 결정(l2-include-design §4 «결정» 열) → UI HO"
+blockers: "층 노출 범위 = 사용자 결정 대기(UI HO 전제)"
+---
+## 의미
+발주서의 블록 5종 중 4종은 #126에서 이미 열려 있었고, 남은 것은 8a 강약 팩터 하나였다. 이제 설계서 §1 표 다섯 줄이 모두 키 라우트에서 열렸고, 블록 이름·응답 키·레코드 키·금지 어휘가 설계서와 한 테스트 파일에서 대조된다. keyless 공개면은 허용 목록을 건드리지 않아 그대로 거절한다. 남은 것은 층 노출 결정 뒤 UI HO다.
+
+---
 date: 2026-11-02
 project: saju-lab
 agent: claude-code (Opus 5.5, 클라우드 세션, LC CLOUD-2026-1102-wave3 §12)

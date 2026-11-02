@@ -1,11 +1,15 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-02T16:47:54+09:00",
-  "head": "7a6a0bf (#128 squash, main 2026-11-02)",
-  "phase": "L2 9단계 데이터 블록 개방 완료(#126) + keyless fail-closed(#128) — 층 노출 결정 전 UI·유료 노출 0, 11-20 전 배포 묶음 대기",
-  "working_on": "[IDLE 대기] CLOUD-2026-1102 상태 현행화(docs·json만) — 다음 = 사용자 확인 4건 중 막는 항목(층 노출 범위) 뒤 UI HO",
+  "as_of": "2026-11-03T01:09:08+09:00",
+  "head": "a0c640d (#129 squash, main 2026-11-02) — 이 브랜치 cloud/saju-l2-include 426eccd 머지 대기",
+  "phase": "L2 9단계 데이터 블록 5종 개방(4종 #126 + 8a strengthFactors CLOUD-2026-1103 §15) + keyless fail-closed(#128) — 층 노출 결정 전 UI·유료 노출 0, 11-20 전 배포 묶음 대기",
+  "working_on": "[머지 대기] CLOUD-2026-1103 §15 strengthFactors include 개방 PR — 다음 = 사용자 «머지» 뒤 11-20 전 배포 묶음",
   "waiting_on": "[사용자] S-YNY 일주 출처((a) getLunCalInfo / (c) 보류, 기본 c) · 프로덕션 SAJU_API_KEY 설정 여부 · 층 노출 범위(설계 §4) · Gemini 정본 3.5/3.6 · DEC-2026-1015 별건 · [LC] 11-20 전 배포 묶음 판정",
   "recent": [
+    {
+      "at": "2026-11-03",
+      "what": "CLOUD-2026-1103 §15: 8a strengthFactors include 개방(키 라우트만, KEYLESS_INCLUDE_BLOCKS 변경 0) + 5블록 공통 계약 테스트 l2/include-blocks.test.ts(설계 §1 표 1:1 키·레코드 키·응답 JSON 어휘 가드·export·문서 예 대조). RED 371d294 → GREEN 651dc59 → 문서 426eccd. verify EXIT 0 api 125 · core 1070 · web 49 = 1244. REPORT docs/handoffs/CLOUD-2026-1103-saju-l2-include-REPORT.md"
+    },
     {
       "at": "2026-11-02",
       "what": "CLOUD-2026-1102: #128 7a6a0bf keyless include fail-closed(허용 목록 + INCLUDE_BLOCKS 파생, api 118→125) · 상태 현행화(AGENT_STATUS·설계서 I5 상태 표기·APP_GATEWAY prod env 주석, 코드 0). verify api 125 · core 1057 · web 49 = 1231. REPORT docs/handoffs/CLOUD-2026-1102-saju-keyless-i5-REPORT.md · CLOUD-2026-1102-saju-status-refresh-REPORT.md"
@@ -64,7 +68,7 @@
     }
   ],
   "next_actions": [
-    "[배포] 11-20 전 배포 묶음(#126 9단계 include · #128 keyless 파생 포함) — 배포 동결 12-01~02-28, 마지막 배포 11-20 전후",
+    "[배포] 11-20 전 배포 묶음(#126 9단계 include 4블록 · #128 keyless 파생 · CLOUD-2026-1103 §15 strengthFactors 개방 포함) — 배포 동결 12-01~02-28, 마지막 배포 11-20 전후",
     "층 노출 결정 뒤 UI HO(apps/web·유료 리포트 generatePaidReportV1 블록 사용, 사람 대면 문장은 13단계 + saju-domain)",
     "S-YNY 2행 GOLDEN-PILLARS 선등록(getLunCalInfo) → 8a 편입 + toHaveLength(50) 제거 — 사용자 (a) 결정 뒤",
     "선택: synthetic factors «월 장간 = hiddenStemList(monthBranch)» 불변식 테스트(#125 critic 관찰)",
@@ -77,13 +81,13 @@
     "사용자 확인 — Gemini 정본 3.5/3.6: 닫히는 조건 = 사용자가 Vercel Production env GEMINI_MODEL 값을 확인하고 ⓐ 레포 3.5 유지 / ⓑ 3.6을 문서·코드 기본값에 반영 중 택1"
   ],
   "metrics": {
-    "ci_tests_total": 1231,
+    "ci_tests_total": 1244,
     "ci_tests": {
       "api": 125,
-      "core": 1057,
+      "core": 1070,
       "web": 49
     },
-    "measured": "2026-11-02 npm test origin/main 7a6a0bf EXIT 0",
+    "measured": "2026-11-03 npm run verify cloud/saju-l2-include 426eccd EXIT 0",
     "note": "옛 «806»은 09-24 기준 수치로 폐기"
   },
   "gauge": {
