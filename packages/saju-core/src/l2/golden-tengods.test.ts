@@ -153,7 +153,7 @@ describe("saju-pillars-v1 — options.include", () => {
   });
 
   it("rejects an unknown include block or school", () => {
-    const bad = buildSajuPillarsV1Response({ ...base, options: { include: ["strengthFactors"] } as never }); // 8a 팩터는 블록이 아니다(신살은 9단계에서 열림, 2026-10-27)
+    const bad = buildSajuPillarsV1Response({ ...base, options: { include: ["saryeong"] } as never }); // 사령은 블록이 아니다(8a strengthFactors는 9단계에서 열림, 2026-11-03)
     expect(bad.ok).toBe(false);
     if (!bad.ok) expect(bad.error.error.code).toBe("INVALID_OPTIONS");
     const badSchool = buildSajuPillarsV1Response({ ...base, options: { hiddenStemSchool: "sammyeong" } as never });
