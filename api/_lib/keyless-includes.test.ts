@@ -16,8 +16,8 @@ describe("keyless include 노출 — 허용 목록에서 파생", () => {
     expect(KEYLESS_INCLUDE_BLOCKS).toEqual(["hiddenStems", "tenGods", "interactions", "daeun"]);
   });
 
-  it("현재 거절 목록은 이전 리터럴과 같은 값·순서(라우트 오류 메시지 불변)", () => {
-    expect(KEYLESS_DENIED_INCLUDES).toEqual(["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal"]);
+  it("현재 거절 목록 = 이전 리터럴 4블록 순서 그대로 + 9단계 strengthFactors(2026-11-03, 허용 목록 변경 0으로 자동 거절)", () => {
+    expect(KEYLESS_DENIED_INCLUDES).toEqual(["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal", "strengthFactors"]);
   });
 
   it("새 블록 id를 INCLUDE_BLOCKS에 더하면 거절 목록이 자동으로 따라간다", () => {

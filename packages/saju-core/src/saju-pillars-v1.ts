@@ -6,7 +6,7 @@ import { DEFAULT_HIDDEN_STEM_SCHOOL, hiddenStemsOf, type HiddenStems } from "./l
 import { tenGodsOfChart, type ChartTenGods } from "./l2/ten-gods.js";
 import { interactionsOfChart, type ChartInteractions } from "./l2/interactions.js";
 import { daeunOf, isDaeunUnavailable, type DaeunBlock } from "./l2/daeun.js";
-import { strengthFactorsOf } from "./l2/strength-factors.js";
+import { strengthFactorsOf, type StrengthFactors } from "./l2/strength-factors.js";
 import { strengthReadingsOf, type StrengthReading } from "./l2/strength-readings.js";
 import { yongsinCandidatesOf, type YongsinCandidate } from "./l2/yongsin-candidates.js";
 import { gyeokgukReadingsOf, type GyeokgukReading } from "./l2/gyeokguk.js";
@@ -79,6 +79,8 @@ export interface SajuPillarsV1Response {
   /** 대운 — only with options.include "daeun". Minute-precision decimals, no rounding; null (with daeunReason) when the reference 절 is outside the solar-term table. */
   daeun?: DaeunBlock | null;
   daeunReason?: "OUT_OF_SOLAR_TERM_TABLE";
+  /** 8a 강약 팩터 — only with options.include "strengthFactors". Facts (counts, table lookups, 절입 distance); no verdict, score or weighting. */
+  strengthFactors?: StrengthFactors;
   /** 강약 판독 — only with options.include "strengthReadings". Every rule set side by side, `doctrine: "unreviewed"`; no default set. */
   strengthReadings?: StrengthReading[];
   /** 용신 후보 — only with options.include "yongsinCandidates". Candidates, not a 용신 decision; `doctrine: "unreviewed"`. */
@@ -344,11 +346,12 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
   const daeun = include.has("daeun")
     ? daeunOf(pillars, resolveBirthKst(birthInput), body.sex as Sex, { school, ...(options?.referenceDate ? { referenceDate: options.referenceDate } : {}) })
     : undefined;
-  // 의존 블록은 응답에 자동으로 싣지 않는다(설계 §2) — 8a·8b-1은 내부에서만 계산한다.
+  // 의존 블록은 응답에 자동으로 싣지 않는다(설계 §2) — 8a·8b-1은 요청한 블록일 때만 응답에 싣고, 아니면 내부에서만 계산한다.
   const factors =
-    include.has("strengthReadings") || include.has("yongsinCandidates") || include.has("gyeokguk")
+    include.has("strengthFactors") || include.has("strengthReadings") || include.has("yongsinCandidates") || include.has("gyeokguk")
       ? strengthFactorsOf(pillars, resolveBirthKst(birthInput), { school })
       : undefined;
+  const strengthFactors = include.has("strengthFactors") ? factors : undefined;
   const readings = factors && (include.has("strengthReadings") || include.has("yongsinCandidates")) ? strengthReadingsOf(factors) : undefined;
   const strengthReadings = include.has("strengthReadings") ? readings : undefined;
   const yongsinCandidates = factors && readings && include.has("yongsinCandidates") ? yongsinCandidatesOf(factors, readings) : undefined;
@@ -368,6 +371,7 @@ export function buildSajuPillarsV1Response(request: unknown): SajuPillarsV1Resul
       ...(tenGods ? { tenGods } : {}),
       ...(interactions ? { interactions } : {}),
       ...(daeun ? (isDaeunUnavailable(daeun) ? { daeun: null, daeunReason: daeun.reason } : { daeun }) : {}),
+      ...(strengthFactors ? { strengthFactors } : {}),
       ...(strengthReadings ? { strengthReadings } : {}),
       ...(yongsinCandidates ? { yongsinCandidates } : {}),
       ...(gyeokguk ? { gyeokguk } : {}),

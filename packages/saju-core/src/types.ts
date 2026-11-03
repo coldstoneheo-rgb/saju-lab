@@ -20,7 +20,9 @@ export const INCLUDE_BLOCKS = [
   "strengthReadings",
   "yongsinCandidates",
   "gyeokguk",
-  "sinsal"
+  "sinsal",
+  // 9단계(2026-11-03, CLOUD-2026-1103 §15) — 8a 강약 팩터(사실 블록). 선행 골든 GOLDEN-STRENGTH-FACTORS 50 confirmed.
+  "strengthFactors"
 ] as const;
 export type IncludeBlock = (typeof INCLUDE_BLOCKS)[number];
 

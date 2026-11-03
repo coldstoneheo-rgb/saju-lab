@@ -21,7 +21,7 @@ function call(handler: (req: ApiRequest, res: ApiResponse) => void, body: unknow
 }
 
 const base = { birthDate: "1988-10-09", birthTime: "02:30", calendar: "solar", sex: "other" };
-const L2 = ["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal"];
+const L2 = ["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal", "strengthFactors"];
 
 describe("saju-pillars routes — 9단계 L2 블록 노출 (HO-2026-1026-l2-include)", () => {
   afterEach(() => {
@@ -51,11 +51,11 @@ describe("saju-pillars routes — 9단계 L2 블록 노출 (HO-2026-1026-l2-incl
     expect(call(keyedHandler, { ...base, options: { include: ["hiddenStems", "daeun"] } }).status).toBe(200);
   });
 
-  it("키 라우트 /api/saju-pillars는 맞는 x-api-key로 네 블록을 모두 싣는다", () => {
+  it("키 라우트 /api/saju-pillars는 맞는 x-api-key로 L2 블록 5종을 모두 싣는다", () => {
     process.env.SAJU_API_KEY = "test-key";
     expect(call(keyedHandler, { ...base, options: { include: L2 } }).status).toBe(401);
     const opened = call(keyedHandler, { ...base, options: { include: L2 } }, { "x-api-key": "test-key" });
     expect(opened.status).toBe(200);
-    for (const block of L2) expect(Array.isArray(opened.payload[block]), block).toBe(true);
+    for (const block of L2) expect(block === "strengthFactors" ? typeof opened.payload[block] === "object" && opened.payload[block] !== null : Array.isArray(opened.payload[block]), block).toBe(true);
   });
 });
