@@ -125,8 +125,11 @@ const RECORD_KEYS: Record<L2Block, { required: string[]; optional: string[] }> =
 describe("I3 — 블록별 레코드 키 스키마(골든 명식 전부 · 두 학파)", () => {
   const cases = loadGoldenPillarCases();
 
+  // 레코드 1,425개 × 키마다 expect()를 부르면 2만 개가 넘어 경합 시 5s 기본 타임아웃을 넘겼다
+  // (CLOUD-2026-1103 §22 실측). 위반을 모아 한 번에 단언한다 — 검사 내용은 같다.
   it("모든 레코드의 키 = 필수 ⊆ 키 ⊆ 필수 ∪ 선택", () => {
     const seen: Record<L2Block, number> = { strengthFactors: 0, strengthReadings: 0, yongsinCandidates: 0, gyeokguk: 0, sinsal: 0 };
+    const violations: string[] = [];
     for (const golden of cases) {
       for (const school of ["yeonhae", "japyeong"] as const) {
         const request = requestOf(golden, L2_BLOCKS);
@@ -135,16 +138,18 @@ describe("I3 — 블록별 레코드 키 스키마(골든 명식 전부 · 두 �
           const value = data[block];
           const records = (Array.isArray(value) ? value : [value]) as Array<Record<string, unknown>>;
           const { required, optional } = RECORD_KEYS[block];
+          const allowed = new Set<string>([...required, ...optional]);
           for (const record of records) {
             const keys = Object.keys(record);
-            for (const key of required) expect(keys, `${golden.id} ${school} ${block}`).toContain(key);
-            for (const key of keys) expect([...required, ...optional], `${golden.id} ${school} ${block}.${key}`).toContain(key);
-            if (required.includes("doctrine")) expect(record.doctrine, `${golden.id} ${school} ${block}`).toBe("unreviewed");
+            for (const key of required) if (!keys.includes(key)) violations.push(`${golden.id} ${school} ${block}: 필수 키 ${key} 없음`);
+            for (const key of keys) if (!allowed.has(key)) violations.push(`${golden.id} ${school} ${block}.${key}: 모르는 키`);
+            if (required.includes("doctrine") && record.doctrine !== "unreviewed") violations.push(`${golden.id} ${school} ${block}: doctrine = ${String(record.doctrine)}`);
             seen[block] += 1;
           }
         }
       }
     }
+    expect(violations).toEqual([]);
     for (const block of L2_BLOCKS) expect(seen[block], block).toBeGreaterThan(0);
   });
 });

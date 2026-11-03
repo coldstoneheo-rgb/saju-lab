@@ -1,11 +1,15 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-03T01:09:08+09:00",
-  "head": "a0c640d (#129 squash, main 2026-11-02) — 이 브랜치 cloud/saju-l2-include 426eccd 머지 대기",
+  "as_of": "2026-11-03T13:11:22+09:00",
+  "head": "cfdeef8 (#130 squash, main 2026-11-03) — 이 브랜치 cloud/saju-wave4-followups 머지 대기",
   "phase": "L2 9단계 데이터 블록 5종 개방(4종 #126 + 8a strengthFactors CLOUD-2026-1103 §15) + keyless fail-closed(#128) — 층 노출 결정 전 UI·유료 노출 0, 11-20 전 배포 묶음 대기",
-  "working_on": "[머지 대기] CLOUD-2026-1103 §15 strengthFactors include 개방 PR — 다음 = 사용자 «머지» 뒤 11-20 전 배포 묶음",
+  "working_on": "[머지 대기] CLOUD-2026-1103 §22 #130 게이트 관찰 후속(I3 타임아웃 플레이크 수정 · 설계서 §1 용신 후보 라벨) — 다음 = 사용자 «머지» 뒤 11-20 전 배포 묶음",
   "waiting_on": "[사용자] S-YNY 일주 출처((a) getLunCalInfo / (c) 보류, 기본 c) · 프로덕션 SAJU_API_KEY 설정 여부 · 층 노출 범위(설계 §4) · Gemini 정본 3.5/3.6 · DEC-2026-1015 별건 · [LC] 11-20 전 배포 묶음 판정",
   "recent": [
+    {
+      "at": "2026-11-03",
+      "what": "CLOUD-2026-1103 §22: include-blocks I3 레코드 키 검사 expect 23,676회 → 위반 수집 후 단언 1회(5a871d0, 6병렬 경합 실패 4/12 → 0/18, I3 4064–5289ms → 585–896ms, 임계값 변경 0) · 설계서 §1 yongsinCandidates 라벨 = doctrine만(71e8ca4, gyeokguk «같음» 명시). verify EXIT 0 api 125 · core 1070 · web 49 = 1244. REPORT docs/handoffs/CLOUD-2026-1103-saju-followups-REPORT.md"
+    },
     {
       "at": "2026-11-03",
       "what": "CLOUD-2026-1103 §15: 8a strengthFactors include 개방(키 라우트만, KEYLESS_INCLUDE_BLOCKS 변경 0) + 5블록 공통 계약 테스트 l2/include-blocks.test.ts(설계 §1 표 1:1 키·레코드 키·응답 JSON 어휘 가드·export·문서 예 대조). RED 371d294 → GREEN 651dc59 → 문서 426eccd. verify EXIT 0 api 125 · core 1070 · web 49 = 1244. REPORT docs/handoffs/CLOUD-2026-1103-saju-l2-include-REPORT.md"
@@ -87,7 +91,7 @@
       "core": 1070,
       "web": 49
     },
-    "measured": "2026-11-03 npm run verify cloud/saju-l2-include 426eccd EXIT 0",
+    "measured": "2026-11-03 npm run verify cloud/saju-wave4-followups 71e8ca4 EXIT 0",
     "note": "옛 «806»은 09-24 기준 수치로 폐기"
   },
   "gauge": {

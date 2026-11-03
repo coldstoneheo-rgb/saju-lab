@@ -14,8 +14,8 @@
 | --- | --- | --- | --- | --- | --- |
 | `strengthFactors` | `strengthFactorsOf(pillars, birthKst, {school})` | 명식 + KST + 학파 | `strengthFactors` (객체 1) | `school` · `precision` | `GOLDEN-STRENGTH-FACTORS.md` 50행 전부 `confirmed` |
 | `strengthReadings` | `strengthReadingsOf(factors)` | 8a | `strengthReadings` (배열, ruleSetId 순) | `school` · `precision` · `doctrine: "unreviewed"` | 8a 게이트 + `GOLDEN-STRENGTH-READINGS.md` 50 `confirmed` |
-| `yongsinCandidates` | `yongsinCandidatesOf(factors, readings)` | 8a + 8b-1 판독 | `yongsinCandidates` (배열) | 같음 | 8a 게이트 + `GOLDEN-YONGSIN-CANDIDATES.md` 50 `confirmed` |
-| `gyeokguk` | `gyeokgukReadingsOf(factors)` | 8a | `gyeokguk` (배열, ruleSetId 순) | 같음 + `agreesAcrossSets` | 8a 게이트 + `GOLDEN-GYEOKGUK.md` 56 `confirmed` |
+| `yongsinCandidates` | `yongsinCandidatesOf(factors, readings)` | 8a + 8b-1 판독 | `yongsinCandidates` (배열) | `doctrine: "unreviewed"`만 (`school`·`precision` 없음 — #113부터 코드·`l2/include-blocks.test.ts` 고정) | 8a 게이트 + `GOLDEN-YONGSIN-CANDIDATES.md` 50 `confirmed` |
+| `gyeokguk` | `gyeokgukReadingsOf(factors)` | 8a | `gyeokguk` (배열, ruleSetId 순) | `strengthReadings`와 같음 + `agreesAcrossSets` | 8a 게이트 + `GOLDEN-GYEOKGUK.md` 56 `confirmed` |
 | `sinsal` | `sinsalOf(pillars)` | 명식만 | `sinsal` (배열, 변형 순) | `precision` · `doctrine` | `GOLDEN-SINSAL.md` 50×변형 `confirmed`(8a와 무관) |
 
 - **실행 축 vs 학설 축**: 선행 게이트는 «코어가 표대로 실행했는가»(실행 축, LC 재계산으로 닫힘)만 본다. «표가 명리학적으로 맞는가»(학설 축)는 G2-3 전까지 열리지 않으므로 게이트로 쓰지 않고, 응답 레코드마다 `doctrine: "unreviewed"`로 싣는다. 서지가 레포 안에서 확인되지 않은 항목(괴강 판본 — `docs/design/sinsal-design.md` §2 각주, 레포 내 근거 0)도 이 축에 속하며 G2-3 서지 검토 대상이다.

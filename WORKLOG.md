@@ -6,6 +6,20 @@
 ---
 date: 2026-11-03
 project: saju-lab
+agent: claude-code (클라우드 세션, LC CLOUD-2026-1103-wave5 §22 — 모델 식별자는 정책상 미기재)
+summary: #130 게이트 관찰 후속 — include-blocks I3 타임아웃 플레이크 원인 실측·수정(expect 23,676회 → 단언 1회) + 설계서 §1 yongsinCandidates 라벨 정정
+status: on_track
+progress: "테스트 플레이크 1건 제거·문서-코드 불일치 1건 해소 (근거: core 6병렬 경합 실패 4/12 → 0/18, npm run verify EXIT 0 api 125 · core 1070 · web 49 = 1244)"
+changes: ["5a871d0 test(saju-core): include-blocks I3 위반 수집 후 단언 1회", "71e8ca4 docs(design): l2-include §1 yongsinCandidates 라벨"]
+next: "층 노출 범위 사용자 결정(l2-include-design §4 «결정» 열) → UI HO"
+blockers: "층 노출 범위 = 사용자 결정 대기(UI HO 전제)"
+---
+## 의미
+게이트에서 간헐적으로 실패하던 테스트의 원인이 계산이 아니라 단언 횟수였음을 수치로 확인하고, 검사 내용은 그대로 둔 채 시간을 줄였다. 임계값을 늘리지 않아 진짜 성능 회귀가 생기면 여전히 잡힌다. 설계서 §1 표가 코드·테스트와 다시 일치한다.
+
+---
+date: 2026-11-03
+project: saju-lab
 agent: claude-code (클라우드 세션, LC CLOUD-2026-1103-wave4 §15 — 모델 식별자는 정책상 미기재)
 summary: 9단계 include 마지막 블록 8a strengthFactors 개방(키 라우트만) + L2 블록 5종 공통 계약 테스트(설계 §1 표 1:1 키·레코드 키·응답 JSON 어휘 가드·export·문서 예 대조)
 status: on_track
