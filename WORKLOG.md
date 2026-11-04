@@ -4,6 +4,20 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-11-05
+project: saju-lab
+agent: claude-code (클라우드 세션, LC CLOUD-2026-1105-wave6 §26 — 모델 식별자는 정책상 미기재)
+summary: 8a monthBranch 안 A가 #125로 이미 완료됐음을 확인(코드 0) + AGENT_STATUS head·next_actions 11-05 실측 현행화
+status: on_track
+progress: "상태 문서 1건 현행화, 기능 변경 0 (근거: npm run verify EXIT 0 api 125 · core 1070 · web 49 = 1244 @494f844)"
+changes: ["e2c3f58 feat(saju-core): 8a StrengthFactors.monthBranch 안 A (#125) — 기존 완료 근거", "cloud/saju-8a-monthbranch [cloud] docs: AGENT_STATUS 현행화 (PR 링크는 PR 본문)"]
+next: "S-YNY 일주 출처 사용자 결정((a) getLunCalInfo / (c) 보류)"
+blockers: "S-YNY 2행 = 사용자 결정 + KASI 키(클라우드 접근 불가)"
+---
+## 의미
+LC 발주 항목이 이미 머지된 작업이었음을 git으로 확인해 중복 PR을 막았다. AGENT_STATUS가 #131 머지 전 상태로 남아 있던 것을 실측으로 고쳐, 다음 `/project-scan`이 낡은 «머지 대기»를 읽지 않게 했다.
+
+---
 date: 2026-11-03
 project: saju-lab
 agent: claude-code (클라우드 세션, LC CLOUD-2026-1103-wave5 §22 — 모델 식별자는 정책상 미기재)
