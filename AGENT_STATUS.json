@@ -1,11 +1,15 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-05T08:23:54+09:00",
-  "head": "494f844 (#131 squash, main 2026-11-03) — 이 브랜치 cloud/saju-8a-monthbranch(docs만) 머지 대기",
+  "as_of": "2026-11-07T02:00:00+09:00",
+  "head": "a6e6967 (#135 squash, main 2026-11-07) — 기록 PR 머지 대기",
   "phase": "L2 9단계 데이터 블록 5종 개방(4종 #126 + 8a strengthFactors CLOUD-2026-1103 §15) + keyless fail-closed(#128) — 층 노출 결정 전 UI·유료 노출 0, 11-20 전 배포 묶음 대기",
-  "working_on": "[머지 대기] CLOUD-2026-1105 §26 상태 현행화 docs PR(코드 0) — 8a monthBranch 안 A는 #125 e2c3f58로 완료 확인, S-YNY는 사용자 결정 대기 — 다음 = 사용자 «머지» 뒤 11-20 전 배포 묶음",
+  "working_on": "[머지 대기] TASK-2026-1107 기록 PR(REPORT·AGENT_STATUS·WORKLOG, 코드 0)",
   "waiting_on": "[사용자] S-YNY 일주 출처((a) getLunCalInfo / (c) 보류, 기본 c) · 프로덕션 SAJU_API_KEY 설정 여부 · 층 노출 범위(설계 §4) · Gemini 정본 3.5/3.6 · DEC-2026-1015 별건 · [LC] 11-20 전 배포 묶음 판정",
   "recent": [
+    {
+      "at": "2026-11-07",
+      "what": "TASK-2026-1107: #133 893de69 머지 위임 조항+allow 12 · #134 8cbb3b3 I4 CRLF 정규식(Windows 로컬 verify 복구) · #135 a6e6967 I4 나머지 4블록 JSON 예시+대조 테스트 4. 9단계 I1~I7 실측 완료 확인, verify 1248. REPORT docs/handoffs/TASK-2026-1107-saju-REPORT.md"
+    },
     {
       "at": "2026-11-05",
       "what": "CLOUD-2026-1105 §26: 8a monthBranch 안 A = #125 e2c3f58 완료 확인(StrengthFactors.monthBranch 추가 · gyeokguk.ts monthBranchOf 삭제 · golden-strength-factors.test.ts 골든 50 단언, origin/main에 monthBranchOf 0건) → PR 0. S-YNY = 사용자 (a)/(c) 결정 + KASI 키 필요라 클라우드 착수 불가. AGENT_STATUS head·working_on·next_actions 1~5 11-05 실측 현행화(코드 0). verify EXIT 0 api 125 · core 1070 · web 49 = 1244(494f844 기준). REPORT docs/handoffs/CLOUD-2026-1105-saju-8a-monthbranch-REPORT.md"
@@ -85,17 +89,17 @@
     "baby 평가 러너 대상 = Preview(ENABLED=1) 또는 로컬 (prod는 명시 claude 403)",
     "사용자 확인 — S-YNY 일주 출처: 닫히는 조건 = 사용자가 (a) getLunCalInfo 채택 또는 (c) 보류 확정을 1줄로 회신",
     "사용자 확인 — prod SAJU_API_KEY: 닫히는 조건 = 사용자가 Vercel Production env에 SAJU_API_KEY 존재 여부(값 아님)를 확인해 회신 — 미설정이면 키 라우트도 keyless 취급(#128)",
-    "사용자 확인 — 층 노출 범위: 닫히는 조건 = docs/design/l2-include-design.md §4 표 «결정» 열 6행을 사용자가 채움(기본값 = 제안 열)",
+    "9단계 include 개방 완료(I1~I7, 11-07 실측) — 사용자 확인 — 층 노출 범위: 닫히는 조건 = docs/design/l2-include-design.md §4 표 «결정» 열 6행을 사용자가 채움(기본값 = 제안 열)",
     "사용자 확인 — Gemini 정본 3.5/3.6: 닫히는 조건 = 사용자가 Vercel Production env GEMINI_MODEL 값을 확인하고 ⓐ 레포 3.5 유지 / ⓑ 3.6을 문서·코드 기본값에 반영 중 택1"
   ],
   "metrics": {
-    "ci_tests_total": 1244,
+    "ci_tests_total": 1248,
     "ci_tests": {
       "api": 125,
-      "core": 1070,
+      "core": 1074,
       "web": 49
     },
-    "measured": "2026-11-05 npm run verify origin/main 494f844 EXIT 0",
+    "measured": "2026-11-07 npm run verify #135 head b9c0558 EXIT 0",
     "note": "옛 «806»은 09-24 기준 수치로 폐기"
   },
   "gauge": {
