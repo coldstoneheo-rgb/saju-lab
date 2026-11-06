@@ -4,6 +4,20 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-11-07
+project: saju-lab
+agent: claude-code (Opus 5.5, LC TASK-2026-1107)
+summary: 머지 위임 설정 커밋 + 9단계 I4 갭 해소(CRLF 테스트 수정·4블록 JSON 예시 기계 대조), I1~I7 완료 실측
+status: on_track
+progress: "9단계 I1~I7 전부 충족 (근거: npm run verify EXIT 0 api 125 · core 1074 · web 49 = 1248 @b9c0558, CI SUCCESS)"
+changes: ["893de69 머지 위임 개정 (#133)", "8cbb3b3 I4 문서 대조 정규식 CRLF 허용 (#134)", "a6e6967 I4 판독 블록 4종 JSON 예시 + 대조 테스트 (#135)"]
+next: "층 노출 범위 사용자 결정(l2-include-design §4 «결정» 열) → UI HO"
+blockers: "층 노출 범위 = 사용자 결정 대기(UI HO 전제)"
+---
+## 의미
+LC 발주의 «9단계 착수» 전제가 낡았음을 코드로 확인해 중복 구현을 막고, 남은 실제 갭 둘만 처리했다. Windows에서 항상 실패하던 로컬 verify가 복구되어 CI 없이도 게이트를 믿을 수 있다. 공개 API 5블록 예시가 모두 코어 응답과 기계 대조되므로 문서가 코드에서 어긋나면 테스트가 잡는다. 머지 위임이 레포 정본에 들어와 게이트 통과 PR의 사용자 왕복이 줄었다.
+
+---
 date: 2026-11-05
 project: saju-lab
 agent: claude-code (클라우드 세션, LC CLOUD-2026-1105-wave6 §26 — 모델 식별자는 정책상 미기재)
