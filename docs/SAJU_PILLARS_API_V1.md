@@ -441,6 +441,271 @@ x-api-key: <SAJU_API_KEY>        # 환경에 SAJU_API_KEY가 설정된 경우 �
 }
 ```
 
+`strengthReadings` 예 — 같은 명식(`sex: "male"`, `include: ["strengthReadings"]`)의 실제 응답 `data.strengthReadings`를 그대로 옮겼다(`packages/saju-core/src/l2/include-blocks.test.ts`가 대조):
+
+```json
+[
+  {
+    "ruleSetId": "strength.month-first",
+    "verdict": "indeterminate",
+    "firedConditions": [
+      "month-first.month-clashed"
+    ],
+    "inputs": {
+      "deukryeong": false,
+      "deukji": false,
+      "deukse": false,
+      "monthBranchClashed": true,
+      "triadCount": 0
+    },
+    "definitionIds": {
+      "deukryeong": "deukryeong.primary-support",
+      "deukji": "deukji.day-branch-support",
+      "deukse": "deukse.surface-majority-ge"
+    },
+    "school": "yeonhae",
+    "precision": "exact",
+    "doctrine": "unreviewed",
+    "agreesAcrossSets": false
+  },
+  {
+    "ruleSetId": "strength.triad-majority",
+    "verdict": "weak",
+    "firedConditions": [
+      "triad-majority.one-or-less"
+    ],
+    "inputs": {
+      "deukryeong": false,
+      "deukji": false,
+      "deukse": false,
+      "monthBranchClashed": true,
+      "triadCount": 0
+    },
+    "definitionIds": {
+      "deukryeong": "deukryeong.primary-support",
+      "deukji": "deukji.day-branch-support",
+      "deukse": "deukse.surface-majority-ge"
+    },
+    "school": "yeonhae",
+    "precision": "exact",
+    "doctrine": "unreviewed",
+    "agreesAcrossSets": false
+  }
+]
+```
+
+`yongsinCandidates` 예 — 같은 명식(`sex: "male"`, `include: ["yongsinCandidates"]`)의 실제 응답 `data.yongsinCandidates`를 그대로 옮겼다(`packages/saju-core/src/l2/include-blocks.test.ts`가 대조):
+
+```json
+[
+  {
+    "candidateId": "eokbu.weak.bigyeop.fire@strength.triad-majority",
+    "element": "fire",
+    "method": "eokbu",
+    "ruleId": "weak.bigyeop",
+    "basis": {
+      "readingRef": {
+        "ruleSetId": "strength.triad-majority",
+        "verdict": "weak"
+      },
+      "factorRefs": [
+        "dayMaster"
+      ]
+    },
+    "note": "eokbu: strength.triad-majority weak → 비겁",
+    "doctrine": "unreviewed"
+  },
+  {
+    "candidateId": "eokbu.weak.inseong.wood@strength.triad-majority",
+    "element": "wood",
+    "method": "eokbu",
+    "ruleId": "weak.inseong",
+    "basis": {
+      "readingRef": {
+        "ruleSetId": "strength.triad-majority",
+        "verdict": "weak"
+      },
+      "factorRefs": [
+        "dayMaster"
+      ]
+    },
+    "note": "eokbu: strength.triad-majority weak → 인성",
+    "doctrine": "unreviewed"
+  }
+]
+```
+
+`gyeokguk` 예 — 같은 명식(`sex: "male"`, `include: ["gyeokguk"]`)의 실제 응답 `data.gyeokguk`를 그대로 옮겼다(`packages/saju-core/src/l2/include-blocks.test.ts`가 대조):
+
+```json
+[
+  {
+    "ruleSetId": "gyeokguk.exposed-first",
+    "firedConditions": [
+      "exposed-first.primary-exposed"
+    ],
+    "monthBranchClashed": true,
+    "school": "yeonhae",
+    "precision": "exact",
+    "doctrine": "unreviewed",
+    "candidates": [
+      {
+        "gyeok": "sanggwan",
+        "stem": "mu",
+        "role": "primary",
+        "exposedIn": [
+          "year"
+        ]
+      }
+    ],
+    "ambiguous": false,
+    "agreesAcrossSets": false
+  },
+  {
+    "ruleSetId": "gyeokguk.primary-only",
+    "firedConditions": [
+      "primary-only.otherwise"
+    ],
+    "monthBranchClashed": true,
+    "school": "yeonhae",
+    "precision": "exact",
+    "doctrine": "unreviewed",
+    "candidates": [
+      {
+        "gyeok": "sanggwan",
+        "stem": "mu",
+        "role": "primary",
+        "exposedIn": [
+          "year"
+        ]
+      }
+    ],
+    "ambiguous": false,
+    "agreesAcrossSets": false
+  },
+  {
+    "ruleSetId": "gyeokguk.saryeong",
+    "firedConditions": [
+      "saryeong.otherwise"
+    ],
+    "monthBranchClashed": true,
+    "school": "yeonhae",
+    "precision": "exact",
+    "doctrine": "unreviewed",
+    "candidates": [
+      {
+        "gyeok": "pyeonjae",
+        "stem": "sin",
+        "role": "residual",
+        "exposedIn": [
+          "time"
+        ]
+      }
+    ],
+    "ambiguous": false,
+    "agreesAcrossSets": false
+  }
+]
+```
+
+`sinsal` 예 — 같은 명식(`sex: "male"`, `include: ["sinsal"]`)의 실제 응답 `data.sinsal`를 그대로 옮겼다(`packages/saju-core/src/l2/include-blocks.test.ts`가 대조):
+
+```json
+[
+  {
+    "sinsalId": "cheoneul",
+    "variantId": "cheoneul.a",
+    "basis": {
+      "pillar": "day",
+      "char": "jeong"
+    },
+    "at": [
+      "day"
+    ],
+    "precision": "exact",
+    "doctrine": "unreviewed"
+  },
+  {
+    "sinsalId": "cheoneul",
+    "variantId": "cheoneul.b",
+    "basis": {
+      "pillar": "day",
+      "char": "jeong"
+    },
+    "at": [
+      "day"
+    ],
+    "precision": "exact",
+    "doctrine": "unreviewed"
+  },
+  {
+    "sinsalId": "dohwa",
+    "variantId": "dohwa.year-basis",
+    "basis": {
+      "pillar": "year",
+      "char": "jin"
+    },
+    "at": [
+      "day"
+    ],
+    "precision": "exact",
+    "doctrine": "unreviewed"
+  },
+  {
+    "sinsalId": "hwagae",
+    "variantId": "hwagae.day-basis",
+    "basis": {
+      "pillar": "day",
+      "char": "yu"
+    },
+    "at": [
+      "time"
+    ],
+    "precision": "exact",
+    "doctrine": "unreviewed"
+  },
+  {
+    "sinsalId": "goegang",
+    "variantId": "goegang.four-pillars",
+    "basis": {
+      "pillar": "month",
+      "char": "im-sul"
+    },
+    "at": [
+      "month"
+    ],
+    "precision": "exact",
+    "doctrine": "unreviewed"
+  },
+  {
+    "sinsalId": "baekho",
+    "variantId": "baekho",
+    "basis": {
+      "pillar": "year",
+      "char": "mu-jin"
+    },
+    "at": [
+      "year"
+    ],
+    "precision": "exact",
+    "doctrine": "unreviewed"
+  },
+  {
+    "sinsalId": "baekho",
+    "variantId": "baekho",
+    "basis": {
+      "pillar": "month",
+      "char": "im-sul"
+    },
+    "at": [
+      "month"
+    ],
+    "precision": "exact",
+    "doctrine": "unreviewed"
+  }
+]
+```
+
 
 ## 요청 옵션 (2026-09-22 additive, 3단계)
 

@@ -244,3 +244,17 @@ describe("I4 — API 문서의 strengthFactors 예 = 실제 응답(손으로 쓴
     expect(JSON.parse(json as string)).toEqual(data.strengthFactors);
   });
 });
+
+describe("I4 — API 문서의 판독 블록 예 = 실제 응답(손으로 쓴 값 0)", () => {
+  const doc = readFileSync(resolve(HERE, "../../../../docs/SAJU_PILLARS_API_V1.md"), "utf8");
+
+  it.each(["strengthReadings", "yongsinCandidates", "gyeokguk", "sinsal"])("docs/SAJU_PILLARS_API_V1.md `%s` 예 JSON = 같은 요청의 응답 블록", (block) => {
+    const after = doc.split(`\`${block}\` 예 —`)[1];
+    expect(after).toBeDefined();
+    const json = /```json\r?\n([\s\S]*?)\r?\n```/.exec(after as string)?.[1];
+    expect(json).toBeDefined();
+    const data = dataOf({ ...base, sex: "male", options: { include: [block] } });
+    expect(data[block]).toBeDefined();
+    expect(JSON.parse(json as string)).toEqual(data[block]);
+  });
+});
