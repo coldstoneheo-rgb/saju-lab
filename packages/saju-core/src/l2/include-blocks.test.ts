@@ -238,7 +238,7 @@ describe("I4 — API 문서의 strengthFactors 예 = 실제 응답(손으로 쓴
     const doc = readFileSync(resolve(HERE, "../../../../docs/SAJU_PILLARS_API_V1.md"), "utf8");
     const after = doc.split("`strengthFactors` 예 —")[1];
     expect(after).toBeDefined();
-    const json = /```json\n([\s\S]*?)\n```/.exec(after as string)?.[1];
+    const json = /```json\r?\n([\s\S]*?)\r?\n```/.exec(after as string)?.[1];
     expect(json).toBeDefined();
     const data = dataOf({ ...base, sex: "male", options: { include: ["strengthFactors"] } });
     expect(JSON.parse(json as string)).toEqual(data.strengthFactors);
