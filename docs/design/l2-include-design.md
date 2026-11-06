@@ -85,3 +85,4 @@
    - 상태(2026-11-02): **✓ #125 e2c3f58 10-27 완료**(안 A 집행).
 - 상태(2026-11-02): keyless 면 거절 목록은 **#128 7a6a0bf로 파생 완료** — 허용 목록 `KEYLESS_INCLUDE_BLOCKS` + `INCLUDE_BLOCKS` 파생(fail-closed). 새 블록은 keyless에서 기본 거절이므로 위 1번(층 노출 범위) 결정 전에도 무료 공개면은 불변.
 - 상태(2026-11-03): **I1·I2·I3·I4·I6·I7 ✓ — 블록 5종 개방 완료**(4종 #126 839c3ba 10-27 · 8a `strengthFactors` CLOUD-2026-1103 §15 PR, 공통 계약 `l2/include-blocks.test.ts`). keyless 면 불변(`KEYLESS_INCLUDE_BLOCKS` 변경 0), 화면 노출 0.
+- 상태(2026-11-07): **I4 «예시 1건씩» 기계 대조 충족** — 나머지 4블록(`strengthReadings`·`yongsinCandidates`·`gyeokguk`·`sinsal`)도 `SAJU_PILLARS_API_V1.md`에 JSON 예시를 두고 `l2/include-blocks.test.ts`가 코어 응답과 대조한다(TASK-2026-1107). 11-03 줄의 I4 ✓는 당시 `strengthFactors`만 기계 대조였다.
