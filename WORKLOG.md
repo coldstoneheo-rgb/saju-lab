@@ -4,6 +4,21 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-11-09
+project: saju-lab
+agent: claude-code (Opus 5.5, LC TASK-2026-1109)
+summary: L2 층 노출 사용자 결정(§4 6행 제안 기본값) 기록 + 무료 화면 칩 2종(강약 팩터 요약·신살 한글 이름) PR — 머지는 사용자 승인 대기
+status: on_track
+progress: "결정 기록 머지 · 무료 칩 PR 게이트 단계 (근거: #137 5722e03 · #138 npm run verify EXIT 0 api 125 · core 1074 · web 58 = 1257, 360px 캡처 6장)"
+changes: ["5722e03 docs(design): l2-include §4 층 노출 채택 기록 (#137)", "#138 feat(web): 무료 화면 L2 칩"]
+next: "#138 사용자 머지 승인(= 프로덕션 배포, 11-20 전)"
+blockers: "#138 머지 = 프로덕션 배포라 사용자 직접 승인 · 유료 3블록은 유료 노출 3갈래 사용자 결정 + 13단계 문안 뒤"
+learning_need: "main 머지 = Vercel 자동 프로덕션 배포 — «배포 묶음 대기» 같은 상태는 GitHub Production deployments로 실측해 적는다"
+---
+## 의미
+사용자가 정한 층 노출 범위를 설계서에 남기고, 그중 문장 없이 낼 수 있는 무료 칩 2종만 11-20 전 마지막 배포 후보로 만들었다. 진행 중 «배포 묶음 대기»가 낡은 전제였음을 확인했다(#126·#128·#130은 이미 프로덕션). 또 유료 리포트가 결제 없이 모두에게 보인다는 점을 찾아, 유료 3블록을 섣불리 넣으면 «유료만» 결정이 깨지는 길을 막았다.
+
+---
 date: 2026-11-07
 project: saju-lab
 agent: claude-code (Opus 5.5, LC TASK-2026-1107)
