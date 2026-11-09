@@ -19,9 +19,10 @@ export const SINSAL_NAME_KO: Record<SinsalHit["sinsalId"], string> = {
   baekho: "백호"
 };
 
-export const STRENGTH_CHIP_NOTE = "득령·득지·득세는 일간을 돕는 글자(비겁·인성)가 월지 정기·일지 지장간·드러난 글자의 절반 이상에 있는지를 규칙 표로 확인한 결과입니다. 강하다·약하다는 판단은 하지 않습니다.";
+export const STRENGTH_CHIP_NOTE = "득령은 월지 정기, 득지는 일지 지장간에 일간을 돕는 글자(비겁·인성)가 있는지, 득세는 월지를 뺀 드러난 글자 가운데 돕는 글자가 나머지보다 적지 않은지(같은 수 포함)를 규칙 표로 확인한 결과입니다. 강하다·약하다는 판단은 하지 않습니다.";
 export const STRENGTH_TIME_UNKNOWN_NOTE = "출생 시간이 없어 시주를 빼고 셌습니다.";
-export const SINSAL_CHIP_NOTE = "신살은 규칙 표에 해당하는 이름과 걸린 기둥만 보여 줍니다. 여러 기준표 중 하나라도 해당하면 표시하며, 뜻풀이나 좋고 나쁨은 판단하지 않습니다.";
+export const SINSAL_CHIP_NOTE = "신살은 규칙 표에 해당하는 이름과 걸린 기둥만 보여 줍니다. 여러 기준표 중 하나라도 해당하면 표시하며, 뜻풀이나 좋고 나쁨은 판단하지 않습니다. 기준표는 아직 실제 역술가 검토 전이라 참고용입니다.";
+export const SINSAL_TIME_UNKNOWN_NOTE = "출생 시간이 없어 시주에서는 신살을 확인하지 않았습니다.";
 export const SINSAL_EMPTY_NOTE = "없음 — 기준표(천을귀인·도화·역마·화개·양인·괴강·백호)에 해당하는 글자가 없습니다.";
 
 export interface StrengthChips {

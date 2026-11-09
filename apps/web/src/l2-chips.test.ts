@@ -6,6 +6,7 @@ import {
   SINSAL_CHIP_NOTE,
   SINSAL_EMPTY_NOTE,
   SINSAL_NAME_KO,
+  SINSAL_TIME_UNKNOWN_NOTE,
   sinsalChipsOf,
   STRENGTH_CHIP_NOTE,
   STRENGTH_TIME_UNKNOWN_NOTE
@@ -14,7 +15,7 @@ import {
 // 무료 화면 L2 칩(l2-include-design §4, 2026-11-09 결정) — 칩·안내 어디에도 평가 어휘 0, 시각 미상 표지 고정.
 
 /** include-blocks.test.ts 어휘 가드 + saju-domain 기준 보강(귀하다·액·살이 끼다·운명류, 강약 단정). */
-const EVALUATIVE = /추천|권장|최적|반드시|길하|흉하|길신|흉신|흉살|길흉|좋은|나쁜|좋다|나쁘|조심|주의|성공|실패|행운|불운|대길|대흉|귀하|액|(?<!신)살|운명|팔자|강하다|약하다|신강|신약|위험|피해야|해야 한다/;
+const EVALUATIVE = /추천|권장|최적|반드시|길하|흉하|길신|흉신|흉살|길흉|좋은|나쁜|좋다|나쁘|조심|주의|성공|실패|행운|불운|대길|대흉|귀하|액운|액땜|횡액|(?<!신)살|운명|팔자|강하다|약하다|강한|약한|강해|약해|신강|신약|위험|피해야|해야 한다|흉|재앙|이롭|유리|불리|필연|확정/;
 /** 안내 문구는 «판단하지 않는다»는 부정 고지를 담아야 하므로, 그 고지 구절만 빼고 같은 가드를 건다. */
 const NEGATION_PHRASES = ["뜻풀이나 좋고 나쁨은 판단하지 않습니다", "강하다·약하다는 판단은 하지 않습니다"];
 const CJK = /[一-鿿]/;
@@ -68,7 +69,8 @@ describe("무료 L2 칩 — 골든 명식 전부", () => {
         const name = chip.slice(0, chip.indexOf("("));
         const id = (Object.keys(SINSAL_NAME_KO) as Array<keyof typeof SINSAL_NAME_KO>).find((key) => SINSAL_NAME_KO[key] === name);
         const union = new Set(hits.filter((hit) => hit.sinsalId === id).flatMap((hit) => hit.at));
-        expect(chip.slice(name.length + 1, -1).split("·").length, `${golden.id} ${chip}`).toBe(union.size);
+        const expected = (["year", "month", "day", "time"] as const).filter((pillar) => union.has(pillar)).map((pillar) => ({ year: "연", month: "월", day: "일", time: "시" })[pillar]).join("·");
+        expect(chip, golden.id).toBe(`${name}(${expected})`);
       }
     }
   });
@@ -78,10 +80,12 @@ describe("무료 L2 칩 — 안내 문구", () => {
   it("신살 안내에 «좋고 나쁨은 판단하지 않습니다», 강약 안내에 «강하다·약하다는 판단은 하지 않습니다»", () => {
     expect(SINSAL_CHIP_NOTE).toContain("좋고 나쁨은 판단하지 않습니다");
     expect(STRENGTH_CHIP_NOTE).toContain("강하다·약하다는 판단은 하지 않습니다");
+    expect(SINSAL_CHIP_NOTE).toContain("검토 전이라 참고용");
+    expect(STRENGTH_CHIP_NOTE).toContain("월지를 뺀");
   });
 
   it("부정 고지 구절을 뺀 안내 문구 전부에 평가 어휘·한자 0", () => {
-    for (const note of [STRENGTH_CHIP_NOTE, STRENGTH_TIME_UNKNOWN_NOTE, SINSAL_CHIP_NOTE, SINSAL_EMPTY_NOTE]) {
+    for (const note of [STRENGTH_CHIP_NOTE, STRENGTH_TIME_UNKNOWN_NOTE, SINSAL_CHIP_NOTE, SINSAL_EMPTY_NOTE, SINSAL_TIME_UNKNOWN_NOTE]) {
       const rest = NEGATION_PHRASES.reduce((text, phrase) => text.replace(phrase, ""), note);
       expect(rest, note).not.toMatch(EVALUATIVE);
       expect(rest, note).not.toMatch(CJK);
@@ -93,7 +97,7 @@ describe("무료 L2 칩 — 안내 문구", () => {
   });
 
   it("판정기 변이: 평가 어휘·한자를 넣으면 잡는다", () => {
-    for (const bad of ["도화 조심", "천을귀인 귀하다", "백호 액", "역마살", "득세 해당 — 신강", "도화(桃花)"]) {
+    for (const bad of ["도화 조심", "천을귀인 귀하다", "백호 액운", "역마살", "득세 해당 — 신강", "도화(桃花)", "일간이 강한 편", "역마는 불리"]) {
       expect(EVALUATIVE.test(bad) || CJK.test(bad), bad).toBe(true);
     }
   });

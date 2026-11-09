@@ -10,7 +10,7 @@ import { validateInputDraft } from "./input-validation.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
 import { findPolicyPage, policyPages, type PolicyPage } from "./policy-pages.js";
 import { buildFreeReportFilename } from "./report-filenames.js";
-import { freeL2ChipsOf, SINSAL_CHIP_NOTE, SINSAL_EMPTY_NOTE, STRENGTH_CHIP_NOTE, STRENGTH_TIME_UNKNOWN_NOTE, type FreeL2Chips } from "./l2-chips.js";
+import { freeL2ChipsOf, SINSAL_CHIP_NOTE, SINSAL_EMPTY_NOTE, SINSAL_TIME_UNKNOWN_NOTE, STRENGTH_CHIP_NOTE, STRENGTH_TIME_UNKNOWN_NOTE, type FreeL2Chips } from "./l2-chips.js";
 import {
   BIRTH_PLACES,
   BRANCH_FIVE_ELEMENT,
@@ -759,7 +759,7 @@ function L2FreeChipsLine({ chips }: { chips: FreeL2Chips }): JSX.Element {
         <strong>신살</strong>
         {chips.sinsal.length ? chips.sinsal.map((chip) => <span key={chip} className="chip">{chip}</span>) : <span>{SINSAL_EMPTY_NOTE}</span>}
       </p>
-      <p>{SINSAL_CHIP_NOTE}</p>
+      <p>{SINSAL_CHIP_NOTE}{chips.strength.timeUnknown ? ` ${SINSAL_TIME_UNKNOWN_NOTE}` : ""}</p>
     </div>
   );
 }
