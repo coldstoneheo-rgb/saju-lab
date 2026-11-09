@@ -1,11 +1,15 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-07T01:30:20+09:00",
-  "head": "a6e6967 (#135 squash, main 2026-11-07) — 기록 PR 머지 대기",
-  "phase": "L2 9단계 데이터 블록 5종 개방(4종 #126 + 8a strengthFactors CLOUD-2026-1103 §15) + keyless fail-closed(#128) — 층 노출 결정 전 UI·유료 노출 0, 11-20 전 배포 묶음 대기",
-  "working_on": "[머지 대기] TASK-2026-1107 기록 PR(REPORT·AGENT_STATUS·WORKLOG, 코드 0)",
-  "waiting_on": "[사용자] S-YNY 일주 출처((a) getLunCalInfo / (c) 보류, 기본 c) · 프로덕션 SAJU_API_KEY 설정 여부 · 층 노출 범위(설계 §4) · Gemini 정본 3.5/3.6 · DEC-2026-1015 별건 · [LC] 11-20 전 배포 묶음 판정",
+  "as_of": "2026-11-10T00:30:00+09:00",
+  "head": "5722e03 (#137 squash, main 2026-11-09) — 기록 PR 머지 대기 · #138 사용자 머지 승인 대기",
+  "phase": "L2 9단계 데이터 블록 5종 개방 완료·프로덕션 반영(dec1078) + 층 노출 사용자 결정(11-09, §4 제안 기본값 채택) → 무료 칩 2종 #138 게이트, 유료 3블록은 13단계·결제 노출 결정 뒤",
+  "working_on": "[HOLD-대기] #138 무료 L2 칩(강약 팩터 요약·신살 한글 이름) — critic·LC 게이트 뒤 사용자 머지 승인(= 프로덕션 배포)",
+  "waiting_on": "[사용자] #138 머지 승인(=프로덕션 배포) · 유료 리포트 노출 3갈래(결제 게이트 / #paid-preview 비노출 / 지금대로, REPORT TASK-2026-1109 발견 3) · S-YNY 일주 출처((a)/(c), 기본 c) · 프로덕션 SAJU_API_KEY 존재 여부 · Gemini 정본 3.5/3.6 · DEC-2026-1015 별건 · [LC] #138 게이트",
   "recent": [
+    {
+      "at": "2026-11-09",
+      "what": "TASK-2026-1109: 층 노출 §4 6행 «제안 기본값» 채택 기록 #137 5722e03 · 무료 L2 칩 #138(apps/web만, 코어·API 0, verify EXIT 0 api 125 · core 1074 · web 62 = 1261 @3fa596b, critic 1차 FAIL B1 보정, 360px 캡처 6장) 사용자 머지 승인 대기 · 발견: 배포 묶음 이미 프로덕션 · 머지 = 프로덕션 배포 · 유료 리포트 결제 없이 노출. REPORT docs/handoffs/TASK-2026-1109-saju-REPORT.md"
+    },
     {
       "at": "2026-11-07",
       "what": "TASK-2026-1107: #133 893de69 머지 위임 조항+allow 12 · #134 8cbb3b3 I4 CRLF 정규식(Windows 로컬 verify 복구) · #135 a6e6967 I4 나머지 4블록 JSON 예시+대조 테스트 4. 9단계 I1~I7 실측 완료 확인, verify 1248. REPORT docs/handoffs/TASK-2026-1107-saju-REPORT.md"
@@ -80,8 +84,8 @@
     }
   ],
   "next_actions": [
-    "[배포] 11-20 전 배포 묶음(#126 9단계 include 4블록 · #128 keyless 파생 · #130 cfdeef8 strengthFactors 개방 포함, #131 494f844는 테스트·문서만이라 런타임 영향 0) — 배포 동결 12-01~02-28, 마지막 배포 11-20 전후 (11-05 확인: 배포 여부는 클라우드에서 실측 불가)",
-    "층 노출 결정 뒤 UI HO(apps/web·유료 리포트 generatePaidReportV1 블록 사용, 사람 대면 문장은 13단계 + saju-domain)",
+    "[배포] #126·#128·#130은 이미 프로덕션(GitHub Production dec1078 2026-11-06T16:36Z success 이후 5722e03 2026-11-09T14:22Z까지 success, 11-09 실측) — 11-20 전 남은 런타임 PR = #138 1건(머지 = Vercel 자동 프로덕션 배포라 사용자 직접 승인). 배포 동결 12-01~02-28",
+    "유료 리포트 3블록(strengthReadings·yongsinCandidates·gyeokguk) — 착수 조건 = 유료 노출 3갈래 사용자 결정 + 13단계 문안 + saju-domain (현재 PaidReportV1은 #paid-preview로 모두에게 보임, main.tsx:474 @5722e03)",
     "S-YNY 2행 GOLDEN-PILLARS 선등록(getLunCalInfo) → 8a 편입 + toHaveLength(50) 제거 — 사용자 (a) 결정 뒤 (11-05 확인: 미착수, GOLDEN-PILLARS에 S-YNY 행 0 · golden-strength-factors.test.ts:76 toHaveLength(50) 그대로)",
     "선택: 실차트 factors «월 장간 층 = hiddenStemList(monthBranch, school)» 불변식 테스트(#125 critic 관찰) (11-05 확인: 미착수 — gyeokguk.test.ts synthetic()은 구성상 일치, 실차트 단언 없음)",
     "DEC 뒤: 레이어 채택 시 ROUTED_LIST_MAIN_TIMEOUT_MS 값 조정 · FREE용 레이어 2판(strokeYinyang 문장) 재측정 (11-05 확인: 값 60_000 그대로 api/app/gemini-generate.ts:47)",
@@ -89,8 +93,8 @@
     "baby 평가 러너 대상 = Preview(ENABLED=1) 또는 로컬 (prod는 명시 claude 403)",
     "사용자 확인 — S-YNY 일주 출처: 닫히는 조건 = 사용자가 (a) getLunCalInfo 채택 또는 (c) 보류 확정을 1줄로 회신",
     "사용자 확인 — prod SAJU_API_KEY: 닫히는 조건 = 사용자가 Vercel Production env에 SAJU_API_KEY 존재 여부(값 아님)를 확인해 회신 — 미설정이면 키 라우트도 keyless 취급(#128)",
-    "9단계 include 개방 완료(I1~I7, 11-07 실측) — 사용자 확인 — 층 노출 범위: 닫히는 조건 = docs/design/l2-include-design.md §4 표 «결정» 열 6행을 사용자가 채움(기본값 = 제안 열)",
-    "사용자 확인 — Gemini 정본 3.5/3.6: 닫히는 조건 = 사용자가 Vercel Production env GEMINI_MODEL 값을 확인하고 ⓐ 레포 3.5 유지 / ⓑ 3.6을 문서·코드 기본값에 반영 중 택1"
+    "사용자 확인 — Gemini 정본 3.5/3.6: 닫히는 조건 = 사용자가 Vercel Production env GEMINI_MODEL 값을 확인하고 ⓐ 레포 3.5 유지 / ⓑ 3.6을 문서·코드 기본값에 반영 중 택1",
+    "후속(구현 0): .gitattributes `*.snap text eol=lf`(autocrlf 스냅샷 stat-dirty 예방) · 신살 한자 13자 폰트 서브셋 재생성(원본 폰트+pyftsubset) · api/_lib/saju-pillars.ts:14-15 낡은 주석 정정"
   ],
   "metrics": {
     "ci_tests_total": 1248,
