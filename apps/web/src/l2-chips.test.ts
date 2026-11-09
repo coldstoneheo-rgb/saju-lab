@@ -1,15 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { calculatePillars, sinsalOf, type BirthInput } from "@saju-lab/saju-core";
+import { calculatePillars, resolveBirthKst, sinsalOf, strengthFactorsOf, type BirthInput, type StrengthFactors } from "@saju-lab/saju-core";
 import { loadGoldenPillarCases } from "../../../packages/saju-core/src/golden-pillars.load.js";
 import {
   freeL2ChipsOf,
+  freeL2NotesOf,
   SINSAL_CHIP_NOTE,
   SINSAL_EMPTY_NOTE,
   SINSAL_NAME_KO,
   SINSAL_TIME_UNKNOWN_NOTE,
   sinsalChipsOf,
   STRENGTH_CHIP_NOTE,
-  STRENGTH_TIME_UNKNOWN_NOTE
+  STRENGTH_TIME_UNKNOWN_NOTE,
+  strengthChipsOf
 } from "./l2-chips.js";
 
 // 무료 화면 L2 칩(l2-include-design §4, 2026-11-09 결정) — 칩·안내 어디에도 평가 어휘 0, 시각 미상 표지 고정.
@@ -40,6 +42,35 @@ describe("무료 L2 칩 — 골든 명식 전부", () => {
         expect(chip, `${golden.id} ${chip}`).not.toMatch(CJK);
       }
     }
+  });
+
+  it("강약 칩 값 = 코어 strengthFactorsOf의 deukryeong·deukji·deukse.value(두 학파), 값 뒤집힘·항목 바뀜을 잡는다", () => {
+    const expectedOf = (factors: StrengthFactors, schoolLabel: string) => [
+      `득령 ${factors.deukryeong.value ? "해당" : "해당 없음"}`,
+      `득지 ${factors.deukji.value ? "해당" : "해당 없음"}`,
+      `득세 ${factors.deukse.value ? "해당" : "해당 없음"}`,
+      `${schoolLabel} 지장간`,
+      ...(factors.precision === "time-unknown" ? ["시주 제외"] : [])
+    ];
+    const seen = { deukryeong: new Set<boolean>(), deukji: new Set<boolean>(), deukse: new Set<boolean>() };
+    for (const golden of goldens) {
+      const pillars = calculatePillars(golden.input);
+      const birthKst = resolveBirthKst(golden.input);
+      const yeonhae = strengthFactorsOf(pillars, birthKst);
+      expect(chipsOf(golden.input).strength.chips, golden.id).toEqual(expectedOf(yeonhae, "연해자평"));
+      const japyeong = strengthFactorsOf(pillars, birthKst, { school: "japyeong" });
+      expect(strengthChipsOf(japyeong).chips, `${golden.id} japyeong`).toEqual(expectedOf(japyeong, "자평진전"));
+      for (const key of ["deukryeong", "deukji", "deukse"] as const) seen[key].add(yeonhae[key].value);
+    }
+    // 골든에 팩터마다 참·거짓이 둘 다 있어야 위 대조가 뒤집힘을 잡는다.
+    for (const key of ["deukryeong", "deukji", "deukse"] as const) expect([...seen[key]].sort(), key).toEqual([false, true]);
+  });
+
+  it("고정 명식 2건 — 칩 값을 손으로 적은 기대와 대조(코어와 같은 방식으로 틀리는 경우 방지)", () => {
+    expect(chipsOf({ birthDate: "1990-01-01", birthTime: "10:30", timezone: "Asia/Seoul", sex: "other" }).strength.chips)
+      .toEqual(["득령 해당 없음", "득지 해당", "득세 해당", "연해자평 지장간"]);
+    expect(chipsOf({ birthDate: "1988-10-09", birthTime: "02:30", timezone: "Asia/Seoul", sex: "male" }).strength.chips)
+      .toEqual(["득령 해당 없음", "득지 해당 없음", "득세 해당 없음", "연해자평 지장간"]);
   });
 
   it("시각 미상이면 «시주 제외» 표지가 붙고, 시각이 있으면 붙지 않는다", () => {
@@ -89,6 +120,23 @@ describe("무료 L2 칩 — 안내 문구", () => {
       const rest = NEGATION_PHRASES.reduce((text, phrase) => text.replace(phrase, ""), note);
       expect(rest, note).not.toMatch(EVALUATIVE);
       expect(rest, note).not.toMatch(CJK);
+    }
+  });
+
+  it("강약 안내가 STRENGTH.md 채택 정의(16·19·22행)의 핵심어를 담는다", () => {
+    for (const phrase of ["월지 정기 천간", "일지 지장간 가운데 하나 이상", "비겁·인성", "일간을 뺀 천간", "월지를 뺀 지지 정기", "나머지보다 적지 않은지", "같은 수 포함"]) {
+      expect(STRENGTH_CHIP_NOTE, phrase).toContain(phrase);
+    }
+  });
+
+  it("화면 안내 문단: 시각 미상이면 강약·신살 두 문단 모두 고지를 붙이고, 시각이 있으면 붙이지 않는다(골든 전부)", () => {
+    for (const golden of goldens) {
+      const notes = freeL2NotesOf(chipsOf(golden.input));
+      const unknown = !golden.input.birthTime;
+      expect(notes.strength.startsWith(STRENGTH_CHIP_NOTE), golden.id).toBe(true);
+      expect(notes.sinsal.startsWith(SINSAL_CHIP_NOTE), golden.id).toBe(true);
+      expect(notes.strength.includes(STRENGTH_TIME_UNKNOWN_NOTE), golden.id).toBe(unknown);
+      expect(notes.sinsal.includes(SINSAL_TIME_UNKNOWN_NOTE), golden.id).toBe(unknown);
     }
   });
 

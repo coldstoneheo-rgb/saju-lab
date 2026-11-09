@@ -19,7 +19,7 @@ export const SINSAL_NAME_KO: Record<SinsalHit["sinsalId"], string> = {
   baekho: "백호"
 };
 
-export const STRENGTH_CHIP_NOTE = "득령은 월지 정기, 득지는 일지 지장간에 일간을 돕는 글자(비겁·인성)가 있는지, 득세는 월지를 뺀 드러난 글자 가운데 돕는 글자가 나머지보다 적지 않은지(같은 수 포함)를 규칙 표로 확인한 결과입니다. 강하다·약하다는 판단은 하지 않습니다.";
+export const STRENGTH_CHIP_NOTE = "득령은 월지 정기 천간이, 득지는 일지 지장간 가운데 하나 이상이 일간을 돕는 글자(비겁·인성)인지, 득세는 일간을 뺀 천간과 월지를 뺀 지지 정기 가운데 돕는 글자가 나머지보다 적지 않은지(같은 수 포함)를 규칙 표로 확인한 결과입니다. 강하다·약하다는 판단은 하지 않습니다.";
 export const STRENGTH_TIME_UNKNOWN_NOTE = "출생 시간이 없어 시주를 빼고 셌습니다.";
 export const SINSAL_CHIP_NOTE = "신살은 규칙 표에 해당하는 이름과 걸린 기둥만 보여 줍니다. 여러 기준표 중 하나라도 해당하면 표시하며, 뜻풀이나 좋고 나쁨은 판단하지 않습니다. 기준표는 아직 실제 역술가 검토 전이라 참고용입니다.";
 export const SINSAL_TIME_UNKNOWN_NOTE = "출생 시간이 없어 시주에서는 신살을 확인하지 않았습니다.";
@@ -59,6 +59,15 @@ export function sinsalChipsOf(hits: SinsalHit[]): string[] {
 export interface FreeL2Chips {
   strength: StrengthChips;
   sinsal: string[];
+}
+
+/** 화면 안내 문단 2개 — 시각 미상이면 두 문단 모두 고지를 덧붙인다(강약·신살 모두 명식에 시주가 없다는 같은 사실에서 온다). */
+export function freeL2NotesOf(chips: FreeL2Chips): { strength: string; sinsal: string } {
+  const unknown = chips.strength.timeUnknown;
+  return {
+    strength: unknown ? `${STRENGTH_CHIP_NOTE} ${STRENGTH_TIME_UNKNOWN_NOTE}` : STRENGTH_CHIP_NOTE,
+    sinsal: unknown ? `${SINSAL_CHIP_NOTE} ${SINSAL_TIME_UNKNOWN_NOTE}` : SINSAL_CHIP_NOTE
+  };
 }
 
 export function freeL2ChipsOf(pillars: PillarsResult, input: BirthInput): FreeL2Chips {

@@ -10,7 +10,7 @@ import { validateInputDraft } from "./input-validation.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
 import { findPolicyPage, policyPages, type PolicyPage } from "./policy-pages.js";
 import { buildFreeReportFilename } from "./report-filenames.js";
-import { freeL2ChipsOf, SINSAL_CHIP_NOTE, SINSAL_EMPTY_NOTE, SINSAL_TIME_UNKNOWN_NOTE, STRENGTH_CHIP_NOTE, STRENGTH_TIME_UNKNOWN_NOTE, type FreeL2Chips } from "./l2-chips.js";
+import { freeL2ChipsOf, freeL2NotesOf, SINSAL_EMPTY_NOTE, type FreeL2Chips } from "./l2-chips.js";
 import {
   BIRTH_PLACES,
   BRANCH_FIVE_ELEMENT,
@@ -748,18 +748,19 @@ function InteractionsLine({ interactions }: { interactions: ChartInteractions })
 
 // 강약 팩터·신살: 무료 화면 요약 칩(l2-include-design §4, 2026-11-09 결정). 이름·해당 여부만 — 강약 판정·뜻풀이·길흉 없음, 통변은 13단계.
 function L2FreeChipsLine({ chips }: { chips: FreeL2Chips }): JSX.Element {
+  const notes = freeL2NotesOf(chips);
   return (
     <div className="interactions">
       <p className="interactionChips" aria-label="강약 팩터">
         <strong>강약 팩터</strong>
         {chips.strength.chips.map((chip) => <span key={chip} className="chip">{chip}</span>)}
       </p>
-      <p>{STRENGTH_CHIP_NOTE}{chips.strength.timeUnknown ? ` ${STRENGTH_TIME_UNKNOWN_NOTE}` : ""}</p>
+      <p>{notes.strength}</p>
       <p className="interactionChips" aria-label="신살">
         <strong>신살</strong>
         {chips.sinsal.length ? chips.sinsal.map((chip) => <span key={chip} className="chip">{chip}</span>) : <span>{SINSAL_EMPTY_NOTE}</span>}
       </p>
-      <p>{SINSAL_CHIP_NOTE}{chips.strength.timeUnknown ? ` ${SINSAL_TIME_UNKNOWN_NOTE}` : ""}</p>
+      <p>{notes.sinsal}</p>
     </div>
   );
 }
