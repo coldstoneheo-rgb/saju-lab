@@ -9,7 +9,7 @@ project: saju-lab
 agent: claude-code (Opus 5.5, LC TASK-2026-1109)
 summary: L2 층 노출 사용자 결정(§4 6행 제안 기본값) 기록 + 무료 화면 칩 2종(강약 팩터 요약·신살 한글 이름) PR — 머지는 사용자 승인 대기
 status: on_track
-progress: "결정 기록 머지 · 무료 칩 PR 게이트 단계 (근거: #137 5722e03 · #138 npm run verify EXIT 0 api 125 · core 1074 · web 58 = 1257, 360px 캡처 6장)"
+progress: "결정 기록 머지 · 무료 칩 PR 게이트 단계 (근거: #137 5722e03 · #138 head 3fa596b npm run verify EXIT 0 api 125 · core 1074 · web 62 = 1261, 360px 캡처 6장)"
 changes: ["5722e03 docs(design): l2-include §4 층 노출 채택 기록 (#137)", "#138 feat(web): 무료 화면 L2 칩"]
 next: "#138 사용자 머지 승인(= 프로덕션 배포, 11-20 전)"
 blockers: "#138 머지 = 프로덕션 배포라 사용자 직접 승인 · 유료 3블록은 유료 노출 3갈래 사용자 결정 + 13단계 문안 뒤"

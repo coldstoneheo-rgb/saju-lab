@@ -1,6 +1,6 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-09T23:59:00+09:00",
+  "as_of": "2026-11-10T00:30:00+09:00",
   "head": "5722e03 (#137 squash, main 2026-11-09) — 기록 PR 머지 대기 · #138 사용자 머지 승인 대기",
   "phase": "L2 9단계 데이터 블록 5종 개방 완료·프로덕션 반영(dec1078) + 층 노출 사용자 결정(11-09, §4 제안 기본값 채택) → 무료 칩 2종 #138 게이트, 유료 3블록은 13단계·결제 노출 결정 뒤",
   "working_on": "[HOLD-대기] #138 무료 L2 칩(강약 팩터 요약·신살 한글 이름) — critic·LC 게이트 뒤 사용자 머지 승인(= 프로덕션 배포)",
@@ -8,7 +8,7 @@
   "recent": [
     {
       "at": "2026-11-09",
-      "what": "TASK-2026-1109: 층 노출 §4 6행 «제안 기본값» 채택 기록 #137 5722e03 · 무료 L2 칩 #138(apps/web만, 코어·API 0, verify EXIT 0 api 125 · core 1074 · web 58 = 1257, 360px 캡처 6장) 사용자 머지 승인 대기 · 발견: 배포 묶음 이미 프로덕션 · 머지 = 프로덕션 배포 · 유료 리포트 결제 없이 노출. REPORT docs/handoffs/TASK-2026-1109-saju-REPORT.md"
+      "what": "TASK-2026-1109: 층 노출 §4 6행 «제안 기본값» 채택 기록 #137 5722e03 · 무료 L2 칩 #138(apps/web만, 코어·API 0, verify EXIT 0 api 125 · core 1074 · web 62 = 1261 @3fa596b, critic 1차 FAIL B1 보정, 360px 캡처 6장) 사용자 머지 승인 대기 · 발견: 배포 묶음 이미 프로덕션 · 머지 = 프로덕션 배포 · 유료 리포트 결제 없이 노출. REPORT docs/handoffs/TASK-2026-1109-saju-REPORT.md"
     },
     {
       "at": "2026-11-07",
@@ -84,8 +84,8 @@
     }
   ],
   "next_actions": [
-    "[배포] #126·#128·#130은 이미 프로덕션(GitHub Production 최신 dec1078 2026-11-06T16:36Z success, 11-09 실측) — 11-20 전 남은 런타임 PR = #138 1건(머지 = Vercel 자동 프로덕션 배포라 사용자 직접 승인). 배포 동결 12-01~02-28",
-    "유료 리포트 3블록(strengthReadings·yongsinCandidates·gyeokguk) — 착수 조건 = 유료 노출 3갈래 사용자 결정 + 13단계 문안 + saju-domain (현재 PaidReportV1은 #paid-preview로 모두에게 보임, main.tsx:479)",
+    "[배포] #126·#128·#130은 이미 프로덕션(GitHub Production dec1078 2026-11-06T16:36Z success 이후 5722e03 2026-11-09T14:22Z까지 success, 11-09 실측) — 11-20 전 남은 런타임 PR = #138 1건(머지 = Vercel 자동 프로덕션 배포라 사용자 직접 승인). 배포 동결 12-01~02-28",
+    "유료 리포트 3블록(strengthReadings·yongsinCandidates·gyeokguk) — 착수 조건 = 유료 노출 3갈래 사용자 결정 + 13단계 문안 + saju-domain (현재 PaidReportV1은 #paid-preview로 모두에게 보임, main.tsx:474 @5722e03)",
     "S-YNY 2행 GOLDEN-PILLARS 선등록(getLunCalInfo) → 8a 편입 + toHaveLength(50) 제거 — 사용자 (a) 결정 뒤 (11-05 확인: 미착수, GOLDEN-PILLARS에 S-YNY 행 0 · golden-strength-factors.test.ts:76 toHaveLength(50) 그대로)",
     "선택: 실차트 factors «월 장간 층 = hiddenStemList(monthBranch, school)» 불변식 테스트(#125 critic 관찰) (11-05 확인: 미착수 — gyeokguk.test.ts synthetic()은 구성상 일치, 실차트 단언 없음)",
     "DEC 뒤: 레이어 채택 시 ROUTED_LIST_MAIN_TIMEOUT_MS 값 조정 · FREE용 레이어 2판(strokeYinyang 문장) 재측정 (11-05 확인: 값 60_000 그대로 api/app/gemini-generate.ts:47)",
