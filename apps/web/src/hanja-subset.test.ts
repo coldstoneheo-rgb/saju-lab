@@ -136,4 +136,11 @@ describe("hanja subset — every CJK character the web can render is in the self
     expect(missing, "서브셋에 없는 한자 — public/fonts 서브셋을 다시 만들 것").toEqual([]);
     expect(required().size).toBeGreaterThanOrEqual(22);
   });
+
+  // 신살 한자 이름(SINSAL.md 7종) — 화면에 아직 안 싣지만 서브셋에는 미리 넣었다(2026-11-10, scripts/subset-hanja-font.py).
+  it("covers the hanja names of the 7 sinsal (天乙貴人·桃花·驛馬·華蓋·羊刃·魁罡·白虎)", () => {
+    const names = "天乙貴人桃花驛馬華蓋羊刃魁罡白虎";
+    expect([...names].filter((char) => !glyphs.has(char.codePointAt(0) as number))).toEqual([]);
+    expect(glyphs.size).toBe(74);
+  });
 });
