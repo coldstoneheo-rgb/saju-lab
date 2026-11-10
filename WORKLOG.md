@@ -4,6 +4,21 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-11-10
+project: saju-lab
+agent: claude-code (Opus 5.5, LC TASK-2026-1110)
+summary: 무료 L2 칩 #138 프로덕션 반영 + 신살 한자 서브셋·snap LF 후속 PR + F3(유료 노출) 3안 사실표
+status: shipped
+progress: "무료 칩 2종 프로덕션 (근거: #138 56410de Production deployment success · 360px 전/후 캡처 · #140 head efd4369 npm run verify EXIT 0 api 125 · core 1074 · web 63 = 1262)"
+changes: ["56410de feat(web): 무료 화면 L2 칩 (#138)", "#140 chore(web): 신살 한자 15자 폰트 서브셋 + *.snap eol=lf"]
+next: "F3 사용자 택1(A 결제 게이트 / B #paid-preview 비노출 / C 지금대로) → 유료 3블록 착수 조건"
+blockers: "없음 — SAJU_API_KEY는 Production에 있음(사용자 직접 조회 11-10)"
+learning_need: "인계 수치(«13자»)는 다시 센다 — 실측 15자"
+---
+## 의미
+11-20 마지막 배포 전에 남아 있던 런타임 PR #138이 DEC-1110 B1 위임으로 프로덕션에 나갔다. 프로덕션에서 PR 캡처와 같은 칩 값이 나오는 것을 확인했다. 한자 서브셋은 기존 파일을 바이트 그대로 다시 만드는 스크립트를 갖게 되어, 앞으로 한자를 노출할 때 재료를 다시 찾을 필요가 없다. F3 사실표로 유료 3블록의 선행 결정이 사용자 1택으로 좁혀졌다.
+
+---
 date: 2026-11-09
 project: saju-lab
 agent: claude-code (Opus 5.5, LC TASK-2026-1109)
