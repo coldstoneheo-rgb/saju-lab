@@ -1,2 +1,5 @@
 # KASI 원문 텍스트는 바이트 그대로 보관한다(sha256 대조). 헤더 3행의 후행 공백은 원문의 것.
 docs/fixtures/kasi-24-solar-terms-*.txt -whitespace -text
+
+# vitest 스냅샷은 LF로 고정한다 — autocrlf=true 작업 트리에서 테스트가 다시 쓰면 CRLF로 stat-dirty가 되던 문제(11-09 후속).
+*.snap text eol=lf
