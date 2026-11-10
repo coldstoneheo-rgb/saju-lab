@@ -13,7 +13,10 @@ import { describe, expect, it } from "vitest";
 const HERE = dirname(fileURLToPath(import.meta.url));
 const FONT = resolve(HERE, "../public/fonts/noto-serif-kr-hanja-600.woff2");
 // 주석은 화면에 안 나온다 — 블록·줄 주석을 벗긴 뒤 남는 한자(STEM_HANJA·BRANCH_HANJA·化 …)만 요구한다.
-const MAIN_TSX = readFileSync(resolve(HERE, "main.tsx"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+const stripComments = (source: string): string => source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+const MAIN_TSX = stripComments(readFileSync(resolve(HERE, "main.tsx"), "utf8"));
+// 무료 화면 L2 칩(강약 팩터·신살) 라벨·안내 문구도 화면에 나간다 — 서브셋 밖 한자가 섞이면 실패해야 한다.
+const L2_CHIPS_TS = stripComments(readFileSync(resolve(HERE, "l2-chips.ts"), "utf8"));
 const CJK = /[一-鿿]/g;
 
 // WOFF2 known table tags (spec §5.2). Only the index of "cmap" (0) matters, but the whole directory must be walked.
@@ -115,6 +118,7 @@ function required(): Map<string, string> {
     for (const char of text.match(CJK) ?? []) if (!where.has(char)) where.set(char, source);
   };
   add(MAIN_TSX, "main.tsx");
+  add(L2_CHIPS_TS, "l2-chips.ts");
   for (const [key, label] of Object.entries(TEN_GOD_LABELS)) add(label.hanja, `TEN_GOD_LABELS.${key}`);
   for (const [key, label] of Object.entries(INTERACTION_LABELS)) add(label.hanja, `INTERACTION_LABELS.${key}`);
   for (const [key, label] of Object.entries(HYEONG_SUBTYPE_LABELS)) add(label.hanja, `HYEONG_SUBTYPE_LABELS.${key}`);

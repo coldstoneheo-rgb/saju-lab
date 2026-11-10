@@ -10,6 +10,7 @@ import { validateInputDraft } from "./input-validation.js";
 import { paidReadinessCopy } from "./paid-readiness-copy.js";
 import { findPolicyPage, policyPages, type PolicyPage } from "./policy-pages.js";
 import { buildFreeReportFilename } from "./report-filenames.js";
+import { freeL2ChipsOf, freeL2NotesOf, SINSAL_EMPTY_NOTE, type FreeL2Chips } from "./l2-chips.js";
 import {
   BIRTH_PLACES,
   BRANCH_FIVE_ELEMENT,
@@ -59,6 +60,7 @@ interface ReportBundle {
   alternates?: PillarsAlternates;
   tenGods: ChartTenGods;
   interactions: ChartInteractions;
+  l2Chips: FreeL2Chips;
   /** null when the reference 절 is outside the solar-term table (unreachable for dates the calculator accepts). */
   daeun: DaeunBlock | null;
 }
@@ -251,6 +253,7 @@ function App(): JSX.Element {
           resolution={reportBundle.resolution}
           tenGods={reportBundle.tenGods}
           interactions={reportBundle.interactions}
+          l2Chips={reportBundle.l2Chips}
           daeun={reportBundle.daeun}
         />
       </section>
@@ -337,10 +340,11 @@ function ThemeToggle({ value, onChange }: { value: ThemePreference; onChange: (v
   );
 }
 
-function ReportView({ alternates, daeun, interactions, onBirthPlace, paidReport, report, resolution, tenGods }: {
+function ReportView({ alternates, daeun, interactions, l2Chips, onBirthPlace, paidReport, report, resolution, tenGods }: {
   alternates: PillarsAlternates | undefined;
   daeun: DaeunBlock | null;
   interactions: ChartInteractions;
+  l2Chips: FreeL2Chips;
   onBirthPlace: (birthPlace: string) => void;
   paidReport: PaidReportV1;
   report: ReportV1;
@@ -419,6 +423,7 @@ function ReportView({ alternates, daeun, interactions, onBirthPlace, paidReport,
       <PillarTermsDetails />
       <HiddenStemsDetails pillars={report.pillars} tenGods={tenGods} />
       <InteractionsLine interactions={interactions} />
+      <L2FreeChipsLine chips={l2Chips} />
       <CalculationRuleLine alternates={alternates} onBirthPlace={onBirthPlace} resolution={resolution} />
       <DaeunRow daeun={daeun} />
 
@@ -741,6 +746,25 @@ function InteractionsLine({ interactions }: { interactions: ChartInteractions })
   );
 }
 
+// 강약 팩터·신살: 무료 화면 요약 칩(l2-include-design §4, 2026-11-09 결정). 이름·해당 여부만 — 강약 판정·뜻풀이·길흉 없음, 통변은 13단계.
+function L2FreeChipsLine({ chips }: { chips: FreeL2Chips }): JSX.Element {
+  const notes = freeL2NotesOf(chips);
+  return (
+    <div className="interactions">
+      <p className="interactionChips" aria-label="강약 팩터">
+        <strong>강약 팩터</strong>
+        {chips.strength.chips.map((chip) => <span key={chip} className="chip">{chip}</span>)}
+      </p>
+      <p>{notes.strength}</p>
+      <p className="interactionChips" aria-label="신살">
+        <strong>신살</strong>
+        {chips.sinsal.length ? chips.sinsal.map((chip) => <span key={chip} className="chip">{chip}</span>) : <span>{SINSAL_EMPTY_NOTE}</span>}
+      </p>
+      <p>{notes.sinsal}</p>
+    </div>
+  );
+}
+
 // 대운: 계산 층 표시(7단계 v1). 분 단위 소수를 그대로 보이고 반올림하지 않는다. 성별 「기타」는 순행·역행 두 줄, 기본 없음. 통변 없음.
 const TERM_KO: Record<string, string> = {
   ipchun: "입춘", gyeongchip: "경칩", cheongmyeong: "청명", ipha: "입하", mangjong: "망종", soseo: "소서",
@@ -1021,6 +1045,7 @@ function createReportBundle(input: BirthInput): ReportBundle {
     ...(alternates ? { alternates } : {}),
     tenGods: tenGodsOfChart(pillars),
     interactions: interactionsOfChart(pillars),
+    l2Chips: freeL2ChipsOf(pillars, input),
     daeun: daeunBlock(pillars, input)
   };
 }
