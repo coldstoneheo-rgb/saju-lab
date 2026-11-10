@@ -4,11 +4,11 @@
   "head": "56410de (#138 squash, main 2026-11-10 = 프로덕션 배포 success) — #140 게이트 · 기록 PR",
   "phase": "L2 무료 칩 2종 프로덕션 반영(56410de, 11-10) — 유료 3블록은 F3(유료 노출 3안) 사용자 결정 + 13단계 문안 뒤",
   "working_on": "#140 신살 한자 15자 서브셋 + *.snap eol=lf (critic PASS 9, LC 게이트 대기) · TASK-2026-1110 기록 PR",
-  "waiting_on": "[사용자] F3 택1(A 결제 게이트 / B #paid-preview 비노출 / C 지금대로 — 사실표 docs/handoffs/TASK-2026-1110-saju-REPORT.md) · `! vercel env ls production` SAJU_API_KEY 이름(워커 Bash 권한 거부) · S-YNY 일주 출처 · Gemini 정본 · [LC] #140 게이트 · #138 사후 감사(DEC-1110 B1)",
+  "waiting_on": "[사용자] F3 택1(A 결제 게이트 / B #paid-preview 비노출 / C 지금대로 — 사실표 docs/handoffs/TASK-2026-1110-saju-REPORT.md) · S-YNY 일주 출처 · Gemini 정본 · [LC] #140 게이트 · #138 사후 감사(DEC-1110 B1)",
   "recent": [
     {
       "at": "2026-11-10",
-      "what": "TASK-2026-1110: #138 머지 56410de(DEC-1110 B1 위임) → 프로덕션 배포 SHA 일치 success, 360px 전/후 캡처 docs/captures/2026-11-10-prod-138/ · #140 신살 한자 15자(11-09 «13자» 오기) 서브셋 14,944→19,120B + 재생성 스크립트(기존 파일 바이트 재현) + *.snap eol=lf, verify 1262 · F3 사실표 · env 조회 [BLOCKED] 권한 거부. REPORT docs/handoffs/TASK-2026-1110-saju-REPORT.md"
+      "what": "TASK-2026-1110: #138 머지 56410de(DEC-1110 B1 위임) → 프로덕션 배포 SHA 일치 success, 360px 전/후 캡처 docs/captures/2026-11-10-prod-138/ · #140 신살 한자 15자(11-09 «13자» 오기) 서브셋 14,944→19,120B + 재생성 스크립트(기존 파일 바이트 재현) + *.snap eol=lf, verify 1262 · F3 사실표 · SAJU_API_KEY Production 존재(사용자 직접 조회). REPORT docs/handoffs/TASK-2026-1110-saju-REPORT.md"
     },
     {
       "at": "2026-11-09",

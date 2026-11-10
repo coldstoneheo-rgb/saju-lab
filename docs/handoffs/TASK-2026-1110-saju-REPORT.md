@@ -8,7 +8,7 @@
 
 - [x] 1) #138 **[MERGED] main `56410deb55db895244e52f1bb83d56c4c78c0d9d`**. 프로덕션 배포 SHA도 같다(success). 프로덕션 360px 전/후 캡처를 남겼고, 가지 정리도 했다.
 - [x] 2) 후속 PR #140 — 신살 한자 서브셋과 `*.snap text eol=lf`. verify EXIT 0, 1,262건. 머지 결과는 아래 «한 일» 표에 있다.
-- [ ] 3) `vercel env ls production`의 SAJU_API_KEY 이름 — **[BLOCKED] Bash 권한 거부.** 우회는 하지 않았다.
+- [x] 3) `vercel env ls production`의 SAJU_API_KEY 이름 — **있음**(Production, 생성 136일 전, 값 Encrypted). 워커 Bash는 권한 거부였고, 우회 없이 사용자가 직접 `! vercel env ls production`을 실행했다(11-10). 같은 목록: ANTHROPIC_API_KEY(Production) · GEMINI_API_KEY(Preview·Production).
 - [x] 4) F3 사실표 (아래 절). 구현은 하지 않았다.
 - [x] 5) REPORT · AGENT_STATUS · WORKLOG → 기록 PR
 
@@ -62,5 +62,5 @@
 
 ## LC·사용자에게 필요한 것
 
-- **사용자:** `! vercel env ls production` 1회로 SAJU_API_KEY 이름 유무를 확인해 주세요(값은 출력되지 않는다). F3는 A·B·C 중 하나를 고릅니다.
+- **사용자:** F3 A·B·C 중 하나를 고릅니다. (SAJU_API_KEY 확인은 끝났다.)
 - **LC:** #138 사후 감사(DEC-1110 B1)와 #140 게이트.
