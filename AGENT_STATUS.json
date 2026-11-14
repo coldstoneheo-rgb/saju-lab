@@ -1,11 +1,15 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-10T14:00:00+09:00",
-  "head": "56410de (#138 squash, main 2026-11-10 = 프로덕션 배포 success) — #140 게이트 · 기록 PR",
+  "as_of": "2026-11-15T07:30:00+09:00",
+  "head": "cc39fff (#143 squash, main 2026-11-15) — 이전 9fdb5b6(#141) = 11-10 프로덕션 배포 success",
   "phase": "L2 무료 칩 2종 프로덕션 반영(56410de, 11-10) — 유료 3블록은 F3(유료 노출 3안) 사용자 결정 + 13단계 문안 뒤",
-  "working_on": "#140 신살 한자 15자 서브셋 + *.snap eol=lf (critic PASS 9, LC 게이트 대기) · TASK-2026-1110 기록 PR",
-  "waiting_on": "[사용자] F3 택1(A 결제 게이트 / B #paid-preview 비노출 / C 지금대로 — 사실표 docs/handoffs/TASK-2026-1110-saju-REPORT.md) · S-YNY 일주 출처 · Gemini 정본 · [LC] #140 게이트 · #138 사후 감사(DEC-1110 B1)",
+  "working_on": "IDLE — TASK-2026-1115 기록 PR",
+  "waiting_on": "[사용자] F3(LC 가정 C 유지) · S-YNY 일주 출처 · Gemini 정본 · 아침 손(TASK-2026-1115 REPORT: 레이트 리밋 조정·서버 일일 상한 기본값 안 함 · cloud/saju-8a-monthbranch 잔재 가지 삭제 · #142 노출 완전 삭제 요청 · 기존 baby 유래 문구 가림)",
   "recent": [
+    {
+      "at": "2026-11-15",
+      "what": "TASK-2026-1115: 배포 동결 전 사실표 — baby vc24 hanja-p5 요청 4종 게이트웨이 «그대로 지남»(변경 0) · 구조 계약 테스트 #143(#142 원문 복사 7분 공개 노출 → 닫음 · 완전 삭제는 사용자) · 프로덕션 9fdb5b6=main · 원격 가지 2(발주 «5» 정정) · 인증 없음 → 하루 10회 서버 미강제(20회/5분/IP/인스턴스뿐). REPORT docs/handoffs/TASK-2026-1115-saju-pre-freeze-REPORT.md"
+    },
     {
       "at": "2026-11-10",
       "what": "TASK-2026-1110: #138 머지 56410de(DEC-1110 B1 위임) → 프로덕션 배포 SHA 일치 success, 360px 전/후 캡처 docs/captures/2026-11-10-prod-138/ · #140 신살 한자 15자(11-09 «13자» 오기) 서브셋 14,944→19,120B + 재생성 스크립트(기존 파일 바이트 재현) + *.snap eol=lf, verify 1262 · F3 사실표 · SAJU_API_KEY Production 존재(사용자 직접 조회). REPORT docs/handoffs/TASK-2026-1110-saju-REPORT.md"
@@ -115,5 +119,6 @@
     "value": 4,
     "max": 8
   },
-  "detail_page": null
+  "detail_page": null,
+  "measured": "2026-11-15 npm run verify 시작 main 환산 EXIT 0 (api 125 · core 1074 · web 63) · #143 CI verify pass 43s @2b60544 · 로컬 api 149/149 · tsc 0 · critic PASS 9/10"
 }

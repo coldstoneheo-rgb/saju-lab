@@ -4,6 +4,22 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-11-15
+project: saju-lab
+agent: claude-code (Opus 5.5, LC TASK-2026-1115 R3-B)
+summary: 동결 전 사실표 — baby vc24(hanja-p5) 요청 4종이 게이트웨이를 변경 없이 지남(변경 필요 0) + 그 구조 계약 테스트 PR #143(#142 원문 복사는 공개 레포 노출로 닫음)
+status: on_track
+progress: "게이트웨이 계약 잠금 (근거: #143 cc39fff · npm run verify CI verify pass 43s @2b60544 · 로컬 api 149/149 · tsc 0 · critic PASS 9/10)"
+changes: ["#143 test(api): 한자 뜻 요청 4종 게이트웨이 계약 — 구조만(문구 가림)"]
+next: "11-20 배포 창에 #143 외 넣을 것 없음(기본값) — 동결 중 429(RATE_LIMITED) 관측 시 레이트 리밋 재검토"
+synergy: "baby vc24는 saju-lab 배포 동결에 걸리지 않는다 — 게이트웨이 변경 0으로 baby 단독 출시 가능"
+blockers: "없음"
+learning_need: "공개 레포(saju-lab)에 비공개 레포(baby) 산출물을 옮기기 전에 visibility를 확인한다 — #142 7분 노출 · 기기당 하루 10회는 클라이언트에서만 강제 — 서버는 IP·인스턴스당 20회/5분 + GCP 쿼터 캡뿐"
+---
+## 의미
+baby가 동결 기간(12-01~)에 내보낼 «정한 이름에 한자» 모드가 이 게이트웨이에 아무 변경도 요구하지 않음을 정적 대조로 확정했고, 그 요청 4종을 고정 입력으로 쓰는 계약 테스트를 넣어 동결 해제 뒤 게이트웨이 수정이 baby를 깨면 CI가 막게 했다. 남은 위험은 서버 쪽 호출 상한이 hanja 최악 호출 수(20/일)와 같은 20회/5분이라는 경계 하나 — 수치는 REPORT, 변경은 아침 손 후보.
+
+---
 date: 2026-11-10
 project: saju-lab
 agent: claude-code (Opus 5.5, LC TASK-2026-1110)
