@@ -73,7 +73,10 @@ describe("validateGenerateContentRequest × baby hanja-p5", () => {
         required: string[];
       };
       const meanings = schema.properties["meanings"];
-      expect(meanings?.minItems).toBe(meanings?.maxItems);
+      // Unique glyph count of the fixture's candidates: free 3 names → 4 glyphs, premium 10 names → 9 (baby P5 REPORT).
+      const glyphs = name.startsWith("request-premium") ? 9 : 4;
+      expect(meanings?.minItems).toBe(glyphs);
+      expect(meanings?.maxItems).toBe(glyphs);
       expect(schema.required.includes("letter")).toBe(name.startsWith("request-premium"));
     }
   });
