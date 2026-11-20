@@ -6,9 +6,13 @@ import {
   gyeokgukReadingsOf,
   resolveBirthKst,
   strengthFactorsOf,
+  STEM_FIVE_ELEMENT,
   strengthReadingsOf,
+  tenGodOf,
   yongsinCandidatesOf,
   type BirthInput,
+  type Stem,
+  type TenGod,
   type FiveElement,
   type PaidReportV1
 } from "@saju-lab/saju-core";
@@ -21,9 +25,16 @@ import {
   expandedTextsOf,
   foldedTextsOf,
   FRAGMENT_RECORDS,
+  frameFactsOf,
   frameStatusOf,
   GLOSS,
+  GYEOK_GROUP,
   GYEOK_KO,
+  GYEOKGUK_SET_KO,
+  GYEOKGUK_SET_PLAIN,
+  STRENGTH_SET_KO,
+  STRENGTH_SET_PLAIN,
+  TABLE_GYEOKS,
   josa,
   PAID_BLOCKS_NOTE,
   PAID_BLOCKS_TIME_UNKNOWN_NOTE,
@@ -107,9 +118,13 @@ describe("유료 3블록 뜻풀이 — 골든 전부", () => {
         if (r.unavailable) expect(line.conclusion, golden.id).toContain("결론을 내지 않음");
       });
       const [first, second, third] = reading.glance.sentences;
+      const SAYS = { strong: /센 편/, weak: /약한 편/, indeterminate: /결론을 미|판단을 미/ } as const;
       for (const verdict of ["strong", "weak", "indeterminate"] as const) {
-        expect(first.includes(VERDICT_VALUE[verdict]), `${golden.id} ${verdict}`).toBe(core.strengthReadings.some((r) => r.verdict === verdict));
+        expect(SAYS[verdict].test(first), `${golden.id} ${verdict}`).toBe(core.strengthReadings.some((r) => r.verdict === verdict));
       }
+      // 한눈에 ①③은 값 나열이 아니라 문장(LC 보정 4): 판정 이름(신강 · 신약 · 판단 유보) 단독 나열 0.
+      expect(first, golden.id).not.toMatch(/신강|신약|판단 유보|: /);
+      expect(third, golden.id).not.toMatch(/: /);
       expect(elementsIn(second), golden.id).toEqual(new Set(core.yongsinCandidates.map((c) => c.element)));
       expect(gyeoksIn(third), golden.id).toEqual(new Set(core.gyeokguk.flatMap((r) => r.candidates.map((c) => c.gyeok))));
     }
@@ -147,13 +162,49 @@ describe("유료 3블록 뜻풀이 — 골든 전부", () => {
     expect(frameSplits).toBeGreaterThan(0);
   });
 
-  it("«한눈에» = 카드 조각(①② 카드 ⓐ headline · ③ 카드 ⓑ headline · ④ 두 카드 비교 결론)", () => {
-    for (const { golden, reading } of cases) {
+  it("«한눈에» = 카드 조각(①② 카드 ⓐ headline · ③ 카드 ⓑ headline) · ④ = 카드와 같은 갈림 값, 네 경우 모두 나옴, 까닭은 카드에만", () => {
+    const seen = new Set<string>();
+    for (const { golden, core, reading } of cases) {
       const [first, second, third, fourth] = reading.glance.sentences;
       expect(first, golden.id).toBe(reading.energy.headline[0]);
       expect(second, golden.id).toBe(reading.energy.headline[1]);
       expect(third, golden.id).toBe(reading.frame.headline[0]);
-      expect(fourth, golden.id).toBe(`${compareOf(reading.energy).conclusion} ${compareOf(reading.frame).conclusion}`);
+      const strengthSplit = !core.strengthReadings[0]!.agreesAcrossSets;
+      const frameSplit = frameStatusOf(core.gyeokguk) === "split";
+      const expected = strengthSplit && frameSplit ? COPY["H-4-BOTH"] : strengthSplit ? COPY["H-4-S"] : frameSplit ? COPY["H-4-G"] : COPY["H-4-NONE"];
+      expect(fourth, golden.id).toBe(expected);
+      expect(reading.energy.badge === COPY["B-DIFF"], golden.id).toBe(strengthSplit);
+      expect(reading.frame.badge === COPY["B-DIFF"], golden.id).toBe(frameSplit);
+      // 까닭 문장은 카드 «방식끼리 비교» 줄 한 곳에만 — ④에 카드 비교 결론이 다시 나오지 않는다.
+      if (strengthSplit) expect(fourth.includes(compareOf(reading.energy).conclusion), golden.id).toBe(false);
+      if (frameSplit) expect(fourth.includes(compareOf(reading.frame).conclusion), golden.id).toBe(false);
+      seen.add(expected);
+    }
+    // 골든에 네 경우가 다 있으면 네 문장이 모두 나온다(없는 경우는 아래 «골든에 없는 경우»가 덮는다).
+    expect(seen.size, [...seen].join(" / ")).toBeGreaterThanOrEqual(3);
+  });
+
+  it("방식 이름: 펼친 부분에서 전문 이름은 «쉬운 이름(전문 이름)»으로 처음 1번만, 그 뒤로는 쉬운 이름만(LC 보정 1)", () => {
+    const names: Array<[string, string]> = [
+      ...Object.entries(STRENGTH_SET_KO).map(([id, ko]) => [ko, STRENGTH_SET_PLAIN[id as keyof typeof STRENGTH_SET_PLAIN]] as [string, string]),
+      ...Object.entries(GYEOKGUK_SET_KO).map(([id, ko]) => [ko, GYEOKGUK_SET_PLAIN[id as keyof typeof GYEOKGUK_SET_PLAIN]] as [string, string]),
+      ["조후", "계절의 추위·더위를 맞추는 방식"]
+    ];
+    for (const { golden, reading } of cases) {
+      const expanded = expandedTextsOf(reading).join("\n");
+      for (const [tech, plain] of names) {
+        const count = expanded.split(tech).length - 1;
+        expect(count, `${golden.id} ${tech}`).toBeLessThanOrEqual(1);
+        if (count === 1) {
+          expect(expanded, `${golden.id} ${tech}`).toContain(`${plain}(${tech})`);
+          // 처음 나오는 자리 = 쉬운 이름이 처음 나오는 자리.
+          expect(expanded.indexOf(plain), `${golden.id} ${tech}`).toBe(expanded.indexOf(`${plain}(${tech})`));
+        }
+      }
+      // «세 가지 물음»은 펼친 자리마다 그 자리에서 풀린다(LC 보정 2).
+      for (const text of expandedTextsOf(reading)) {
+        if (text.includes("세 가지 물음") && !text.includes("세 가지 물음을 세는 방식")) expect(text, golden.id).toContain("태어난 달 · 날의 아랫글자 · 둘레 글자가 나를 돕는가");
+      }
     }
   });
 
@@ -226,6 +277,111 @@ describe("유료 3블록 뜻풀이 — 골든 전부", () => {
   });
 });
 
+describe("유료 3블록 뜻풀이 — 문장 조각이 말하는 조건 = 코어 값(골든 50 전부, LC 보강 1)", () => {
+  const cases = goldens.map((golden) => ({ golden, core: coreOf(golden.input), reading: paidReadingOfReport(paidOf(golden.input)) }));
+  const GROUP_OF: Record<TenGod, string> = { bigyeon: "비겁", geopjae: "비겁", siksin: "식상", sanggwan: "식상", pyeonjae: "재성", jeongjae: "재성", pyeongwan: "관성", jeonggwan: "관성", pyeonin: "인성", jeongin: "인성" };
+  const groupOf = (dm: Stem, stem: Stem): string => GROUP_OF[tenGodOf(dm, stem)];
+  const PILLAR: Record<string, string> = { year: "태어난 해", month: "태어난 달", day: "태어난 날", time: "태어난 시각" };
+  const STEM: Record<string, string> = { gap: "갑", eul: "을", byeong: "병", jeong: "정", mu: "무", gi: "기", gyeong: "경", sin: "신", im: "임", gye: "계" };
+  const GEN: Record<FiveElement, FiveElement> = { wood: "fire", fire: "earth", earth: "metal", metal: "water", water: "wood" };
+  const CTRL: Record<FiveElement, FiveElement> = { wood: "earth", earth: "water", water: "fire", fire: "metal", metal: "wood" };
+  const relation = (dm: FiveElement, element: FiveElement): string =>
+    element === dm ? "나와 같은 기운" : GEN[element] === dm ? "나를 길러 주는 기운" : GEN[dm] === element ? "내가 만들어 내는 기운" : CTRL[dm] === element ? "내가 다스리는 기운" : "나를 다스리는 기운";
+  const counts = new Map<string, number>();
+  const hit = (key: string) => counts.set(key, (counts.get(key) ?? 0) + 1);
+
+  it("강약 · 용신 · 격국 조각마다 그 조각이 나간 모든 사례에서 조건이 참", () => {
+    for (const { golden, core, reading } of cases) {
+      const f = core.factors;
+      const dm = f.dayMaster;
+      const dmElement = STEM_FIVE_ELEMENT[dm];
+      const energy = reading.energy.lines.flatMap((line) => [line.conclusion, ...line.meaning]).join("\n");
+      const id = golden.id;
+      // 강약 근거
+      if (energy.includes("아랫글자와 정면으로 부딪힙니다")) { hit("S-clash"); expect(f.monthBranchClashed.value, id).toBe(true); }
+      if (energy.includes("태어난 달의 중심 글자가 나를 돕습니다")) { hit("S-ryeong"); expect(f.deukryeong.value, id).toBe(true); }
+      if (energy.includes("태어난 달은 나를 돕지 않지만")) { hit("S-jise"); expect([f.deukryeong.value, f.deukji.value, f.deukse.value], id).toEqual([false, true, true]); }
+      if (energy.includes("함께 돕지도 않습니다")) { hit("S-other"); expect(f.deukryeong.value || (f.deukji.value && f.deukse.value), id).toBe(false); }
+      const triad = Number(f.deukryeong.value) + Number(f.deukji.value) + Number(f.deukse.value);
+      const triadSaid = /가운데 (\d)개(?:가|만) 나를 돕는 쪽/.exec(energy)?.[1] ?? (energy.includes("나를 돕는 쪽이 하나도 없어") ? "0" : undefined);
+      if (triadSaid !== undefined) { hit("S-triad"); expect(Number(triadSaid), id).toBe(triad); }
+      // 억부 후보 «<갈래>인 <오행>»: 갈래 = 일간 오행과의 실제 관계
+      for (const match of energy.matchAll(/(나와 같은 기운|나를 길러 주는 기운|내가 만들어 내는 기운|내가 다스리는 기운|나를 다스리는 기운)인 ([목화토금수])\(/g)) {
+        hit("Y-group");
+        const element = ELEMENTS.find((e) => ELEMENT_PLAIN[e].startsWith(match[2]!))!;
+        expect(relation(dmElement, element), `${id} ${match[0]}`).toBe(match[1]);
+      }
+      // 조후 계절
+      if (energy.includes("태어난 달이 겨울이라")) { hit("J-winter"); expect(f.climate.season, id).toBe("winter"); }
+      if (energy.includes("태어난 달이 여름이라")) { hit("J-summer"); expect(f.climate.season, id).toBe("summer"); }
+      // 강약 갈림 까닭(카드 비교 줄)
+      const energyCompare = compareOf(reading.energy).conclusion;
+      if (energyCompare.includes("정면으로 부딪혀")) { hit("C-clash"); expect(f.monthBranchClashed.value, id).toBe(true); }
+      if (energyCompare.includes("나를 돕지만")) { hit("C-ryeong"); expect([f.deukryeong.value, f.deukji.value, f.deukse.value], id).toEqual([true, false, false]); }
+
+      // 격국
+      const facts = frameFactsOf(f);
+      const monthHidden = f.layers.hiddenStems.filter((h) => h.pillar === "month");
+      const primary = monthHidden.find((h) => h.role === "primary")!;
+      const exposedStems = new Set(f.layers.stems.map((s) => s.stem));
+      expect(facts.primaryExposed, id).toBe(exposedStems.has(primary.stem));
+      core.gyeokguk.forEach((r, index) => {
+        const line = reading.frame.lines[index]!;
+        const text = [line.conclusion, ...line.meaning].join("\n");
+        if (text.includes("중심 글자가 윗글자로도 드러나")) { hit("G-primary-exposed"); expect(exposedStems.has(primary.stem), id).toBe(true); }
+        if (text.includes("중심 글자는 나와 같은 기운이라 빼고")) { hit("G-other-bigyeop"); expect(exposedStems.has(primary.stem) && groupOf(dm, primary.stem) === "비겁", id).toBe(true); }
+        if (text.includes("중심 글자는 윗글자로 드러나 있지 않고")) { hit("G-other-hidden"); expect(exposedStems.has(primary.stem), id).toBe(false); }
+        if (text.includes("다른 글자 둘이 모두 윗글자로")) { hit("G-two"); expect(r.candidates.every((c) => c.exposedIn.length > 0), id).toBe(true); }
+        if (text.includes("나와 같은 기운이 아닌 달 속 글자 가운데 윗글자로 드러난 것이 없어")) {
+          hit("G-otherwise");
+          expect(monthHidden.filter((h) => groupOf(dm, h.stem) !== "비겁" && exposedStems.has(h.stem)), id).toEqual([]);
+        }
+        if (text.includes("태어난 달의 중심 글자가 나와 같은 기운이고")) { hit("G-bigyeop-month"); expect(groupOf(dm, primary.stem), id).toBe("비겁"); }
+        if (text.includes("구간을 맡은 글자가 나와 같은 기운이고")) { hit("G-saryeong-bigyeop"); expect(groupOf(dm, f.saryeong!.stem), id).toBe("비겁"); }
+        if (text.includes("짝이 교재가 따로 정한 표에 있어")) { hit("G-table"); expect(r.candidates.every((c) => TABLE_GYEOKS.has(c.gyeok)), id).toBe(true); }
+        // «X격은 이 사주를 <갈래>을 중심으로» · 결론 «X격(<갈래>이 중심인 틀)» = 고른 글자의 실제 십신 갈래
+        for (const c of r.candidates) {
+          if (TABLE_GYEOKS.has(c.gyeok)) {
+            hit("G-table-name");
+            expect(text, id).not.toMatch(/나와 같은 기운이 중심/);
+          } else {
+            hit("G-group");
+            expect(groupOf(dm, c.stem), `${id} ${c.gyeok}`).toBe(GYEOK_GROUP[c.gyeok]);
+          }
+        }
+      });
+      // 격국 갈림 까닭: «<자리> 글자 <천간>(<기둥>의 윗글자로 드러남 | 드러나지 않음)» = 후보의 exposedIn
+      const frameCompare = compareOf(reading.frame).conclusion;
+      for (const r of core.gyeokguk.filter((x) => !x.unavailable)) {
+        for (const c of r.candidates) {
+          if (!frameCompare.includes(`글자 ${STEM[c.stem]}(`)) continue;
+          hit("G-where");
+          const where = c.exposedIn.length ? `${c.exposedIn.map((p) => PILLAR[p]).join(" · ")}의 윗글자로 드러남` : "드러나지 않음";
+          expect(frameCompare, id).toContain(`글자 ${STEM[c.stem]}(${where})`);
+        }
+      }
+    }
+    console.log(`[paid-reading 조건 단언 건수] ${JSON.stringify(Object.fromEntries([...counts].sort()))}`);
+    for (const key of ["G-table", "G-table-name", "G-primary-exposed", "G-group", "S-clash", "Y-group", "G-where"]) expect(counts.get(key) ?? 0, key).toBeGreaterThan(0);
+  });
+
+  it("critic 사실 오류 사례: 토 일간 비겁 표 3건은 오행을 주장하지 않고, 월간 투출 사례에 «다른 기둥 위로» 0", () => {
+    for (const id of ["g-1971-07-02-1400", "g-1929-06-13-1730", "g-2013-05-22-0530"]) {
+      const found = cases.find((c) => c.golden.id === id);
+      expect(found, id).toBeDefined();
+      const all = allTexts(found!.reading).join("\n");
+      expect(all, id).toContain("짝이 교재가 따로 정한 표에 있어");
+      expect(all, id).not.toMatch(/중심 글자가 나와 같은 기운이라|나와 같은 기운이 중심인 틀/);
+    }
+    const monthExposed = cases.filter(({ core }) => core.gyeokguk.some((r) => r.candidates.some((c) => c.exposedIn.includes("month"))));
+    expect(monthExposed.length).toBeGreaterThan(0);
+    for (const { golden, reading } of monthExposed) {
+      const all = allTexts(reading).join("\n");
+      expect(all, golden.id).not.toMatch(/다른 기둥 위로/);
+    }
+  });
+});
+
 describe("유료 3블록 뜻풀이 — 골든에 없는 경우(D 표 0건 행)", () => {
   const base = paidOf(goldens.find((golden) => golden.input.birthTime)!.input);
 
@@ -237,7 +393,7 @@ describe("유료 3블록 뜻풀이 — 골든에 없는 경우(D 표 0건 행)",
       gyeokguk: base.structure.gyeokguk.map((r) => ({ ...r, candidates: [], unavailable: "no-day-counts" as const, firedConditions: ["saryeong.unavailable"] as [string], agreesAcrossSets: true }))
     };
     const reading = paidReadingOf({ structure, timeKnown: true });
-    expect(reading.glance.sentences).toEqual([COPY["H-1-NONE"], COPY["H-2-NONE"], COPY["H-3-NONE"], `${COPY["H-4-S-SAME"]} ${COPY["H-4-G-NONE"]}`]);
+    expect(reading.glance.sentences).toEqual([COPY["H-1-NONE"], COPY["H-2-NONE"], COPY["H-3-NONE"], COPY["H-4-NONE"]]);
     for (const text of allTexts(reading)) expect(text.trim().length).toBeGreaterThan(0);
     expect(reading.frame.badge).toBe(COPY["B-JUDGED-NONE"]);
   });
