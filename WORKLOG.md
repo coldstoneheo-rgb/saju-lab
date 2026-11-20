@@ -6,6 +6,21 @@
 ---
 date: 2026-11-20
 project: saju-lab
+agent: claude-code (Opus 5.5, LC HO-2026-1120 plain-reading · saju-lab-31)
+summary: 유료 3블록에 뜻풀이를 붙여 프로덕션에 냄 — «세트» 0, «한눈에» 4문장 + 카드 2개(기운의 세기→보탬 / 큰 틀), 줄마다 결론·뜻·근거, 사실 오류 5건 고침
+status: shipped
+progress: "3블록 뜻풀이 프로덕션 (근거: #147 e66b052 Production deployment success · HTTP 200 · npm run verify EXIT 0 1,312 @a7ef0ea · critic 3차 PASS 9.0 · LC 재게이트 PASS)"
+changes: ["e66b052 feat(paid): 3블록 뜻풀이 — 한눈에 + 카드 2개(세기→보탬 / 큰 틀), 결론·뜻·근거 (#147)"]
+next: "뜻풀이 후속 PR — REPORT §4 인계 가)나)다)(격·갈래 생활 말은 원문 직접 확인한 문헌만)"
+learning_need: "십신 갈래(식상·재성 등)의 생활 말 풀이를 댈 수 있는 원문 문헌 — 레포 docs에 출처 0"
+monetization: "유료 3블록이 «값만 있는 화면»에서 «읽히는 화면»으로 — 결제 선(conclusion 무료 / meaning+basis 유료)을 그을 자료 구조가 섰다"
+---
+## 의미
+사용자가 «이 세 카드만 보고는 뭘 말하는지 모르겠다»고 한 화면을, 명리를 모르는 사람이 자기 사주에 대해 읽을 수 있는 문장으로 바꿨다. 문장은 조각으로만 짜고 조각이 말하는 조건을 골든 50건 전부에서 코어 값으로 단언하게 해, critic이 잡은 사실 오류(토 일간 비겁 표 · 월간 투출) 같은 거짓 문장이 다시 들어오면 테스트가 깨진다. 이제 사용자가 실제 화면을 보고 세 카드가 적절한지 판단할 수 있다.
+
+---
+date: 2026-11-20
+project: saju-lab
 agent: claude-code (Opus 5.5, LC HO-2026-1120)
 summary: 유료 3블록(강약 판독·용신 후보·격국)을 프로덕션 «상세» 화면·PDF 저장용 HTML에 노출(결제 게이트 전, 사용자 결정) + 테스트 보강 기록 PR
 status: shipped
