@@ -1,11 +1,15 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-15T07:30:00+09:00",
-  "head": "cc39fff (#143 squash, main 2026-11-15) — 이전 9fdb5b6(#141) = 11-10 프로덕션 배포 success",
-  "phase": "L2 무료 칩 2종 프로덕션 반영(56410de, 11-10) — 유료 3블록은 F3(유료 노출 3안) 사용자 결정 + 13단계 문안 뒤",
-  "working_on": "IDLE — TASK-2026-1115 기록 PR",
-  "waiting_on": "[사용자] F3(LC 가정 C 유지) · S-YNY 일주 출처 · Gemini 정본 · 아침 손(TASK-2026-1115 REPORT: 레이트 리밋 조정·서버 일일 상한 기본값 안 함 · cloud/saju-8a-monthbranch 잔재 가지 삭제 · #142 노출 완전 삭제 요청 · 기존 baby 유래 문구 가림)",
+  "as_of": "2026-11-20T12:30:00+09:00",
+  "head": "e6d92a1 (#145 squash, main 2026-11-20) = 프로덕션 배포 SHA success · 첫 화면 200",
+  "phase": "유료 3블록(강약 판독·용신 후보·격국) 프로덕션 «상세» 노출(뜻풀이 0) — 다음 회차 = 3블록 뜻풀이 문안(saju-domain)",
+  "working_on": "IDLE — HO-2026-1120 기록 PR",
+  "waiting_on": "[LC] 기록 PR 게이트 · [사용자] 결제 오픈 시 F3 A안 재개(그전까지 3블록 공개 노출 = 11-20 사용자 결정)",
   "recent": [
+    {
+      "at": "2026-11-20",
+      "what": "HO-2026-1120: 유료 3블록 #145 머지 e6d92a1 → 프로덕션 배포 SHA 일치 success · 360px 전(406beb5)/후(브랜치)/프로덕션 캡처 9장 docs/captures/2026-11-20-paid-3blocks/ · PaidReportV1.structure(코어 결과 그대로) + apps/web 라벨, 세트 나란히+일치 표시, 안내 1회 · critic PASS · LC PASS-관찰 · 코어 결함 0. 기록 PR에 critic ①② · LC 관찰 ①②③ 보강(verify 1,303). REPORT docs/handoffs/HO-2026-1120-saju-paid-3blocks-REPORT.md"
+    },
     {
       "at": "2026-11-15",
       "what": "TASK-2026-1115: 배포 동결 전 사실표 — baby vc24 hanja-p5 요청 4종 게이트웨이 «그대로 지남»(변경 0) · 구조 계약 테스트 #143(#142 원문 복사 7분 공개 노출 → 닫음 · 완전 삭제는 사용자) · 프로덕션 9fdb5b6=main · 원격 가지 2(발주 «5» 정정) · 인증 없음 → 하루 10회 서버 미강제(20회/5분/IP/인스턴스뿐). REPORT docs/handoffs/TASK-2026-1115-saju-pre-freeze-REPORT.md"
@@ -92,8 +96,8 @@
     }
   ],
   "next_actions": [
-    "[배포] #138 프로덕션 반영 완료(56410de 2026-11-10 success). 11-20 전 남은 런타임 PR 0(#140은 폰트 파일만, 렌더 변경 0). 배포 동결 12-01~02-28",
-    "유료 리포트 3블록(strengthReadings·yongsinCandidates·gyeokguk) — 착수 조건 = F3 사용자 택1(사실표 TASK-2026-1110 REPORT) + 13단계 문안 + saju-domain (현재 PaidReportV1은 #paid-preview로 모두에게 보임, main.tsx:479 @56410de)",
+    "[배포] #145 프로덕션 반영(e6d92a1 2026-11-20 success). 배포 동결 12-01~02-28",
+    "유료 3블록 뜻풀이 문안 — 자리·입력은 HO-2026-1120 REPORT «뜻풀이 자리»(블록당 3줄), saju-domain 스킬 · 세트가 갈려 반대 방향 용신 후보가 같이 보이는 경우 설명 우선 · 용어 GEOKGUK.md «정기 고정/사령 우선»과 통일 · 새 문자열 i18n 키 여부 결정",
     "S-YNY 2행 GOLDEN-PILLARS 선등록(getLunCalInfo) → 8a 편입 + toHaveLength(50) 제거 — 사용자 (a) 결정 뒤 (11-05 확인: 미착수, GOLDEN-PILLARS에 S-YNY 행 0 · golden-strength-factors.test.ts:76 toHaveLength(50) 그대로)",
     "선택: 실차트 factors «월 장간 층 = hiddenStemList(monthBranch, school)» 불변식 테스트(#125 critic 관찰) (11-05 확인: 미착수 — gyeokguk.test.ts synthetic()은 구성상 일치, 실차트 단언 없음)",
     "DEC 뒤: 레이어 채택 시 ROUTED_LIST_MAIN_TIMEOUT_MS 값 조정 · FREE용 레이어 2판(strokeYinyang 문장) 재측정 (11-05 확인: 값 60_000 그대로 api/app/gemini-generate.ts:47)",
@@ -105,14 +109,14 @@
     "후속(구현 0): .gitattributes `*.snap text eol=lf`(autocrlf 스냅샷 stat-dirty 예방) · 신살 한자 13자 폰트 서브셋 재생성(원본 폰트+pyftsubset) · api/_lib/saju-pillars.ts:14-15 낡은 주석 정정"
   ],
   "metrics": {
-    "ci_tests_total": 1262,
+    "ci_tests_total": 1303,
     "ci_tests": {
-      "api": 125,
+      "api": 149,
       "core": 1074,
-      "web": 63
+      "web": 80
     },
-    "measured": "2026-11-10 npm run verify #140 head efd4369 EXIT 0",
-    "note": "옛 «806»은 09-24 기준 수치로 폐기"
+    "measured": "2026-11-20 npm run verify 기록 브랜치 EXIT 0",
+    "note": "#145 머지본은 1,296(web 73)"
   },
   "gauge": {
     "label": "L2 결정론 모듈(지장간·십신·합충·대운·강약·용신·격국·신살) — 강약은 8a+8b-1 코드 완료, 골든 confirmed 대기라 미산입",
@@ -120,5 +124,5 @@
     "max": 8
   },
   "detail_page": null,
-  "measured": "2026-11-15 npm run verify 시작 main 환산 EXIT 0 (api 125 · core 1074 · web 63) · #143 CI verify pass 43s @2b60544 · 로컬 api 149/149 · tsc 0 · critic PASS 9/10"
+  "measured": "2026-11-20 npm run verify EXIT 0 (api 149 · core 1074 · web 80) · #145 CI verify pass · 프로덕션 deployment e6d92a1 success · HTTP 200"
 }

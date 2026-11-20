@@ -1,4 +1,4 @@
-import { agreementLabel, paidBlocksViewOf, YONGSIN_EMPTY, type PaidBlockRow } from "./paid-blocks.js";
+import { agreementLabel, gyeokgukAgreementLabel, paidBlocksViewOf, YONGSIN_EMPTY, type PaidBlockRow } from "./paid-blocks.js";
 import { getSajuTerm, type BirthInput, type PaidReportV1, type ReportV1, type SajuTerm } from "@saju-lab/saju-core";
 import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
 
@@ -250,7 +250,7 @@ function renderStructureBlocks(paidReport: PaidReportV1): string {
   return `<section id="structure-blocks"><h2>강약 · 용신 후보 · 격국</h2><p>${escapeHtml(view.note)}</p>`
     + `<h3>강약 판독 <small>${escapeHtml(agreementLabel(view.strength.agrees))}</small></h3>${renderBlockRows(view.strength.rows, "")}`
     + `<h3>용신 후보</h3>${renderBlockRows(view.yongsin, YONGSIN_EMPTY)}`
-    + `<h3>격국 <small>${escapeHtml(agreementLabel(view.gyeokguk.agrees))}</small></h3>${renderBlockRows(view.gyeokguk.rows, "")}</section>`;
+    + `<h3>격국 <small>${escapeHtml(gyeokgukAgreementLabel(view.gyeokguk))}</small></h3>${renderBlockRows(view.gyeokguk.rows, "")}</section>`;
 }
 
 function renderPaidChecklist(checklist: ChecklistSection): string {
