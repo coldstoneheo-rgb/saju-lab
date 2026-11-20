@@ -1,3 +1,7 @@
+import type { GyeokgukReading } from "./l2/gyeokguk.js";
+import type { StrengthReading } from "./l2/strength-readings.js";
+import type { YongsinCandidate } from "./l2/yongsin-candidates.js";
+
 export type Sex = "male" | "female" | "other";
 
 export type Locale = "ko" | "en";
@@ -214,6 +218,15 @@ export interface PaidReportV1 {
     }>;
   };
   actionPlan: PaidReportChecklist;
+  /**
+   * 유료 3블록(HO-2026-1120 사용자 결정: 결제 게이트 전 노출 허용) — 코어 함수 결과 그대로의 데이터.
+   * 사람 대면 라벨은 apps/web에서 붙인다(코어는 층·문안을 모른다, l2-include-design §0·§4).
+   */
+  structure: {
+    strengthReadings: StrengthReading[];
+    yongsinCandidates: YongsinCandidate[];
+    gyeokguk: GyeokgukReading[];
+  };
   transparencyAppendix: {
     certain: string[];
     inferred: string[];

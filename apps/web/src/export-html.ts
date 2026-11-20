@@ -1,3 +1,4 @@
+import { agreementLabel, paidBlocksViewOf, YONGSIN_EMPTY, type PaidBlockRow } from "./paid-blocks.js";
 import { getSajuTerm, type BirthInput, type PaidReportV1, type ReportV1, type SajuTerm } from "@saju-lab/saju-core";
 import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
 
@@ -95,6 +96,7 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
   const tableOfContents = [
     { id: "input-summary", title: "입력 요약" },
     { id: "pillar-summary", title: "사주 구조" },
+    { id: "structure-blocks", title: "강약 · 용신 후보 · 격국" },
     ...sections.map((section) => ({ id: section.id, title: section.title })),
     ...checklists.map((section) => ({ id: section.id, title: section.title })),
     { id: "monthly-timeline", title: "월별 확장 흐름" },
@@ -186,6 +188,7 @@ export function buildPaidReportHtml(paidReport: PaidReportV1): string {
           ${renderDownloadedPillar(getSajuTerm("timePillar"), paidReport.pillars.time)}
         </div>
       </section>
+      ${renderStructureBlocks(paidReport)}
       ${sections.map(renderPaidDownloadedSection).join("")}
       ${checklists.map(renderPaidChecklist).join("")}
       <section class="timeline pageBreakBefore" id="monthly-timeline">
@@ -234,6 +237,20 @@ function renderPaidDownloadedSection(section: ExportSection): string {
   const summary = section.summary ? `<p>${escapeHtml(section.summary)}</p>` : "";
 
   return `<section id="${escapeHtml(section.id)}"><h2>${escapeHtml(section.title)}</h2>${summary}<ul>${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
+}
+
+function renderBlockRows(rows: PaidBlockRow[], empty: string): string {
+  if (!rows.length) return `<p>${escapeHtml(empty)}</p>`;
+  return `<ul>${rows.map((row) => `<li><strong>${escapeHtml(row.label)}</strong>: ${escapeHtml(row.value)}</li>`).join("")}</ul>`;
+}
+
+/** 유료 3블록 — 안내는 묶음 전체에 1회(LC 11-20). */
+function renderStructureBlocks(paidReport: PaidReportV1): string {
+  const view = paidBlocksViewOf(paidReport);
+  return `<section id="structure-blocks"><h2>강약 · 용신 후보 · 격국</h2><p>${escapeHtml(view.note)}</p>`
+    + `<h3>강약 판독 <small>${escapeHtml(agreementLabel(view.strength.agrees))}</small></h3>${renderBlockRows(view.strength.rows, "")}`
+    + `<h3>용신 후보</h3>${renderBlockRows(view.yongsin, YONGSIN_EMPTY)}`
+    + `<h3>격국 <small>${escapeHtml(agreementLabel(view.gyeokguk.agrees))}</small></h3>${renderBlockRows(view.gyeokguk.rows, "")}</section>`;
 }
 
 function renderPaidChecklist(checklist: ChecklistSection): string {

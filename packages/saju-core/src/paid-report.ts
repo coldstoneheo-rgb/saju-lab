@@ -1,6 +1,11 @@
 import { getPillarTerms, getSajuTerm } from "./terminology.js";
 import type { PaidReportV1, ReportInput, ReportV1 } from "./types.js";
 import { generateReportV1 } from "./report.js";
+import { resolveBirthKst } from "./pillars.js";
+import { strengthFactorsOf } from "./l2/strength-factors.js";
+import { strengthReadingsOf } from "./l2/strength-readings.js";
+import { yongsinCandidatesOf } from "./l2/yongsin-candidates.js";
+import { gyeokgukReadingsOf } from "./l2/gyeokguk.js";
 
 export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
   const baseReport = generateReportV1(input);
@@ -179,6 +184,7 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         }
       ]
     },
+    structure: buildStructure(input),
     transparencyAppendix: {
       certain: baseReport.transparency.certain,
       inferred: [
@@ -207,6 +213,17 @@ export function generatePaidReportV1(input: ReportInput): PaidReportV1 {
         "향후 실제 PDF 라이브러리를 도입해도 동일한 데이터 구조를 재사용합니다."
       ]
     }
+  };
+}
+
+/** 유료 3블록 — saju-pillars-v1 include 조합과 같은 순서(8a → 8b-1 → 8b-2 · 격국), 기본 지장간 학파. */
+function buildStructure(input: ReportInput): PaidReportV1["structure"] {
+  const factors = strengthFactorsOf(input.pillars, resolveBirthKst(input.input));
+  const strengthReadings = strengthReadingsOf(factors);
+  return {
+    strengthReadings,
+    yongsinCandidates: yongsinCandidatesOf(factors, strengthReadings),
+    gyeokguk: gyeokgukReadingsOf(factors)
   };
 }
 
