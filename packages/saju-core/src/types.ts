@@ -1,4 +1,5 @@
 import type { GyeokgukReading } from "./l2/gyeokguk.js";
+import type { StrengthFactors } from "./l2/strength-factors.js";
 import type { StrengthReading } from "./l2/strength-readings.js";
 import type { YongsinCandidate } from "./l2/yongsin-candidates.js";
 
@@ -223,6 +224,8 @@ export interface PaidReportV1 {
    * 사람 대면 라벨은 apps/web에서 붙인다(코어는 층·문안을 모른다, l2-include-design §0·§4).
    */
   structure: {
+    /** 8a 팩터 — 3블록 판정의 입력 그대로(HO-2026-1120 뜻풀이의 «무엇을 보고» 근거 글자·개수). 판정은 아래 세 필드가 한다. */
+    factors: StrengthFactors;
     strengthReadings: StrengthReading[];
     yongsinCandidates: YongsinCandidate[];
     gyeokguk: GyeokgukReading[];

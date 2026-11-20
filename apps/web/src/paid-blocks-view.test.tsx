@@ -3,24 +3,46 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { calculatePillars, generatePaidReportV1, type BirthInput, type PaidReportV1 } from "@saju-lab/saju-core";
 import { loadGoldenPillarCases } from "../../../packages/saju-core/src/golden-pillars.load.js";
 import { PaidStructureBlocks } from "./paid-blocks-view.js";
-import { gyeokgukAgreementLabel, PAID_BLOCKS_NOTE, paidBlocksViewOf } from "./paid-blocks.js";
+import { COPY, PAID_BLOCKS_NOTE, paidReadingOfReport, WHY_SUMMARY } from "./paid-reading.js";
 
-// 유료 3블록 화면 컴포넌트 — 안내 1회(LC 게이트 #145 관찰 ②) · 격국 일치 표시(관찰 ①) · 빈 괄호 0(관찰 ③).
+// 유료 3블록 뜻풀이 화면 — 안내 1회 · 한눈에 · 카드 2개 · basis만 <details>로 접는다 · 격국 배지(결론 낸 방식 수).
 
 const goldens = loadGoldenPillarCases();
 const paidOf = (input: BirthInput): PaidReportV1 =>
   generatePaidReportV1({ input, pillars: calculatePillars(input), generatedAt: "2026-11-20T00:00:00.000Z" });
 
+const textOf = (html: string): string => html.replace(/<[^>]+>/g, "\n");
+
 describe("PaidStructureBlocks 화면", () => {
-  it("골든 전부: 안내 문장이 화면에 정확히 1회, 카드 3개", () => {
+  it("골든 전부: 안내 1회 · «역술가 검토 전» 1회 · 카드 2개 · 접기 2개(basis만) · «세트»·«규칙표» 0", () => {
     for (const golden of goldens) {
       const html = renderToStaticMarkup(<PaidStructureBlocks paidReport={paidOf(golden.input)} />);
       expect(html.split(PAID_BLOCKS_NOTE).length - 1, golden.id).toBe(1);
-      expect(html.match(/<article/g)?.length, golden.id).toBe(3);
+      expect(html.split("역술가 검토 전").length - 1, golden.id).toBe(1);
+      expect(html.match(/<article/g)?.length, golden.id).toBe(2);
+      expect(html.match(/<details/g)?.length, golden.id).toBe(2);
+      expect(html.split(`<summary>${WHY_SUMMARY}</summary>`).length - 1, golden.id).toBe(2);
+      expect(textOf(html), golden.id).not.toMatch(/세트|규칙표/);
     }
   });
 
-  /** 앞에서부터 n개 세트를 판정 불가로 바꾼 합성 보고서. 나머지 세트의 agreesAcrossSets는 같음으로 둔다. */
+  it("골든 전부: 접힌 칸 밖에는 conclusion · meaning만, basis 문장은 <details> 안에만", () => {
+    for (const golden of goldens) {
+      const report = paidOf(golden.input);
+      const reading = paidReadingOfReport(report);
+      const html = renderToStaticMarkup(<PaidStructureBlocks paidReport={report} />);
+      const outside = html.replace(/<details[\s\S]*?<\/details>/g, "");
+      for (const card of [reading.energy, reading.frame]) {
+        expect(textOf(html).split("물음:").length - 1, golden.id).toBe(2);
+        for (const line of card.lines.filter((each) => !each.quiet)) {
+          expect(outside, golden.id).toContain(line.conclusion.replaceAll("'", "&#x27;").replaceAll("\"", "&quot;"));
+          for (const basis of line.basis) expect(outside.includes(basis), `${golden.id} ${basis}`).toBe(false);
+        }
+      }
+    }
+  });
+
+  /** 앞에서부터 n개 방식을 결론 없음으로 바꾼 합성 보고서. 나머지는 같음으로 둔다. */
   function withUnavailable(n: number): PaidReportV1 {
     const report = paidOf(goldens[0]!.input);
     return {
@@ -28,48 +50,27 @@ describe("PaidStructureBlocks 화면", () => {
       structure: {
         ...report.structure,
         gyeokguk: report.structure.gyeokguk.map((r, i) =>
-          i < n ? { ...r, candidates: [], unavailable: "no-day-counts" as const, agreesAcrossSets: true } : { ...r, agreesAcrossSets: true })
+          i < n ? { ...r, candidates: [], unavailable: "no-day-counts" as const, firedConditions: ["saryeong.unavailable"] as [string], agreesAcrossSets: true } : { ...r, agreesAcrossSets: true })
       }
     };
   }
 
-  it("격국 배지: 판정된 세트 0개 «판정된 세트 없음» · 1개 «판정된 세트 1개» · 2개(불가 1) «판정된 세트끼리 같음»", () => {
-    expect(paidOf(goldens[0]!.input).structure.gyeokguk).toHaveLength(3);
-    const cases: Array<[number, string, number]> = [[3, "판정된 세트 없음", 0], [2, "판정된 세트 1개", 1], [1, "판정된 세트끼리 같음", 2]];
-    for (const [unavailable, label, judged] of cases) {
+  it("격국 배지: 결론 낸 방식 0개 · 1개 · 2개(결론 없음 1)", () => {
+    const cases: Array<[number, string]> = [[3, COPY["B-JUDGED-NONE"]], [2, COPY["B-JUDGED-ONE"]], [1, COPY["B-JUDGED-SAME"]]];
+    for (const [unavailable, label] of cases) {
       const report = withUnavailable(unavailable);
-      const view = paidBlocksViewOf(report);
-      expect(view.gyeokguk.judged).toBe(judged);
-      expect(gyeokgukAgreementLabel(view.gyeokguk)).toBe(label);
+      expect(paidReadingOfReport(report).frame.badge).toBe(label);
       expect(renderToStaticMarkup(<PaidStructureBlocks paidReport={report} />)).toContain(label);
     }
   });
 
-  it("격국 배지: 판정된 2개가 서로 다르면 «판정된 세트끼리 다름»", () => {
-    const report = withUnavailable(1);
-    const diff: PaidReportV1 = { ...report, structure: { ...report.structure, gyeokguk: report.structure.gyeokguk.map((r) => ({ ...r, agreesAcrossSets: false })) } };
-    expect(gyeokgukAgreementLabel(paidBlocksViewOf(diff).gyeokguk)).toBe("판정된 세트끼리 다름");
-  });
-
-  it("골든 전부: 판정 불가 세트가 없으면 일치 표시는 코어 agreesAcrossSets 그대로", () => {
+  it("골든 전부: 격국 배지는 코어 agreesAcrossSets와 결론 낸 방식 수를 따른다", () => {
     for (const golden of goldens) {
-      const view = paidBlocksViewOf(paidOf(golden.input));
-      const label = gyeokgukAgreementLabel(view.gyeokguk);
-      if (view.gyeokguk.judged < 2) expect(label, golden.id).toMatch(/^판정된 세트 (없음|1개)$/);
-      if (view.gyeokguk.partial || view.gyeokguk.judged < 2) continue;
-      expect(gyeokgukAgreementLabel(view.gyeokguk), golden.id).toBe(view.gyeokguk.agrees ? "세트 결과 같음" : "세트마다 다름");
+      const report = paidOf(golden.input);
+      const judged = report.structure.gyeokguk.filter((r) => !r.unavailable).length;
+      const badge = paidReadingOfReport(report).frame.badge;
+      if (judged === 1) expect(badge, golden.id).toBe(COPY["B-JUDGED-ONE"]);
+      if (judged >= 2) expect(badge === COPY["B-DIFF"], golden.id).toBe(!report.structure.gyeokguk[0]!.agreesAcrossSets);
     }
-  });
-
-  it("억부 후보에 근거 세트가 없으면 빈 괄호 대신 오행만", () => {
-    const report = paidOf(goldens[0]!.input);
-    const eokbu = report.structure.yongsinCandidates.find((c) => c.method === "eokbu");
-    expect(eokbu).toBeDefined();
-    const { readingRef: _drop, ...basis } = eokbu!.basis;
-    const stripped: PaidReportV1 = { ...report, structure: { ...report.structure, yongsinCandidates: [{ ...eokbu!, basis }] } };
-    const rows = paidBlocksViewOf(stripped).yongsin;
-    expect(rows).toHaveLength(1);
-    expect(rows[0]!.value).not.toContain("()");
-    expect(rows[0]!.value).toMatch(/^[목화토금수]$/);
   });
 });

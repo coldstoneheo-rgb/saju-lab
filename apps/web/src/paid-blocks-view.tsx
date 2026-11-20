@@ -1,33 +1,53 @@
 import type { PaidReportV1 } from "@saju-lab/saju-core";
-import { gyeokgukAgreementLabel, agreementLabel, paidBlocksViewOf, YONGSIN_EMPTY, type PaidBlockRow } from "./paid-blocks.js";
+import { paidReadingOfReport, WHY_SUMMARY, type ReadingCard } from "./paid-reading.js";
 
-// 유료 3블록(HO-2026-1120): 세트별 결과를 나란히, 안내는 묶음 전체 1회. 뜻풀이·길흉 없음(문안은 다음 회차).
+// 유료 3블록 뜻풀이 화면(HO-2026-1120 plain-reading): 안내 1회 → 한눈에 → 카드 2개. 문안은 paid-reading.ts(순수 모듈)가 만들고 여기서는 배치만 한다.
+// 카드마다 conclusion · meaning은 펼치고, basis(근거 · 방식 풀이 · 갈리는 까닭)만 <details>로 접는다.
 export function PaidStructureBlocks({ paidReport }: { paidReport: PaidReportV1 }): JSX.Element {
-  const view = paidBlocksViewOf(paidReport);
+  const reading = paidReadingOfReport(paidReport);
   return (
-    <div className="paidStructure" aria-label="강약 · 용신 후보 · 격국" id="paid-structure">
-      <h4>강약 · 용신 후보 · 격국</h4>
-      <p>{view.note}</p>
+    <div className="paidStructure" aria-label="기운의 세기 · 보탬이 되는 기운 · 큰 틀" id="paid-structure">
+      <h4>기운의 세기 · 보탬이 되는 기운 · 큰 틀</h4>
+      <p>{reading.note}</p>
+      <section className="paidPreviewCard paidGlance" aria-label={reading.glance.title}>
+        <h4>{reading.glance.title}</h4>
+        <ol>
+          {reading.glance.sentences.map((sentence) => <li key={sentence}>{sentence}</li>)}
+        </ol>
+      </section>
       <div className="paidSectionGrid">
-        <PaidBlockCard title="강약 판독" badge={agreementLabel(view.strength.agrees)} rows={view.strength.rows} empty="" />
-        <PaidBlockCard title="용신 후보" rows={view.yongsin} empty={YONGSIN_EMPTY} />
-        <PaidBlockCard title="격국" badge={gyeokgukAgreementLabel(view.gyeokguk)} rows={view.gyeokguk.rows} empty="" />
+        <PaidReadingCard card={reading.energy} />
+        <PaidReadingCard card={reading.frame} />
       </div>
     </div>
   );
 }
 
-function PaidBlockCard({ badge, empty, rows, title }: { badge?: string; empty: string; rows: PaidBlockRow[]; title: string }): JSX.Element {
+function PaidReadingCard({ card }: { card: ReadingCard }): JSX.Element {
   return (
-    <article className="paidPreviewCard" aria-label={title}>
-      <h4>{title}{badge ? <small className="chip">{badge}</small> : null}</h4>
-      {rows.length ? (
-        <ul>
-          {rows.map((row) => (
-            <li key={`${row.label}-${row.value}`}><strong>{row.label}</strong> {row.value}</li>
-          ))}
-        </ul>
-      ) : <p>{empty}</p>}
+    <article className="paidPreviewCard paidReadingCard" aria-label={card.title}>
+      <h4>{card.title}<small className="chip">{card.badge}</small></h4>
+      <p className="paidQuestion">{card.question}</p>
+      {card.notes.map((sentence) => <p key={sentence}>{sentence}</p>)}
+      <ul>
+        {card.lines.filter((line) => !line.quiet).map((line) => (
+          <li key={line.label}>
+            <span className="paidLineLabel">{line.label}</span>
+            <strong>{line.conclusion}</strong>
+            {line.meaning.map((sentence) => <p key={sentence}>{sentence}</p>)}
+          </li>
+        ))}
+      </ul>
+      <details className="paidWhy">
+        <summary>{WHY_SUMMARY}</summary>
+        {card.lines.filter((line) => line.basis.length).map((line) => (
+          <div key={line.label}>
+            <h5>{line.label}</h5>
+            <ul>{line.basis.map((sentence) => <li key={sentence}>{sentence}</li>)}</ul>
+          </div>
+        ))}
+        <ul>{card.basis.map((sentence) => <li key={sentence}>{sentence}</li>)}</ul>
+      </details>
     </article>
   );
 }
