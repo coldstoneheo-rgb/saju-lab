@@ -20,25 +20,43 @@ describe("PaidStructureBlocks 화면", () => {
     }
   });
 
-  it("격국: 판정 불가 세트가 있고 나머지가 같으면 «판정된 세트끼리 같음»", () => {
+  /** 앞에서부터 n개 세트를 판정 불가로 바꾼 합성 보고서. 나머지 세트의 agreesAcrossSets는 같음으로 둔다. */
+  function withUnavailable(n: number): PaidReportV1 {
     const report = paidOf(goldens[0]!.input);
-    const [first, ...rest] = report.structure.gyeokguk;
-    const partial: PaidReportV1 = {
+    return {
       ...report,
       structure: {
         ...report.structure,
-        gyeokguk: [{ ...first!, candidates: [], unavailable: "no-day-counts", agreesAcrossSets: true }, ...rest.map((r) => ({ ...r, agreesAcrossSets: true }))]
+        gyeokguk: report.structure.gyeokguk.map((r, i) =>
+          i < n ? { ...r, candidates: [], unavailable: "no-day-counts" as const, agreesAcrossSets: true } : { ...r, agreesAcrossSets: true })
       }
     };
-    const view = paidBlocksViewOf(partial);
-    expect(gyeokgukAgreementLabel(view.gyeokguk)).toBe("판정된 세트끼리 같음");
-    expect(renderToStaticMarkup(<PaidStructureBlocks paidReport={partial} />)).toContain("판정된 세트끼리 같음");
+  }
+
+  it("격국 배지: 판정된 세트 0개 «판정된 세트 없음» · 1개 «판정된 세트 1개» · 2개(불가 1) «판정된 세트끼리 같음»", () => {
+    expect(paidOf(goldens[0]!.input).structure.gyeokguk).toHaveLength(3);
+    const cases: Array<[number, string, number]> = [[3, "판정된 세트 없음", 0], [2, "판정된 세트 1개", 1], [1, "판정된 세트끼리 같음", 2]];
+    for (const [unavailable, label, judged] of cases) {
+      const report = withUnavailable(unavailable);
+      const view = paidBlocksViewOf(report);
+      expect(view.gyeokguk.judged).toBe(judged);
+      expect(gyeokgukAgreementLabel(view.gyeokguk)).toBe(label);
+      expect(renderToStaticMarkup(<PaidStructureBlocks paidReport={report} />)).toContain(label);
+    }
+  });
+
+  it("격국 배지: 판정된 2개가 서로 다르면 «판정된 세트끼리 다름»", () => {
+    const report = withUnavailable(1);
+    const diff: PaidReportV1 = { ...report, structure: { ...report.structure, gyeokguk: report.structure.gyeokguk.map((r) => ({ ...r, agreesAcrossSets: false })) } };
+    expect(gyeokgukAgreementLabel(paidBlocksViewOf(diff).gyeokguk)).toBe("판정된 세트끼리 다름");
   });
 
   it("골든 전부: 판정 불가 세트가 없으면 일치 표시는 코어 agreesAcrossSets 그대로", () => {
     for (const golden of goldens) {
       const view = paidBlocksViewOf(paidOf(golden.input));
-      if (view.gyeokguk.partial) continue;
+      const label = gyeokgukAgreementLabel(view.gyeokguk);
+      if (view.gyeokguk.judged < 2) expect(label, golden.id).toMatch(/^판정된 세트 (없음|1개)$/);
+      if (view.gyeokguk.partial || view.gyeokguk.judged < 2) continue;
       expect(gyeokgukAgreementLabel(view.gyeokguk), golden.id).toBe(view.gyeokguk.agrees ? "세트 결과 같음" : "세트마다 다름");
     }
   });

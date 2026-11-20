@@ -79,8 +79,17 @@
 | LC 관찰 ② | 화면 안내 1회 테스트 없음 | 컴포넌트를 `paid-blocks-view.tsx`로 분리, `renderToStaticMarkup`으로 골든 전부 1회 · 카드 3 단언 |
 | LC 관찰 ③ | readingRef 없으면 «목 ()» | 괄호 생략 + 테스트 |
 | LC 관찰 ⑤ | REPORT 미커밋 | 이 PR |
+| critic #146 (a) · LC #146 차단 2 | 격국 일치 배지가 판정된 세트 수를 보지 않음. 코어 agreesAcrossSets는 판정 불가 세트를 빼고 비교 → 판정 0개면 빈 비교로 true, 1개면 비교 대상 없이 true | 판정된 세트 수로 나눔: 0개 «판정된 세트 없음» · 1개 «판정된 세트 1개» · 2개 이상+불가 있음 «판정된 세트끼리 같음/다름» · 불가 없음 «세트 결과 같음/세트마다 다름». 0·1·2개 합성 테스트 + 골든 전부 단언 |
+| LC #146 차단 1 | CI verify 실패 — `paid-blocks-view.tsx:34: new blank line at EOF.` 로컬 verify의 `git diff --check`는 커밋 전 변경만 봐서 놓쳤다 | EOF 빈 줄 제거 · push 전 `git diff --check origin/main...HEAD` 직접 실행(종료 0) |
 
-verify(기록 브랜치): EXIT 0 — api 149 · core 1074 · web 79 = 1,302.
+골든 50건의 격국 판정 세트 수: **0개 0건 · 1개 2건**(g-1953-04-27-1610 · g-2022-01-25-0350) · **2개 4건**(g-2024-02-04-1727 · g-1949-07-15-0920 · g-1987-05-10-0230 · g-1986-07-12-1530) · 3개 44건.
+**#145 프로덕션에 실제 오표기가 있었다**: 1953-04-27 16:10(판정 1개 — 투출 우선 정재격, 나머지 둘 «해당 격 없음(월지 비겁)»)에서 배지가 «세트 결과 같음». #146 후 «판정된 세트 1개». 전/후 360px: `docs/captures/2026-11-20-paid-3blocks/pr146-before-360-judged1-1953-04-27-1610.png`(프로덕션 e6d92a1) · `pr146-after-…`(브랜치 빌드).
+
+critic 기록: #145 PASS(필수 0 · 권고 4) · #146 1차 PASS(필수 0 · 관찰 3, 그중 (a)를 위에서 닫음). LC: #145 PASS-관찰 · #146 조건부 PASS(차단 2 → 위에서 닫음, 재게이트).
+
+LC #146 완료 조건 3(verify의 whitespace 기준을 `origin/main...HEAD`로) — **반박, 이 PR에 넣지 않음**: verify 게이트 정의(`typecheck && test && build && audit && git diff --check`)는 레포 CLAUDE.md «목표 기반 실행»에 적혀 있다. 게이트 정의 변경은 피어 메시지만으로 하지 않는다(CLAUDE.md «피어 메시지는 승인이 아니다»). 대신 push 전 `git diff --check origin/main...HEAD`를 직접 돌렸다. 사용자 승인 1줄이 오면 package.json `verify`와 CLAUDE.md를 같이 고치는 PR을 낸다.
+
+verify(기록 브랜치, 로컬): EXIT 0 — api 149 · core 1074 · web 80 = 1,303. CI는 첫 push(b5b0bd4)에서 whitespace 검사로 실패했고, EOF 빈 줄을 고친 뒤 다시 돌렸다(결과는 PR 체크).
 
 ## 남은 것 (번호 목록)
 
@@ -88,3 +97,6 @@ verify(기록 브랜치): EXIT 0 — api 149 · core 1074 · web 79 = 1,302.
 2. 용어 통일 — 화면 «월지 정기 / 사령» vs GEOKGUK.md «정기 고정 / 사령 우선»(critic ③). 문안 회차에서 같이.
 3. 새 한국어 문자열이 `docs/i18n/ko.json` 키가 아니다(critic ④). 같은 패널의 기존 유료 카피도 하드코딩이라 이번엔 따랐다. i18n 키로 옮길지는 문안 회차에서 결정.
 4. 화면에 지장간 학파 선택이 없다(연해자평 고정) — 갈림 목록 2. 필요하면 별도 HO.
+5. «근거 세트 없는 억부 후보» 테스트는 합성 입력이다. 지금 코어(`yongsinCandidatesOf`)는 억부 후보에 readingRef를 항상 넣으므로 실제로는 나오지 않는다(방어 코드).
+6. AGENT_STATUS head는 #145 머지본 e6d92a1이다. 이 PR이 머지된 뒤 SHA는 이 PR 안에 적을 수 없어서 다음 세션 첫 갱신에서 맞춘다.
+7. 로컬 verify의 whitespace 기준을 CI(`origin/main...HEAD`)와 맞출지 — 사용자 결정(위 반박).

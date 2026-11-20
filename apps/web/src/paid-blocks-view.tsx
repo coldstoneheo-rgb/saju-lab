@@ -31,4 +31,3 @@ function PaidBlockCard({ badge, empty, rows, title }: { badge?: string; empty: s
     </article>
   );
 }
-

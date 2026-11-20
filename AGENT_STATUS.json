@@ -8,7 +8,7 @@
   "recent": [
     {
       "at": "2026-11-20",
-      "what": "HO-2026-1120: 유료 3블록 #145 머지 e6d92a1 → 프로덕션 배포 SHA 일치 success · 360px 전(406beb5)/후(브랜치)/프로덕션 캡처 9장 docs/captures/2026-11-20-paid-3blocks/ · PaidReportV1.structure(코어 결과 그대로) + apps/web 라벨, 세트 나란히+일치 표시, 안내 1회 · critic PASS · LC PASS-관찰 · 코어 결함 0. 기록 PR에 critic ①② · LC 관찰 ①②③ 보강(verify 1,302). REPORT docs/handoffs/HO-2026-1120-saju-paid-3blocks-REPORT.md"
+      "what": "HO-2026-1120: 유료 3블록 #145 머지 e6d92a1 → 프로덕션 배포 SHA 일치 success · 360px 전(406beb5)/후(브랜치)/프로덕션 캡처 9장 docs/captures/2026-11-20-paid-3blocks/ · PaidReportV1.structure(코어 결과 그대로) + apps/web 라벨, 세트 나란히+일치 표시, 안내 1회 · critic PASS · LC PASS-관찰 · 코어 결함 0. 기록 PR에 critic ①② · LC 관찰 ①②③ 보강(verify 1,303). REPORT docs/handoffs/HO-2026-1120-saju-paid-3blocks-REPORT.md"
     },
     {
       "at": "2026-11-15",
@@ -109,11 +109,11 @@
     "후속(구현 0): .gitattributes `*.snap text eol=lf`(autocrlf 스냅샷 stat-dirty 예방) · 신살 한자 13자 폰트 서브셋 재생성(원본 폰트+pyftsubset) · api/_lib/saju-pillars.ts:14-15 낡은 주석 정정"
   ],
   "metrics": {
-    "ci_tests_total": 1302,
+    "ci_tests_total": 1303,
     "ci_tests": {
       "api": 149,
       "core": 1074,
-      "web": 79
+      "web": 80
     },
     "measured": "2026-11-20 npm run verify 기록 브랜치 EXIT 0",
     "note": "#145 머지본은 1,296(web 73)"
@@ -124,5 +124,5 @@
     "max": 8
   },
   "detail_page": null,
-  "measured": "2026-11-20 npm run verify EXIT 0 (api 149 · core 1074 · web 79) · #145 CI verify pass · 프로덕션 deployment e6d92a1 success · HTTP 200"
+  "measured": "2026-11-20 npm run verify EXIT 0 (api 149 · core 1074 · web 80) · #145 CI verify pass · 프로덕션 deployment e6d92a1 success · HTTP 200"
 }

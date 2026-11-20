@@ -65,8 +65,8 @@ export interface PaidBlockRow {
 export interface PaidBlocksView {
   strength: { rows: PaidBlockRow[]; agrees: boolean };
   yongsin: PaidBlockRow[];
-  /** partial = 판정 불가 세트가 있다(코어 agreesAcrossSets는 그 세트를 빼고 비교한다). */
-  gyeokguk: { rows: PaidBlockRow[]; agrees: boolean; partial: boolean };
+  /** partial = 판정 불가 세트가 있다 · judged = 판정된 세트 수(코어 agreesAcrossSets는 판정된 세트끼리만 비교한다). */
+  gyeokguk: { rows: PaidBlockRow[]; agrees: boolean; partial: boolean; judged: number };
   note: string;
 }
 
@@ -112,7 +112,7 @@ export function paidBlocksViewOf(paidReport: Pick<PaidReportV1, "structure" | "m
   return {
     strength: { rows: strengthReadings.map(strengthRow), agrees: strengthReadings[0]?.agreesAcrossSets ?? true },
     yongsin: yongsinRows(yongsinCandidates),
-    gyeokguk: { rows: gyeokguk.map(gyeokgukRow), agrees: gyeokguk[0]?.agreesAcrossSets ?? true, partial: gyeokguk.some((reading) => reading.unavailable !== undefined) },
+    gyeokguk: { rows: gyeokguk.map(gyeokgukRow), agrees: gyeokguk[0]?.agreesAcrossSets ?? true, partial: gyeokguk.some((reading) => reading.unavailable !== undefined), judged: gyeokguk.filter((reading) => reading.unavailable === undefined).length },
     note: paidReport.meta.timeKnown ? PAID_BLOCKS_NOTE : `${PAID_BLOCKS_NOTE} ${PAID_BLOCKS_TIME_UNKNOWN_NOTE}`
   };
 }
@@ -121,7 +121,13 @@ export function agreementLabel(agrees: boolean): string {
   return agrees ? "세트 결과 같음" : "세트마다 다름";
 }
 
-/** 격국: 판정 불가 세트가 있으면 «같음»을 판정된 세트끼리로 좁혀 적는다(LC 게이트 #145 관찰 ①). */
+/**
+ * 격국 배지 — 코어 agreesAcrossSets는 판정 불가 세트를 빼고 비교한다(gyeokguk.ts). 그래서 판정된 세트 수로 나눈다
+ * (LC 게이트 #145 관찰 ① · #146 차단 2): 0개 «판정된 세트 없음» · 1개 «판정된 세트 1개» · 2개 이상이고 불가 세트가 있으면 «판정된 세트끼리 같음/다름».
+ */
 export function gyeokgukAgreementLabel(gyeokguk: PaidBlocksView["gyeokguk"]): string {
-  return gyeokguk.agrees && gyeokguk.partial ? "판정된 세트끼리 같음" : agreementLabel(gyeokguk.agrees);
+  if (gyeokguk.judged === 0) return "판정된 세트 없음";
+  if (gyeokguk.judged === 1) return "판정된 세트 1개";
+  if (!gyeokguk.partial) return agreementLabel(gyeokguk.agrees);
+  return gyeokguk.agrees ? "판정된 세트끼리 같음" : "판정된 세트끼리 다름";
 }
