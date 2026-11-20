@@ -1,4 +1,4 @@
-import { agreementLabel, gyeokgukAgreementLabel, paidBlocksViewOf, YONGSIN_EMPTY, type PaidBlockRow } from "./paid-blocks.js";
+import { paidReadingOfReport, WHY_SUMMARY, type ReadingCard } from "./paid-reading.js";
 import { getSajuTerm, type BirthInput, type PaidReportV1, type ReportV1, type SajuTerm } from "@saju-lab/saju-core";
 import { calculationCoverageCopy } from "./calculation-coverage-copy.js";
 
@@ -239,18 +239,19 @@ function renderPaidDownloadedSection(section: ExportSection): string {
   return `<section id="${escapeHtml(section.id)}"><h2>${escapeHtml(section.title)}</h2>${summary}<ul>${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
 }
 
-function renderBlockRows(rows: PaidBlockRow[], empty: string): string {
-  if (!rows.length) return `<p>${escapeHtml(empty)}</p>`;
-  return `<ul>${rows.map((row) => `<li><strong>${escapeHtml(row.label)}</strong>: ${escapeHtml(row.value)}</li>`).join("")}</ul>`;
+function renderReadingCard(card: ReadingCard): string {
+  const lines = card.lines.map((line) => `<li><span>${escapeHtml(line.label)}</span> <strong>${escapeHtml(line.conclusion)}</strong>${line.meaning.map((sentence) => `<p>${escapeHtml(sentence)}</p>`).join("")}</li>`).join("");
+  const lineBasis = card.lines.filter((line) => line.basis.length).map((line) => `<h4>${escapeHtml(line.label)}</h4><ul>${line.basis.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("")}</ul>`).join("");
+  return `<h3>${escapeHtml(card.title)} <small>${escapeHtml(card.badge)}</small></h3><p>${escapeHtml(card.question)}</p>${card.notes.map((sentence) => `<p>${escapeHtml(sentence)}</p>`).join("")}<ul>${lines}</ul>`
+    + `<div class="paidWhy"><h4>${escapeHtml(WHY_SUMMARY)}</h4>${lineBasis}<ul>${card.basis.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("")}</ul></div>`;
 }
 
-/** 유료 3블록 — 안내는 묶음 전체에 1회(LC 11-20). */
+/** 유료 3블록 뜻풀이 — 안내는 묶음 전체에 1회(LC 11-20). 인쇄(PDF) 저장본이라 «왜 이렇게 봤나»를 접지 않고 펼친다. */
 function renderStructureBlocks(paidReport: PaidReportV1): string {
-  const view = paidBlocksViewOf(paidReport);
-  return `<section id="structure-blocks"><h2>강약 · 용신 후보 · 격국</h2><p>${escapeHtml(view.note)}</p>`
-    + `<h3>강약 판독 <small>${escapeHtml(agreementLabel(view.strength.agrees))}</small></h3>${renderBlockRows(view.strength.rows, "")}`
-    + `<h3>용신 후보</h3>${renderBlockRows(view.yongsin, YONGSIN_EMPTY)}`
-    + `<h3>격국 <small>${escapeHtml(gyeokgukAgreementLabel(view.gyeokguk))}</small></h3>${renderBlockRows(view.gyeokguk.rows, "")}</section>`;
+  const reading = paidReadingOfReport(paidReport);
+  return `<section id="structure-blocks"><h2>기운의 세기 · 보탬이 되는 기운 · 큰 틀</h2><p>${escapeHtml(reading.note)}</p>`
+    + `<h3>${escapeHtml(reading.glance.title)}</h3><ol>${reading.glance.sentences.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("")}</ol>`
+    + `${renderReadingCard(reading.energy)}${renderReadingCard(reading.frame)}</section>`;
 }
 
 function renderPaidChecklist(checklist: ChecklistSection): string {

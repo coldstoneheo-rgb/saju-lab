@@ -221,6 +221,7 @@ function buildStructure(input: ReportInput): PaidReportV1["structure"] {
   const factors = strengthFactorsOf(input.pillars, resolveBirthKst(input.input));
   const strengthReadings = strengthReadingsOf(factors);
   return {
+    factors,
     strengthReadings,
     yongsinCandidates: yongsinCandidatesOf(factors, strengthReadings),
     gyeokguk: gyeokgukReadingsOf(factors)

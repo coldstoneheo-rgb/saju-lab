@@ -880,6 +880,56 @@ input {
   line-height: 1.55;
 }
 
+/* 유료 3블록 뜻풀이(HO-2026-1120 plain-reading): 긴 한국어 문장 · 괄호 풀이가 360px에서 넘치지 않게 끊는다. */
+.paidStructure,
+.paidReadingCard li,
+.paidWhy {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.paidGlance ol {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+.paidReadingCard li {
+  display: grid;
+  gap: 4px;
+}
+
+.paidLineLabel,
+.paidQuestion {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.paidWhy summary {
+  min-height: 44px;
+  padding: 8px 0;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.paidWhy[open] summary {
+  color: var(--primary);
+}
+
+.paidWhy h5 {
+  margin: 8px 0 4px;
+  font-size: 13px;
+}
+
+.paidWhy ul {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 .monthlyTimeline {
   display: grid;
   gap: 8px;
