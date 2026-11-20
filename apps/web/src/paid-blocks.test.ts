@@ -69,6 +69,33 @@ describe("유료 3블록 — 골든 명식 전부에서 화면 값 = 코어 값"
     }
   });
 
+  it("용신 행 = 규칙별 1행, 근거 세트 이름을 코어 순서대로 잇는다(critic #145 권고 ①)", () => {
+    const EOKBU: Record<string, string> = { "strong.siksang": "식상", "strong.jaeseong": "재성", "strong.gwanseong": "관성", "weak.inseong": "인성", "weak.bigyeop": "비겁" };
+    const JOHU: Record<string, string> = { winter: "겨울", summer: "여름" };
+    for (const golden of goldens) {
+      const core = coreOf(golden.input);
+      const expected: Array<{ label: string; value: string }> = [];
+      const rules = [...new Set(core.yongsinCandidates.filter((c) => c.method === "eokbu").map((c) => c.ruleId))];
+      for (const ruleId of rules) {
+        const hits = core.yongsinCandidates.filter((c) => c.method === "eokbu" && c.ruleId === ruleId);
+        const sets = hits.map((c) => STRENGTH_SET_KO[c.basis.readingRef!.ruleSetId as keyof typeof STRENGTH_SET_KO]).join("·");
+        expected.push({ label: `억부 · ${EOKBU[ruleId]}`, value: `${ELEMENT_KO[hits[0]!.element]} (${sets})` });
+      }
+      for (const c of core.yongsinCandidates.filter((c) => c.method === "johu")) expected.push({ label: "조후", value: `${ELEMENT_KO[c.element]} (${JOHU[c.ruleId]})` });
+      expect(paidBlocksViewOf(paidOf(golden.input)).yongsin, golden.id).toEqual(expected);
+    }
+  });
+
+  it("격국 ambiguous 골든(g-1927-08-20-0915)은 «둘 다 후보»로 두 격을 모두 보인다(critic #145 권고 ②)", () => {
+    const golden = goldens.find((entry) => entry.id === "g-1927-08-20-0915");
+    expect(golden).toBeDefined();
+    const core = coreOf(golden!.input);
+    const view = paidBlocksViewOf(paidOf(golden!.input));
+    const index = core.gyeokguk.findIndex((r) => r.ambiguous);
+    expect(index).toBeGreaterThanOrEqual(0);
+    expect(view.gyeokguk.rows[index]?.value).toBe(`${core.gyeokguk[index]!.candidates.map((c) => GYEOK_KO[c.gyeok]).join(" / ")} (둘 다 후보)`);
+  });
+
   it("골든이 갈림·유보·격 없음 사례를 덮는다(아래 화면 단언의 전제)", () => {
     const views = goldens.map((golden) => paidBlocksViewOf(paidOf(golden.input)));
     expect(views.some((view) => !view.strength.agrees)).toBe(true);

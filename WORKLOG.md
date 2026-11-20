@@ -4,6 +4,20 @@
 > 규약 전문: life-coordinator `docs/WORKLOG_PROTOCOL.md`. 상세 세션로그는 `docs/PROGRESS.md`.
 
 ---
+date: 2026-11-20
+project: saju-lab
+agent: claude-code (Opus 5.5, LC HO-2026-1120)
+summary: 유료 3블록(강약 판독·용신 후보·격국)을 프로덕션 «상세» 화면·PDF 저장용 HTML에 노출(결제 게이트 전, 사용자 결정) + 테스트 보강 기록 PR
+status: shipped
+progress: "3블록 프로덕션 (근거: #145 e6d92a1 Production deployment success · HTTP 200 · 360px 프로덕션 캡처 3 · npm run verify EXIT 0 1,296 → 기록 브랜치 1,302)"
+changes: ["e6d92a1 feat(paid): 유료 3블록 상세 화면·HTML 저장 노출 (#145)", "기록 PR: REPORT·AGENT_STATUS·WORKLOG + 테스트 보강"]
+next: "3블록 뜻풀이 문안(REPORT «뜻풀이 자리» 블록당 3줄, saju-domain) — 세트가 갈릴 때 설명 우선"
+monetization: "«돈을 받을 만한 내용» 첫 조각이 화면에 섰다 — 결제 게이트(F3 A안)는 뜻풀이 문안 뒤"
+---
+## 의미
+겨울 명리 수요 전에 유료 상품의 핵심(강약·용신·격국)을 실제 화면에 올려 사용자가 바로 써 보고 고칠 수 있게 됐다. 코어에 기본 학설이 없다는 설계를 그대로 살려 세트를 나란히 보이므로, 다음 회차 문안은 «왜 갈리는지»를 설명하는 쪽에 힘을 쓰면 된다. 결제·LLM·게이트웨이는 손대지 않았다.
+
+---
 date: 2026-11-15
 project: saju-lab
 agent: claude-code (Opus 5.5, LC TASK-2026-1115 R3-B)

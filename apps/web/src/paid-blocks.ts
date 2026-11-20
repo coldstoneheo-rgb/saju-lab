@@ -65,7 +65,8 @@ export interface PaidBlockRow {
 export interface PaidBlocksView {
   strength: { rows: PaidBlockRow[]; agrees: boolean };
   yongsin: PaidBlockRow[];
-  gyeokguk: { rows: PaidBlockRow[]; agrees: boolean };
+  /** partial = 판정 불가 세트가 있다(코어 agreesAcrossSets는 그 세트를 빼고 비교한다). */
+  gyeokguk: { rows: PaidBlockRow[]; agrees: boolean; partial: boolean };
   note: string;
 }
 
@@ -75,26 +76,28 @@ function strengthRow(reading: StrengthReading): PaidBlockRow {
 
 /** 오행별로 묶는다. 억부는 근거 세트 이름을, 조후는 계절을 괄호에 적는다. 순서 = 코어 정렬(방법 → 규칙 → 오행). */
 function yongsinRows(candidates: YongsinCandidate[]): PaidBlockRow[] {
-  const rows: PaidBlockRow[] = [];
-  const seen = new Map<string, PaidBlockRow>();
+  type Draft = { label: string; element: string; sets: string[] } | PaidBlockRow;
+  const rows: Draft[] = [];
+  const seen = new Map<string, { label: string; element: string; sets: string[] }>();
   for (const candidate of candidates) {
     const element = ELEMENT_KO[candidate.element] ?? candidate.element;
     const key = `${candidate.method}.${candidate.ruleId}`;
     const existing = seen.get(key);
     if (candidate.method === "eokbu") {
-      const set = candidate.basis.readingRef ? STRENGTH_SET_KO[candidate.basis.readingRef.ruleSetId as StrengthReading["ruleSetId"]] : "";
+      const set = candidate.basis.readingRef ? STRENGTH_SET_KO[candidate.basis.readingRef.ruleSetId as StrengthReading["ruleSetId"]] : undefined;
       if (existing) {
-        existing.value = existing.value.replace(/\)$/, `·${set})`);
+        if (set) existing.sets.push(set);
         continue;
       }
-      const row = { label: `억부 · ${EOKBU_KO[candidate.ruleId] ?? candidate.ruleId}`, value: `${element} (${set})` };
+      const row = { label: `억부 · ${EOKBU_KO[candidate.ruleId] ?? candidate.ruleId}`, element, sets: set ? [set] : [] };
       seen.set(key, row);
       rows.push(row);
     } else {
       rows.push({ label: "조후", value: `${element} (${JOHU_KO[candidate.ruleId] ?? candidate.ruleId})` });
     }
   }
-  return rows;
+  // 근거 세트가 없으면 빈 괄호 대신 괄호를 생략한다(LC 게이트 #145 관찰 ③).
+  return rows.map((row) => ("value" in row ? row : { label: row.label, value: row.sets.length ? `${row.element} (${row.sets.join("·")})` : row.element }));
 }
 
 function gyeokgukRow(reading: GyeokgukReading): PaidBlockRow {
@@ -109,11 +112,16 @@ export function paidBlocksViewOf(paidReport: Pick<PaidReportV1, "structure" | "m
   return {
     strength: { rows: strengthReadings.map(strengthRow), agrees: strengthReadings[0]?.agreesAcrossSets ?? true },
     yongsin: yongsinRows(yongsinCandidates),
-    gyeokguk: { rows: gyeokguk.map(gyeokgukRow), agrees: gyeokguk[0]?.agreesAcrossSets ?? true },
+    gyeokguk: { rows: gyeokguk.map(gyeokgukRow), agrees: gyeokguk[0]?.agreesAcrossSets ?? true, partial: gyeokguk.some((reading) => reading.unavailable !== undefined) },
     note: paidReport.meta.timeKnown ? PAID_BLOCKS_NOTE : `${PAID_BLOCKS_NOTE} ${PAID_BLOCKS_TIME_UNKNOWN_NOTE}`
   };
 }
 
 export function agreementLabel(agrees: boolean): string {
   return agrees ? "세트 결과 같음" : "세트마다 다름";
+}
+
+/** 격국: 판정 불가 세트가 있으면 «같음»을 판정된 세트끼리로 좁혀 적는다(LC 게이트 #145 관찰 ①). */
+export function gyeokgukAgreementLabel(gyeokguk: PaidBlocksView["gyeokguk"]): string {
+  return gyeokguk.agrees && gyeokguk.partial ? "판정된 세트끼리 같음" : agreementLabel(gyeokguk.agrees);
 }
