@@ -290,19 +290,25 @@ describe("유료 3블록 뜻풀이 — 문장 조각이 말하는 조건 = 코�
   });
 
   it("조사: «천간(풀이)» 뒤 조사는 괄호 앞 글자의 받침에 맞는다(critic 중간 1)", () => {
-    const PAIRS: Record<string, [string, string]> = { 이: ["이", "가"], 가: ["이", "가"], 을: ["을", "를"], 를: ["을", "를"], 은: ["은", "는"], 는: ["은", "는"], 과: ["과", "와"], 와: ["과", "와"] };
+    const PAIRS: Record<string, [string, string]> = { 이: ["이", "가"], 가: ["이", "가"], 을: ["을", "를"], 를: ["을", "를"], 은: ["은", "는"], 는: ["은", "는"], 과: ["과", "와"], 와: ["과", "와"], 으로: ["으로", "로"], 로: ["으로", "로"] };
     let checked = 0;
+    let roChecked = 0;
     for (const { golden, reading } of cases) {
       for (const text of allTexts(reading)) {
-        for (const m of text.matchAll(/([가-힣])\([^()]*\)(이|가|을|를|은|는|과|와)(?=[\s,.])/g)) {
+        for (const m of text.matchAll(/([가-힣])\([^()]*\)(으로|이|가|을|를|은|는|과|와|로)(?=[\s,.])/g)) {
           const code = m[1]!.charCodeAt(0) - 0xac00;
           const pair = PAIRS[m[2]!]!;
-          expect(m[0], `${golden.id} ${text}`).toBe(m[0].slice(0, -1) + (code % 28 !== 0 ? pair[0] : pair[1]));
+          const hasFinal = code % 28 !== 0 && !(pair[0] === "으로" && code % 28 === 8);
+          expect(m[0], `${golden.id} ${text}`).toBe(m[0].slice(0, -m[2]!.length) + (hasFinal ? pair[0] : pair[1]));
+          if (m[2] === "로" || m[2] === "으로") roChecked += 1;
           checked += 1;
         }
       }
     }
     expect(checked).toBeGreaterThan(0);
+    // 게이트 조건부 1: «격(…)로» → «격(…)으로». 로/으로도 전수 대조한다.
+    expect(roChecked).toBeGreaterThan(0);
+    console.log(`[paid-reading 조사 대조] 전체 ${checked} · 로/으로 ${roChecked}`);
   });
   const GROUP_OF: Record<TenGod, string> = { bigyeon: "비겁", geopjae: "비겁", siksin: "식상", sanggwan: "식상", pyeonjae: "재성", jeongjae: "재성", pyeongwan: "관성", jeonggwan: "관성", pyeonin: "인성", jeongin: "인성" };
   const groupOf = (dm: Stem, stem: Stem): string => GROUP_OF[tenGodOf(dm, stem)];
@@ -453,6 +459,10 @@ describe("유료 3블록 뜻풀이 — 조각 · 출처 표", () => {
     expect(josa("방식", "이/가")).toBe("방식이");
     expect(josa("병(편인)", "이/가")).toBe("병(편인)이");
     expect(josa("화(불)", "을/를")).toBe("화(불)를");
+    expect(josa("상관격(내가 만들어 내는 기운이 중심인 틀)", "으로/로")).toBe("상관격(내가 만들어 내는 기운이 중심인 틀)으로");
+    expect(josa("약한 편", "으로/로")).toBe("약한 편으로");
+    expect(josa("물", "으로/로")).toBe("물로");
+    expect(josa("나무", "으로/로")).toBe("나무로");
   });
 
   it("입춘 직전 · 정각 · 직후 · 시각 미상도 문안이 채워진다", () => {

@@ -154,11 +154,12 @@ export const GLOSS: Record<string, string> = {
 export const gyeokValue = (gyeok: GyeokId): string => `${GYEOK_KO[gyeok]}(${TABLE_GYEOKS.has(gyeok) ? TABLE_GYEOK_GLOSS : `${GROUP_GLOSS[GYEOK_GROUP[gyeok]]}이 중심인`} 틀)`;
 const stemNote = (dayMaster: Stem, stem: Stem): string => `${STEM_KO[stem]}(${TEN_GOD_LABELS[tenGodOf(dayMaster, stem)].ko})`;
 /** 받침 유무로 조사를 고른다(이/가 · 은/는 · 을/를 · 과/와). */
-export function josa(word: string, pair: "이/가" | "은/는" | "을/를" | "과/와"): string {
+export function josa(word: string, pair: "이/가" | "은/는" | "을/를" | "과/와" | "으로/로"): string {
   // «병(편인)»처럼 괄호 풀이가 붙으면 괄호 앞 낱말에 맞춘다(critic 중간 1: 괄호를 받침 없음으로 읽어 «병(편인)가»가 나왔다).
   const base = word.endsWith(")") && word.includes("(") ? word.slice(0, word.lastIndexOf("(")) : word;
   const code = base.charCodeAt(base.length - 1) - 0xac00;
-  const final = code >= 0 && code <= 11171 ? code % 28 !== 0 : false;
+  // «으로/로»는 ㄹ 받침이면 «로»(종성 번호 8).
+  const final = code >= 0 && code <= 11171 ? code % 28 !== 0 && !(pair === "으로/로" && code % 28 === 8) : false;
   const [withFinal, without] = pair.split("/") as [string, string];
   return `${word}${final ? withFinal : without}`;
 }
@@ -245,7 +246,7 @@ export const COPY = {
   "N-HEAD": "아래는 명리 교재마다 다른 여러 보는 방식을 이 사주에 그대로 적용한 결과입니다. 방식마다 결과를 하나로 고르지 않고 나란히 보입니다. 실제 역술가 검토 전이라 참고용이며, 좋고 나쁨이나 앞일은 판단하지 않습니다.",
   "N-TIME-UNKNOWN": "출생 시간이 없어 태어난 시각의 기둥(시주)은 빼고 셌습니다.",
   "H-TITLE": "한눈에",
-  "H-1-SAME": (value: string) => `어느 방식으로 봐도 내 기운은 ${value}으로 읽힙니다.`,
+  "H-1-SAME": (value: string) => `어느 방식으로 봐도 내 기운은 ${josa(value, "으로/로")} 읽힙니다.`,
   "H-1-SPLIT": (clauses: string) => `내 기운의 세기는 보는 방식에 따라 갈립니다. ${clauses}.`,
   "H-1-NONE": "내 기운의 세기는 이 사주에서 판단을 미룹니다.",
   "H-2-EOKBU": (elements: string) => `그래서 보탬이 되는 기운의 후보는 ${elements}입니다.`,
@@ -257,7 +258,7 @@ export const COPY = {
   "H-3-SPLIT": (clauses: string) => `큰 틀(격국)은 기운의 세기와 따로 봅니다. 보는 방식에 따라 갈려, ${clauses}.`,
   "H-3-ONE": (clause: string) => `큰 틀(격국)은 기운의 세기와 따로 봅니다. 한 방식만 ${clause}, 나머지 방식은 결론을 미룹니다.`,
   "H-3-NONE": "큰 틀(격국)은 이 사주에서 정하지 않습니다.",
-  "H-3-READ": (value: string, final: boolean) => `${value}로 ${final ? "읽습니다" : "읽고"}`,
+  "H-3-READ": (value: string, final: boolean) => `${josa(value, "으로/로")} ${final ? "읽습니다" : "읽고"}`,
   "H-3-READ-BOTH": (values: string, final: boolean) => `${values} 둘 다 후보로 ${final ? "둡니다" : "두고"}`,
   "H-3-COUNT": (count: number) => `${["", "한", "두", "세"][count] ?? String(count)} 방식은`,
   "H-4-NONE": "보는 방식에 따라 결과가 갈리는 곳은 없습니다.",
