@@ -278,7 +278,32 @@ describe("유료 3블록 뜻풀이 — 골든 전부", () => {
 });
 
 describe("유료 3블록 뜻풀이 — 문장 조각이 말하는 조건 = 코어 값(골든 50 전부, LC 보강 1)", () => {
-  const cases = goldens.map((golden) => ({ golden, core: coreOf(golden.input), reading: paidReadingOfReport(paidOf(golden.input)) }));
+  // 골든 0건 갈래를 덮는 실제 입력 2건(critic 낮음 4): 투출 우선 «정기 비겁 + 투출 → 다른 글자 하나» · «정기 비겁 + 다른 투출 없음 → 결론 없음».
+  const extra = [
+    { id: "x-1961-07-24-1300 (exposed-first.one-other-exposed · 정기 투출)", input: { birthDate: "1961-07-24", birthTime: "13:00", calendar: "solar", sex: "female", timezone: "Asia/Seoul" } as BirthInput, fired: "exposed-first.one-other-exposed" },
+    { id: "x-1960-04-10-0700 (exposed-first.bigyeop-month)", input: { birthDate: "1960-04-10", birthTime: "07:00", calendar: "solar", sex: "female", timezone: "Asia/Seoul" } as BirthInput, fired: "exposed-first.bigyeop-month" }
+  ];
+  const cases = [...goldens, ...extra].map((golden) => ({ golden, core: coreOf(golden.input), reading: paidReadingOfReport(paidOf(golden.input)) }));
+
+  it("덧붙인 입력 2건이 정말 그 갈래를 탄다", () => {
+    for (const x of extra) expect(coreOf(x.input).gyeokguk.find((r) => r.ruleSetId === "gyeokguk.exposed-first")!.firedConditions[0], x.id).toBe(x.fired);
+  });
+
+  it("조사: «천간(풀이)» 뒤 조사는 괄호 앞 글자의 받침에 맞는다(critic 중간 1)", () => {
+    const PAIRS: Record<string, [string, string]> = { 이: ["이", "가"], 가: ["이", "가"], 을: ["을", "를"], 를: ["을", "를"], 은: ["은", "는"], 는: ["은", "는"], 과: ["과", "와"], 와: ["과", "와"] };
+    let checked = 0;
+    for (const { golden, reading } of cases) {
+      for (const text of allTexts(reading)) {
+        for (const m of text.matchAll(/([가-힣])\([^()]*\)(이|가|을|를|은|는|과|와)(?=[\s,.])/g)) {
+          const code = m[1]!.charCodeAt(0) - 0xac00;
+          const pair = PAIRS[m[2]!]!;
+          expect(m[0], `${golden.id} ${text}`).toBe(m[0].slice(0, -1) + (code % 28 !== 0 ? pair[0] : pair[1]));
+          checked += 1;
+        }
+      }
+    }
+    expect(checked).toBeGreaterThan(0);
+  });
   const GROUP_OF: Record<TenGod, string> = { bigyeon: "비겁", geopjae: "비겁", siksin: "식상", sanggwan: "식상", pyeonjae: "재성", jeongjae: "재성", pyeongwan: "관성", jeonggwan: "관성", pyeonin: "인성", jeongin: "인성" };
   const groupOf = (dm: Stem, stem: Stem): string => GROUP_OF[tenGodOf(dm, stem)];
   const PILLAR: Record<string, string> = { year: "태어난 해", month: "태어난 달", day: "태어난 날", time: "태어난 시각" };
@@ -301,7 +326,9 @@ describe("유료 3블록 뜻풀이 — 문장 조각이 말하는 조건 = 코�
       if (energy.includes("아랫글자와 정면으로 부딪힙니다")) { hit("S-clash"); expect(f.monthBranchClashed.value, id).toBe(true); }
       if (energy.includes("태어난 달의 중심 글자가 나를 돕습니다")) { hit("S-ryeong"); expect(f.deukryeong.value, id).toBe(true); }
       if (energy.includes("태어난 달은 나를 돕지 않지만")) { hit("S-jise"); expect([f.deukryeong.value, f.deukji.value, f.deukse.value], id).toEqual([false, true, true]); }
-      if (energy.includes("함께 돕지도 않습니다")) { hit("S-other"); expect(f.deukryeong.value || (f.deukji.value && f.deukse.value), id).toBe(false); }
+      if (energy.includes("날의 아랫글자는 나를 돕지만 나머지 글자 수는 돕는 쪽이 적습니다")) { hit("S-other-ji"); expect([f.deukryeong.value, f.deukji.value, f.deukse.value], id).toEqual([false, true, false]); }
+      if (energy.includes("나머지 글자 수는 나를 돕지만 날의 아랫글자는 돕지 않습니다")) { hit("S-other-se"); expect([f.deukryeong.value, f.deukji.value, f.deukse.value], id).toEqual([false, false, true]); }
+      if (energy.includes("나머지 글자 수도 나를 돕지 않습니다")) { hit("S-other-none"); expect([f.deukryeong.value, f.deukji.value, f.deukse.value], id).toEqual([false, false, false]); }
       const triad = Number(f.deukryeong.value) + Number(f.deukji.value) + Number(f.deukse.value);
       const triadSaid = /가운데 (\d)개(?:가|만) 나를 돕는 쪽/.exec(energy)?.[1] ?? (energy.includes("나를 돕는 쪽이 하나도 없어") ? "0" : undefined);
       if (triadSaid !== undefined) { hit("S-triad"); expect(Number(triadSaid), id).toBe(triad); }
@@ -337,6 +364,10 @@ describe("유료 3블록 뜻풀이 — 문장 조각이 말하는 조건 = 코�
           expect(monthHidden.filter((h) => groupOf(dm, h.stem) !== "비겁" && exposedStems.has(h.stem)), id).toEqual([]);
         }
         if (text.includes("태어난 달의 중심 글자가 나와 같은 기운이고")) { hit("G-bigyeop-month"); expect(groupOf(dm, primary.stem), id).toBe("비겁"); }
+        if (text.includes("윗글자로 드러난 다른 달 속 글자도 없어")) {
+          hit("G-exposed-bigyeop-month");
+          expect(monthHidden.filter((h) => h.role !== "primary" && groupOf(dm, h.stem) !== "비겁" && exposedStems.has(h.stem)), id).toEqual([]);
+        }
         if (text.includes("구간을 맡은 글자가 나와 같은 기운이고")) { hit("G-saryeong-bigyeop"); expect(groupOf(dm, f.saryeong!.stem), id).toBe("비겁"); }
         if (text.includes("짝이 교재가 따로 정한 표에 있어")) { hit("G-table"); expect(r.candidates.every((c) => TABLE_GYEOKS.has(c.gyeok)), id).toBe(true); }
         // «X격은 이 사주를 <갈래>을 중심으로» · 결론 «X격(<갈래>이 중심인 틀)» = 고른 글자의 실제 십신 갈래
@@ -362,7 +393,7 @@ describe("유료 3블록 뜻풀이 — 문장 조각이 말하는 조건 = 코�
       }
     }
     console.log(`[paid-reading 조건 단언 건수] ${JSON.stringify(Object.fromEntries([...counts].sort()))}`);
-    for (const key of ["G-table", "G-table-name", "G-primary-exposed", "G-group", "S-clash", "Y-group", "G-where"]) expect(counts.get(key) ?? 0, key).toBeGreaterThan(0);
+    for (const key of ["G-table", "G-table-name", "G-primary-exposed", "G-group", "S-clash", "Y-group", "G-where", "G-other-bigyeop", "G-exposed-bigyeop-month", "S-other-ji", "S-other-none"]) expect(counts.get(key) ?? 0, key).toBeGreaterThan(0);
   });
 
   it("critic 사실 오류 사례: 토 일간 비겁 표 3건은 오행을 주장하지 않고, 월간 투출 사례에 «다른 기둥 위로» 0", () => {
@@ -420,6 +451,8 @@ describe("유료 3블록 뜻풀이 — 조각 · 출처 표", () => {
     expect(josa("진", "과/와")).toBe("진과");
     expect(josa("무", "을/를")).toBe("무를");
     expect(josa("방식", "이/가")).toBe("방식이");
+    expect(josa("병(편인)", "이/가")).toBe("병(편인)이");
+    expect(josa("화(불)", "을/를")).toBe("화(불)를");
   });
 
   it("입춘 직전 · 정각 · 직후 · 시각 미상도 문안이 채워진다", () => {

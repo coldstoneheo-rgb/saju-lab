@@ -114,11 +114,11 @@
 | B-JUDGED-ONE | 격국 배지 | 결론 낸 세트 1 | `GEOKGUK.md:14` |
 | B-JUDGED-SAME | 격국 배지 | 결론 낸 세트끼리 일치 | `GEOKGUK.md:14` |
 | W-SUMMARY | 접기 제목 | LC 합의(접힘 = basis) | REPORT §0 F |
-| ELEMENT_PLAIN | 값별 뜻 `Record<FiveElement>` | 오행 이름 + 한자 자훈(木 나무 · 火 불 · 土 흙 · 金 쇠 · 水 물) | `five-elements.ts:10` · 같은 줄의 한자(木 · 火 · 土 · 金 · 水) 글자 뜻 — 외부 사전 이름은 대지 않음(REPORT 남은 것) |
+| ELEMENT_PLAIN | 값별 뜻 `Record<FiveElement>` | 오행 이름 + 한자 자훈(木 나무 · 火 불 · 土 흙 · 金 쇠 · 水 물) | `five-elements.ts:10` · 표준국어대사전 표제어 «나무» · «불» · «흙» · «쇠» · «물»(워커 가정 — 한자 훈과 같은 낱말, 본문 전재 없음) |
 | GROUP_GLOSS | 값별 뜻 | 십신 묶음 = 일간 기준 생극 | `GOLDEN-TENGODS.md:9` · `YONGSIN-CANDIDATES.md:21-25` |
 | EOKBU_GROUP | 값별 뜻 `Record<억부 ruleId>` | 억부 규칙 → 묶음 | `YONGSIN-CANDIDATES.md:21-25` |
 | VERDICT_VALUE | 값별 뜻 `Record<StrengthVerdict>` | strong · weak · indeterminate | `STRENGTH-READINGS.md:7,25-32` |
-| VERDICT_DIRECTION | 값별 뜻 `Record<StrengthVerdict>` | 판독 → 억부 방향 · 그래서 이 사주를 어떻게 읽는가 | `YONGSIN-CANDIDATES.md:21-26,43` |
+| VERDICT_DIRECTION | 값별 뜻 `Record<StrengthVerdict>` | 판독 → 억부 방향(«덜어 내는 쪽 / 돕는 쪽») · 그 기운이 보탬(용신 후보)이 되는 사주로 읽음 | `YONGSIN-CANDIDATES.md:5-7,21-26,43` |
 | VERDICT_CLAUSE | 값별 뜻 `Record<StrengthVerdict>`(한눈에 ① 문장 꼴) | strong · weak · indeterminate | `STRENGTH-READINGS.md:7,25-32` |
 | VERDICT_PLAIN | 값별 뜻(한눈에 ① 같음) | strong · weak | `STRENGTH-READINGS.md:7` |
 | TRIAD_PLAIN | 삼득 세 물음 풀이 구 | 득령 · 득지 · 득세 | `STRENGTH.md:16,19,22` |
@@ -129,7 +129,7 @@
 | GYEOKGUK_SET_PLAIN | 방식 쉬운 이름 | 세트 관점 | `GEOKGUK.md:94-96` |
 | GYEOK_KO | 값별 뜻 `Record<GyeokId>` | 격 이름 | `GEOKGUK.md:20-38,87` |
 | GYEOK_GROUP | 값별 뜻 `Record<GyeokId>` | 격 → 십신 묶음(건록 · 양인 · 월겁 = 비겁) | `GEOKGUK.md:18-40,87` |
-| STRENGTH_REASON | 근거 조각 `Record<강약 conditionId>` | 표 2 발화 조건 | `STRENGTH-READINGS.md:27-32` |
+| STRENGTH_REASON | 근거 조각 `Record<강약 conditionId>`(month-first.otherwise는 득지 · 득세 값으로 세 갈래) | 표 2 발화 조건 | `STRENGTH-READINGS.md:27-32` |
 | GYEOKGUK_REASON | 근거 조각 `Record<격국 conditionId>`(투출 갈래는 `frameFactsOf` 정기 투출 여부로 고름) | 표 4 발화 조건 · 표 2 토큰(비겁 장간 제외) | `GEOKGUK.md:9-10,45-54,72-84` |
 | UNAVAILABLE_REASON | 근거 조각 `Record<unavailable>` | 결론 없는 까닭 | `GEOKGUK.md:52,65-66,88` |
 | UNAVAILABLE_VALUE | 값별 뜻 `Record<unavailable>` | 해당 격 없음 · 판정 불가 | `GEOKGUK.md:65-66` |

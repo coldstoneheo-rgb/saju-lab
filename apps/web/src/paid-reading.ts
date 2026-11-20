@@ -84,8 +84,8 @@ export const VERDICT_VALUE: Record<StrengthVerdict, string> = {
 };
 /** 값별 뜻 — 판정이 억부(세기를 맞추는 쪽) 후보로 이어지는 방향 + 그래서 이 사주를 어떻게 읽는가(LC 보정 3). */
 const VERDICT_DIRECTION: Record<StrengthVerdict, (list: string) => string> = {
-  strong: (list) => `그래서 이 방식은 이 사주를, 센 기운을 덜어 낼 때 균형에 가까워지는 사주로 읽습니다. 덜어 내는 쪽으로 꼽히는 기운은 ${list}입니다.`,
-  weak: (list) => `그래서 이 방식은 이 사주를, 나를 돕는 기운이 보태질 때 균형에 가까워지는 사주로 읽습니다. 돕는 쪽으로 꼽히는 기운은 ${list}입니다.`,
+  strong: (list) => `그래서 이 방식은 이 사주를, 센 기운을 덜어 내는 기운이 보탬이 되는 사주로 읽습니다. 덜어 내는 쪽으로 꼽히는 기운은 ${list}입니다.`,
+  weak: (list) => `그래서 이 방식은 이 사주를, 나를 돕는 기운이 보탬이 되는 사주로 읽습니다. 돕는 쪽으로 꼽히는 기운은 ${list}입니다.`,
   indeterminate: () => "그래서 덜지 도울지 방향이 없어, 이 방식에서는 후보를 내지 않습니다."
 };
 /** 한눈에 ① — 판정을 문장 꼴로(이어 쓰는 꼴 · 끝맺는 꼴). LC 보정 4. */
@@ -155,7 +155,9 @@ export const gyeokValue = (gyeok: GyeokId): string => `${GYEOK_KO[gyeok]}(${TABL
 const stemNote = (dayMaster: Stem, stem: Stem): string => `${STEM_KO[stem]}(${TEN_GOD_LABELS[tenGodOf(dayMaster, stem)].ko})`;
 /** 받침 유무로 조사를 고른다(이/가 · 은/는 · 을/를 · 과/와). */
 export function josa(word: string, pair: "이/가" | "은/는" | "을/를" | "과/와"): string {
-  const code = word.charCodeAt(word.length - 1) - 0xac00;
+  // «병(편인)»처럼 괄호 풀이가 붙으면 괄호 앞 낱말에 맞춘다(critic 중간 1: 괄호를 받침 없음으로 읽어 «병(편인)가»가 나왔다).
+  const base = word.endsWith(")") && word.includes("(") ? word.slice(0, word.lastIndexOf("(")) : word;
+  const code = base.charCodeAt(base.length - 1) - 0xac00;
   const final = code >= 0 && code <= 11171 ? code % 28 !== 0 : false;
   const [withFinal, without] = pair.split("/") as [string, string];
   return `${word}${final ? withFinal : without}`;
@@ -176,7 +178,12 @@ const STRENGTH_REASON: Record<StrengthConditionId, (inputs: StrengthReading["inp
   "month-first.month-clashed": () => ["태어난 달의 아랫글자가 다른 기둥의 아랫글자와 정면으로 부딪힙니다.", "이 방식은 그럴 때 태어난 달의 힘이 흔들린다고 보고 결론을 미룹니다."],
   "month-first.deukryeong": () => ["태어난 달의 중심 글자가 나를 돕습니다.", "이 방식은 태어난 달을 가장 무겁게 보므로 그것만으로 센 편이라고 읽습니다."],
   "month-first.ji-and-se": () => ["태어난 달은 나를 돕지 않지만, 날의 아랫글자와 나머지 글자 수가 모두 나를 돕습니다.", "이 방식은 그 둘이 함께 맞으면 센 편이라고 읽습니다."],
-  "month-first.otherwise": () => ["태어난 달의 중심 글자가 나를 돕지 않고, 날의 아랫글자와 글자 수가 함께 돕지도 않습니다."],
+  "month-first.otherwise": (inputs) => [inputs.deukji
+    ? "태어난 달의 중심 글자가 나를 돕지 않고, 날의 아랫글자는 나를 돕지만 나머지 글자 수는 돕는 쪽이 적습니다."
+    : inputs.deukse
+      ? "태어난 달의 중심 글자가 나를 돕지 않고, 나머지 글자 수는 나를 돕지만 날의 아랫글자는 돕지 않습니다."
+      : "태어난 달의 중심 글자도, 날의 아랫글자도, 나머지 글자 수도 나를 돕지 않습니다.",
+    ...(inputs.deukji || inputs.deukse ? ["이 방식은 태어난 달이 돕지 않으면 날의 아랫글자와 글자 수가 둘 다 도와야 센 편으로 읽으므로, 약한 편으로 읽습니다."] : [])],
   "triad-majority.two-or-more": (inputs) => [`${TRIAD_PLAIN} 가운데 ${inputs.triadCount}개가 나를 돕는 쪽이라, 둘 이상이면 센 편으로 읽습니다.`],
   "triad-majority.one-or-less": (inputs) => [inputs.triadCount === 0
     ? `${TRIAD_PLAIN} 가운데 나를 돕는 쪽이 하나도 없어, 이 방식은 약한 편으로 읽습니다.`
@@ -189,6 +196,8 @@ export interface FrameFacts {
   primaryExposed: boolean;
 }
 const BIGYEOP_MONTH_REASON = "태어난 달의 중심 글자가 나와 같은 기운이고, 이 방식은 그럴 때 태어난 달에서 틀을 읽지 않아 결론을 내지 않습니다.";
+/** 투출 우선은 정기가 비겁이어도 비겁 아닌 다른 달 속 글자가 드러나면 그 글자로 읽는다(GEOKGUK.md 표 4 3~5행) — 결론이 없는 건 둘 다 아닐 때뿐(critic 중간 3). */
+const EXPOSED_BIGYEOP_MONTH_REASON = "태어난 달의 중심 글자가 나와 같은 기운이고 윗글자로 드러난 다른 달 속 글자도 없어, 이 방식은 결론을 내지 않습니다.";
 /** 비겁 표 — 일간 · 월지 짝만 말한다(오행을 주장하지 않음, critic 사실 오류 1). */
 const TABLE_REASON = "나(태어난 날의 윗글자)와 태어난 달의 짝이 교재가 따로 정한 표에 있어, 그 표에 따라 이 틀로 읽습니다.";
 
@@ -202,7 +211,7 @@ const GYEOKGUK_REASON: Record<GyeokgukConditionId, (facts: FrameFacts) => string
     ? "태어난 달의 중심 글자는 나와 같은 기운이라 빼고, 윗글자로 드러난 달 속의 다른 글자 하나로 틀을 읽습니다."
     : "태어난 달의 중심 글자는 윗글자로 드러나 있지 않고, 달 속의 다른 글자 하나가 드러나 있어 그 글자로 틀을 읽습니다.",
   "exposed-first.two-others-exposed": () => "달 속의 다른 글자 둘이 모두 윗글자로 드러나 있고, 어느 쪽이 더 센지는 교재마다 기준이 달라 둘 다 후보로 둡니다.",
-  "exposed-first.bigyeop-month": () => BIGYEOP_MONTH_REASON,
+  "exposed-first.bigyeop-month": () => EXPOSED_BIGYEOP_MONTH_REASON,
   "exposed-first.otherwise": () => "나와 같은 기운이 아닌 달 속 글자 가운데 윗글자로 드러난 것이 없어, 태어난 달의 중심 글자로 틀을 읽습니다.",
   "primary-only.bigyeop-month": () => BIGYEOP_MONTH_REASON,
   "primary-only.otherwise": () => "드러났는지와 상관없이 태어난 달의 중심 글자로 틀을 읽습니다.",
@@ -269,7 +278,7 @@ export const COPY = {
   "H-4-NOT-EXPOSED": "드러나지 않음",
   // 카드 ⓐ 기운의 세기와 보탬이 되는 기운
   "C-ENERGY-TITLE": "기운의 세기와 보탬이 되는 기운",
-  "Q-ENERGY": "이 칸의 물음: 내 기운(태어난 날의 윗글자)은 센 편인가 약한 편인가, 그래서 어떤 기운이 보태지면 균형에 가까워지는가(이 기운을 용신이라 부릅니다)?",
+  "Q-ENERGY": "이 칸의 물음: 내 기운(태어난 날의 윗글자)은 센 편인가 약한 편인가, 그래서 어떤 기운이 보태지는 쪽으로 꼽히는가(교재는 이 기운을 용신이라 부릅니다)?",
   "L-CHAIN": (verdict: string, elements: string) => `${verdict} → 보탬이 되는 기운 ${elements}`,
   "L-CHAIN-NONE": (verdict: string) => `${verdict} → 이 방식에서 나온 후보 없음`,
   "L-EOKBU-ITEM": (group: Group, element: string) => `${GROUP_GLOSS[group]}인 ${element}`,
@@ -284,7 +293,7 @@ export const COPY = {
   "T-TRIAD": "삼득 다수결: 득령 · 득지 · 득세 세 물음을 같은 무게로 세어 둘 이상이면 센 편, 하나 이하면 약한 편으로 봅니다. 통용 교재에서 흔히 쓰는 관점입니다.",
   "T-DEUKRYEONG": "득령(달을 얻음): 태어난 달의 중심 글자(월지 정기)가 나를 돕는 글자인가.",
   "T-DEUKJI": "득지(자리를 얻음): 태어난 날의 아랫글자 속에 든 글자(지장간) 가운데 나를 돕는 글자가 하나라도 있는가.",
-  "T-DEUKSE": "득세(무리를 얻음): 태어난 달을 뺀 겉 글자(나를 뺀 윗글자와, 나머지 아랫글자의 중심 글자) 가운데 나를 돕는 글자가 나머지보다 적지 않은가(같은 수면 돕는 쪽으로 셉니다).",
+  "T-DEUKSE": "득세(무리를 얻음): 태어난 달의 아랫글자를 뺀 겉 글자(나를 뺀 윗글자와, 나머지 아랫글자의 중심 글자) 가운데 나를 돕는 글자가 나머지보다 적지 않은가(같은 수면 돕는 쪽으로 셉니다).",
   "T-SUPPORT": "나를 돕는 글자: 나와 같은 기운(비겁)과 나를 길러 주는 기운(인성)입니다.",
   "T-EOKBU": "억부: 내 기운이 센 편이면 덜어 내는 쪽(내가 만들어 내는 기운 · 내가 다스리는 기운 · 나를 다스리는 기운)을, 약한 편이면 돕는 쪽(나를 길러 주는 기운 · 나와 같은 기운)을 꼽습니다.",
   "T-JOHU": "조후: 겨울(해 · 자 · 축월)에 태어나면 데우는 화(불)를, 여름(사 · 오 · 미월)에 태어나면 식히는 수(물)를 꼽습니다. 봄 · 가을에는 꼽지 않습니다. 기운의 세기와 상관없이 계절만 봅니다.",
@@ -293,7 +302,7 @@ export const COPY = {
   "E-DAYMASTER": (stem: string, element: string) => `나를 나타내는 글자(일간): ${stem} — ${element}`,
   "E-RYEONG": (mark: string, branch: string, stem: string) => `득령 ${mark}: 태어난 달 ${branch}의 중심 글자 → ${stem}`,
   "E-JI": (mark: string, list: string, support: string) => `득지 ${mark}: 태어난 날 아랫글자 속 글자 ${list} → 나를 돕는 글자 ${support}`,
-  "E-SE": (mark: string, total: number, support: number, other: number) => `득세 ${mark}: 태어난 달을 뺀 겉 글자 ${total}개 가운데 나를 돕는 글자 ${support}개 · 나머지 ${other}개`,
+  "E-SE": (mark: string, total: number, support: number, other: number) => `득세 ${mark}: 태어난 달의 아랫글자를 뺀 겉 글자 ${total}개 가운데 나를 돕는 글자 ${support}개 · 나머지 ${other}개`,
   "E-CLASH": (month: string, list: string) => `월지 충 있음: 태어난 달(${month}) ↔ ${list}`,
   "E-NO-CLASH": "월지 충 없음: 태어난 달과 정면으로 부딪히는 아랫글자가 없습니다.",
   "E-NO-TIME": "(시주를 빼고 셈)",
