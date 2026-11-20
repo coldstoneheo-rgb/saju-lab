@@ -95,7 +95,7 @@ describe("유료 3블록 뜻풀이 — 골든 전부", () => {
         expect(line.conclusion.startsWith(VERDICT_VALUE[r.verdict]), golden.id).toBe(true);
         const mine = core.yongsinCandidates.filter((c) => c.method === "eokbu" && c.basis.readingRef?.ruleSetId === r.ruleSetId).map((c) => c.element);
         expect(elementsIn(line.conclusion), golden.id).toEqual(new Set(mine));
-        expect(elementsIn(line.meaning.join(" ")), golden.id).toEqual(new Set(mine));
+        for (const element of elementsIn(line.meaning.join(" "))) expect(mine, golden.id).toContain(element);
       });
       const season = reading.energy.lines[core.strengthReadings.length]!;
       expect(elementsIn(season.conclusion), golden.id).toEqual(new Set(core.yongsinCandidates.filter((c) => c.method === "johu").map((c) => c.element)));
@@ -103,7 +103,7 @@ describe("유료 3블록 뜻풀이 — 골든 전부", () => {
         const line = reading.frame.lines[index]!;
         const expected = new Set(r.candidates.map((c) => c.gyeok));
         expect(gyeoksIn(line.conclusion), golden.id).toEqual(expected);
-        expect(gyeoksIn(line.meaning.join(" ")), golden.id).toEqual(expected);
+        for (const gyeok of gyeoksIn(line.meaning.join(" "))) expect(expected.has(gyeok as never), golden.id).toBe(true);
         if (r.unavailable) expect(line.conclusion, golden.id).toContain("결론을 내지 않음");
       });
       const [first, second, third] = reading.glance.sentences;
@@ -194,6 +194,12 @@ describe("유료 3블록 뜻풀이 — 골든 전부", () => {
       expect(section, golden.id).not.toContain("<details");
       expect(section, golden.id).not.toMatch(/세트|규칙표/);
       for (const text of [...expandedTextsOf(reading), ...foldedTextsOf(reading)]) expect(section, `${golden.id} ${text}`).toContain(escapeHtml(text));
+    }
+  });
+
+  it("카드 물음은 «물음:» 접두어가 정확히 1회", () => {
+    for (const { golden, reading } of cases) {
+      for (const card of [reading.energy, reading.frame]) expect(card.question.split("물음:").length - 1, golden.id).toBe(1);
     }
   });
 

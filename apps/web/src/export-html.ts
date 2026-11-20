@@ -240,7 +240,7 @@ function renderPaidDownloadedSection(section: ExportSection): string {
 }
 
 function renderReadingCard(card: ReadingCard): string {
-  const lines = card.lines.map((line) => `<li><span>${escapeHtml(line.label)}</span> <strong>${escapeHtml(line.conclusion)}</strong>${line.meaning.map((sentence) => `<p>${escapeHtml(sentence)}</p>`).join("")}</li>`).join("");
+  const lines = card.lines.filter((line) => !line.quiet).map((line) => `<li><span>${escapeHtml(line.label)}</span> <strong>${escapeHtml(line.conclusion)}</strong>${line.meaning.map((sentence) => `<p>${escapeHtml(sentence)}</p>`).join("")}</li>`).join("");
   const lineBasis = card.lines.filter((line) => line.basis.length).map((line) => `<h4>${escapeHtml(line.label)}</h4><ul>${line.basis.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("")}</ul>`).join("");
   return `<h3>${escapeHtml(card.title)} <small>${escapeHtml(card.badge)}</small></h3><p>${escapeHtml(card.question)}</p>${card.notes.map((sentence) => `<p>${escapeHtml(sentence)}</p>`).join("")}<ul>${lines}</ul>`
     + `<div class="paidWhy"><h4>${escapeHtml(WHY_SUMMARY)}</h4>${lineBasis}<ul>${card.basis.map((sentence) => `<li>${escapeHtml(sentence)}</li>`).join("")}</ul></div>`;

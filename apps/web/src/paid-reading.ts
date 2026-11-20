@@ -161,10 +161,10 @@ const STRENGTH_REASON: Record<StrengthConditionId, (inputs: StrengthReading["inp
   "month-first.deukryeong": () => ["태어난 달의 중심 글자가 나를 돕습니다.", "이 방식은 태어난 달을 가장 무겁게 보므로 그것만으로 센 편이라고 읽습니다."],
   "month-first.ji-and-se": () => ["태어난 달은 나를 돕지 않지만, 날의 아랫글자와 나머지 글자 수가 모두 나를 돕습니다.", "이 방식은 그 둘이 함께 맞으면 센 편이라고 읽습니다."],
   "month-first.otherwise": () => ["태어난 달의 중심 글자가 나를 돕지 않고, 날의 아랫글자와 글자 수가 함께 돕지도 않습니다."],
-  "triad-majority.two-or-more": (inputs) => [`세 가지 물음(태어난 달 · 날의 아랫글자 · 글자 수) 가운데 ${inputs.triadCount}개가 나를 돕는 쪽이라, 둘 이상이면 센 편으로 읽습니다.`],
+  "triad-majority.two-or-more": (inputs) => [`세 가지 물음 가운데 ${inputs.triadCount}개가 나를 돕는 쪽이라, 둘 이상이면 센 편으로 읽습니다.`],
   "triad-majority.one-or-less": (inputs) => [inputs.triadCount === 0
-    ? "세 가지 물음(태어난 달 · 날의 아랫글자 · 글자 수) 가운데 나를 돕는 쪽이 하나도 없어, 이 방식은 약한 편으로 읽습니다."
-    : `세 가지 물음(태어난 달 · 날의 아랫글자 · 글자 수) 가운데 ${inputs.triadCount}개만 나를 돕는 쪽이라, 하나 이하면 약한 편으로 읽습니다.`]
+    ? "세 가지 물음 가운데 나를 돕는 쪽이 하나도 없어, 이 방식은 약한 편으로 읽습니다."
+    : `세 가지 물음 가운데 ${inputs.triadCount}개만 나를 돕는 쪽이라, 하나 이하면 약한 편으로 읽습니다.`]
 };
 
 /** 근거 조각 — 격국 발화 조건마다(결론이 없으면 왜 없는가). */
@@ -234,7 +234,7 @@ export const COPY = {
   "H-4-NOT-EXPOSED": "드러나지 않음",
   // 카드 ⓐ 기운의 세기와 보탬이 되는 기운
   "C-ENERGY-TITLE": "기운의 세기와 보탬이 되는 기운",
-  "Q-ENERGY": "이 칸의 물음: 나를 나타내는 글자(태어난 날의 윗글자)의 기운이 센 편인가 약한 편인가, 그래서 어떤 기운이 보태지면 균형에 가까워지는가(교재는 이 기운을 용신이라 부르며, 여기서는 후보만 보입니다)?",
+  "Q-ENERGY": "이 칸의 물음: 내 기운(태어난 날의 윗글자)은 센 편인가 약한 편인가, 그래서 어떤 기운이 보태지면 균형에 가까워지는가(이 기운을 용신이라 부릅니다)?",
   "L-CHAIN": (verdict: string, elements: string) => `${verdict} → 보탬이 되는 기운 ${elements}`,
   "L-CHAIN-NONE": (verdict: string) => `${verdict} → 이 방식에서 나온 후보 없음`,
   "L-EOKBU-ITEM": (group: Group, element: string) => `${GROUP_GLOSS[group]}인 ${element}`,
@@ -317,6 +317,8 @@ export interface ReadingLine {
   meaning: string[];
   /** 근거 · 방식 풀이 · 갈리는 까닭 — 화면은 접고 HTML은 펼친다. */
   basis: string[];
+  /** true = 화면 · 저장본의 펼친 부분에 찍지 않는다(일치 사례의 «방식끼리 비교» — 카드 배지와 같은 말). «한눈에» ④는 그대로 쓴다. */
+  quiet?: boolean;
 }
 
 export interface ReadingCard {
@@ -448,11 +450,12 @@ function energyCard(input: PaidReadingInput): ReadingCard {
   const seasonLine: ReadingLine = {
     label: COPY["L-SEASON-LABEL"],
     conclusion: johu.length ? COPY["L-SEASON"](elementsOf(johu.map((c) => c.element))) : COPY["L-SEASON-NONE"](SEASON_KO[season]),
+    // 후보 없음(봄 · 가을)은 결론 «계절로 정하는 후보 없음(…)»으로 충분하다 — 뜻 줄은 접힌 basis로 옮긴다(길이).
     meaning: [
-      JOHU_MEANING[season](johu[0]?.element),
+      ...(johu.length ? [JOHU_MEANING[season](johu[0]?.element)] : []),
       ...(johu.length && eokbu.length ? [johu.some((c) => !eokbuElements.has(c.element)) ? COPY["L-SEASON-DIFFER"] : COPY["L-SEASON-MEET"]] : [])
     ],
-    basis: [COPY["T-JOHU"], COPY["E-Y-SEASON"](BRANCH_KO[factors.monthBranch] ?? factors.monthBranch, SEASON_KO[season]), ...(johu.length && eokbu.length ? [COPY["D-Y-ORDER"]] : [])]
+    basis: [...(johu.length ? [] : [JOHU_MEANING[season](undefined)]), COPY["T-JOHU"], COPY["E-Y-SEASON"](BRANCH_KO[factors.monthBranch] ?? factors.monthBranch, SEASON_KO[season]), ...(johu.length && eokbu.length ? [COPY["D-Y-ORDER"]] : [])]
   };
 
   const split = strengthSplitOf(readings);
@@ -476,7 +479,7 @@ function energyCard(input: PaidReadingInput): ReadingCard {
     badge: agreementLabel(split === "same"),
     headline: [strengthHeadline(readings), yongsinHeadline(candidates)],
     notes: [],
-    lines: [...lines, seasonLine, compare],
+    lines: dedupeMeaning([...lines, seasonLine, { ...compare, quiet: split === "same" }]),
     basis
   };
 }
@@ -577,9 +580,19 @@ function frameCard(input: PaidReadingInput): ReadingCard {
     badge: gyeokgukAgreementLabel(status),
     headline: [frameHeadline(readings)],
     notes: [COPY["N-FRAME-INDEPENDENT"]],
-    lines: [...lines, compare],
+    lines: dedupeMeaning([...lines, { ...compare, quiet: status === "same" || status === "judged-same" }]),
     basis
   };
+}
+
+/** 같은 카드 안에서 앞 줄에 이미 나온 뜻 문장은 다시 찍지 않는다(방식끼리 결과가 같을 때 같은 문장이 되풀이된다 — 길이). */
+function dedupeMeaning(lines: ReadingLine[]): ReadingLine[] {
+  const seen = new Set<string>();
+  return lines.map((line) => {
+    const meaning = line.meaning.filter((sentence) => !seen.has(sentence));
+    for (const sentence of line.meaning) seen.add(sentence);
+    return { ...line, meaning };
+  });
 }
 
 /** 한눈에 = 카드 조각 재사용(요약 전용 문장 없음, LC 조건 2): ①② = 카드 ⓐ 머리, ③ = 카드 ⓑ 머리, ④ = 두 카드 «방식끼리 비교» 결론. */
@@ -612,7 +625,7 @@ export function expandedTextsOf(reading: PaidReading): string[] {
   return [
     reading.note,
     ...reading.glance.sentences,
-    ...[reading.energy, reading.frame].flatMap((card) => [card.question, card.badge, ...card.notes, ...card.lines.flatMap((line) => [line.label, line.conclusion, ...line.meaning])])
+    ...[reading.energy, reading.frame].flatMap((card) => [card.question, card.badge, ...card.notes, ...card.lines.filter((line) => !line.quiet).flatMap((line) => [line.label, line.conclusion, ...line.meaning])])
   ];
 }
 

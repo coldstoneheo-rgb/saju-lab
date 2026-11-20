@@ -30,7 +30,7 @@ function PaidReadingCard({ card }: { card: ReadingCard }): JSX.Element {
       <p className="paidQuestion">{card.question}</p>
       {card.notes.map((sentence) => <p key={sentence}>{sentence}</p>)}
       <ul>
-        {card.lines.map((line) => (
+        {card.lines.filter((line) => !line.quiet).map((line) => (
           <li key={line.label}>
             <span className="paidLineLabel">{line.label}</span>
             <strong>{line.conclusion}</strong>

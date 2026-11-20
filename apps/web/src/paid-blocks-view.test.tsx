@@ -33,7 +33,8 @@ describe("PaidStructureBlocks 화면", () => {
       const html = renderToStaticMarkup(<PaidStructureBlocks paidReport={report} />);
       const outside = html.replace(/<details[\s\S]*?<\/details>/g, "");
       for (const card of [reading.energy, reading.frame]) {
-        for (const line of card.lines) {
+        expect(textOf(html).split("물음:").length - 1, golden.id).toBe(2);
+        for (const line of card.lines.filter((each) => !each.quiet)) {
           expect(outside, golden.id).toContain(line.conclusion.replaceAll("'", "&#x27;").replaceAll("\"", "&quot;"));
           for (const basis of line.basis) expect(outside.includes(basis), `${golden.id} ${basis}`).toBe(false);
         }
