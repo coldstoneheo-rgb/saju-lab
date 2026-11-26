@@ -1,11 +1,15 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-20T15:30:00+09:00",
+  "as_of": "2026-11-26T21:10:00+09:00",
   "head": "e66b052 (#147 squash, main 2026-11-20) = 프로덕션 배포 SHA success · 첫 화면 200",
   "phase": "유료 3블록 뜻풀이(한눈에 + 카드 2개 · 결론/뜻/근거) 프로덕션 — 다음 회차 = 뜻풀이 후속(가 격·갈래 생활 말 · 나 비교 줄 두 문장 · 다 조후 까닭/비겁 예외)",
-  "working_on": "IDLE — HO-2026-1120 plain-reading 닫음(기록 PR)",
-  "waiting_on": "[LC] 후속 발주서(가·나·다) · [사용자] 결제 오픈 시 F3 A안 재개",
+  "working_on": "TASK-2026-1127 교차 안내(첫이름 · 팩폭관상) PR #149 — critic · LC 게이트 · 사용자 머지 확인 대기(머지 = 프로덕션 배포 · 위임 밖)",
+  "waiting_on": "[사용자] PR #149 문구·배포 날짜 확인 + 폰 확인 2(토스 깔린 폰에서 미니앱 열림 · minion 코드 고정 여부) + 팩폭관상 무료 범위 표기 · 11-30 24:00까지 «머지 허용» 없으면 draft · [LC] 게이트",
   "recent": [
+    {
+      "at": "2026-11-26",
+      "what": "TASK-2026-1127: 무료 결과 본문 끝(투명성 노트 다음 · 유료 미리보기 앞) 교차 안내 2줄 PR #149(apps/web만 · 코어/API/결제/처리방침 0). 첫이름 Play+referrer UTM · 팩폭관상 minion.toss.im/vKTBQIwh(PC → toss.im 첫 화면 · 토스 깔린 폰 미확인). LC 보정 3건 반영 d5b4047. verify EXIT 0 api 149 · core 1074 · web 94 · CI 3/3. 캡처 docs/captures/2026-11-27-cross-promo/. REPORT docs/handoffs/TASK-2026-1127-saju-cross-promo-REPORT.md"
+    },
     {
       "at": "2026-11-20",
       "what": "HO-2026-1120 plain-reading: #147 머지 e66b052 → 프로덕션 배포 SHA 일치 success · 200. «세트» 0 · 한눈에 4문장 + 카드 2개(세기→보탬 / 큰 틀) · conclusion/meaning/basis · 출처 표 docs/rules/PAID-3BLOCKS-READING.md · 조각 조건 단언(골든 50 + 실입력 2, 실패 0) · 조사 대조 944곳. critic 1차 FAIL → 2차 FAIL(조건부 8.0) → 3차 PASS 9.0 · LC 조건부 PASS → 재게이트 PASS. 360px 닫힘 2 + 펼침 3 scrollWidth 360. REPORT docs/handoffs/HO-2026-1120-saju-paid-3blocks-plain-reading-REPORT.md"
