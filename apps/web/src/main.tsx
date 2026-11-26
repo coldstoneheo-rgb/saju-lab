@@ -478,9 +478,9 @@ function ReportView({ alternates, daeun, interactions, l2Chips, onBirthPlace, pa
       />
 
       <ArticleCard id="transparency" title="투명성 노트" items={[...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]} />
+      <CrossPromo />
       <PaidReportPrototype paidReport={paidReport} />
       <PaidRoadmap />
-      <CrossPromo />
     </section>
   );
 }

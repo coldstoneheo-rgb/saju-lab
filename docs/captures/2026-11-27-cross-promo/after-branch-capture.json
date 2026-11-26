@@ -7,7 +7,7 @@
     "innerWidth": 360,
     "overflowX": false,
     "promo": {
-      "text": "같은 곳에서 만든 다른 서비스\n\n아기 이름 후보를 사주와 나란히 놓고 비교해 보고 싶다면 첫이름 (안드로이드 앱)\n얼굴을 30초 스캔해 관상을 세 줄로 받아 보고 싶다면 팩폭관상 (토스 앱에서 열림 · 1,980원)",
+      "text": "같은 곳에서 만든 다른 서비스\n\n작명소에 가기 전에, 아기 이름을 사주로 지어 보고 싶다면 첫이름 (안드로이드 앱)\n얼굴을 30초 스캔해 관상을 세 줄로 받아 보고 싶다면 팩폭관상 (토스 앱에서 열림 · 세 줄 총평 무료 · 상세 풀이 1,980원)",
       "links": [
         {
           "href": "https://play.google.com/store/apps/details?id=com.aistudio.babynaming.fkwypc&referrer=utm_source%3Dsaju-lab%26utm_medium%3Dweb%26utm_campaign%3Dcross_promo",
@@ -20,8 +20,8 @@
           "href": "https://minion.toss.im/vKTBQIwh",
           "target": "_blank",
           "rel": "noopener",
-          "w": 208.453125,
-          "right": 300.03125
+          "w": 279.96875,
+          "right": 327.96875
         }
       ],
       "right": 344
@@ -35,21 +35,21 @@
     "innerWidth": 1280,
     "overflowX": false,
     "promo": {
-      "text": "같은 곳에서 만든 다른 서비스\n\n아기 이름 후보를 사주와 나란히 놓고 비교해 보고 싶다면 첫이름 (안드로이드 앱)\n얼굴을 30초 스캔해 관상을 세 줄로 받아 보고 싶다면 팩폭관상 (토스 앱에서 열림 · 1,980원)",
+      "text": "같은 곳에서 만든 다른 서비스\n\n작명소에 가기 전에, 아기 이름을 사주로 지어 보고 싶다면 첫이름 (안드로이드 앱)\n얼굴을 30초 스캔해 관상을 세 줄로 받아 보고 싶다면 팩폭관상 (토스 앱에서 열림 · 세 줄 총평 무료 · 상세 풀이 1,980원)",
       "links": [
         {
           "href": "https://play.google.com/store/apps/details?id=com.aistudio.babynaming.fkwypc&referrer=utm_source%3Dsaju-lab%26utm_medium%3Dweb%26utm_campaign%3Dcross_promo",
           "target": "_blank",
           "rel": "noopener",
           "w": 127.109375,
-          "right": 611.75
+          "right": 614.59375
         },
         {
           "href": "https://minion.toss.im/vKTBQIwh",
           "target": "_blank",
           "rel": "noopener",
-          "w": 208.453125,
-          "right": 668.421875
+          "w": 360.609375,
+          "right": 820.578125
         }
       ],
       "right": 1152.5

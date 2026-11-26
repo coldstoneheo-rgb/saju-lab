@@ -1,4 +1,4 @@
-// 무료 결과 화면 맨 아래 교차 안내(TASK-2026-1127). 같은 곳에서 만든 서비스 두 개를 한 줄씩 가리킨다.
+// 무료 결과 본문이 끝난 바로 뒤(투명성 노트 다음 · 유료 미리보기 앞) 교차 안내(TASK-2026-1127). 같은 곳에서 만든 서비스 두 개를 한 줄씩 가리킨다.
 // 이 레포는 공개 — 문장은 여기서 새로 썼고, 주소는 누구나 열 수 있는 공개 주소만 쓴다.
 // 넘어간 수: baby는 Play 주소의 referrer UTM(Play Console 사용자 확보 보고서)로 본다. face-fate 단축 주소는
 // 붙인 매개변수를 다음 주소로 넘기지 않아(11-27 실측) 이 사이트에서는 잴 수 없다. 새 추적 스크립트는 쓰지 않는다.
@@ -21,7 +21,7 @@ export type CrossPromoLine = {
 
 export const CROSS_PROMO_LINES: readonly CrossPromoLine[] = [
   {
-    lead: "아기 이름 후보를 사주와 나란히 놓고 비교해 보고 싶다면",
+    lead: "작명소에 가기 전에, 아기 이름을 사주로 지어 보고 싶다면",
     name: "첫이름",
     note: "안드로이드 앱",
     href: BABY_PLAY_URL
@@ -29,7 +29,7 @@ export const CROSS_PROMO_LINES: readonly CrossPromoLine[] = [
   {
     lead: "얼굴을 30초 스캔해 관상을 세 줄로 받아 보고 싶다면",
     name: "팩폭관상",
-    note: "토스 앱에서 열림 · 1,980원",
+    note: "토스 앱에서 열림 · 세 줄 총평 무료 · 상세 풀이 1,980원",
     href: FACE_FATE_URL
   }
 ];
