@@ -7,16 +7,16 @@
 date: 2026-11-26
 project: saju-lab
 agent: claude-code (Opus 5.5, LC TASK-2026-1127 · saju-lab-b6)
-summary: 무료 결과 본문 끝에 같은 곳에서 만든 서비스 2개(첫이름 · 팩폭관상) 안내 1줄씩 — PR #149, 머지는 사용자 확인 대기
-status: on_track
-progress: "PR #149 게이트 단계 (근거: npm run verify EXIT 0 api 149 · core 1074 · web 94 @d5b4047 · CI 3/3 · critic 1차 PASS 9/10 @aafee6b)"
-changes: ["#149 feat(web): 무료 결과 교차 안내 2줄 (미머지)"]
-next: "사용자 문구·폰 확인 → LC «머지 허용 · origin:user» → 머지 · 프로덕션 SHA · 360 캡처 (11-30 24:00 넘기면 draft)"
+summary: 무료 결과 본문 끝에 같은 곳에서 만든 서비스 2개(첫이름 · 팩폭관상) 안내 1줄씩 — 프로덕션 배포
+status: shipped
+progress: "교차 안내 프로덕션 (근거: #149 73c2fd2 Production deployment success · HTTP 200 · 360 캡처 · npm run verify EXIT 0 api 149 · core 1074 · web 94 · CI 3/3 · critic PASS 9/10 ×2 · LC PASS)"
+changes: ["73c2fd2 feat(web): 무료 결과 본문 끝(투명성 노트 다음) 교차 안내 2줄 — 첫이름 · 팩폭관상 (#149)"]
+next: "첫이름 Play Console UTM cross_promo 유입 확인(1~2주 뒤) · minion 코드 고정 여부 확인"
 synergy: "saju-lab → 첫이름(Play UTM으로 셈) · 팩폭관상(사이트 쪽에선 셀 수 없음) 첫 손님 넘기기"
 monetization: "유료 창구가 있는 두 서비스로 보내는 첫 연결 — 첫이름 유입은 Play Console UTM 갈래에서 확인"
 ---
 ## 의미
-서비스끼리 손님을 넘기는 첫 연결이다. 무료 결과를 끝까지 읽은 사람에게 작은 글씨로 두 줄만 보이고, 배너 · 추적 스크립트 · 처리방침 변경은 0이다. 팩폭관상은 PC에서 토스 첫 화면으로 가고, 사이트 쪽에서 넘어간 수를 셀 수 없다. 이 두 한계는 REPORT에 적어 사용자 판단 재료로 남겼다.
+서비스끼리 손님을 넘기는 첫 연결이 동결(12-01) 전에 프로덕션에 나갔다. 무료 결과를 끝까지 읽은 사람에게 작은 글씨로 두 줄만 보이고, 배너 · 추적 스크립트 · 처리방침 변경은 0이다. 팩폭관상은 PC에서 토스 첫 화면으로 가고 사이트 쪽에서 셀 수 없다는 한계는 REPORT에 남겼다.
 
 ---
 date: 2026-11-20

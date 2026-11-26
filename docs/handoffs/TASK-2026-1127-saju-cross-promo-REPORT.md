@@ -29,8 +29,8 @@
 - [x] 5 수 세기: baby = Play referrer UTM · face-fate = 잴 수 없음 + 까닭 (§3)
 - [x] 6 export-html 판단 (§4)
 - [x] 7 verify EXIT 0 (api 149 · core 1074 · web 94 = 1317) · 시험 `cross-promo.test.tsx` 5건 · CI → PR 본문에 기록
-- [ ] 8 PR #149 → critic PASS → LC 게이트 요청 (머지 0) — critic 1차 PASS 9/10 @aafee6b · 2차 PASS 9/10 @d5b4047/b51bf55 · LC 게이트 PASS @b51bf55 (11-26 21:28)
-- [ ] 9 (사용자 확인 + LC «머지 허용 · origin:user» 뒤) 머지 → 프로덕션 SHA · 200 · 360px 캡처 → 마감
+- [x] 8 PR #149 → critic PASS → LC 게이트 요청 (머지 0) — critic 1차 PASS 9/10 @aafee6b · 2차 PASS 9/10 @d5b4047/b51bf55 · LC 게이트 PASS @b51bf55 (11-26 21:28)
+- [x] 9 LC «머지 허용 · origin:user»(사용자 원문 «saju 머지 가» 11-26 21:28) + 이 창에서 사용자 직접 «머지해.»(§7-7) → `gh pr merge 149 --squash --match-head-commit 78d14ae` → **73c2fd2** MERGED → 프로덕션 배포 SHA 73c2fd2 success(deployment 8085300684) · https://saju-lab-phi.vercel.app/ 200 · 프로덕션 360 캡처 `prod-73c2fd2-360.png` scrollWidth 360 · 안내 글자 after-branch와 같음 → [CLOSED]
 
 ## 1. 바꾼 것 (apps/web만)
 
@@ -82,3 +82,9 @@
 ## 6. effort
 
 세션 medium · critic(verifier 서브에이전트) high — 발주서 §6 표대로(critic = high).
+
+## 7. 마감 (11-26)
+
+- 머지 head 78d14ae(b51bf55 게이트 뒤 바뀐 것: `cross-promo.tsx` 주석 실측일 1줄 + REPORT) → squash 73c2fd2. 원격 가지 삭제 뒤 `git ls-remote --heads origin` 2개.
+- 프로덕션: deployment 8085300684 sha 73c2fd2 success · 첫 화면 200 · 360 scrollWidth 360 · 링크 2개 href가 브랜치와 같음.
+- 남은 미확인: minion 코드가 고정 주소인지. 첫이름 유입은 Play Console 사용자 확보 보고서의 UTM `cross_promo` 갈래에서 본다(작으면 문턱값 아래로 가려질 수 있음).
