@@ -11,6 +11,7 @@ import { paidReadinessCopy } from "./paid-readiness-copy.js";
 import { findPolicyPage, policyPages, type PolicyPage } from "./policy-pages.js";
 import { buildFreeReportFilename } from "./report-filenames.js";
 import { PaidStructureBlocks } from "./paid-blocks-view.js";
+import { CrossPromo } from "./cross-promo.js";
 import { freeL2ChipsOf, freeL2NotesOf, SINSAL_EMPTY_NOTE, type FreeL2Chips } from "./l2-chips.js";
 import {
   BIRTH_PLACES,
@@ -479,6 +480,7 @@ function ReportView({ alternates, daeun, interactions, l2Chips, onBirthPlace, pa
       <ArticleCard id="transparency" title="투명성 노트" items={[...report.transparency.certain, ...report.transparency.inferred, ...report.transparency.missingDataNotes]} />
       <PaidReportPrototype paidReport={paidReport} />
       <PaidRoadmap />
+      <CrossPromo />
     </section>
   );
 }

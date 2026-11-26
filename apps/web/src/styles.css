@@ -705,6 +705,40 @@ input {
   line-height: 1.55;
 }
 
+.crossPromo {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.crossPromoTitle {
+  margin: 0;
+  font-weight: 600;
+}
+
+.crossPromo ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.crossPromo a {
+  color: var(--primary);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.crossPromo small {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
 .paidReadiness {
   display: grid;
   gap: 10px;
