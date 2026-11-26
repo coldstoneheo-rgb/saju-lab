@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://saju-lab-phi.vercel.app/",
+    "width": 360,
+    "file": "before-prod-360.png",
+    "scrollWidth": 360,
+    "innerWidth": 360,
+    "overflowX": false,
+    "promo": null
+  },
+  {
+    "url": "https://saju-lab-phi.vercel.app/",
+    "width": 1280,
+    "file": "before-prod-1280.png",
+    "scrollWidth": 1265,
+    "innerWidth": 1280,
+    "overflowX": false,
+    "promo": null
+  }
+]
