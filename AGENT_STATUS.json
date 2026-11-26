@@ -1,14 +1,14 @@
 {
   "project": "saju-lab",
-  "as_of": "2026-11-26T21:10:00+09:00",
-  "head": "e66b052 (#147 squash, main 2026-11-20) = 프로덕션 배포 SHA success · 첫 화면 200",
+  "as_of": "2026-11-26T21:45:00+09:00",
+  "head": "73c2fd2 (#149 squash, main 2026-11-26) = 프로덕션 배포 SHA success · 첫 화면 200",
   "phase": "유료 3블록 뜻풀이(한눈에 + 카드 2개 · 결론/뜻/근거) 프로덕션 — 다음 회차 = 뜻풀이 후속(가 격·갈래 생활 말 · 나 비교 줄 두 문장 · 다 조후 까닭/비겁 예외)",
-  "working_on": "TASK-2026-1127 교차 안내(첫이름 · 팩폭관상) PR #149 — critic · LC 게이트 · 사용자 머지 확인 대기(머지 = 프로덕션 배포 · 위임 밖)",
-  "waiting_on": "[사용자] PR #149 문구·배포 날짜 확인 + 폰 확인 2(토스 깔린 폰에서 미니앱 열림 · minion 코드 고정 여부) + 팩폭관상 무료 범위 표기 · 11-30 24:00까지 «머지 허용» 없으면 draft · [LC] 게이트",
+  "working_on": "IDLE — TASK-2026-1127 교차 안내 닫음(기록 PR)",
+  "waiting_on": "[LC] 다음 발주 · 배포 동결 12-01 ~ 02-28 · [사용자] 결제 오픈 시 F3 A안 재개",
   "recent": [
     {
       "at": "2026-11-26",
-      "what": "TASK-2026-1127: 무료 결과 본문 끝(투명성 노트 다음 · 유료 미리보기 앞) 교차 안내 2줄 PR #149(apps/web만 · 코어/API/결제/처리방침 0). 첫이름 Play+referrer UTM · 팩폭관상 minion.toss.im/vKTBQIwh(PC → toss.im 첫 화면 · 토스 깔린 폰 미확인). LC 보정 3건 반영 d5b4047. verify EXIT 0 api 149 · core 1074 · web 94 · CI 3/3. 캡처 docs/captures/2026-11-27-cross-promo/. REPORT docs/handoffs/TASK-2026-1127-saju-cross-promo-REPORT.md"
+      "what": "TASK-2026-1127: 교차 안내 2줄(첫이름 Play+UTM · 팩폭관상 minion) #149 머지 73c2fd2 → 프로덕션 배포 SHA 일치 success · 200 · 360 캡처 일치. 자리 = 투명성 노트 다음 · 유료 미리보기 앞. critic 2회 PASS 9/10 · LC PASS · 사용자 직접 «머지해.». REPORT docs/handoffs/TASK-2026-1127-saju-cross-promo-REPORT.md"
     },
     {
       "at": "2026-11-20",
