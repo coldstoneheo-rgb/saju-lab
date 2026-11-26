@@ -29,7 +29,7 @@
 - [x] 5 수 세기: baby = Play referrer UTM · face-fate = 잴 수 없음 + 까닭 (§3)
 - [x] 6 export-html 판단 (§4)
 - [x] 7 verify EXIT 0 (api 149 · core 1074 · web 94 = 1317) · 시험 `cross-promo.test.tsx` 5건 · CI → PR 본문에 기록
-- [ ] 8 PR #149 → critic PASS → LC 게이트 요청 (머지 0) — critic 1차 PASS 9/10 @aafee6b, LC 보정 뒤 새 head로 재검토 중
+- [ ] 8 PR #149 → critic PASS → LC 게이트 요청 (머지 0) — critic 1차 PASS 9/10 @aafee6b · 2차 PASS 9/10 @d5b4047/b51bf55 · LC 게이트 PASS @b51bf55 (11-26 21:28)
 - [ ] 9 (사용자 확인 + LC «머지 허용 · origin:user» 뒤) 머지 → 프로덕션 SHA · 200 · 360px 캡처 → 마감
 
 ## 1. 바꾼 것 (apps/web만)
@@ -45,11 +45,11 @@
 | 주소 | PC (Windows Chrome UA) | 안드로이드 (토스 없음, UA) | 아이폰 (UA) | 토스 깔린 폰 |
 |---|---|---|---|---|
 | `https://play.google.com/store/apps/details?id=com.aistudio.babynaming.fkwypc` (+ `&referrer=…` 붙여도 200) | 200 · 웹 스토어 화면 (제목 «첫이름 - 사주로 짓는 아기 이름») | 200 (실기기에선 Play 앱으로 넘어감 — UA로는 웹 응답만 확인) | 200 · 웹 스토어 화면 (아이폰에선 설치 불가 — 줄에 «안드로이드 앱» 표기) | 해당 없음 |
-| `https://minion.toss.im/vKTBQIwh` | 302 → og.toss.im → 최종 200 **`https://toss.im/` (토스 첫 화면 · 미니앱 아님)** | 302 → og.toss.im → toss.onelink.me → 301 `market://details/?id=viva.republica.toss` (토스 설치 화면) | 302 → og.toss.im → onelink 200 (JS 페이지) | **미확인** (기기 없음) |
+| `https://minion.toss.im/vKTBQIwh` | 302 → og.toss.im → 최종 200 **`https://toss.im/` (토스 첫 화면 · 미니앱 아님)** | 302 → og.toss.im → toss.onelink.me → 301 `market://details/?id=viva.republica.toss` (토스 설치 화면) | 302 → og.toss.im → onelink 200 (JS 페이지) | 사용자 폰 확인(11-26 21:10 · 토스 깔린 안드로이드 · LC 전달): 토스 안 팩폭관상 **소개 화면**(이름 · 설명 · 평가 · 스크린샷 · 리뷰) → 맨 아래 «시작하기». 미니앱 본 화면으로 곧장 가지 않고 소개를 거친다 |
 
 - `vKTBQlwh`(소문자 l)는 404 재현 → 시험이 대문자 I를 고정한다.
 - 코드가 고정 주소인지(콘솔 «다시 만들기»에서 바뀌는지): **미확인**.
-- **머지 전 사용자 폰 확인 항목(LC 11-26 REPLY):** ① 토스 깔린 폰에서 팩폭관상 미니앱이 바로 열리는지 ② 이 코드가 고정 주소인지.
+- **머지 전 사용자 폰 확인 항목(LC 11-26 REPLY):** ① 토스 깔린 폰 → 닫음(소개 화면 → «시작하기», 위 표) ② 이 코드가 고정 주소인지 → 미확인 그대로.
 - PC에서 팩폭관상 줄을 누르면 토스 첫 화면으로 간다(죽은 링크는 아니지만 미니앱은 아님). 이 때문에 줄에 «토스 앱에서 열림»을 표기했다.
 
 ## 3. 넘어간 수 세기 (완료 조건 5)
@@ -76,6 +76,8 @@
 
   수치 json: `before-prod-capture.json` · `after-branch-capture.json` (링크 href · target · rel · 오른쪽 끝 좌표 포함, 360폭 구역 right 344 · 링크 right ≤ 328).
 - critic(verifier · high) 1차 @aafee6b: **PASS 9/10**. 지적 2(감점 사유 · 코드 수정 요구 아님): ① 자리 시험 정규식이 줄 형식에 의존함 ② aria-label 문자열을 직접 단언하지 않음. ②는 보정본에서 aria-label 문자열 단언을 더했다. ①은 의도한 고정이라 그대로 둔다 — 자리를 옮기면 일부러 실패하게 만든 시험이다.
+
+- critic 2차(verifier · high) @d5b4047 · b51bf55: **PASS 9/10**. 자리 이동은 «본문 사이 끼워 넣기 0»에 어긋나지 않는다(무료 본문 마지막 카드 다음 = 경계). 잔여 위험 0.5: 다른 1,980원 상품이 자사 유료 미리보기보다 먼저 보인다 → 제품 판단으로 사용자에게 올라갔고 사용자는 «saju 머지 가»(11-26 21:28 · LC 전달). 검토 중 critic이 작업 트리를 d5b4047로 detach했다 → 문서 커밋을 ff로 가지에 다시 붙임(손실 0).
 
 ## 6. effort
 
